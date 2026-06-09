@@ -176,48 +176,6 @@ nav {
 
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
-.counter-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.counter-avatars {
-  display: flex;
-}
-
-.avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 2px solid var(--bg);
-  margin-left: -8px;
-  font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.avatar:first-child { margin-left: 0; }
-.av1 { background: #2a4a6b; color: #7bb8e8; }
-.av2 { background: #1a4a3a; color: #5ecfa0; }
-.av3 { background: #4a3a1a; color: #f5c060; }
-.av4 { background: #3a1a3a; color: #c880e0; }
-
-.counter-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
-}
-
-.counter-text strong {
-  color: var(--text-dim);
-  font-weight: 400;
-}
-
 /* ── PHONE (right column) ── */
 .hero-right {
   display: flex;
@@ -647,13 +605,6 @@ footer {
   max-width: 300px;
 }
 
-.success-counter {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text-faint);
-  margin-top: 4px;
-}
-
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
@@ -775,15 +726,6 @@ footer {
         <button class="cta-btn" onclick="openModal()">
           I'm in <span class="arrow">→</span>
         </button>
-        <div class="counter-row">
-          <div class="counter-avatars">
-            <div class="avatar av1">J</div>
-            <div class="avatar av2">M</div>
-            <div class="avatar av3">R</div>
-            <div class="avatar av4">S</div>
-          </div>
-          <div class="counter-text"><strong>1,247 people</strong> already waiting</div>
-        </div>
       </div>
     </div>
 
@@ -911,7 +853,6 @@ footer {
       <div class="success-icon">✦</div>
       <div class="success-title">You're on the list.</div>
       <div class="success-sub">Aether will reach out when your spot opens. We'll let you know before anyone else.</div>
-      <div class="success-counter" id="success-counter">You're #1,248 on the list.</div>
     </div>
 
   </div>
@@ -1036,7 +977,6 @@ async function handleSubmit() {
       document.getElementById('modal-form-state').style.display = 'none';
       const s = document.getElementById('modal-success-state');
       s.style.display = 'flex';
-      document.getElementById('success-counter').textContent = `You're #1,248 on the list.`;
     } else {
       throw new Error('Request failed');
     }
