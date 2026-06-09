@@ -1,29 +1,1045 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aether — Coming Soon</title>
-  <style>
-    body {
-      margin: 0;
-      background: #07090b;
-      color: #ffffff;
-      font-family: sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 { font-size: 2rem; letter-spacing: 0.05em; }
-    p { color: #5b9bd5; margin-top: 0.5rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Early Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #07090b;
+  --surface: #111315;
+  --surface-2: #181b1d;
+  --border: rgba(255,255,255,0.06);
+  --border-mid: rgba(255,255,255,0.10);
+  --text: #f0f0ee;
+  --text-dim: rgba(240,240,238,0.52);
+  --text-faint: rgba(240,240,238,0.24);
+  --blue: #5b9bd5;
+  --blue-dim: rgba(91,155,213,0.14);
+  --blue-glow: rgba(91,155,213,0.08);
+  --green: #3ecf8e;
+  --green-dim: rgba(62,207,142,0.12);
+  --amber: #f5a623;
+  --amber-dim: rgba(245,166,35,0.12);
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── SKY GRADIENT BG ── */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(91,155,213,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(91,155,213,0.06) 0%, transparent 60%),
+    var(--bg);
+  pointer-events: none;
+}
+
+.page { position: relative; z-index: 1; }
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.nav-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.nav-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px solid var(--border-mid);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 48px 0;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: start;
+}
+
+.hero-left {}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 7vw, 86px);
+  line-height: 0.96;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.headline .accent { color: var(--blue); }
+
+.subhead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  max-width: 440px;
+  margin-bottom: 40px;
+}
+
+/* ── CTA BLOCK ── */
+.cta-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 16px 36px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.2s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn:hover { background: #4a8bc4; transform: translateY(-1px); }
+.cta-btn:active { transform: translateY(0); }
+
+.cta-btn .arrow {
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+.counter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  margin-left: -8px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.avatar:first-child { margin-left: 0; }
+.av1 { background: #2a4a6b; color: #7bb8e8; }
+.av2 { background: #1a4a3a; color: #5ecfa0; }
+.av3 { background: #4a3a1a; color: #f5c060; }
+.av4 { background: #3a1a3a; color: #c880e0; }
+
+.counter-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+.counter-text strong {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+/* ── PHONE (right column) ── */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.phone {
+  width: 240px;
+  background: #1a1a1c;
+  border-radius: 38px;
+  padding: 9px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.07),
+    0 32px 64px rgba(0,0,0,0.6),
+    0 0 80px rgba(91,155,213,0.06);
+}
+
+.phone-screen {
+  background: var(--bg);
+  border-radius: 30px;
+  overflow: hidden;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.notch {
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notch-pill {
+  width: 80px;
+  height: 20px;
+  background: #000;
+  border-radius: 0 0 14px 14px;
+}
+
+.p-header {
+  padding: 10px 14px 8px;
+  flex-shrink: 0;
+}
+
+.p-wordmark {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.p-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.p-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--text-faint);
+  margin-top: 1px;
+  letter-spacing: 0.04em;
+}
+
+.p-scroll {
+  flex: 1;
+  overflow: hidden;
+  padding: 0 11px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dsep {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 2px 2px 0;
+  flex-shrink: 0;
+}
+
+.entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  display: flex;
+  gap: 9px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.entry::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+}
+
+.entry.act::before { background: var(--green); }
+.entry.staged::before { background: var(--blue); }
+.entry.held::before { background: var(--amber); }
+
+.e-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.act .e-icon { background: var(--green-dim); }
+.staged .e-icon { background: var(--blue-dim); }
+.held .e-icon { background: var(--amber-dim); }
+
+.e-body { flex: 1; min-width: 0; }
+
+.e-label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1px;
+}
+
+.act .e-label { color: var(--green); }
+.staged .e-label { color: var(--blue); }
+.held .e-label { color: var(--amber); }
+
+.e-text {
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.e-text .dim { color: var(--text-dim); }
+
+.e-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--text-faint);
+  margin-top: 3px;
+}
+
+.tap-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  margin-top: 4px;
+}
+
+.home-bar {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-pill {
+  width: 70px;
+  height: 3px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 2px;
+}
+
+.entering {
+  animation: slideIn 0.45s ease forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PROOF STRIP ── */
+.proof-strip {
+  max-width: 1100px;
+  margin: 100px auto 0;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.proof-item {
+  background: var(--surface);
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proof-icon {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.proof-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.proof-text {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.proof-text strong { color: var(--text); font-weight: 600; }
+
+/* ── FOOTER ── */
+footer {
+  max-width: 1100px;
+  margin: 80px auto 0;
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,9,11,0.85);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  transform: translateY(12px);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.modal-sub {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-input {
+  background: var(--surface);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modal-input::placeholder { color: var(--text-faint); }
+.modal-input:focus { border-color: var(--blue); }
+
+.modal-submit {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.modal-submit:hover { background: #4a8bc4; }
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal { position: relative; }
+
+.modal-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-faint);
+  text-align: center;
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* ── SUCCESS STATE ── */
+.modal-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 1px solid rgba(62,207,142,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.success-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.success-sub {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.success-counter {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-top: 4px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 48px 24px 0;
+    gap: 48px;
+  }
+  .hero-right { order: -1; }
+  .phone { width: 200px; }
+  .phone-screen { height: 420px; }
+  .proof-strip {
+    grid-template-columns: 1fr;
+    margin: 60px auto 0;
+    padding: 0 24px;
+  }
+  footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+}
+
+  /* ── EPILOGUE ── */
+  .epilogue {
+    margin-top: 120px;
+    padding: 100px 48px;
+    background: #050709;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .epilogue-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,166,35,0.45);
+  }
+
+  .epilogue-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: rgba(240,240,238,0.35);
+  }
+
+  .epilogue-headline .accent { color: rgba(245,166,35,0.55); }
+
+  .epilogue-phone-wrap {
+    opacity: 0.55;
+    filter: saturate(0.6);
+    position: relative;
+  }
+
+  .epilogue-phone-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, #050709 100%);
+    border-radius: 38px;
+    pointer-events: none;
+  }
+
+  .epilogue-sub {
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(240,240,238,0.3);
+    max-width: 400px;
+  }
+
+  .epilogue-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,166,35,0.4);
+    border: 1px solid rgba(245,166,35,0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 800px) {
+    .epilogue { padding: 60px 24px; margin-top: 60px; }
+  }
+</style>
 </head>
 <body>
-  <div>
-    <h1>Aether</h1>
-    <p>Coming soon.</p>
+
+<div class="sky"></div>
+
+<div class="page">
+
+  <nav>
+    <div class="nav-wordmark">Aether</div>
+    <div class="nav-tag">Early access</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        For adults with ADHD
+      </div>
+
+      <h1 class="headline">
+        The thing you<br>
+        can't start?<br>
+        <span class="accent">Aether</span><br>
+        starts it.
+      </h1>
+
+      <p class="subhead">
+        Aether monitors your calendar, tasks, and inbox — then acts on your behalf. No prompts. No alerts. It just does it.
+      </p>
+
+      <div class="cta-block">
+        <button class="cta-btn" onclick="openModal()">
+          I'm in <span class="arrow">→</span>
+        </button>
+        <div class="counter-row">
+          <div class="counter-avatars">
+            <div class="avatar av1">J</div>
+            <div class="avatar av2">M</div>
+            <div class="avatar av3">R</div>
+            <div class="avatar av4">S</div>
+          </div>
+          <div class="counter-text"><strong>1,247 people</strong> already waiting</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="p-header">
+            <div class="p-wordmark">Aether</div>
+            <div class="p-title">Action Log</div>
+            <div class="p-sub" id="log-sub">Today · watching...</div>
+          </div>
+          <div class="p-scroll" id="log-scroll"></div>
+          <div class="home-bar"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF STRIP -->
+  <div class="proof-strip">
+    <div class="proof-item">
+      <div class="proof-icon">⚡</div>
+      <div class="proof-label">The gap it closes</div>
+      <div class="proof-text"><strong>Activation energy.</strong> The space between knowing what needs doing and being able to start.</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-icon">👁</div>
+      <div class="proof-label">How it works</div>
+      <div class="proof-text"><strong>Passive detection.</strong> Aether reads your calendar, tasks, and inbox. You don't configure anything.</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-icon">📋</div>
+      <div class="proof-label">What you get</div>
+      <div class="proof-text"><strong>The action log.</strong> Everything Aether does — visible, reviewable, yours to undo.</div>
+    </div>
   </div>
+
+  <footer>
+    <div class="footer-wordmark">Aether by Aether12</div>
+    <div class="footer-note">Built for ADHD. Designed for everyone.</div>
+  </footer>
+
+
+  <!-- EPILOGUE: NORTH STAR -->
+  <div class="epilogue">
+
+    <div class="epilogue-label">What's coming</div>
+
+    <div class="epilogue-headline">
+      When your body says not yet,<br>
+      <span class="accent">Aether already knows.</span>
+    </div>
+
+    <div class="epilogue-phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="p-header">
+            <div class="p-wordmark">Aether · via Oura</div>
+            <div class="p-title">Holding.</div>
+            <div class="p-sub">3 items ready — not surfacing yet</div>
+          </div>
+          <div style="flex:1;overflow:hidden;padding:0 12px 10px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:12px 8px 6px;">
+              <div style="width:44px;height:44px;border-radius:50%;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;">💍</div>
+              <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.4;letter-spacing:-0.01em;">Your capacity is low.<br>Aether is waiting<br>for a better moment.</div>
+              <div style="font-size:9.5px;color:var(--text-dim);line-height:1.5;">High-friction tasks held until your HRV recovers toward baseline.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
+                <div style="font-size:10px;color:var(--text-dim);flex:1;">HRV</div>
+                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);">38ms · −31% baseline</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
+                <div style="font-size:10px;color:var(--text-dim);flex:1;">Readiness</div>
+                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);">54 · Low</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+                <div style="font-size:10px;color:var(--text-dim);flex:1;">Deep sleep</div>
+                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);">0h 41m</div>
+              </div>
+            </div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Client proposal · held</div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Reply to Marcus · held</div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Invoice #118 · held</div>
+            </div>
+          </div>
+          <div class="home-bar"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="epilogue-sub">
+      Physiological awareness is the next layer. When your body isn't ready, Aether won't push. It waits — and acts at the right moment.
+    </p>
+
+    <div class="epilogue-tag">Wearable integration · Coming</div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+
+    <div id="modal-form-state">
+      <div class="modal-tag">Early access</div>
+      <div class="modal-title">You're almost in.</div>
+      <div class="modal-sub">Drop your email. We'll reach out when your spot opens.</div>
+      <div class="modal-form">
+        <input class="modal-input" type="email" placeholder="your@email.com" id="email-input">
+        <button class="modal-submit" id="submit-btn" onclick="handleSubmit()">Join the waitlist</button>
+        <div class="modal-note">No spam. No noise. Just access.</div>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'DM Mono',monospace;font-size:11px;color:#e05c5c;margin-top:8px;letter-spacing:0.03em;"></div>
+    </div>
+
+    <div class="modal-success" id="modal-success-state">
+      <div class="success-icon">✦</div>
+      <div class="success-title">You're on the list.</div>
+      <div class="success-sub">Aether will reach out when your spot opens. We'll let you know before anyone else.</div>
+      <div class="success-counter" id="success-counter">You're #1,248 on the list.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const entries = [
+  { type: 'act', icon: '🛡️', label: 'Protected', text: 'Buffer before', dim: '2pm call.', time: "You didn't ask" },
+  { type: 'staged', icon: '✉️', label: 'Staged', text: 'Reply to', dim: 'Marcus.', chip: true },
+  { type: 'held', icon: '⏸️', label: 'Held', text: '5 notifications', dim: 'during focus.', time: 'Available now' },
+  { type: 'act', icon: '✓', label: 'Surfaced', text: 'Invoice #118 —', dim: 'first step: open doc.', time: '6 days overdue' },
+  { type: 'act', icon: '🛡️', label: 'Protected', text: 'No meetings', dim: 'before 10am tomorrow.', time: "You didn't ask" },
+  { type: 'held', icon: '⏸️', label: 'Held', text: '3 notifications', dim: 'held for deep work.', time: 'Released at 3pm' },
+  { type: 'staged', icon: '✉️', label: 'Staged', text: 'Chase to', dim: 'Jordan re: proposal.', chip: true },
+  { type: 'act', icon: '✓', label: 'Surfaced', text: 'GP appt —', dim: 'first step: call surgery.', time: '12 days overdue' },
+];
+
+const scroll = document.getElementById('log-scroll');
+const sub = document.getElementById('log-sub');
+let shown = [];
+let idx = 0;
+let count = 0;
+
+function makeEntry(e) {
+  const sep = document.createElement('div');
+  sep.className = 'dsep';
+  sep.textContent = 'Just now';
+
+  const div = document.createElement('div');
+  div.className = `entry ${e.type} entering`;
+  div.innerHTML = `
+    <div class="e-icon">${e.icon}</div>
+    <div class="e-body">
+      <div class="e-label">${e.label}</div>
+      <div class="e-text">${e.text} <span class="dim">${e.dim}</span></div>
+      ${e.chip ? `<div class="tap-chip">Send ↗</div>` : ''}
+      ${e.time ? `<div class="e-time">${e.time}</div>` : ''}
+    </div>`;
+
+  return { sep, card: div };
+}
+
+function tick() {
+  const e = entries[idx % entries.length];
+  idx++;
+  count++;
+
+  if (shown.length >= 3) {
+    const old = shown.shift();
+    old.card.style.opacity = '0';
+    old.card.style.transform = 'translateY(6px)';
+    old.sep.style.opacity = '0';
+    setTimeout(() => { try { old.card.remove(); old.sep.remove(); } catch(err){} }, 400);
+  }
+
+  const { sep, card } = makeEntry(e);
+  shown.push({ sep, card });
+  scroll.appendChild(sep);
+  scroll.appendChild(card);
+  sub.textContent = `Today · ${count} action${count !== 1 ? 's' : ''}`;
+  setTimeout(() => card.classList.remove('entering'), 50);
+}
+
+let started = false;
+const phoneObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !started) {
+      started = true;
+      tick();
+      setInterval(tick, 2600);
+    }
+  });
+}, { threshold: 0.4 });
+phoneObserver.observe(document.getElementById('log-scroll'));
+
+// Modal
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('email-input').focus(), 300);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+async function handleSubmit() {
+  const email = document.getElementById('email-input').value.trim();
+  const btn = document.getElementById('submit-btn');
+  const errorEl = document.getElementById('modal-error');
+
+  if (!email || !email.includes('@')) {
+    document.getElementById('email-input').focus();
+    return;
+  }
+
+  btn.textContent = 'Joining...';
+  btn.disabled = true;
+  errorEl.style.display = 'none';
+
+  try {
+    const res = await fetch('https://app.loops.so/api/v1/contacts/create', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer LOOPS_API_KEY_PLACEHOLDER',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        source: 'waitlist',
+        subscribed: true,
+        userGroup: 'waitlist'
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('modal-form-state').style.display = 'none';
+      const s = document.getElementById('modal-success-state');
+      s.style.display = 'flex';
+      document.getElementById('success-counter').textContent = `You're #1,248 on the list.`;
+    } else {
+      throw new Error('Request failed');
+    }
+  } catch (err) {
+    errorEl.textContent = 'Something went wrong. Please try again.';
+    errorEl.style.display = 'block';
+    btn.textContent = 'Join the waitlist';
+    btn.disabled = false;
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
 </body>
 </html>
