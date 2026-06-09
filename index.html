@@ -576,6 +576,7 @@ footer {
 }
 
 .modal-submit:hover { background: #4a8bc4; }
+.modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .modal-close {
   position: absolute;
@@ -598,6 +599,15 @@ footer {
   text-align: center;
   margin-top: 8px;
   letter-spacing: 0.04em;
+}
+
+.modal-error {
+  display: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #e05c5c;
+  margin-top: 8px;
+  letter-spacing: 0.03em;
 }
 
 /* ── SUCCESS STATE ── */
@@ -817,7 +827,6 @@ footer {
     <div class="footer-note">Built for ADHD. Designed for everyone.</div>
   </footer>
 
-
   <!-- EPILOGUE: NORTH STAR -->
   <div class="epilogue">
 
@@ -895,7 +904,7 @@ footer {
         <button class="modal-submit" id="submit-btn" onclick="handleSubmit()">Join the waitlist</button>
         <div class="modal-note">No spam. No noise. Just access.</div>
       </div>
-      <div id="modal-error" style="display:none;font-family:'DM Mono',monospace;font-size:11px;color:#e05c5c;margin-top:8px;letter-spacing:0.03em;"></div>
+      <div class="modal-error" id="modal-error"></div>
     </div>
 
     <div class="modal-success" id="modal-success-state">
@@ -909,6 +918,8 @@ footer {
 </div>
 
 <script>
+const LOOPS_API_KEY = 'd16f993b49fd6112763ee1e101b1d289';
+
 const entries = [
   { type: 'act', icon: '🛡️', label: 'Protected', text: 'Buffer before', dim: '2pm call.', time: "You didn't ask" },
   { type: 'staged', icon: '✉️', label: 'Staged', text: 'Reply to', dim: 'Marcus.', chip: true },
@@ -1010,7 +1021,7 @@ async function handleSubmit() {
     const res = await fetch('https://app.loops.so/api/v1/contacts/create', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer LOOPS_API_KEY_PLACEHOLDER',
+        'Authorization': `Bearer ${LOOPS_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
