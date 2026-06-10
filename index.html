@@ -1038,6 +1038,7 @@ footer {
 
 <script>
 const LOOPS_API_KEY = 'd16f993b49fd6112763ee1e101b1d289';
+const LOOPS_TRANSACTIONAL_ID = 'cmq8e9jnv037x0jyv9ijvccei';
 
 const IDLE       = 4000;
 const DETECT     = 1200;
@@ -1299,6 +1300,15 @@ async function handleSubmit() {
     });
 
     if (res.ok) {
+      fetch('https://app.loops.so/api/v1/transactional', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${LOOPS_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ transactionalId: LOOPS_TRANSACTIONAL_ID, email })
+      }).catch(() => {});
+
       document.getElementById('modal-form-state').style.display = 'none';
       document.getElementById('modal-success-state').style.display = 'flex';
     } else {
