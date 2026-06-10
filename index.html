@@ -187,24 +187,24 @@ nav {
 /* ── FLOATING CARD STACK ── */
 .card-stack {
   width: 340px;
-  background: rgba(17,19,21,0.88);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: #0e1f35;
+  border: 1px solid rgba(91,155,213,0.18);
   border-radius: 20px;
   padding: 22px;
   position: relative;
   z-index: 1;
   box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.05),
+    0 0 0 0.5px rgba(91,155,213,0.12),
     0 32px 64px rgba(0,0,0,0.55),
-    0 0 120px rgba(91,155,213,0.20),
-    0 0 48px rgba(91,155,213,0.08);
+    0 0 120px rgba(91,155,213,0.22),
+    0 0 48px rgba(91,155,213,0.10);
   display: flex;
   flex-direction: column;
 }
 
 .cs-header {
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(91,155,213,0.14);
   margin-bottom: 12px;
 }
 
@@ -263,16 +263,17 @@ nav {
   padding: 14px 0 0;
 }
 
-/* Scale-ups inside card stack */
+/* Scale-ups and surface overrides inside card stack */
 .card-stack .task-section-label { max-height: none; }
-.card-stack .stale-task { padding: 11px 13px; }
+.card-stack .stale-task { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.08); }
 .card-stack .task-label { font-size: 13px; }
 .card-stack .task-age { font-size: 9px; }
-.card-stack .action-entry { padding: 11px 13px; }
+.card-stack .action-entry { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.08); }
 .card-stack .e-icon { width: 28px; height: 28px; font-size: 13px; }
 .card-stack .e-text { font-size: 12px; }
 .card-stack .e-label { font-size: 9px; }
 .card-stack .e-time { font-size: 9px; }
+.card-stack .e-detail { background: rgba(0,0,0,0.20); border-color: rgba(255,255,255,0.07); }
 .card-stack .e-detail-row { font-size: 9px; }
 .card-stack .tap-chip { font-size: 10px; padding: 4px 8px; }
 .card-stack .ambient-bar { padding: 9px 12px; }
@@ -626,7 +627,7 @@ nav {
 .ep-panel {
   width: 220px;
   height: 400px;
-  background: rgba(14,16,18,0.95);
+  background: rgba(22,24,27,0.97);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 16px;
   overflow: hidden;
