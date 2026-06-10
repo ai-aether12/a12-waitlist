@@ -148,7 +148,8 @@ nav {
   font-family: 'Syne', sans-serif;
   font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   padding: 16px 36px;
   border-radius: 8px;
   border: none;
@@ -904,8 +905,9 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 40px; }
-  .cta-mobile { display: none; }
-  .cta-btn { width: 100%; max-width: 360px; }
+  .hero-left .cta-block { display: none; }
+  .cta-mobile { display: flex; justify-content: center; padding-top: 28px; }
+  .cta-mobile .cta-btn { width: 100%; max-width: 360px; }
   .card-stack { width: 100%; max-width: 360px; height: 480px; }
   .proof-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; grid-template-columns: repeat(3, 220px); column-gap: 24px; padding: 0 24px 24px; margin: 60px auto 0; }
   .proof-strip::-webkit-scrollbar { display: none; }
@@ -1037,6 +1039,12 @@ footer {
       </div>
     </div>
   </section>
+
+  <div class="cta-mobile">
+    <button class="cta-btn" onclick="openModal()">
+      I'm in <span class="arrow">→</span>
+    </button>
+  </div>
 
   <div class="proof-strip">
     <div class="proof-item">
