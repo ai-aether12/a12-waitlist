@@ -979,6 +979,13 @@ footer {
             </svg>
             <span class="cs-nav-label">Insights</span>
           </div>
+          <div class="cs-nav-item" id="nav-you">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span class="cs-nav-label">You</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1133,7 +1140,7 @@ function initEls() {
 const delay = ms => new Promise(r => setTimeout(r, ms));
 
 function setNav(name) {
-  ['today', 'log', 'insights'].forEach(n => {
+  ['today', 'log', 'insights', 'you'].forEach(n => {
     const el = document.getElementById('nav-' + n);
     if (el) el.classList.toggle('active', n === name);
   });
