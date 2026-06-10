@@ -43,10 +43,10 @@ body {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 78% 24%, rgba(91,155,213,0.32) 0%, transparent 62%),
-    radial-gradient(ellipse 90% 55% at 55% -8%, rgba(91,155,213,0.38) 0%, transparent 68%),
-    radial-gradient(ellipse 45% 35% at 82% 18%, rgba(91,155,213,0.22) 0%, transparent 58%),
-    radial-gradient(ellipse 40% 40% at 65% 45%, rgba(91,155,213,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 90% at 78% 18%, rgba(91,155,213,0.28) 0%, transparent 72%),
+    radial-gradient(ellipse 100% 65% at 55% -10%, rgba(91,155,213,0.32) 0%, transparent 85%),
+    radial-gradient(ellipse 50% 50% at 82% 14%, rgba(91,155,213,0.18) 0%, transparent 68%),
+    radial-gradient(ellipse 70% 60% at 50% 60%, rgba(91,155,213,0.06) 0%, transparent 100%),
     var(--bg);
   pointer-events: none;
 }
@@ -150,11 +150,11 @@ nav {
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  padding: 18px 28px;
+  padding: 18px 48px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: fit-content;
   transition: background 0.2s, transform 0.15s;
 }
 
@@ -913,7 +913,8 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
-  .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 40px; }
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 20px; }
+  .hero-left .subhead { margin-bottom: 20px; }
   .hero-left .cta-block { display: none; }
   .cta-mobile { display: flex; justify-content: center; padding: 28px 24px 0; }
   .cta-mobile .cta-btn { width: 100%; max-width: 360px; }
