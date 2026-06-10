@@ -13,7 +13,7 @@
   --bg: #07090b;
   --surface: #111315;
   --surface-2: #181b1d;
-  --border: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
   --border-mid: rgba(255,255,255,0.10);
   --text: #f0f0ee;
   --text-dim: rgba(240,240,238,0.52);
@@ -25,6 +25,8 @@
   --green-dim: rgba(62,207,142,0.12);
   --amber: #f5a623;
   --amber-dim: rgba(245,166,35,0.12);
+  --red: #e05c5c;
+  --red-dim: rgba(224,92,92,0.12);
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
@@ -37,7 +39,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ── SKY GRADIENT BG ── */
 .sky {
   position: fixed;
   inset: 0;
@@ -51,7 +52,6 @@ body {
 
 .page { position: relative; z-index: 1; }
 
-/* ── NAV ── */
 nav {
   display: flex;
   align-items: center;
@@ -81,7 +81,6 @@ nav {
   border-radius: 20px;
 }
 
-/* ── HERO ── */
 .hero {
   max-width: 1100px;
   margin: 0 auto;
@@ -91,8 +90,6 @@ nav {
   gap: 80px;
   align-items: start;
 }
-
-.hero-left {}
 
 .eyebrow {
   font-family: 'DM Mono', monospace;
@@ -138,7 +135,6 @@ nav {
   margin-bottom: 40px;
 }
 
-/* ── CTA BLOCK ── */
 .cta-block {
   display: flex;
   flex-direction: column;
@@ -162,21 +158,14 @@ nav {
   cursor: pointer;
   width: fit-content;
   transition: background 0.2s, transform 0.15s;
-  position: relative;
-  overflow: hidden;
 }
 
 .cta-btn:hover { background: #4a8bc4; transform: translateY(-1px); }
 .cta-btn:active { transform: translateY(0); }
 
-.cta-btn .arrow {
-  font-size: 16px;
-  transition: transform 0.2s;
-}
-
+.cta-btn .arrow { font-size: 16px; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
-/* ── PHONE (right column) ── */
 .hero-right {
   display: flex;
   justify-content: center;
@@ -185,11 +174,11 @@ nav {
 
 .phone {
   width: 240px;
-  background: #1a1a1c;
+  background: #222426;
   border-radius: 38px;
   padding: 9px;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.07),
+    0 0 0 1px rgba(255,255,255,0.14),
     0 32px 64px rgba(0,0,0,0.6),
     0 0 80px rgba(91,155,213,0.06);
 }
@@ -198,7 +187,7 @@ nav {
   background: var(--bg);
   border-radius: 30px;
   overflow: hidden;
-  height: 500px;
+  height: 560px;
   display: flex;
   flex-direction: column;
 }
@@ -236,6 +225,7 @@ nav {
   letter-spacing: -0.02em;
   color: var(--text);
   margin-top: 2px;
+  transition: color 0.5s ease;
 }
 
 .p-sub {
@@ -244,18 +234,19 @@ nav {
   color: var(--text-faint);
   margin-top: 1px;
   letter-spacing: 0.04em;
+  transition: color 0.5s ease;
 }
 
-.p-scroll {
+.p-body {
   flex: 1;
   overflow: hidden;
-  padding: 0 11px 10px;
   display: flex;
   flex-direction: column;
+  padding: 0 11px 10px;
   gap: 6px;
 }
 
-.dsep {
+.task-section-label {
   font-family: 'DM Mono', monospace;
   font-size: 8px;
   letter-spacing: 0.12em;
@@ -263,9 +254,79 @@ nav {
   color: var(--text-faint);
   padding: 2px 2px 0;
   flex-shrink: 0;
+  max-height: 20px;
 }
 
-.entry {
+.stale-task {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  max-height: 60px;
+  transition: opacity 0.6s ease;
+}
+
+.task-box {
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+.task-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+.task-age {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.ambient-bar {
+  background: var(--blue-dim);
+  border: 1px solid rgba(91,155,213,0.2);
+  border-radius: 7px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  opacity: 0;
+  max-height: 40px;
+  transition: opacity 0.5s ease;
+}
+
+.ambient-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: ambientpulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ambientpulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ambient-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--blue);
+  letter-spacing: 0.04em;
+}
+
+.action-entry {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -275,19 +336,17 @@ nav {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.entry::before {
+.action-entry::before {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 2px;
 }
-
-.entry.act::before { background: var(--green); }
-.entry.staged::before { background: var(--blue); }
-.entry.held::before { background: var(--amber); }
 
 .e-icon {
   width: 24px;
@@ -300,10 +359,6 @@ nav {
   flex-shrink: 0;
 }
 
-.act .e-icon { background: var(--green-dim); }
-.staged .e-icon { background: var(--blue-dim); }
-.held .e-icon { background: var(--amber-dim); }
-
 .e-body { flex: 1; min-width: 0; }
 
 .e-label {
@@ -313,10 +368,6 @@ nav {
   text-transform: uppercase;
   margin-bottom: 1px;
 }
-
-.act .e-label { color: var(--green); }
-.staged .e-label { color: var(--blue); }
-.held .e-label { color: var(--amber); }
 
 .e-text {
   font-size: 11px;
@@ -343,6 +394,7 @@ nav {
   font-weight: 600;
   padding: 3px 7px;
   margin-top: 4px;
+  letter-spacing: 0.03em;
 }
 
 .home-bar {
@@ -360,16 +412,6 @@ nav {
   border-radius: 2px;
 }
 
-.entering {
-  animation: slideIn 0.45s ease forwards;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── PROOF STRIP ── */
 .proof-strip {
   max-width: 1100px;
   margin: 100px auto 0;
@@ -391,10 +433,7 @@ nav {
   gap: 8px;
 }
 
-.proof-icon {
-  font-size: 18px;
-  margin-bottom: 4px;
-}
+.proof-icon { font-size: 18px; margin-bottom: 4px; }
 
 .proof-label {
   font-family: 'DM Mono', monospace;
@@ -404,15 +443,9 @@ nav {
   color: var(--text-faint);
 }
 
-.proof-text {
-  font-size: 15px;
-  color: var(--text-dim);
-  line-height: 1.5;
-}
-
+.proof-text { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
 .proof-text strong { color: var(--text); font-weight: 600; }
 
-/* ── FOOTER ── */
 footer {
   max-width: 1100px;
   margin: 80px auto 0;
@@ -438,7 +471,6 @@ footer {
   letter-spacing: 0.04em;
 }
 
-/* ── MODAL ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -453,10 +485,7 @@ footer {
   backdrop-filter: blur(4px);
 }
 
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
 
 .modal {
   background: var(--surface-2);
@@ -467,6 +496,7 @@ footer {
   max-width: 420px;
   transform: translateY(12px);
   transition: transform 0.25s ease;
+  position: relative;
 }
 
 .modal-overlay.open .modal { transform: translateY(0); }
@@ -496,11 +526,7 @@ footer {
   margin-bottom: 28px;
 }
 
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.modal-form { display: flex; flex-direction: column; gap: 12px; }
 
 .modal-input {
   background: var(--surface);
@@ -548,8 +574,6 @@ footer {
   line-height: 1;
 }
 
-.modal { position: relative; }
-
 .modal-note {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
@@ -568,7 +592,6 @@ footer {
   letter-spacing: 0.03em;
 }
 
-/* ── SUCCESS STATE ── */
 .modal-success {
   display: none;
   flex-direction: column;
@@ -605,92 +628,125 @@ footer {
   max-width: 300px;
 }
 
-/* ── RESPONSIVE ── */
+.epilogue {
+  margin-top: 120px;
+  padding: 100px 48px;
+  background: #050709;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+
+.epilogue-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,166,35,0.45);
+}
+
+.epilogue-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: rgba(240,240,238,0.35);
+}
+
+.epilogue-headline .accent { color: rgba(245,166,35,0.55); }
+
+.epilogue-phone-wrap {
+  opacity: 0.55;
+  filter: saturate(0.6);
+  position: relative;
+}
+
+.epilogue-phone-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, #050709 100%);
+  border-radius: 38px;
+  pointer-events: none;
+}
+
+.epilogue-sub {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(240,240,238,0.3);
+  max-width: 400px;
+}
+
+.epilogue-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,166,35,0.4);
+  border: 1px solid rgba(245,166,35,0.15);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.staged-entry::before { background: var(--blue); }
+.staged-entry .e-icon { background: var(--blue-dim); }
+.staged-entry .e-label { color: var(--blue); }
+
+.staged-entry.sent::before { background: var(--green); }
+.staged-entry.sent .e-icon { background: var(--green-dim); }
+.staged-entry.sent .e-label { color: var(--green); }
+
+.gp-entry::before { background: var(--green); }
+.gp-entry .e-icon { background: var(--green-dim); }
+.gp-entry .e-label { color: var(--green); }
+
+.e-detail {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.e-detail-row {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--text-dim);
+  display: flex;
+  gap: 5px;
+  line-height: 1.4;
+}
+
+.call-chip {
+  background: var(--green);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  margin-top: 4px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.03em;
+}
+
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 48px 24px 0;
-    gap: 48px;
-  }
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
   .hero-right { order: -1; }
   .phone { width: 200px; }
   .phone-screen { height: 420px; }
-  .proof-strip {
-    grid-template-columns: 1fr;
-    margin: 60px auto 0;
-    padding: 0 24px;
-  }
+  .proof-strip { grid-template-columns: 1fr; margin: 60px auto 0; padding: 0 24px; }
   footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  .epilogue { padding: 60px 24px; margin-top: 60px; }
 }
-
-  /* ── EPILOGUE ── */
-  .epilogue {
-    margin-top: 120px;
-    padding: 100px 48px;
-    background: #050709;
-    border-top: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-  }
-
-  .epilogue-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(245,166,35,0.45);
-  }
-
-  .epilogue-headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 4.5vw, 58px);
-    line-height: 1;
-    letter-spacing: 0.01em;
-    color: rgba(240,240,238,0.35);
-  }
-
-  .epilogue-headline .accent { color: rgba(245,166,35,0.55); }
-
-  .epilogue-phone-wrap {
-    opacity: 0.55;
-    filter: saturate(0.6);
-    position: relative;
-  }
-
-  .epilogue-phone-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 40%, #050709 100%);
-    border-radius: 38px;
-    pointer-events: none;
-  }
-
-  .epilogue-sub {
-    font-size: 15px;
-    line-height: 1.65;
-    color: rgba(240,240,238,0.3);
-    max-width: 400px;
-  }
-
-  .epilogue-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(245,166,35,0.4);
-    border: 1px solid rgba(245,166,35,0.15);
-    padding: 6px 16px;
-    border-radius: 20px;
-  }
-
-  @media (max-width: 800px) {
-    .epilogue { padding: 60px 24px; margin-top: 60px; }
-  }
 </style>
 </head>
 <body>
@@ -710,18 +766,15 @@ footer {
         <div class="eyebrow-dot"></div>
         For adults with ADHD
       </div>
-
       <h1 class="headline">
         The thing you<br>
         can't start?<br>
         <span class="accent">Aether</span><br>
         starts it.
       </h1>
-
       <p class="subhead">
         Aether monitors your calendar, tasks, and inbox — then acts on your behalf. No prompts. No alerts. It just does it.
       </p>
-
       <div class="cta-block">
         <button class="cta-btn" onclick="openModal()">
           I'm in <span class="arrow">→</span>
@@ -735,17 +788,59 @@ footer {
           <div class="notch"><div class="notch-pill"></div></div>
           <div class="p-header">
             <div class="p-wordmark">Aether</div>
-            <div class="p-title">Action Log</div>
-            <div class="p-sub" id="log-sub">Today · watching...</div>
+            <div class="p-title" id="p-title">Today</div>
+            <div class="p-sub" id="p-sub">Watching quietly</div>
           </div>
-          <div class="p-scroll" id="log-scroll"></div>
+          <div class="p-body" id="p-body">
+            <div class="task-section-label">Open — not started</div>
+            <div class="stale-task" id="task-invoice">
+              <div class="task-box"></div>
+              <div class="task-label">Send invoice #118</div>
+              <div class="task-age">6d</div>
+            </div>
+            <div class="stale-task" id="task-marcus">
+              <div class="task-box"></div>
+              <div class="task-label">Reply to Marcus</div>
+              <div class="task-age">3d</div>
+            </div>
+            <div class="stale-task" id="task-gp">
+              <div class="task-box"></div>
+              <div class="task-label">Book GP appointment</div>
+              <div class="task-age">12d</div>
+            </div>
+            <div class="ambient-bar" id="ambient-bar">
+              <div class="ambient-dot"></div>
+              <div class="ambient-text">Aether noticed something</div>
+            </div>
+            <div class="action-entry staged-entry" id="action-invoice">
+              <div class="e-icon">✉️</div>
+              <div class="e-body">
+                <div class="e-label" id="invoice-label">Staged</div>
+                <div class="e-text">Invoice to Meridian — <span class="dim">draft ready to send.</span></div>
+                <div id="invoice-chip" class="tap-chip" onclick="handleSend()" style="cursor:pointer;">Send ↗</div>
+                <div class="e-time">6 days overdue · You didn't ask</div>
+              </div>
+            </div>
+            <div class="action-entry gp-entry" id="action-gp">
+              <div class="e-icon">📅</div>
+              <div class="e-body">
+                <div class="e-label">Surfaced</div>
+                <div class="e-text">GP appointment — <span class="dim">12 days overdue.</span></div>
+                <div class="e-detail">
+                  <div class="e-detail-row">📋 <span>Have insurance card ready — Aetna #4821-JY</span></div>
+                  <div class="e-detail-row">📧 <span>Found in: confirmation email, Jan 2024</span></div>
+                </div>
+                <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
+                <div class="e-time">You didn't ask</div>
+              </div>
+            </div>
+          </div>
           <div class="home-bar"><div class="home-pill"></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROOF STRIP -->
   <div class="proof-strip">
     <div class="proof-item">
       <div class="proof-icon">⚡</div>
@@ -769,16 +864,12 @@ footer {
     <div class="footer-note">Built for ADHD. Designed for everyone.</div>
   </footer>
 
-  <!-- EPILOGUE: NORTH STAR -->
   <div class="epilogue">
-
     <div class="epilogue-label">What's coming</div>
-
     <div class="epilogue-headline">
       When your body says not yet,<br>
       <span class="accent">Aether already knows.</span>
     </div>
-
     <div class="epilogue-phone-wrap">
       <div class="phone">
         <div class="phone-screen">
@@ -821,116 +912,223 @@ footer {
         </div>
       </div>
     </div>
-
     <p class="epilogue-sub">
       Physiological awareness is the next layer. When your body isn't ready, Aether won't push. It waits — and acts at the right moment.
     </p>
-
     <div class="epilogue-tag">Wearable integration · Coming</div>
-
   </div>
 
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
-
     <div id="modal-form-state">
       <div class="modal-tag">Early access</div>
       <div class="modal-title">You're almost in.</div>
       <div class="modal-sub">Drop your email. We'll reach out when your spot opens.</div>
       <div class="modal-form">
         <input class="modal-input" type="email" placeholder="your@email.com" id="email-input">
-        <button class="modal-submit" id="submit-btn" onclick="handleSubmit()">Join the waitlist</button>
+        <button class="modal-submit" id="submit-btn" onclick="handleSubmit()">Get early access</button>
         <div class="modal-note">No spam. No noise. Just access.</div>
       </div>
       <div class="modal-error" id="modal-error"></div>
     </div>
-
     <div class="modal-success" id="modal-success-state">
       <div class="success-icon">✦</div>
       <div class="success-title">You're on the list.</div>
       <div class="success-sub">Aether will reach out when your spot opens. We'll let you know before anyone else.</div>
     </div>
-
   </div>
 </div>
 
 <script>
 const LOOPS_API_KEY = 'd16f993b49fd6112763ee1e101b1d289';
 
-const entries = [
-  { type: 'act', icon: '🛡️', label: 'Protected', text: 'Buffer before', dim: '2pm call.', time: "You didn't ask" },
-  { type: 'staged', icon: '✉️', label: 'Staged', text: 'Reply to', dim: 'Marcus.', chip: true },
-  { type: 'held', icon: '⏸️', label: 'Held', text: '5 notifications', dim: 'during focus.', time: 'Available now' },
-  { type: 'act', icon: '✓', label: 'Surfaced', text: 'Invoice #118 —', dim: 'first step: open doc.', time: '6 days overdue' },
-  { type: 'act', icon: '🛡️', label: 'Protected', text: 'No meetings', dim: 'before 10am tomorrow.', time: "You didn't ask" },
-  { type: 'held', icon: '⏸️', label: 'Held', text: '3 notifications', dim: 'held for deep work.', time: 'Released at 3pm' },
-  { type: 'staged', icon: '✉️', label: 'Staged', text: 'Chase to', dim: 'Jordan re: proposal.', chip: true },
-  { type: 'act', icon: '✓', label: 'Surfaced', text: 'GP appt —', dim: 'first step: call surgery.', time: '12 days overdue' },
-];
+const IDLE       = 3000;
+const DETECT     = 1000;
+const ENTRY_HOLD = 5000;
+const GP_HOLD    = 5000;
+const RESET_OUT  = 700;
+const RESTART    = 500;
 
-const scroll = document.getElementById('log-scroll');
-const sub = document.getElementById('log-sub');
-let shown = [];
-let idx = 0;
-let count = 0;
+let sendTimer = null;
+let sequenceActive = false;
 
-function makeEntry(e) {
-  const sep = document.createElement('div');
-  sep.className = 'dsep';
-  sep.textContent = 'Just now';
+function resetAll(cb) {
+  const ambient    = document.getElementById('ambient-bar');
+  const invEntry   = document.getElementById('action-invoice');
+  const gpEntry    = document.getElementById('action-gp');
+  const taskInv    = document.getElementById('task-invoice');
+  const taskMarcus = document.getElementById('task-marcus');
+  const taskGp     = document.getElementById('task-gp');
+  const taskLabel  = document.querySelector('.task-section-label');
+  const chip       = document.getElementById('invoice-chip');
+  const label      = document.getElementById('invoice-label');
 
-  const div = document.createElement('div');
-  div.className = `entry ${e.type} entering`;
-  div.innerHTML = `
-    <div class="e-icon">${e.icon}</div>
-    <div class="e-body">
-      <div class="e-label">${e.label}</div>
-      <div class="e-text">${e.text} <span class="dim">${e.dim}</span></div>
-      ${e.chip ? `<div class="tap-chip">Send ↗</div>` : ''}
-      ${e.time ? `<div class="e-time">${e.time}</div>` : ''}
-    </div>`;
+  [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+    el.style.transition = 'none';
+  });
+  if (taskLabel) taskLabel.style.transition = 'none';
 
-  return { sep, card: div };
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    ambient.style.opacity      = '0';
+    ambient.style.maxHeight    = '';
+    ambient.style.overflow     = '';
+    ambient.style.marginTop    = '';
+    ambient.style.marginBottom = '';
+
+    invEntry.style.opacity       = '0';
+    invEntry.style.transform     = 'translateY(-8px)';
+    invEntry.style.maxHeight     = '';
+    invEntry.style.overflow      = '';
+    invEntry.style.paddingTop    = '';
+    invEntry.style.paddingBottom = '';
+    invEntry.style.marginTop     = '';
+    const eTime = invEntry.querySelector('.e-time');
+    if (eTime) { eTime.style.display = ''; }
+
+    gpEntry.style.opacity    = '0';
+    gpEntry.style.transform  = 'translateY(-8px)';
+
+    [taskInv, taskGp].forEach(t => {
+      t.style.opacity       = '1';
+      t.style.maxHeight     = '';
+      t.style.marginTop     = '';
+      t.style.marginBottom  = '';
+      t.style.paddingTop    = '';
+      t.style.paddingBottom = '';
+      t.style.overflow      = '';
+    });
+
+    if (taskLabel) {
+      taskLabel.style.opacity   = '';
+      taskLabel.style.maxHeight = '';
+      taskLabel.style.overflow  = '';
+    }
+
+    invEntry.classList.remove('sent');
+    chip.textContent   = 'Send ↗';
+    chip.style.display = 'inline-flex';
+    label.textContent  = 'Staged';
+    if (cb) cb();
+  }));
 }
 
-function tick() {
-  const e = entries[idx % entries.length];
-  idx++;
-  count++;
+function handleSend() {
+  if (!sequenceActive) return;
+  if (sendTimer) { clearTimeout(sendTimer); sendTimer = null; }
+  resolveSend();
+}
 
-  if (shown.length >= 3) {
-    const old = shown.shift();
-    old.card.style.opacity = '0';
-    old.card.style.transform = 'translateY(6px)';
-    old.sep.style.opacity = '0';
-    setTimeout(() => { try { old.card.remove(); old.sep.remove(); } catch(err){} }, 400);
+function resolveSend() {
+  const invEntry   = document.getElementById('action-invoice');
+  const chip       = document.getElementById('invoice-chip');
+  const label      = document.getElementById('invoice-label');
+  const taskInv    = document.getElementById('task-invoice');
+  const taskGp     = document.getElementById('task-gp');
+  const taskLabel  = document.querySelector('.task-section-label');
+  const gpEntry    = document.getElementById('action-gp');
+  const ambient    = document.getElementById('ambient-bar');
+
+  invEntry.style.transition = 'all 0.4s ease';
+  invEntry.classList.add('sent');
+  chip.style.display = 'none';
+  label.textContent = 'Sent ✓';
+
+  // Collapse task-invoice and task-gp — negative margins cancel the flex gap
+  [taskInv, taskGp].forEach(t => {
+    t.style.transition    = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
+    t.style.opacity       = '0';
+    t.style.maxHeight     = '0';
+    t.style.marginTop     = '-6px';
+    t.style.marginBottom  = '-6px';
+    t.style.paddingTop    = '0';
+    t.style.paddingBottom = '0';
+    t.style.overflow      = 'hidden';
+  });
+
+  if (taskLabel) {
+    taskLabel.style.transition = '';
+    taskLabel.style.opacity = '1';
   }
 
-  const { sep, card } = makeEntry(e);
-  shown.push({ sep, card });
-  scroll.appendChild(sep);
-  scroll.appendChild(card);
-  sub.textContent = `Today · ${count} action${count !== 1 ? 's' : ''}`;
-  setTimeout(() => card.classList.remove('entering'), 50);
+  // Collapse ambient bar — negative margins cancel its flex gap too
+  ambient.style.transition   = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease';
+  ambient.style.opacity      = '0';
+  ambient.style.maxHeight    = '0';
+  ambient.style.overflow     = 'hidden';
+  ambient.style.marginTop    = '-6px';
+  ambient.style.marginBottom = '-6px';
+
+  setTimeout(() => {
+    invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
+    invEntry.style.opacity       = '0.28';
+    invEntry.style.maxHeight     = '38px';
+    invEntry.style.overflow      = 'hidden';
+    invEntry.style.paddingTop    = '6px';
+    invEntry.style.paddingBottom = '6px';
+    invEntry.style.marginTop     = '-6px';
+    const eTime = invEntry.querySelector('.e-time');
+    if (eTime) { eTime.style.display = 'none'; }
+  }, 500);
+
+  setTimeout(() => {
+    gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    gpEntry.style.opacity    = '1';
+    gpEntry.style.transform  = 'translateY(0)';
+  }, 550);
+
+  setTimeout(() => {
+    invEntry.style.transition = 'opacity 0.6s ease';
+    gpEntry.style.transition  = 'opacity 0.6s ease';
+    invEntry.style.opacity    = '0';
+    gpEntry.style.opacity     = '0';
+  }, GP_HOLD);
+
+  setTimeout(() => {
+    resetAll(() => setTimeout(runSequence, RESTART));
+  }, GP_HOLD + RESET_OUT + 200);
+}
+
+function runSequence() {
+  sequenceActive = true;
+  resetAll(() => {
+    const ambient  = document.getElementById('ambient-bar');
+    const invEntry = document.getElementById('action-invoice');
+    const taskInv  = document.getElementById('task-invoice');
+
+    setTimeout(() => {
+      ambient.style.transition = 'opacity 0.5s ease';
+      ambient.style.opacity = '1';
+    }, IDLE);
+
+    setTimeout(() => {
+      taskInv.style.transition = 'opacity 0.5s ease';
+      taskInv.style.opacity = '0.35';
+      invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      invEntry.style.opacity = '1';
+      invEntry.style.transform = 'translateY(0)';
+    }, IDLE + DETECT);
+
+    sendTimer = setTimeout(() => {
+      resolveSend();
+    }, IDLE + DETECT + ENTRY_HOLD);
+  });
 }
 
 let started = false;
-const phoneObserver = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !started) {
       started = true;
-      tick();
-      setInterval(tick, 2600);
+      setTimeout(runSequence, 600);
     }
   });
 }, { threshold: 0.4 });
-phoneObserver.observe(document.getElementById('log-scroll'));
 
-// Modal
+observer.observe(document.getElementById('p-body'));
+
 function openModal() {
   document.getElementById('modal').classList.add('open');
   setTimeout(() => document.getElementById('email-input').focus(), 300);
@@ -975,15 +1173,14 @@ async function handleSubmit() {
 
     if (res.ok) {
       document.getElementById('modal-form-state').style.display = 'none';
-      const s = document.getElementById('modal-success-state');
-      s.style.display = 'flex';
+      document.getElementById('modal-success-state').style.display = 'flex';
     } else {
       throw new Error('Request failed');
     }
   } catch (err) {
     errorEl.textContent = 'Something went wrong. Please try again.';
     errorEl.style.display = 'block';
-    btn.textContent = 'Join the waitlist';
+    btn.textContent = 'Get early access';
     btn.disabled = false;
   }
 }
