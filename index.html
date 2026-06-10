@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aether — Early Access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@600;700;800&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,8 +16,8 @@
   --border: rgba(255,255,255,0.10);
   --border-mid: rgba(255,255,255,0.10);
   --text: #f0f0ee;
-  --text-dim: rgba(240,240,238,0.52);
-  --text-faint: rgba(240,240,238,0.24);
+  --text-dim: rgba(240,240,238,0.68);
+  --text-faint: rgba(240,240,238,0.38);
   --blue: #5b9bd5;
   --blue-dim: rgba(91,155,213,0.14);
   --green: #55b98c;
@@ -117,10 +117,11 @@ nav {
 }
 
 .headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 7vw, 86px);
-  line-height: 0.96;
-  letter-spacing: 0.01em;
+  font-family: 'Lexend', sans-serif;
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 28px;
 }
@@ -187,8 +188,8 @@ nav {
 /* ── FLOATING CARD STACK ── */
 .card-stack {
   width: 340px;
-  background: #0e1f35;
-  border: 1px solid rgba(91,155,213,0.18);
+  background: #111820;
+  border: 1px solid rgba(91,155,213,0.12);
   border-radius: 20px;
   padding: 22px;
   position: relative;
@@ -204,7 +205,7 @@ nav {
 
 .cs-header {
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(91,155,213,0.14);
+  border-bottom: 1px solid rgba(91,155,213,0.10);
   margin-bottom: 12px;
 }
 
@@ -265,10 +266,10 @@ nav {
 
 /* Scale-ups and surface overrides inside card stack */
 .card-stack .task-section-label { max-height: none; }
-.card-stack .stale-task { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.08); }
+.card-stack .stale-task { padding: 11px 13px; background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.08); }
 .card-stack .task-label { font-size: 13px; }
 .card-stack .task-age { font-size: 9px; }
-.card-stack .action-entry { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.08); }
+.card-stack .action-entry { padding: 11px 13px; background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.08); }
 .card-stack .e-icon { width: 28px; height: 28px; font-size: 13px; }
 .card-stack .e-text { font-size: 12px; }
 .card-stack .e-label { font-size: 9px; }
@@ -552,10 +553,11 @@ nav {
 }
 
 .epilogue-headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 4.5vw, 58px);
-  line-height: 1;
-  letter-spacing: 0.01em;
+  font-family: 'Lexend', sans-serif;
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   color: rgba(240,240,238,0.78);
 }
 
@@ -718,7 +720,7 @@ footer {
 
 .modal-overlay.open .modal { transform: translateY(0); }
 .modal-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
-.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; letter-spacing: 0.02em; color: var(--text); margin-bottom: 10px; }
+.modal-title { font-family: 'Lexend', sans-serif; font-size: 28px; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .modal-sub { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 28px; }
 .modal-form { display: flex; flex-direction: column; gap: 12px; }
 
@@ -801,7 +803,7 @@ footer {
   margin-bottom: 4px;
 }
 
-.success-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--text); letter-spacing: 0.02em; }
+.success-title { font-family: 'Lexend', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
 .success-sub { font-size: 14px; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
 
 /* ── RESPONSIVE ── */
