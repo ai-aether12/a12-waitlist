@@ -161,10 +161,9 @@ nav {
 .cta-btn .arrow { font-size: 16px; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
-/* Mobile-only CTA below phone — hidden on desktop */
 .cta-mobile { display: none; }
 
-/* ── PHONE ── */
+/* ── HERO RIGHT ── */
 .hero-right {
   display: flex;
   justify-content: center;
@@ -178,39 +177,121 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
+  width: 460px;
   height: 520px;
   background: radial-gradient(ellipse at center, rgba(91,155,213,0.18) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
 
-.phone {
-  width: 240px;
-  background: #222426;
-  border-radius: 38px;
-  padding: 9px;
+/* ── FLOATING CARD STACK ── */
+.card-stack {
+  width: 340px;
+  background: rgba(17,19,21,0.88);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 22px;
   position: relative;
   z-index: 1;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.16),
+    0 0 0 0.5px rgba(255,255,255,0.05),
     0 32px 64px rgba(0,0,0,0.55),
-    0 0 100px rgba(91,155,213,0.22),
-    0 0 36px rgba(91,155,213,0.10);
-}
-
-.phone-screen {
-  background: var(--bg);
-  border-radius: 30px;
-  overflow: hidden;
-  height: 480px;
+    0 0 120px rgba(91,155,213,0.20),
+    0 0 48px rgba(91,155,213,0.08);
   display: flex;
   flex-direction: column;
 }
 
-.notch { height: 28px; display: flex; justify-content: center; flex-shrink: 0; }
-.notch-pill { width: 80px; height: 20px; background: #000; border-radius: 0 0 14px 14px; }
+.cs-header {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
 
+.cs-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+}
+
+.cs-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.cs-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  transition: color 0.5s ease;
+}
+
+.cs-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+  transition: color 0.4s ease;
+}
+
+.cs-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 0 0;
+}
+
+/* Scale-ups inside card stack */
+.card-stack .task-section-label { max-height: none; }
+.card-stack .stale-task { padding: 11px 13px; }
+.card-stack .task-label { font-size: 13px; }
+.card-stack .task-age { font-size: 9px; }
+.card-stack .action-entry { padding: 11px 13px; }
+.card-stack .e-icon { width: 28px; height: 28px; font-size: 13px; }
+.card-stack .e-text { font-size: 12px; }
+.card-stack .e-label { font-size: 9px; }
+.card-stack .e-time { font-size: 9px; }
+.card-stack .e-detail-row { font-size: 9px; }
+.card-stack .tap-chip { font-size: 10px; padding: 4px 8px; }
+.card-stack .ambient-bar { padding: 9px 12px; }
+.card-stack .ambient-text { font-size: 10px; }
+
+/* ── PHONE DOTS (shared) ── */
+.phone-dot {
+  height: 4px;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.15);
+  transition: width 0.35s ease, background 0.35s ease;
+}
+.phone-dot.active {
+  width: 14px;
+  background: var(--blue);
+}
+
+/* ── EPILOGUE PANEL INNER ELEMENTS ── */
 .p-header { padding: 10px 14px 8px; flex-shrink: 0; }
 
 .p-wordmark {
@@ -227,7 +308,6 @@ nav {
   letter-spacing: -0.02em;
   color: var(--text);
   margin-top: 2px;
-  transition: color 0.5s ease;
 }
 
 .p-sub {
@@ -236,7 +316,6 @@ nav {
   color: var(--text-faint);
   margin-top: 1px;
   letter-spacing: 0.04em;
-  transition: color 0.4s ease;
 }
 
 .p-body {
@@ -246,29 +325,6 @@ nav {
   flex-direction: column;
   padding: 0 11px 10px;
   gap: 6px;
-}
-
-/* ── PROGRESS DOTS ── */
-.phone-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 0 2px;
-  flex-shrink: 0;
-}
-
-.phone-dot {
-  height: 4px;
-  width: 4px;
-  border-radius: 2px;
-  background: rgba(255,255,255,0.15);
-  transition: width 0.35s ease, background 0.35s ease;
-}
-
-.phone-dot.active {
-  width: 14px;
-  background: var(--blue);
 }
 
 /* ── TASK ROWS ── */
@@ -448,9 +504,6 @@ nav {
   letter-spacing: 0.03em;
 }
 
-.home-bar { height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.home-pill { width: 70px; height: 3px; background: rgba(255,255,255,0.14); border-radius: 2px; }
-
 /* ── PROOF STRIP ── */
 .proof-strip {
   max-width: 1100px;
@@ -525,7 +578,6 @@ nav {
   border-radius: 20px;
 }
 
-/* ── TWO-PHONE LAYOUT ── */
 .epilogue-phones {
   display: flex;
   align-items: flex-start;
@@ -554,7 +606,7 @@ nav {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding-top: 72px;
+  padding-top: 56px;
   flex-shrink: 0;
   opacity: 0;
 }
@@ -570,15 +622,21 @@ nav {
   white-space: nowrap;
 }
 
-.ep-col .phone {
+/* ── EPILOGUE PANEL ── */
+.ep-panel {
   width: 220px;
+  height: 400px;
+  background: rgba(14,16,18,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.13),
-    0 24px 48px rgba(0,0,0,0.5),
-    0 0 60px rgba(224,160,56,0.08);
+    0 0 0 0.5px rgba(255,255,255,0.04),
+    0 20px 40px rgba(0,0,0,0.5),
+    0 0 50px rgba(224,160,56,0.07);
 }
-
-.ep-col .phone-screen { height: 440px; }
 
 .log-timestamp {
   font-family: 'DM Mono', monospace;
@@ -591,7 +649,6 @@ nav {
   flex-shrink: 0;
 }
 
-.ep-body { flex: 1; overflow: hidden; padding: 0 12px 10px; display: flex; flex-direction: column; gap: 8px; }
 .ep-metrics { display: flex; flex-direction: column; gap: 5px; }
 
 .ep-metric {
@@ -749,11 +806,10 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
-  .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 40px; }
   .hero-left .cta-block { display: none; }
   .cta-mobile { display: flex; justify-content: center; padding-top: 28px; }
-  .phone { width: 240px; }
-  .phone-screen { height: 480px; }
+  .card-stack { width: 100%; max-width: 360px; }
   .proof-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; grid-template-columns: repeat(3, 220px); column-gap: 24px; padding: 0 24px 24px; margin: 60px auto 0; }
   .proof-strip::-webkit-scrollbar { display: none; }
   .proof-item { padding: 28px 0 0; }
@@ -761,8 +817,7 @@ footer {
   .epilogue { padding: 60px 24px; margin-top: 60px; }
   .epilogue-phones { flex-direction: column; align-items: center; gap: 24px; }
   .ep-arrow-col { padding-top: 0; }
-  .ep-col .phone { width: 220px; }
-  .ep-col .phone-screen { height: 440px; }
+  .ep-panel { width: 100%; max-width: 300px; height: 380px; }
 }
 </style>
 </head>
@@ -800,70 +855,65 @@ footer {
     </div>
 
     <div class="hero-right">
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="notch"><div class="notch-pill"></div></div>
-          <div class="p-header">
-            <div class="p-wordmark">Aether</div>
-            <div class="p-title" id="p-title">Today</div>
-            <div class="p-sub" id="p-sub">Watching quietly</div>
+      <div class="card-stack">
+        <div class="cs-header">
+          <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
+          <div class="cs-title" id="p-title">Today</div>
+          <div class="cs-sub" id="p-sub">Watching quietly</div>
+        </div>
+        <div class="cs-body" id="p-body">
+          <div class="task-section-label">Open — not started</div>
+          <div class="stale-task" id="task-invoice">
+            <div class="task-box"></div>
+            <div class="task-label">Send invoice #118</div>
+            <div class="task-age">6d</div>
           </div>
-          <div class="p-body" id="p-body">
-            <div class="task-section-label">Open — not started</div>
-            <div class="stale-task" id="task-invoice">
-              <div class="task-box"></div>
-              <div class="task-label">Send invoice #118</div>
-              <div class="task-age">6d</div>
+          <div class="stale-task" id="task-marcus">
+            <div class="task-box"></div>
+            <div class="task-label">Reply to Marcus</div>
+            <div class="task-age">3d</div>
+          </div>
+          <div class="stale-task" id="task-gp">
+            <div class="task-box"></div>
+            <div class="task-label">Book GP appointment</div>
+            <div class="task-age">12d</div>
+          </div>
+          <div class="ambient-bar" id="ambient-bar">
+            <div class="ambient-dot"></div>
+            <div class="ambient-text">Done in the background</div>
+          </div>
+          <div class="action-entry staged-entry" id="action-invoice">
+            <div class="e-icon">✉️</div>
+            <div class="e-body">
+              <div class="e-label" id="invoice-label">Sent</div>
+              <div class="e-text">Invoice to Meridian — <span class="dim">draft ready, sent automatically.</span></div>
+              <div id="invoice-chip" class="tap-chip" style="display:none;">Send ↗</div>
+              <div class="e-time">6 days overdue · You didn't ask</div>
             </div>
-            <div class="stale-task" id="task-marcus">
-              <div class="task-box"></div>
-              <div class="task-label">Reply to Marcus</div>
-              <div class="task-age">3d</div>
-            </div>
-            <div class="stale-task" id="task-gp">
-              <div class="task-box"></div>
-              <div class="task-label">Book GP appointment</div>
-              <div class="task-age">12d</div>
-            </div>
-            <div class="ambient-bar" id="ambient-bar">
-              <div class="ambient-dot"></div>
-              <div class="ambient-text">Done in the background</div>
-            </div>
-            <div class="action-entry staged-entry" id="action-invoice">
-              <div class="e-icon">✉️</div>
-              <div class="e-body">
-                <div class="e-label" id="invoice-label">Sent</div>
-                <div class="e-text">Invoice to Meridian — <span class="dim">draft ready, sent automatically.</span></div>
-                <div id="invoice-chip" class="tap-chip" style="display:none;">Send ↗</div>
-                <div class="e-time">6 days overdue · You didn't ask</div>
+          </div>
+          <div class="action-entry gp-entry" id="action-gp">
+            <div class="e-icon">📅</div>
+            <div class="e-body">
+              <div class="e-label">Surfaced</div>
+              <div class="e-text">GP appointment — <span class="dim">12 days overdue.</span></div>
+              <div class="e-detail">
+                <div class="e-detail-row">📋 <span>Have insurance card ready — Aetna #4821-JY</span></div>
+                <div class="e-detail-row">📧 <span>Found in: confirmation email, Jan 2024</span></div>
               </div>
-            </div>
-            <div class="action-entry gp-entry" id="action-gp">
-              <div class="e-icon">📅</div>
-              <div class="e-body">
-                <div class="e-label">Surfaced</div>
-                <div class="e-text">GP appointment — <span class="dim">12 days overdue.</span></div>
-                <div class="e-detail">
-                  <div class="e-detail-row">📋 <span>Have insurance card ready — Aetna #4821-JY</span></div>
-                  <div class="e-detail-row">📧 <span>Found in: confirmation email, Jan 2024</span></div>
-                </div>
-                <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
-                <div class="e-time">You didn't ask</div>
-              </div>
+              <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
+              <div class="e-time">You didn't ask</div>
             </div>
           </div>
-          <div class="phone-dots">
-            <div class="phone-dot active" id="dot-0"></div>
-            <div class="phone-dot" id="dot-1"></div>
-            <div class="phone-dot" id="dot-2"></div>
-          </div>
-          <div class="home-bar"><div class="home-pill"></div></div>
+        </div>
+        <div class="cs-dots">
+          <div class="phone-dot active" id="dot-0"></div>
+          <div class="phone-dot" id="dot-1"></div>
+          <div class="phone-dot" id="dot-2"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA shown below phone on mobile only -->
   <div class="cta-mobile">
     <button class="cta-btn" onclick="openModal()">
       I'm in <span class="arrow">→</span>
@@ -872,17 +922,17 @@ footer {
 
   <div class="proof-strip">
     <div class="proof-item">
-      <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2L5 10.5h6.5L9 18l8-9.5h-6L11.5 2z" fill="rgba(91,155,213,0.12)" stroke="#5b9bd5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M11.5 2L5 10.5h6.5L9 18l8-9.5h-6L11.5 2z" fill="rgba(91,155,213,0.12)" stroke="#5b9bd5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       <div class="proof-label">The gap it closes</div>
       <div class="proof-text"><strong>Activation energy.</strong> The space between knowing what needs doing and being able to start.</div>
     </div>
     <div class="proof-item">
-      <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="2.2" fill="#5b9bd5" opacity="0.85"/><circle cx="10" cy="10" r="5.5" stroke="#5b9bd5" stroke-width="1.3" fill="none" opacity="0.45"/><circle cx="10" cy="10" r="9" stroke="#5b9bd5" stroke-width="1.2" fill="none" opacity="0.18"/></svg></div>
+      <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.2" fill="#5b9bd5" opacity="0.85"/><circle cx="10" cy="10" r="5.5" stroke="#5b9bd5" stroke-width="1.3" fill="none" opacity="0.45"/><circle cx="10" cy="10" r="9" stroke="#5b9bd5" stroke-width="1.2" fill="none" opacity="0.18"/></svg></div>
       <div class="proof-label">How it works</div>
       <div class="proof-text"><strong>Passive detection.</strong> Aether reads your calendar, tasks, and inbox. You don't configure anything.</div>
     </div>
     <div class="proof-item">
-      <div class="proof-icon"><svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="16" height="18" rx="2.5" fill="rgba(91,155,213,0.08)" stroke="#5b9bd5" stroke-width="1.3"/><path d="M4.5 7h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 10.5h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.65"/><path d="M4.5 14h5.5" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/></svg></div>
+      <div class="proof-icon"><svg width="18" height="20" viewBox="0 0 18 20" fill="none"><rect x="1" y="1" width="16" height="18" rx="2.5" fill="rgba(91,155,213,0.08)" stroke="#5b9bd5" stroke-width="1.3"/><path d="M4.5 7h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 10.5h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.65"/><path d="M4.5 14h5.5" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/></svg></div>
       <div class="proof-label">What you get</div>
       <div class="proof-text"><strong>The action log.</strong> Everything Aether does — visible, reviewable, yours to undo.</div>
     </div>
@@ -898,27 +948,23 @@ footer {
     <div class="epilogue-phones">
       <div class="ep-col">
         <div class="ep-context">Morning · HRV low</div>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="notch"><div class="notch-pill"></div></div>
-            <div class="p-header">
-              <div class="p-wordmark">Aether · via Oura</div>
-              <div class="p-title">Holding. 💍</div>
-              <div class="p-sub">HRV low · 3 tasks held · not surfacing yet</div>
+        <div class="ep-panel">
+          <div class="p-header">
+            <div class="p-wordmark">Aether · via Oura</div>
+            <div class="p-title">Holding. 💍</div>
+            <div class="p-sub">HRV low · 3 tasks held · not surfacing yet</div>
+          </div>
+          <div class="p-body" id="ep-body-1">
+            <div class="ep-metrics">
+              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">HRV</div><div class="ep-metric-val amber">38ms · −31% baseline</div></div>
+              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">Readiness</div><div class="ep-metric-val amber">54 · Low</div></div>
+              <div class="ep-metric"><div class="ep-dot red"></div><div class="ep-metric-name">Deep sleep</div><div class="ep-metric-val red">0h 41m</div></div>
             </div>
-            <div class="p-body" id="ep-body-1">
-              <div class="ep-metrics">
-                <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">HRV</div><div class="ep-metric-val amber">38ms · −31% baseline</div></div>
-                <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">Readiness</div><div class="ep-metric-val amber">54 · Low</div></div>
-                <div class="ep-metric"><div class="ep-dot red"></div><div class="ep-metric-name">Deep sleep</div><div class="ep-metric-val red">0h 41m</div></div>
-              </div>
-              <div class="ep-held">
-                <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">○ Send invoice #118 · held</div>
-                <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">○ Reply to Marcus · held</div>
-                <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">○ Book GP appointment · held</div>
-              </div>
+            <div class="ep-held">
+              <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">○ Send invoice #118 · held</div>
+              <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">○ Reply to Marcus · held</div>
+              <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">○ Book GP appointment · held</div>
             </div>
-            <div class="home-bar"><div class="home-pill"></div></div>
           </div>
         </div>
       </div>
@@ -930,31 +976,27 @@ footer {
 
       <div class="ep-col" id="ep-col-2" style="opacity:0;transform:translateX(14px)">
         <div class="ep-context">11:14am · HRV recovered</div>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="notch"><div class="notch-pill"></div></div>
-            <div class="p-header">
-              <div class="p-wordmark">Aether</div>
-              <div class="p-title">Action Log</div>
-              <div class="p-sub">Today · Oura active</div>
+        <div class="ep-panel">
+          <div class="p-header">
+            <div class="p-wordmark">Aether</div>
+            <div class="p-title">Action Log</div>
+            <div class="p-sub">Today · Oura active</div>
+          </div>
+          <div class="p-body">
+            <div class="log-timestamp">11:14AM</div>
+            <div class="action-entry gp-entry" id="ep-log-1" style="transform:translateY(0)">
+              <div class="e-icon">✦</div>
+              <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 — <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window · You didn't ask</div></div>
             </div>
-            <div class="p-body">
-              <div class="log-timestamp">11:14AM</div>
-              <div class="action-entry gp-entry" id="ep-log-1" style="transform:translateY(0)">
-                <div class="e-icon">✦</div>
-                <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 — <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window · You didn't ask</div></div>
-              </div>
-              <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
-                <div class="e-icon">🛡️</div>
-                <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block — <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
-              </div>
-              <div class="log-timestamp">9:00AM · Held</div>
-              <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
-                <div class="e-icon">⏳</div>
-                <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · Oura signal</div></div>
-              </div>
+            <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
+              <div class="e-icon">🛡️</div>
+              <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block — <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
             </div>
-            <div class="home-bar"><div class="home-pill"></div></div>
+            <div class="log-timestamp">9:00AM · Held</div>
+            <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
+              <div class="e-icon">⏳</div>
+              <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · Oura signal</div></div>
+            </div>
           </div>
         </div>
       </div>
