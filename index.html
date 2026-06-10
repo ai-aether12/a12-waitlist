@@ -161,6 +161,9 @@ nav {
 .cta-btn .arrow { font-size: 16px; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
+/* Mobile-only CTA below phone — hidden on desktop */
+.cta-mobile { display: none; }
+
 /* ── PHONE ── */
 .hero-right {
   display: flex;
@@ -748,6 +751,8 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
+  .hero-left .cta-block { display: none; }
+  .cta-mobile { display: flex; justify-content: center; padding-top: 8px; }
   .phone { width: 200px; }
   .phone-screen { height: 460px; }
   .proof-strip { padding: 0 24px; margin: 60px auto 0; }
@@ -857,6 +862,13 @@ footer {
       </div>
     </div>
   </section>
+
+  <!-- CTA shown below phone on mobile only -->
+  <div class="cta-mobile">
+    <button class="cta-btn" onclick="openModal()">
+      I'm in <span class="arrow">→</span>
+    </button>
+  </div>
 
   <div class="proof-strip">
     <div class="proof-item">
