@@ -383,6 +383,10 @@ nav {
 .gp-entry .e-icon { background: var(--green-dim); }
 .gp-entry .e-label { color: var(--green); }
 
+.waited-entry::before { background: var(--amber); }
+.waited-entry .e-icon { background: var(--amber-dim); }
+.waited-entry .e-label { color: var(--amber); }
+
 .e-detail {
   margin-top: 6px;
   display: flex;
@@ -439,6 +443,136 @@ nav {
 .proof-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
 .proof-text { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
 .proof-text strong { color: var(--text); font-weight: 600; }
+
+/* ── EPILOGUE ── */
+.epilogue {
+  margin-top: 120px;
+  padding: 100px 48px;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 45%, rgba(224,160,56,0.10) 0%, transparent 65%),
+    #050709;
+  border-top: 1px solid rgba(224,160,56,0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+
+.epilogue-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(224,160,56,0.65);
+}
+
+.epilogue-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: rgba(240,240,238,0.78);
+}
+
+.epilogue-headline .accent { color: rgba(224,160,56,0.95); }
+
+.epilogue-sub {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(240,240,238,0.62);
+  max-width: 440px;
+}
+
+.epilogue-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(224,160,56,0.65);
+  border: 1px solid rgba(224,160,56,0.25);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+/* ── TWO-PHONE LAYOUT ── */
+.epilogue-phones {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.ep-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+
+.ep-context {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0.75;
+}
+
+.ep-arrow {
+  font-size: 22px;
+  color: var(--amber);
+  padding-top: 72px;
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.ep-col .phone {
+  width: 220px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.13),
+    0 24px 48px rgba(0,0,0,0.5),
+    0 0 60px rgba(224,160,56,0.08);
+}
+
+.ep-col .phone-screen { height: 440px; }
+
+.log-timestamp {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: center;
+  padding: 2px 0;
+  flex-shrink: 0;
+}
+
+/* ── EPILOGUE PHONE CONTENT ── */
+.ep-body { flex: 1; overflow: hidden; padding: 0 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+
+.ep-metrics { display: flex; flex-direction: column; gap: 5px; }
+
+.ep-metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ep-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.ep-dot.amber { background: var(--amber); }
+.ep-dot.red { background: var(--red); }
+.ep-metric-name { font-size: 10px; color: var(--text-dim); flex: 1; }
+.ep-metric-val { font-family: 'DM Mono', monospace; font-size: 9px; }
+.ep-metric-val.amber { color: var(--amber); }
+.ep-metric-val.red { color: var(--red); }
+
+.ep-held { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
+.ep-held-item { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-faint); line-height: 1.6; }
 
 /* ── FOOTER ── */
 footer {
@@ -571,93 +705,20 @@ footer {
 .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--text); letter-spacing: 0.02em; }
 .success-sub { font-size: 14px; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
 
-/* ── EPILOGUE ── */
-.epilogue {
-  margin-top: 120px;
-  padding: 100px 48px;
-  background: #050709;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 40px;
-}
-
-.epilogue-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(224,160,56,0.45); }
-.epilogue-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4.5vw, 58px); line-height: 1; letter-spacing: 0.01em; color: rgba(240,240,238,0.35); }
-.epilogue-headline .accent { color: rgba(224,160,56,0.55); }
-
-.epilogue-phone-wrap {
-  opacity: 0.55;
-  filter: saturate(0.6);
-  position: relative;
-}
-
-.epilogue-phone-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, #050709 100%);
-  border-radius: 38px;
-  pointer-events: none;
-}
-
-.epilogue-sub { font-size: 15px; line-height: 1.65; color: rgba(240,240,238,0.3); max-width: 400px; }
-.epilogue-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(224,160,56,0.4); border: 1px solid rgba(224,160,56,0.15); padding: 6px 16px; border-radius: 20px; }
-
-/* ── EPILOGUE PHONE CONTENT ── */
-.ep-body { flex: 1; overflow: hidden; padding: 0 12px 10px; display: flex; flex-direction: column; gap: 8px; }
-
-.ep-status { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 12px 8px 6px; }
-
-.ep-ring {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--amber-dim);
-  border: 1px solid rgba(224,160,56,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-.ep-headline { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; letter-spacing: -0.01em; }
-.ep-desc { font-size: 9.5px; color: var(--text-dim); line-height: 1.5; }
-.ep-metrics { display: flex; flex-direction: column; gap: 5px; }
-
-.ep-metric {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  padding: 7px 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ep-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.ep-dot.amber { background: var(--amber); }
-.ep-dot.red { background: var(--red); }
-.ep-metric-name { font-size: 10px; color: var(--text-dim); flex: 1; }
-.ep-metric-val { font-family: 'DM Mono', monospace; font-size: 9px; }
-.ep-metric-val.amber { color: var(--amber); }
-.ep-metric-val.red { color: var(--red); }
-
-.ep-held { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
-.ep-held-item { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-faint); line-height: 1.6; }
-
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
   .hero-right { order: -1; }
   .phone { width: 200px; }
-  .phone-screen { height: 390px; }
+  .phone-screen { height: 460px; }
   .proof-strip { grid-template-columns: 1fr; margin: 60px auto 0; padding: 0 24px; }
   footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
   .epilogue { padding: 60px 24px; margin-top: 60px; }
+  .epilogue-phones { flex-direction: column; align-items: center; gap: 24px; }
+  .ep-arrow { padding-top: 0; }
+  .ep-col .phone { width: 200px; }
+  .ep-col .phone-screen { height: 420px; }
 }
 </style>
 </head>
@@ -771,64 +832,86 @@ footer {
     </div>
   </div>
 
-  <footer>
-    <div class="footer-wordmark">Aether by Aether12</div>
-    <div class="footer-note">Built for ADHD. Designed for everyone.</div>
-  </footer>
-
   <div class="epilogue">
     <div class="epilogue-label">What's coming</div>
     <div class="epilogue-headline">
       When your body says not yet,<br>
       <span class="accent">Aether already knows.</span>
     </div>
-    <div class="epilogue-phone-wrap">
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="notch"><div class="notch-pill"></div></div>
-          <div class="p-header">
-            <div class="p-wordmark">Aether · via Oura</div>
-            <div class="p-title">Holding.</div>
-            <div class="p-sub">3 items ready — not surfacing yet</div>
+
+    <div class="epilogue-phones">
+      <!-- Phone 1: Holding state -->
+      <div class="ep-col">
+        <div class="ep-context">Morning · HRV low</div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="notch"><div class="notch-pill"></div></div>
+            <div class="p-header">
+              <div class="p-wordmark">Aether · via Oura</div>
+              <div class="p-title">Holding. 💍</div>
+              <div class="p-sub">HRV low · 3 tasks held · not surfacing yet</div>
+            </div>
+            <div class="p-body" id="ep-body-1">
+              <div class="ep-metrics">
+                <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">HRV</div><div class="ep-metric-val amber">38ms · −31% baseline</div></div>
+                <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">Readiness</div><div class="ep-metric-val amber">54 · Low</div></div>
+                <div class="ep-metric"><div class="ep-dot red"></div><div class="ep-metric-name">Deep sleep</div><div class="ep-metric-val red">0h 41m</div></div>
+              </div>
+              <div class="ep-held">
+                <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">○ Send invoice #118 · held</div>
+                <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">○ Reply to Marcus · held</div>
+                <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">○ Book GP appointment · held</div>
+              </div>
+            </div>
+            <div class="home-bar"><div class="home-pill"></div></div>
           </div>
-          <div class="ep-body">
-            <div class="ep-status">
-              <div class="ep-ring">💍</div>
-              <div class="ep-headline">Your capacity is low.<br>Aether is waiting<br>for a better moment.</div>
-              <div class="ep-desc">High-friction tasks held until your HRV recovers toward baseline.</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="ep-arrow" id="ep-arrow">→</div>
+
+      <!-- Phone 2: Action Log -->
+      <div class="ep-col" id="ep-col-2" style="opacity:0;transform:translateX(14px)">
+        <div class="ep-context">11:14am · HRV recovered</div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="notch"><div class="notch-pill"></div></div>
+            <div class="p-header">
+              <div class="p-wordmark">Aether</div>
+              <div class="p-title">Action Log</div>
+              <div class="p-sub">Today · Oura active</div>
             </div>
-            <div class="ep-metrics">
-              <div class="ep-metric">
-                <div class="ep-dot amber"></div>
-                <div class="ep-metric-name">HRV</div>
-                <div class="ep-metric-val amber">38ms · −31% baseline</div>
+            <div class="p-body">
+              <div class="log-timestamp">11:14AM</div>
+              <div class="action-entry gp-entry" id="ep-log-1" style="transform:translateY(0)">
+                <div class="e-icon">✦</div>
+                <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 — <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window · You didn't ask</div></div>
               </div>
-              <div class="ep-metric">
-                <div class="ep-dot amber"></div>
-                <div class="ep-metric-name">Readiness</div>
-                <div class="ep-metric-val amber">54 · Low</div>
+              <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
+                <div class="e-icon">🛡️</div>
+                <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block — <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
               </div>
-              <div class="ep-metric">
-                <div class="ep-dot red"></div>
-                <div class="ep-metric-name">Deep sleep</div>
-                <div class="ep-metric-val red">0h 41m</div>
+              <div class="log-timestamp">9:00AM · Held</div>
+              <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
+                <div class="e-icon">⏳</div>
+                <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · Oura signal</div></div>
               </div>
             </div>
-            <div class="ep-held">
-              <div class="ep-held-item">○ Client proposal · held</div>
-              <div class="ep-held-item">○ Reply to Marcus · held</div>
-              <div class="ep-held-item">○ Invoice #118 · held</div>
-            </div>
+            <div class="home-bar"><div class="home-pill"></div></div>
           </div>
-          <div class="home-bar"><div class="home-pill"></div></div>
         </div>
       </div>
     </div>
-    <p class="epilogue-sub">
-      Physiological awareness is the next layer. When your body isn't ready, Aether won't push. It waits — and acts at the right moment.
-    </p>
+
+    <p class="epilogue-sub">Physiological awareness is the next layer. When your body isn't ready, Aether won't push. It waits — and acts at the right moment.</p>
     <div class="epilogue-tag">Wearable integration · Coming</div>
   </div>
+
+  <footer>
+    <div class="footer-wordmark">Aether by Aether12</div>
+    <div class="footer-note">Built for ADHD. Designed for everyone.</div>
+  </footer>
 
 </div>
 
@@ -864,7 +947,6 @@ const GP_HOLD    = 5000;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
-// Cached DOM references
 let ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp, taskLabel, chip, invLabel;
 
 function initEls() {
@@ -932,13 +1014,11 @@ function handleSend() {
 }
 
 async function resolveSend() {
-  // Mark invoice as sent
   invEntry.style.transition = 'all 0.4s ease';
   invEntry.classList.add('sent');
   chip.style.display = 'none';
   invLabel.textContent = 'Sent ✓';
 
-  // Collapse task rows + ambient bar; negative margins cancel flex gap
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
   [taskInv, taskGp].forEach(t => {
     t.style.transition    = collapseTrans;
@@ -958,7 +1038,6 @@ async function resolveSend() {
   ambient.style.marginTop    = '-6px';
   ambient.style.marginBottom = '-6px';
 
-  // Ghost and compress invoice entry
   await delay(500);
   invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
   invEntry.style.opacity       = '0.28';
@@ -970,13 +1049,11 @@ async function resolveSend() {
   const eTime = invEntry.querySelector('.e-time');
   if (eTime) eTime.style.display = 'none';
 
-  // Surface GP entry
   await delay(50);
   gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   gpEntry.style.opacity    = '1';
   gpEntry.style.transform  = 'translateY(0)';
 
-  // Hold, then fade out and restart
   await delay(GP_HOLD);
   invEntry.style.transition = 'opacity 0.6s ease';
   gpEntry.style.transition  = 'opacity 0.6s ease';
@@ -992,28 +1069,18 @@ async function resolveSend() {
 async function runSequence() {
   sequenceActive = true;
   await resetAll();
-
-  // Beat 1: stale tasks sit idle
   await delay(IDLE);
-
-  // Beat 2: ambient bar appears
   ambient.style.transition = 'opacity 0.5s ease';
   ambient.style.opacity = '1';
-
   await delay(DETECT);
-
-  // Beat 3: invoice dims, action entry slides in
   taskInv.style.transition  = 'opacity 0.5s ease';
   taskInv.style.opacity     = '0.35';
   invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   invEntry.style.opacity    = '1';
   invEntry.style.transform  = 'translateY(0)';
-
-  // Auto-advance if not tapped
   sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
 }
 
-// Start sequence on scroll into view
 let started = false;
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -1026,6 +1093,59 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 observer.observe(document.getElementById('p-body'));
+
+// Epilogue two-phone sequence
+let epStarted = false;
+
+async function runEpilogueSequence() {
+  const elH1    = document.getElementById('ep-h1');
+  const elH2    = document.getElementById('ep-h2');
+  const elH3    = document.getElementById('ep-h3');
+  const elArrow = document.getElementById('ep-arrow');
+  const elCol2  = document.getElementById('ep-col-2');
+  const elLog1  = document.getElementById('ep-log-1');
+  const elLog2  = document.getElementById('ep-log-2');
+  const elLog3  = document.getElementById('ep-log-3');
+
+  if (!elH1) return;
+  await delay(400);
+
+  for (const el of [elH1, elH2, elH3]) {
+    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    await delay(300);
+  }
+  await delay(500);
+
+  elArrow.style.transition = 'opacity 0.5s ease';
+  elArrow.style.opacity = '0.7';
+  await delay(350);
+
+  elCol2.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  elCol2.style.opacity = '1';
+  elCol2.style.transform = 'translateX(0)';
+  await delay(550);
+
+  for (const el of [elLog1, elLog2, elLog3]) {
+    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    await delay(350);
+  }
+}
+
+const epObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !epStarted) {
+      epStarted = true;
+      runEpilogueSequence();
+    }
+  });
+}, { threshold: 0.2 });
+
+const epBodyEl = document.getElementById('ep-body-1');
+if (epBodyEl) epObserver.observe(epBodyEl);
 
 // Modal
 function openModal() {
