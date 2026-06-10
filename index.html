@@ -20,11 +20,10 @@
   --text-faint: rgba(240,240,238,0.24);
   --blue: #5b9bd5;
   --blue-dim: rgba(91,155,213,0.14);
-  --blue-glow: rgba(91,155,213,0.08);
-  --green: #3ecf8e;
-  --green-dim: rgba(62,207,142,0.12);
-  --amber: #f5a623;
-  --amber-dim: rgba(245,166,35,0.12);
+  --green: #55b98c;
+  --green-dim: rgba(85,185,140,0.12);
+  --amber: #e0a038;
+  --amber-dim: rgba(224,160,56,0.12);
   --red: #e05c5c;
   --red-dim: rgba(224,92,92,0.12);
 }
@@ -135,11 +134,7 @@ nav {
   margin-bottom: 40px;
 }
 
-.cta-block {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+.cta-block { display: flex; flex-direction: column; gap: 14px; }
 
 .cta-btn {
   display: inline-flex;
@@ -162,15 +157,11 @@ nav {
 
 .cta-btn:hover { background: #4a8bc4; transform: translateY(-1px); }
 .cta-btn:active { transform: translateY(0); }
-
 .cta-btn .arrow { font-size: 16px; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
-.hero-right {
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-}
+/* ── PHONE ── */
+.hero-right { display: flex; justify-content: center; padding-top: 8px; }
 
 .phone {
   width: 240px;
@@ -192,24 +183,10 @@ nav {
   flex-direction: column;
 }
 
-.notch {
-  height: 28px;
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-}
+.notch { height: 28px; display: flex; justify-content: center; flex-shrink: 0; }
+.notch-pill { width: 80px; height: 20px; background: #000; border-radius: 0 0 14px 14px; }
 
-.notch-pill {
-  width: 80px;
-  height: 20px;
-  background: #000;
-  border-radius: 0 0 14px 14px;
-}
-
-.p-header {
-  padding: 10px 14px 8px;
-  flex-shrink: 0;
-}
+.p-header { padding: 10px 14px 8px; flex-shrink: 0; }
 
 .p-wordmark {
   font-size: 9px;
@@ -234,7 +211,6 @@ nav {
   color: var(--text-faint);
   margin-top: 1px;
   letter-spacing: 0.04em;
-  transition: color 0.5s ease;
 }
 
 .p-body {
@@ -246,6 +222,7 @@ nav {
   gap: 6px;
 }
 
+/* ── TASK ROWS ── */
 .task-section-label {
   font-family: 'DM Mono', monospace;
   font-size: 8px;
@@ -278,19 +255,10 @@ nav {
   flex-shrink: 0;
 }
 
-.task-label {
-  font-size: 11px;
-  color: var(--text-dim);
-  flex: 1;
-}
+.task-label { font-size: 11px; color: var(--text-dim); flex: 1; }
+.task-age { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--red); flex-shrink: 0; }
 
-.task-age {
-  font-family: 'DM Mono', monospace;
-  font-size: 8px;
-  color: var(--red);
-  flex-shrink: 0;
-}
-
+/* ── AMBIENT BAR ── */
 .ambient-bar {
   background: var(--blue-dim);
   border: 1px solid rgba(91,155,213,0.2);
@@ -319,13 +287,9 @@ nav {
   50% { opacity: 0.3; }
 }
 
-.ambient-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: var(--blue);
-  letter-spacing: 0.04em;
-}
+.ambient-text { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--blue); letter-spacing: 0.04em; }
 
+/* ── ACTION ENTRIES ── */
 .action-entry {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -369,20 +333,9 @@ nav {
   margin-bottom: 1px;
 }
 
-.e-text {
-  font-size: 11px;
-  color: var(--text);
-  line-height: 1.4;
-}
-
+.e-text { font-size: 11px; color: var(--text); line-height: 1.4; }
 .e-text .dim { color: var(--text-dim); }
-
-.e-time {
-  font-family: 'DM Mono', monospace;
-  font-size: 8px;
-  color: var(--text-faint);
-  margin-top: 3px;
-}
+.e-time { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--text-faint); margin-top: 3px; }
 
 .tap-chip {
   display: inline-flex;
@@ -397,21 +350,55 @@ nav {
   letter-spacing: 0.03em;
 }
 
-.home-bar {
-  height: 22px;
+.staged-entry::before { background: var(--blue); }
+.staged-entry .e-icon { background: var(--blue-dim); }
+.staged-entry .e-label { color: var(--blue); }
+.staged-entry.sent::before { background: var(--green); }
+.staged-entry.sent .e-icon { background: var(--green-dim); }
+.staged-entry.sent .e-label { color: var(--green); }
+
+.gp-entry::before { background: var(--green); }
+.gp-entry .e-icon { background: var(--green-dim); }
+.gp-entry .e-label { color: var(--green); }
+
+.e-detail {
+  margin-top: 6px;
   display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.e-detail-row {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--text-dim);
+  display: flex;
+  gap: 5px;
+  line-height: 1.4;
+}
+
+.call-chip {
+  background: var(--green);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  margin-top: 4px;
+  text-decoration: none;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  letter-spacing: 0.03em;
 }
 
-.home-pill {
-  width: 70px;
-  height: 3px;
-  background: rgba(255,255,255,0.14);
-  border-radius: 2px;
-}
+.home-bar { height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.home-pill { width: 70px; height: 3px; background: rgba(255,255,255,0.14); border-radius: 2px; }
 
+/* ── PROOF STRIP ── */
 .proof-strip {
   max-width: 1100px;
   margin: 100px auto 0;
@@ -425,27 +412,13 @@ nav {
   background: var(--border);
 }
 
-.proof-item {
-  background: var(--surface);
-  padding: 28px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
+.proof-item { background: var(--surface); padding: 28px 32px; display: flex; flex-direction: column; gap: 8px; }
 .proof-icon { font-size: 18px; margin-bottom: 4px; }
-
-.proof-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-
+.proof-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
 .proof-text { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
 .proof-text strong { color: var(--text); font-weight: 600; }
 
+/* ── FOOTER ── */
 footer {
   max-width: 1100px;
   margin: 80px auto 0;
@@ -456,21 +429,10 @@ footer {
   justify-content: space-between;
 }
 
-.footer-wordmark {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
+.footer-wordmark { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); }
+.footer-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-faint); letter-spacing: 0.04em; }
 
-.footer-note {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
-}
-
+/* ── MODAL ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -500,32 +462,9 @@ footer {
 }
 
 .modal-overlay.open .modal { transform: translateY(0); }
-
-.modal-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 16px;
-}
-
-.modal-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-
-.modal-sub {
-  font-size: 14px;
-  color: var(--text-dim);
-  line-height: 1.6;
-  margin-bottom: 28px;
-}
-
+.modal-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; letter-spacing: 0.02em; color: var(--text); margin-bottom: 10px; }
+.modal-sub { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 28px; }
 .modal-form { display: flex; flex-direction: column; gap: 12px; }
 
 .modal-input {
@@ -574,14 +513,7 @@ footer {
   line-height: 1;
 }
 
-.modal-note {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text-faint);
-  text-align: center;
-  margin-top: 8px;
-  letter-spacing: 0.04em;
-}
+.modal-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-faint); text-align: center; margin-top: 8px; letter-spacing: 0.04em; }
 
 .modal-error {
   display: none;
@@ -606,7 +538,7 @@ footer {
   height: 52px;
   border-radius: 50%;
   background: var(--green-dim);
-  border: 1px solid rgba(62,207,142,0.2);
+  border: 1px solid rgba(85,185,140,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -614,20 +546,10 @@ footer {
   margin-bottom: 4px;
 }
 
-.success-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 30px;
-  color: var(--text);
-  letter-spacing: 0.02em;
-}
+.success-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--text); letter-spacing: 0.02em; }
+.success-sub { font-size: 14px; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
 
-.success-sub {
-  font-size: 14px;
-  color: var(--text-dim);
-  line-height: 1.6;
-  max-width: 300px;
-}
-
+/* ── EPILOGUE ── */
 .epilogue {
   margin-top: 120px;
   padding: 100px 48px;
@@ -640,23 +562,9 @@ footer {
   gap: 40px;
 }
 
-.epilogue-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(245,166,35,0.45);
-}
-
-.epilogue-headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 4.5vw, 58px);
-  line-height: 1;
-  letter-spacing: 0.01em;
-  color: rgba(240,240,238,0.35);
-}
-
-.epilogue-headline .accent { color: rgba(245,166,35,0.55); }
+.epilogue-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(224,160,56,0.45); }
+.epilogue-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4.5vw, 58px); line-height: 1; letter-spacing: 0.01em; color: rgba(240,240,238,0.35); }
+.epilogue-headline .accent { color: rgba(224,160,56,0.55); }
 
 .epilogue-phone-wrap {
   opacity: 0.55;
@@ -673,70 +581,52 @@ footer {
   pointer-events: none;
 }
 
-.epilogue-sub {
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(240,240,238,0.3);
-  max-width: 400px;
-}
+.epilogue-sub { font-size: 15px; line-height: 1.65; color: rgba(240,240,238,0.3); max-width: 400px; }
+.epilogue-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(224,160,56,0.4); border: 1px solid rgba(224,160,56,0.15); padding: 6px 16px; border-radius: 20px; }
 
-.epilogue-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(245,166,35,0.4);
-  border: 1px solid rgba(245,166,35,0.15);
-  padding: 6px 16px;
-  border-radius: 20px;
-}
+/* ── EPILOGUE PHONE CONTENT ── */
+.ep-body { flex: 1; overflow: hidden; padding: 0 12px 10px; display: flex; flex-direction: column; gap: 8px; }
 
-.staged-entry::before { background: var(--blue); }
-.staged-entry .e-icon { background: var(--blue-dim); }
-.staged-entry .e-label { color: var(--blue); }
+.ep-status { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 12px 8px 6px; }
 
-.staged-entry.sent::before { background: var(--green); }
-.staged-entry.sent .e-icon { background: var(--green-dim); }
-.staged-entry.sent .e-label { color: var(--green); }
-
-.gp-entry::before { background: var(--green); }
-.gp-entry .e-icon { background: var(--green-dim); }
-.gp-entry .e-label { color: var(--green); }
-
-.e-detail {
-  margin-top: 6px;
+.ep-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--amber-dim);
+  border: 1px solid rgba(224,160,56,0.2);
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 8px;
-}
-
-.e-detail-row {
-  font-family: 'DM Mono', monospace;
-  font-size: 8.5px;
-  color: var(--text-dim);
-  display: flex;
-  gap: 5px;
-  line-height: 1.4;
-}
-
-.call-chip {
-  background: var(--green);
-  color: #fff;
-  border-radius: 4px;
-  font-size: 9px;
-  font-weight: 600;
-  padding: 3px 7px;
-  margin-top: 4px;
-  text-decoration: none;
-  display: inline-flex;
   align-items: center;
-  letter-spacing: 0.03em;
+  justify-content: center;
+  font-size: 18px;
 }
 
+.ep-headline { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; letter-spacing: -0.01em; }
+.ep-desc { font-size: 9.5px; color: var(--text-dim); line-height: 1.5; }
+.ep-metrics { display: flex; flex-direction: column; gap: 5px; }
+
+.ep-metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ep-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.ep-dot.amber { background: var(--amber); }
+.ep-dot.red { background: var(--red); }
+.ep-metric-name { font-size: 10px; color: var(--text-dim); flex: 1; }
+.ep-metric-val { font-family: 'DM Mono', monospace; font-size: 9px; }
+.ep-metric-val.amber { color: var(--amber); }
+.ep-metric-val.red { color: var(--red); }
+
+.ep-held { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
+.ep-held-item { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-faint); line-height: 1.6; }
+
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
@@ -879,33 +769,33 @@ footer {
             <div class="p-title">Holding.</div>
             <div class="p-sub">3 items ready — not surfacing yet</div>
           </div>
-          <div style="flex:1;overflow:hidden;padding:0 12px 10px;display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:12px 8px 6px;">
-              <div style="width:44px;height:44px;border-radius:50%;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;">💍</div>
-              <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.4;letter-spacing:-0.01em;">Your capacity is low.<br>Aether is waiting<br>for a better moment.</div>
-              <div style="font-size:9.5px;color:var(--text-dim);line-height:1.5;">High-friction tasks held until your HRV recovers toward baseline.</div>
+          <div class="ep-body">
+            <div class="ep-status">
+              <div class="ep-ring">💍</div>
+              <div class="ep-headline">Your capacity is low.<br>Aether is waiting<br>for a better moment.</div>
+              <div class="ep-desc">High-friction tasks held until your HRV recovers toward baseline.</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:5px;">
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
-                <div style="font-size:10px;color:var(--text-dim);flex:1;">HRV</div>
-                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);">38ms · −31% baseline</div>
+            <div class="ep-metrics">
+              <div class="ep-metric">
+                <div class="ep-dot amber"></div>
+                <div class="ep-metric-name">HRV</div>
+                <div class="ep-metric-val amber">38ms · −31% baseline</div>
               </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
-                <div style="font-size:10px;color:var(--text-dim);flex:1;">Readiness</div>
-                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);">54 · Low</div>
+              <div class="ep-metric">
+                <div class="ep-dot amber"></div>
+                <div class="ep-metric-name">Readiness</div>
+                <div class="ep-metric-val amber">54 · Low</div>
               </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;display:flex;align-items:center;gap:8px;">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
-                <div style="font-size:10px;color:var(--text-dim);flex:1;">Deep sleep</div>
-                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);">0h 41m</div>
+              <div class="ep-metric">
+                <div class="ep-dot red"></div>
+                <div class="ep-metric-name">Deep sleep</div>
+                <div class="ep-metric-val red">0h 41m</div>
               </div>
             </div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
-              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Client proposal · held</div>
-              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Reply to Marcus · held</div>
-              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-faint);line-height:1.6;">○ Invoice #118 · held</div>
+            <div class="ep-held">
+              <div class="ep-held-item">○ Client proposal · held</div>
+              <div class="ep-held-item">○ Reply to Marcus · held</div>
+              <div class="ep-held-item">○ Invoice #118 · held</div>
             </div>
           </div>
           <div class="home-bar"><div class="home-pill"></div></div>
@@ -952,68 +842,66 @@ const GP_HOLD    = 5000;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
+// Cached DOM references
+let ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp, taskLabel, chip, invLabel;
+
+function initEls() {
+  ambient    = document.getElementById('ambient-bar');
+  invEntry   = document.getElementById('action-invoice');
+  gpEntry    = document.getElementById('action-gp');
+  taskInv    = document.getElementById('task-invoice');
+  taskMarcus = document.getElementById('task-marcus');
+  taskGp     = document.getElementById('task-gp');
+  taskLabel  = document.querySelector('.task-section-label');
+  chip       = document.getElementById('invoice-chip');
+  invLabel   = document.getElementById('invoice-label');
+}
+
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
+function clearStyles(el, ...props) {
+  props.forEach(p => { el.style[p] = ''; });
+}
+
+function resetAll() {
+  return new Promise(resolve => {
+    [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+      el.style.transition = 'none';
+    });
+    if (taskLabel) taskLabel.style.transition = 'none';
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      ambient.style.opacity = '0';
+      clearStyles(ambient, 'maxHeight', 'overflow', 'marginTop', 'marginBottom');
+
+      invEntry.style.opacity   = '0';
+      invEntry.style.transform = 'translateY(-8px)';
+      clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
+      const eTime = invEntry.querySelector('.e-time');
+      if (eTime) eTime.style.display = '';
+
+      gpEntry.style.opacity   = '0';
+      gpEntry.style.transform = 'translateY(-8px)';
+
+      [taskInv, taskGp].forEach(t => {
+        t.style.opacity = '1';
+        clearStyles(t, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
+      });
+
+      if (taskLabel) clearStyles(taskLabel, 'opacity', 'maxHeight', 'overflow');
+
+      invEntry.classList.remove('sent');
+      chip.textContent   = 'Send ↗';
+      chip.style.display = 'inline-flex';
+      invLabel.textContent = 'Staged';
+
+      resolve();
+    }));
+  });
+}
+
 let sendTimer = null;
 let sequenceActive = false;
-
-function resetAll(cb) {
-  const ambient    = document.getElementById('ambient-bar');
-  const invEntry   = document.getElementById('action-invoice');
-  const gpEntry    = document.getElementById('action-gp');
-  const taskInv    = document.getElementById('task-invoice');
-  const taskMarcus = document.getElementById('task-marcus');
-  const taskGp     = document.getElementById('task-gp');
-  const taskLabel  = document.querySelector('.task-section-label');
-  const chip       = document.getElementById('invoice-chip');
-  const label      = document.getElementById('invoice-label');
-
-  [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
-    el.style.transition = 'none';
-  });
-  if (taskLabel) taskLabel.style.transition = 'none';
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    ambient.style.opacity      = '0';
-    ambient.style.maxHeight    = '';
-    ambient.style.overflow     = '';
-    ambient.style.marginTop    = '';
-    ambient.style.marginBottom = '';
-
-    invEntry.style.opacity       = '0';
-    invEntry.style.transform     = 'translateY(-8px)';
-    invEntry.style.maxHeight     = '';
-    invEntry.style.overflow      = '';
-    invEntry.style.paddingTop    = '';
-    invEntry.style.paddingBottom = '';
-    invEntry.style.marginTop     = '';
-    const eTime = invEntry.querySelector('.e-time');
-    if (eTime) { eTime.style.display = ''; }
-
-    gpEntry.style.opacity    = '0';
-    gpEntry.style.transform  = 'translateY(-8px)';
-
-    [taskInv, taskGp].forEach(t => {
-      t.style.opacity       = '1';
-      t.style.maxHeight     = '';
-      t.style.marginTop     = '';
-      t.style.marginBottom  = '';
-      t.style.paddingTop    = '';
-      t.style.paddingBottom = '';
-      t.style.overflow      = '';
-    });
-
-    if (taskLabel) {
-      taskLabel.style.opacity   = '';
-      taskLabel.style.maxHeight = '';
-      taskLabel.style.overflow  = '';
-    }
-
-    invEntry.classList.remove('sent');
-    chip.textContent   = 'Send ↗';
-    chip.style.display = 'inline-flex';
-    label.textContent  = 'Staged';
-    if (cb) cb();
-  }));
-}
 
 function handleSend() {
   if (!sequenceActive) return;
@@ -1021,24 +909,17 @@ function handleSend() {
   resolveSend();
 }
 
-function resolveSend() {
-  const invEntry   = document.getElementById('action-invoice');
-  const chip       = document.getElementById('invoice-chip');
-  const label      = document.getElementById('invoice-label');
-  const taskInv    = document.getElementById('task-invoice');
-  const taskGp     = document.getElementById('task-gp');
-  const taskLabel  = document.querySelector('.task-section-label');
-  const gpEntry    = document.getElementById('action-gp');
-  const ambient    = document.getElementById('ambient-bar');
-
+async function resolveSend() {
+  // Mark invoice as sent
   invEntry.style.transition = 'all 0.4s ease';
   invEntry.classList.add('sent');
   chip.style.display = 'none';
-  label.textContent = 'Sent ✓';
+  invLabel.textContent = 'Sent ✓';
 
-  // Collapse task-invoice and task-gp — negative margins cancel the flex gap
+  // Collapse task rows + ambient bar; negative margins cancel flex gap
+  const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
   [taskInv, taskGp].forEach(t => {
-    t.style.transition    = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
+    t.style.transition    = collapseTrans;
     t.style.opacity       = '0';
     t.style.maxHeight     = '0';
     t.style.marginTop     = '-6px';
@@ -1047,13 +928,7 @@ function resolveSend() {
     t.style.paddingBottom = '0';
     t.style.overflow      = 'hidden';
   });
-
-  if (taskLabel) {
-    taskLabel.style.transition = '';
-    taskLabel.style.opacity = '1';
-  }
-
-  // Collapse ambient bar — negative margins cancel its flex gap too
+  if (taskLabel) taskLabel.style.opacity = '1';
   ambient.style.transition   = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease';
   ambient.style.opacity      = '0';
   ambient.style.maxHeight    = '0';
@@ -1061,67 +936,68 @@ function resolveSend() {
   ambient.style.marginTop    = '-6px';
   ambient.style.marginBottom = '-6px';
 
-  setTimeout(() => {
-    invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
-    invEntry.style.opacity       = '0.28';
-    invEntry.style.maxHeight     = '38px';
-    invEntry.style.overflow      = 'hidden';
-    invEntry.style.paddingTop    = '6px';
-    invEntry.style.paddingBottom = '6px';
-    invEntry.style.marginTop     = '-6px';
-    const eTime = invEntry.querySelector('.e-time');
-    if (eTime) { eTime.style.display = 'none'; }
-  }, 500);
+  // Ghost and compress invoice entry
+  await delay(500);
+  invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
+  invEntry.style.opacity       = '0.28';
+  invEntry.style.maxHeight     = '38px';
+  invEntry.style.overflow      = 'hidden';
+  invEntry.style.paddingTop    = '6px';
+  invEntry.style.paddingBottom = '6px';
+  invEntry.style.marginTop     = '-6px';
+  const eTime = invEntry.querySelector('.e-time');
+  if (eTime) eTime.style.display = 'none';
 
-  setTimeout(() => {
-    gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    gpEntry.style.opacity    = '1';
-    gpEntry.style.transform  = 'translateY(0)';
-  }, 550);
+  // Surface GP entry
+  await delay(50);
+  gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  gpEntry.style.opacity    = '1';
+  gpEntry.style.transform  = 'translateY(0)';
 
-  setTimeout(() => {
-    invEntry.style.transition = 'opacity 0.6s ease';
-    gpEntry.style.transition  = 'opacity 0.6s ease';
-    invEntry.style.opacity    = '0';
-    gpEntry.style.opacity     = '0';
-  }, GP_HOLD);
+  // Hold, then fade out and restart
+  await delay(GP_HOLD);
+  invEntry.style.transition = 'opacity 0.6s ease';
+  gpEntry.style.transition  = 'opacity 0.6s ease';
+  invEntry.style.opacity    = '0';
+  gpEntry.style.opacity     = '0';
 
-  setTimeout(() => {
-    resetAll(() => setTimeout(runSequence, RESTART));
-  }, GP_HOLD + RESET_OUT + 200);
+  await delay(RESET_OUT + 200);
+  await resetAll();
+  await delay(RESTART);
+  runSequence();
 }
 
-function runSequence() {
+async function runSequence() {
   sequenceActive = true;
-  resetAll(() => {
-    const ambient  = document.getElementById('ambient-bar');
-    const invEntry = document.getElementById('action-invoice');
-    const taskInv  = document.getElementById('task-invoice');
+  await resetAll();
 
-    setTimeout(() => {
-      ambient.style.transition = 'opacity 0.5s ease';
-      ambient.style.opacity = '1';
-    }, IDLE);
+  // Beat 1: stale tasks sit idle
+  await delay(IDLE);
 
-    setTimeout(() => {
-      taskInv.style.transition = 'opacity 0.5s ease';
-      taskInv.style.opacity = '0.35';
-      invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      invEntry.style.opacity = '1';
-      invEntry.style.transform = 'translateY(0)';
-    }, IDLE + DETECT);
+  // Beat 2: ambient bar appears
+  ambient.style.transition = 'opacity 0.5s ease';
+  ambient.style.opacity = '1';
 
-    sendTimer = setTimeout(() => {
-      resolveSend();
-    }, IDLE + DETECT + ENTRY_HOLD);
-  });
+  await delay(DETECT);
+
+  // Beat 3: invoice dims, action entry slides in
+  taskInv.style.transition  = 'opacity 0.5s ease';
+  taskInv.style.opacity     = '0.35';
+  invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  invEntry.style.opacity    = '1';
+  invEntry.style.transform  = 'translateY(0)';
+
+  // Auto-advance if not tapped
+  sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
 }
 
+// Start sequence on scroll into view
 let started = false;
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !started) {
       started = true;
+      initEls();
       setTimeout(runSequence, 600);
     }
   });
@@ -1129,6 +1005,7 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(document.getElementById('p-body'));
 
+// Modal
 function openModal() {
   document.getElementById('modal').classList.add('open');
   setTimeout(() => document.getElementById('email-input').focus(), 300);
@@ -1143,8 +1020,8 @@ function handleOverlayClick(e) {
 }
 
 async function handleSubmit() {
-  const email = document.getElementById('email-input').value.trim();
-  const btn = document.getElementById('submit-btn');
+  const email   = document.getElementById('email-input').value.trim();
+  const btn     = document.getElementById('submit-btn');
   const errorEl = document.getElementById('modal-error');
 
   if (!email || !email.includes('@')) {
@@ -1163,21 +1040,16 @@ async function handleSubmit() {
         'Authorization': `Bearer ${LOOPS_API_KEY}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        email,
-        source: 'waitlist',
-        subscribed: true,
-        userGroup: 'waitlist'
-      })
+      body: JSON.stringify({ email, source: 'waitlist', subscribed: true, userGroup: 'waitlist' })
     });
 
     if (res.ok) {
       document.getElementById('modal-form-state').style.display = 'none';
       document.getElementById('modal-success-state').style.display = 'flex';
     } else {
-      throw new Error('Request failed');
+      throw new Error();
     }
-  } catch (err) {
+  } catch {
     errorEl.textContent = 'Something went wrong. Please try again.';
     errorEl.style.display = 'block';
     btn.textContent = 'Get early access';
