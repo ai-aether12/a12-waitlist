@@ -139,40 +139,38 @@ nav {
 .cta-block { display: flex; flex-direction: column; gap: 14px; }
 
 .cta-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: linear-gradient(155deg, #ffb731 0%, #e8901c 100%);
-  color: #0d0f12;
+  gap: 12px;
+  background: #2272FF;
+  color: #ffffff;
   font-family: 'Syne', sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  padding: 18px 44px;
-  border-radius: 8px;
+  padding: 18px 28px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
-  min-width: 200px;
-  width: fit-content;
-  box-shadow: 0 0 0 1px rgba(255,160,24,0.22), 0 4px 24px rgba(228,140,24,0.45), 0 10px 40px rgba(0,0,0,0.35);
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  width: 100%;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .cta-btn:hover {
-  background: linear-gradient(155deg, #ffc040 0%, #f09820 100%);
-  box-shadow: 0 0 0 1px rgba(255,175,32,0.30), 0 6px 32px rgba(228,144,24,0.62), 0 14px 48px rgba(0,0,0,0.42);
-  transform: translateY(-2px);
+  background: #1A65EF;
+  transform: translateY(-1px);
 }
 .cta-btn:active { transform: translateY(0); }
 .cta-btn .arrow { font-size: 1rem; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
 
 .cta-btn--epilogue {
+  width: auto;
+  min-width: 220px;
+  padding: 16px 40px;
   font-size: 0.9375rem;
-  padding: 15px 36px;
-  min-width: 170px;
 }
 
 .cta-mobile { display: none; }
@@ -917,7 +915,7 @@ footer {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 40px; }
   .hero-left .cta-block { display: none; }
-  .cta-mobile { display: flex; justify-content: center; padding-top: 28px; }
+  .cta-mobile { display: flex; justify-content: center; padding: 28px 24px 0; }
   .cta-mobile .cta-btn { width: 100%; max-width: 360px; }
   .card-stack { width: 100%; max-width: 360px; height: 480px; }
   .proof-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; grid-template-columns: repeat(3, 220px); column-gap: 24px; padding: 0 24px 24px; margin: 60px auto 0; }
