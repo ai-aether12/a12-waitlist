@@ -289,6 +289,13 @@ nav {
   text-transform: uppercase;
 }
 
+/* ep-panel nav padding override */
+.ep-panel .cs-nav {
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-top: 6px;
+}
+
 /* Scale-ups and surface overrides inside card stack */
 .card-stack .task-section-label { max-height: none; }
 .card-stack .stale-task { padding: 11px 13px; background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.08); }
@@ -579,8 +586,10 @@ nav {
   margin-top: 120px;
   padding: 100px 48px;
   background:
-    radial-gradient(ellipse 90% 55% at 50% 45%, rgba(224,160,56,0.10) 0%, transparent 65%),
-    #050709;
+    radial-gradient(ellipse 90% 55% at 50% 45%, rgba(224,160,56,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 20% 80%, rgba(91,155,213,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 50% at 80% 10%, rgba(91,155,213,0.12) 0%, transparent 70%),
+    var(--bg);
   border-top: 1px solid rgba(224,160,56,0.14);
   display: flex;
   flex-direction: column;
@@ -672,17 +681,18 @@ nav {
 /* ── EPILOGUE PANEL ── */
 .ep-panel {
   width: 220px;
-  height: 400px;
-  background: rgba(22,24,27,0.97);
-  border: 1px solid rgba(255,255,255,0.08);
+  height: 420px;
+  background: #111820;
+  border: 1px solid rgba(91,155,213,0.12);
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.04),
+    0 0 0 0.5px rgba(91,155,213,0.10),
     0 20px 40px rgba(0,0,0,0.5),
-    0 0 50px rgba(224,160,56,0.07);
+    0 0 60px rgba(91,155,213,0.15),
+    0 0 28px rgba(91,155,213,0.08);
 }
 
 .log-timestamp {
@@ -864,7 +874,7 @@ footer {
   .epilogue { padding: 60px 24px; margin-top: 60px; }
   .epilogue-phones { flex-direction: column; align-items: center; gap: 24px; }
   .ep-arrow-col { padding-top: 0; }
-  .ep-panel { width: 100%; max-width: 300px; height: 380px; }
+  .ep-panel { width: 100%; max-width: 300px; height: auto; }
 }
 </style>
 </head>
@@ -1027,7 +1037,7 @@ footer {
         <div class="ep-context">Morning · HRV low</div>
         <div class="ep-panel">
           <div class="p-header">
-            <div class="p-wordmark">Aether · via Oura</div>
+            <div class="p-wordmark">Aether · via wearable</div>
             <div class="p-title">Holding.</div>
             <div class="p-sub">HRV low · 3 tasks held</div>
           </div>
@@ -1041,6 +1051,24 @@ footer {
               <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">○ Send invoice #118 · held</div>
               <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">○ Reply to Marcus · held</div>
               <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">○ Book Doctor appointment · held</div>
+            </div>
+          </div>
+          <div class="cs-nav">
+            <div class="cs-nav-item active">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Today</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">Log</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Insights</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">You</span>
             </div>
           </div>
         </div>
@@ -1057,7 +1085,7 @@ footer {
           <div class="p-header">
             <div class="p-wordmark">Aether</div>
             <div class="p-title">Action Log</div>
-            <div class="p-sub">Today · Oura active</div>
+            <div class="p-sub">Today · wearable active</div>
           </div>
           <div class="p-body">
             <div class="log-timestamp">11:14AM</div>
@@ -1072,7 +1100,25 @@ footer {
             <div class="log-timestamp">9:00AM · Held</div>
             <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
               <div class="e-icon">⏳</div>
-              <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · Oura signal</div></div>
+              <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · wearable signal</div></div>
+            </div>
+          </div>
+          <div class="cs-nav">
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Today</span>
+            </div>
+            <div class="cs-nav-item active">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">Log</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Insights</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">You</span>
             </div>
           </div>
         </div>
