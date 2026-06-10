@@ -118,7 +118,7 @@ nav {
 
 .headline {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 7vw, 86px);
+  font-size: clamp(52px, 6vw, 86px);
   line-height: 0.96;
   letter-spacing: 0.01em;
   color: var(--text);
@@ -304,6 +304,16 @@ nav {
 .card-stack .tap-chip { font-size: 10px; padding: 4px 8px; }
 .card-stack .ambient-bar { padding: 9px 12px; }
 .card-stack .ambient-text { font-size: 10px; }
+.card-stack .call-chip {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 12px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  margin-top: 0;
+  letter-spacing: 0.04em;
+}
 
 /* ── EPILOGUE PANEL INNER ELEMENTS ── */
 .p-header { padding: 10px 14px 8px; flex-shrink: 0; }
@@ -535,7 +545,6 @@ nav {
   font-size: 9px;
   font-weight: 600;
   padding: 3px 7px;
-  margin-top: 4px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -937,15 +946,14 @@ footer {
             </div>
             <div class="e-body">
               <div class="e-label">Arranged</div>
-              <div class="e-text">GP appointment <span class="e-overdue">12d</span><span class="dim"> — book to clear it.</span></div>
+              <div class="e-text">GP appointment <span class="e-overdue">12d</span><span class="dim"> — still needs booking.</span></div>
               <div class="e-detail">
                 <div class="e-detail-row"><span class="e-detail-key">Card ·</span> Aetna #4821-JY</div>
                 <div class="e-detail-row"><span class="e-detail-key">Source ·</span> Confirmation email, Jan 2024</div>
               </div>
               <div class="e-action-row">
-                <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
+                <a class="call-chip" href="tel:+12125550198">Book appointment ↗</a>
               </div>
-              <div class="e-time">You didn't ask</div>
             </div>
           </div>
         </div>
@@ -991,12 +999,12 @@ footer {
     <div class="proof-item">
       <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.2" fill="#5b9bd5" opacity="0.85"/><circle cx="10" cy="10" r="5.5" stroke="#5b9bd5" stroke-width="1.3" fill="none" opacity="0.45"/><circle cx="10" cy="10" r="9" stroke="#5b9bd5" stroke-width="1.2" fill="none" opacity="0.18"/></svg></div>
       <div class="proof-label">How it works</div>
-      <div class="proof-text"><strong>Passive detection.</strong> Aether reads your calendar, tasks, and inbox. You don't configure anything.</div>
+      <div class="proof-text"><strong>Zero setup.</strong> Aether reads your calendar, tasks, and inbox. You don't configure anything.</div>
     </div>
     <div class="proof-item">
       <div class="proof-icon"><svg width="18" height="20" viewBox="0 0 18 20" fill="none"><rect x="1" y="1" width="16" height="18" rx="2.5" fill="rgba(91,155,213,0.08)" stroke="#5b9bd5" stroke-width="1.3"/><path d="M4.5 7h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 10.5h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.65"/><path d="M4.5 14h5.5" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/></svg></div>
       <div class="proof-label">What you get</div>
-      <div class="proof-text"><strong>The action log.</strong> Everything Aether does — visible, reviewable, yours to undo.</div>
+      <div class="proof-text"><strong>The action log.</strong> Everything Aether does — visible and yours to undo.</div>
     </div>
   </div>
 
@@ -1014,7 +1022,7 @@ footer {
           <div class="p-header">
             <div class="p-wordmark">Aether · via Oura</div>
             <div class="p-title">Holding. 💍</div>
-            <div class="p-sub">HRV low · 3 tasks held · not surfacing yet</div>
+            <div class="p-sub">HRV low · 3 tasks held · holding back</div>
           </div>
           <div class="p-body" id="ep-body-1">
             <div class="ep-metrics">
@@ -1064,7 +1072,7 @@ footer {
       </div>
     </div>
 
-    <p class="epilogue-sub">Physiological awareness is the next layer. When your body isn't ready, Aether won't push. It waits — and acts at the right moment.</p>
+    <p class="epilogue-sub">When your body isn't ready, Aether won't push. It waits — and acts at the right moment.</p>
     <div class="epilogue-tag">Wearable integration · Coming</div>
   </div>
 
@@ -1235,7 +1243,7 @@ async function runSequence() {
   await delay(IDLE);
 
   document.getElementById('p-title').textContent = 'While you were away';
-  document.getElementById('p-sub').textContent   = 'Aether acted · background';
+  document.getElementById('p-sub').textContent   = 'Aether acted';
   setNav('log');
 
   ambient.style.transition = 'opacity 0.5s ease';
