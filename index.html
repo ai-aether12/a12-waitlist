@@ -233,6 +233,7 @@ nav {
   color: var(--text-faint);
   margin-top: 1px;
   letter-spacing: 0.04em;
+  transition: color 0.4s ease;
 }
 
 .p-body {
@@ -431,14 +432,18 @@ nav {
   padding: 0 48px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--border);
+  border-top: 1px solid var(--border);
 }
 
-.proof-item { background: var(--surface); padding: 28px 32px; display: flex; flex-direction: column; gap: 8px; }
+.proof-item {
+  padding: 32px 40px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proof-item:last-child { padding-right: 0; }
+
 .proof-icon { font-size: 18px; margin-bottom: 4px; }
 .proof-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
 .proof-text { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
@@ -519,12 +524,29 @@ nav {
   opacity: 0.75;
 }
 
-.ep-arrow {
-  font-size: 22px;
-  color: var(--amber);
+/* Arrow column with causal label */
+.ep-arrow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   padding-top: 72px;
   flex-shrink: 0;
   opacity: 0;
+}
+
+.ep-arrow-icon {
+  font-size: 22px;
+  color: var(--amber);
+}
+
+.ep-arrow-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  opacity: 0.65;
+  white-space: nowrap;
 }
 
 .ep-col .phone {
@@ -712,11 +734,12 @@ footer {
   .hero-right { order: -1; }
   .phone { width: 200px; }
   .phone-screen { height: 460px; }
-  .proof-strip { grid-template-columns: 1fr; margin: 60px auto 0; padding: 0 24px; }
+  .proof-strip { padding: 0 24px; margin: 60px auto 0; }
+  .proof-item { padding: 28px 24px 0 0; }
   footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
   .epilogue { padding: 60px 24px; margin-top: 60px; }
   .epilogue-phones { flex-direction: column; align-items: center; gap: 24px; }
-  .ep-arrow { padding-top: 0; }
+  .ep-arrow-col { padding-top: 0; }
   .ep-col .phone { width: 200px; }
   .ep-col .phone-screen { height: 420px; }
 }
@@ -783,14 +806,14 @@ footer {
             </div>
             <div class="ambient-bar" id="ambient-bar">
               <div class="ambient-dot"></div>
-              <div class="ambient-text">Aether noticed something</div>
+              <div class="ambient-text" id="ambient-text">Done in the background</div>
             </div>
             <div class="action-entry staged-entry" id="action-invoice">
               <div class="e-icon">✉️</div>
               <div class="e-body">
-                <div class="e-label" id="invoice-label">Staged</div>
-                <div class="e-text">Invoice to Meridian — <span class="dim">draft ready to send.</span></div>
-                <div id="invoice-chip" class="tap-chip" onclick="handleSend()" style="cursor:pointer;">Send ↗</div>
+                <div class="e-label" id="invoice-label">Sent</div>
+                <div class="e-text">Invoice to Meridian — <span class="dim">draft ready, sent automatically.</span></div>
+                <div id="invoice-chip" class="tap-chip" onclick="handleSend()" style="display:none;">Send ↗</div>
                 <div class="e-time">6 days overdue · You didn't ask</div>
               </div>
             </div>
@@ -840,7 +863,6 @@ footer {
     </div>
 
     <div class="epilogue-phones">
-      <!-- Phone 1: Holding state -->
       <div class="ep-col">
         <div class="ep-context">Morning · HRV low</div>
         <div class="phone">
@@ -868,10 +890,11 @@ footer {
         </div>
       </div>
 
-      <!-- Arrow -->
-      <div class="ep-arrow" id="ep-arrow">→</div>
+      <div class="ep-arrow-col" id="ep-arrow-col">
+        <div class="ep-arrow-icon">→</div>
+        <div class="ep-arrow-label">HRV 38 → 71ms</div>
+      </div>
 
-      <!-- Phone 2: Action Log -->
       <div class="ep-col" id="ep-col-2" style="opacity:0;transform:translateX(14px)">
         <div class="ep-context">11:14am · HRV recovered</div>
         <div class="phone">
@@ -942,7 +965,7 @@ const LOOPS_API_KEY = 'd16f993b49fd6112763ee1e101b1d289';
 
 const IDLE       = 3000;
 const DETECT     = 1000;
-const ENTRY_HOLD = 5000;
+const ENTRY_HOLD = 4000;
 const GP_HOLD    = 5000;
 const RESET_OUT  = 700;
 const RESTART    = 500;
@@ -975,6 +998,12 @@ function resetAll() {
     if (taskLabel) taskLabel.style.transition = 'none';
 
     requestAnimationFrame(() => requestAnimationFrame(() => {
+      // Reset title / sub
+      const titleEl = document.getElementById('p-title');
+      const subEl   = document.getElementById('p-sub');
+      if (titleEl) titleEl.textContent = 'Today';
+      if (subEl)   subEl.textContent   = 'Watching quietly';
+
       ambient.style.opacity = '0';
       clearStyles(ambient, 'maxHeight', 'overflow', 'marginTop', 'marginBottom');
 
@@ -994,10 +1023,10 @@ function resetAll() {
 
       if (taskLabel) clearStyles(taskLabel, 'opacity', 'maxHeight', 'overflow');
 
+      // Invoice stays in sent state visually (set up fresh each cycle in runSequence)
       invEntry.classList.remove('sent');
-      chip.textContent   = 'Send ↗';
-      chip.style.display = 'inline-flex';
-      invLabel.textContent = 'Staged';
+      chip.style.display   = 'none';
+      invLabel.textContent = 'Sent';
 
       resolve();
     }));
@@ -1014,11 +1043,7 @@ function handleSend() {
 }
 
 async function resolveSend() {
-  invEntry.style.transition = 'all 0.4s ease';
-  invEntry.classList.add('sent');
-  chip.style.display = 'none';
-  invLabel.textContent = 'Sent ✓';
-
+  // Collapse stale task rows and ambient bar
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
   [taskInv, taskGp].forEach(t => {
     t.style.transition    = collapseTrans;
@@ -1038,6 +1063,7 @@ async function resolveSend() {
   ambient.style.marginTop    = '-6px';
   ambient.style.marginBottom = '-6px';
 
+  // Ghost and compress invoice entry
   await delay(500);
   invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
   invEntry.style.opacity       = '0.28';
@@ -1049,6 +1075,7 @@ async function resolveSend() {
   const eTime = invEntry.querySelector('.e-time');
   if (eTime) eTime.style.display = 'none';
 
+  // Surface GP entry
   await delay(50);
   gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   gpEntry.style.opacity    = '1';
@@ -1069,15 +1096,31 @@ async function resolveSend() {
 async function runSequence() {
   sequenceActive = true;
   await resetAll();
+
+  // Beat 1: stale tasks sit idle
   await delay(IDLE);
+
+  // Beat 2: phone shifts to discovery mode — user opened the app
+  document.getElementById('p-title').textContent = 'While you were away';
+  document.getElementById('p-sub').textContent   = 'Aether acted · background';
+
+  // Ambient bar fades in
   ambient.style.transition = 'opacity 0.5s ease';
   ambient.style.opacity = '1';
   await delay(DETECT);
+
+  // Beat 3: invoice dims, sent entry reveals (already completed — no tap needed)
   taskInv.style.transition  = 'opacity 0.5s ease';
   taskInv.style.opacity     = '0.35';
+
+  invEntry.classList.add('sent');
+  invLabel.textContent = 'Sent';
+  chip.style.display   = 'none';
+
   invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   invEntry.style.opacity    = '1';
   invEntry.style.transform  = 'translateY(0)';
+
   sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
 }
 
@@ -1098,14 +1141,14 @@ observer.observe(document.getElementById('p-body'));
 let epStarted = false;
 
 async function runEpilogueSequence() {
-  const elH1    = document.getElementById('ep-h1');
-  const elH2    = document.getElementById('ep-h2');
-  const elH3    = document.getElementById('ep-h3');
-  const elArrow = document.getElementById('ep-arrow');
-  const elCol2  = document.getElementById('ep-col-2');
-  const elLog1  = document.getElementById('ep-log-1');
-  const elLog2  = document.getElementById('ep-log-2');
-  const elLog3  = document.getElementById('ep-log-3');
+  const elH1       = document.getElementById('ep-h1');
+  const elH2       = document.getElementById('ep-h2');
+  const elH3       = document.getElementById('ep-h3');
+  const elArrowCol = document.getElementById('ep-arrow-col');
+  const elCol2     = document.getElementById('ep-col-2');
+  const elLog1     = document.getElementById('ep-log-1');
+  const elLog2     = document.getElementById('ep-log-2');
+  const elLog3     = document.getElementById('ep-log-3');
 
   if (!elH1) return;
   await delay(400);
@@ -1118,8 +1161,8 @@ async function runEpilogueSequence() {
   }
   await delay(500);
 
-  elArrow.style.transition = 'opacity 0.5s ease';
-  elArrow.style.opacity = '0.7';
+  elArrowCol.style.transition = 'opacity 0.5s ease';
+  elArrowCol.style.opacity = '0.8';
   await delay(350);
 
   elCol2.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
