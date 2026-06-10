@@ -654,7 +654,7 @@ footer {
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
   .hero-right { order: -1; }
   .phone { width: 200px; }
-  .phone-screen { height: 390px; }
+  .phone-screen { height: 460px; }
   .proof-strip { grid-template-columns: 1fr; margin: 60px auto 0; padding: 0 24px; }
   footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
   .epilogue { padding: 60px 24px; margin-top: 60px; }
@@ -864,7 +864,6 @@ const GP_HOLD    = 5000;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
-// Cached DOM references
 let ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp, taskLabel, chip, invLabel;
 
 function initEls() {
@@ -932,13 +931,11 @@ function handleSend() {
 }
 
 async function resolveSend() {
-  // Mark invoice as sent
   invEntry.style.transition = 'all 0.4s ease';
   invEntry.classList.add('sent');
   chip.style.display = 'none';
   invLabel.textContent = 'Sent ✓';
 
-  // Collapse task rows + ambient bar; negative margins cancel flex gap
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
   [taskInv, taskGp].forEach(t => {
     t.style.transition    = collapseTrans;
@@ -958,7 +955,6 @@ async function resolveSend() {
   ambient.style.marginTop    = '-6px';
   ambient.style.marginBottom = '-6px';
 
-  // Ghost and compress invoice entry
   await delay(500);
   invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
   invEntry.style.opacity       = '0.28';
@@ -970,13 +966,11 @@ async function resolveSend() {
   const eTime = invEntry.querySelector('.e-time');
   if (eTime) eTime.style.display = 'none';
 
-  // Surface GP entry
   await delay(50);
   gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   gpEntry.style.opacity    = '1';
   gpEntry.style.transform  = 'translateY(0)';
 
-  // Hold, then fade out and restart
   await delay(GP_HOLD);
   invEntry.style.transition = 'opacity 0.6s ease';
   gpEntry.style.transition  = 'opacity 0.6s ease';
@@ -992,28 +986,18 @@ async function resolveSend() {
 async function runSequence() {
   sequenceActive = true;
   await resetAll();
-
-  // Beat 1: stale tasks sit idle
   await delay(IDLE);
-
-  // Beat 2: ambient bar appears
   ambient.style.transition = 'opacity 0.5s ease';
   ambient.style.opacity = '1';
-
   await delay(DETECT);
-
-  // Beat 3: invoice dims, action entry slides in
   taskInv.style.transition  = 'opacity 0.5s ease';
   taskInv.style.opacity     = '0.35';
   invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   invEntry.style.opacity    = '1';
   invEntry.style.transform  = 'translateY(0)';
-
-  // Auto-advance if not tapped
   sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
 }
 
-// Start sequence on scroll into view
 let started = false;
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -1027,7 +1011,6 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(document.getElementById('p-body'));
 
-// Modal
 function openModal() {
   document.getElementById('modal').classList.add('open');
   setTimeout(() => document.getElementById('email-input').focus(), 300);
