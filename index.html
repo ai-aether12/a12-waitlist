@@ -261,7 +261,6 @@ nav {
   border-radius: 2px;
   background: rgba(255,255,255,0.15);
   transition: width 0.35s ease, background 0.35s ease;
-  cursor: default;
 }
 
 .phone-dot.active {
@@ -558,10 +557,7 @@ nav {
   opacity: 0;
 }
 
-.ep-arrow-icon {
-  font-size: 22px;
-  color: var(--amber);
-}
+.ep-arrow-icon { font-size: 22px; color: var(--amber); }
 
 .ep-arrow-label {
   font-family: 'DM Mono', monospace;
@@ -593,9 +589,7 @@ nav {
   flex-shrink: 0;
 }
 
-/* ── EPILOGUE PHONE CONTENT ── */
 .ep-body { flex: 1; overflow: hidden; padding: 0 12px 10px; display: flex; flex-direction: column; gap: 8px; }
-
 .ep-metrics { display: flex; flex-direction: column; gap: 5px; }
 
 .ep-metric {
@@ -754,7 +748,6 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 48px; }
-  .hero-right { order: -1; }
   .phone { width: 200px; }
   .phone-screen { height: 460px; }
   .proof-strip { padding: 0 24px; margin: 60px auto 0; }
@@ -1124,10 +1117,8 @@ async function runSequence() {
   sequenceActive = true;
   await resetAll();
 
-  // State 0: stale tasks idle
   await delay(IDLE);
 
-  // Phone shifts to discovery mode
   document.getElementById('p-title').textContent = 'While you were away';
   document.getElementById('p-sub').textContent   = 'Aether acted · background';
 
@@ -1135,7 +1126,6 @@ async function runSequence() {
   ambient.style.opacity = '1';
   await delay(DETECT);
 
-  // State 1: invoice already sent
   setDot(1);
   taskInv.style.transition  = 'opacity 0.5s ease';
   taskInv.style.opacity     = '0.35';
@@ -1164,7 +1154,6 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(document.getElementById('p-body'));
 
-// Epilogue sequence
 let epStarted = false;
 
 async function runEpilogueSequence() {
@@ -1217,7 +1206,6 @@ const epObserver = new IntersectionObserver(entries => {
 const epBodyEl = document.getElementById('ep-body-1');
 if (epBodyEl) epObserver.observe(epBodyEl);
 
-// Modal
 function openModal() {
   document.getElementById('modal').classList.add('open');
   setTimeout(() => document.getElementById('email-input').focus(), 300);
