@@ -143,26 +143,37 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--amber);
+  background: linear-gradient(155deg, #ffb731 0%, #e8901c 100%);
   color: #0d0f12;
   font-family: 'Syne', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  padding: 16px 36px;
+  padding: 18px 44px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   min-width: 200px;
   width: fit-content;
-  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 0 0 1px rgba(255,160,24,0.22), 0 4px 24px rgba(228,140,24,0.45), 0 10px 40px rgba(0,0,0,0.35);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
-.cta-btn:hover { background: #c88e30; transform: translateY(-1px); }
+.cta-btn:hover {
+  background: linear-gradient(155deg, #ffc040 0%, #f09820 100%);
+  box-shadow: 0 0 0 1px rgba(255,175,32,0.30), 0 6px 32px rgba(228,144,24,0.62), 0 14px 48px rgba(0,0,0,0.42);
+  transform: translateY(-2px);
+}
 .cta-btn:active { transform: translateY(0); }
 .cta-btn .arrow { font-size: 1rem; transition: transform 0.2s; }
 .cta-btn:hover .arrow { transform: translateX(3px); }
+
+.cta-btn--epilogue {
+  font-size: 0.9375rem;
+  padding: 15px 36px;
+  min-width: 170px;
+}
 
 .cta-mobile { display: none; }
 
@@ -917,6 +928,7 @@ footer {
   .epilogue-phones { flex-direction: column; align-items: center; gap: 24px; }
   .ep-arrow-col { padding-top: 0; }
   .ep-panel { width: 100%; max-width: 300px; height: auto; }
+  .cta-btn--epilogue { width: 100%; max-width: 320px; }
 }
 </style>
 </head>
@@ -948,7 +960,7 @@ footer {
       </p>
       <div class="cta-block">
         <button class="cta-btn" onclick="openModal()">
-          I'm in <span class="arrow">→</span>
+          I'm in <span class="arrow">&rarr;</span>
         </button>
       </div>
     </div>
@@ -961,7 +973,7 @@ footer {
           <div class="cs-sub" id="p-sub">Watching quietly</div>
         </div>
         <div class="cs-body" id="p-body">
-          <div class="task-section-label">Open — not started</div>
+          <div class="task-section-label">Open &mdash; not started</div>
           <div class="stale-task" id="task-invoice">
             <div class="task-box"></div>
             <div class="task-label">Send invoice #118</div>
@@ -985,9 +997,9 @@ footer {
             <div class="e-icon">✉️</div>
             <div class="e-body">
               <div class="e-label" id="invoice-label">Staged</div>
-              <div class="e-text">Invoice to Hartwell — <span class="dim">draft ready.</span></div>
-              <div id="invoice-chip" class="tap-chip">Send ↗</div>
-              <div class="e-time">6 days overdue · You didn't ask</div>
+              <div class="e-text">Invoice to Hartwell &mdash; <span class="dim">draft ready.</span></div>
+              <div id="invoice-chip" class="tap-chip">Send &nearr;</div>
+              <div class="e-time">6 days overdue &middot; You didn't ask</div>
             </div>
           </div>
           <div class="action-entry gp-entry" id="action-gp">
@@ -998,13 +1010,13 @@ footer {
             </div>
             <div class="e-body">
               <div class="e-label">Staged</div>
-              <div class="e-text">Doctor appointment <span class="e-overdue">12d</span><span class="dim"> — ready to book.</span></div>
+              <div class="e-text">Doctor appointment <span class="e-overdue">12d</span><span class="dim"> &mdash; ready to book.</span></div>
               <div class="e-detail">
-                <div class="e-detail-row"><span class="e-detail-key">Card ·</span> Aetna #4821-JY</div>
-                <div class="e-detail-row"><span class="e-detail-key">Source ·</span> Confirmation email, Jan 2024</div>
+                <div class="e-detail-row"><span class="e-detail-key">Card &middot;</span> Aetna #4821-JY</div>
+                <div class="e-detail-row"><span class="e-detail-key">Source &middot;</span> Confirmation email, Jan 2024</div>
               </div>
               <div class="e-action-row">
-                <a class="call-chip" href="tel:+12125550198">Book appointment ↗</a>
+                <a class="call-chip" href="tel:+12125550198">Book appointment &nearr;</a>
               </div>
             </div>
           </div>
@@ -1042,7 +1054,7 @@ footer {
 
   <div class="cta-mobile">
     <button class="cta-btn" onclick="openModal()">
-      I'm in <span class="arrow">→</span>
+      I'm in <span class="arrow">&rarr;</span>
     </button>
   </div>
 
@@ -1055,12 +1067,12 @@ footer {
     <div class="proof-item">
       <div class="proof-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.2" fill="#5b9bd5" opacity="0.85"/><circle cx="10" cy="10" r="5.5" stroke="#5b9bd5" stroke-width="1.3" fill="none" opacity="0.45"/><circle cx="10" cy="10" r="9" stroke="#5b9bd5" stroke-width="1.2" fill="none" opacity="0.18"/></svg></div>
       <div class="proof-label">How it works</div>
-      <div class="proof-text"><strong>Passive detection.</strong> Aether connects to your calendar, tasks, and inbox — with more sources on the way. Minimal upfront config, and it learns as it goes.</div>
+      <div class="proof-text"><strong>Passive detection.</strong> Aether connects to your calendar, tasks, and inbox &mdash; with more sources on the way. Minimal upfront config, and it learns as it goes.</div>
     </div>
     <div class="proof-item">
       <div class="proof-icon"><svg width="18" height="20" viewBox="0 0 18 20" fill="none"><rect x="1" y="1" width="16" height="18" rx="2.5" fill="rgba(91,155,213,0.08)" stroke="#5b9bd5" stroke-width="1.3"/><path d="M4.5 7h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 10.5h9" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.65"/><path d="M4.5 14h5.5" stroke="#5b9bd5" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/></svg></div>
       <div class="proof-label">What you get</div>
-      <div class="proof-text"><strong>Full visibility.</strong> Everything Aether does — visible and yours to undo.</div>
+      <div class="proof-text"><strong>Full visibility.</strong> Everything Aether does &mdash; visible and yours to undo.</div>
     </div>
   </div>
 
@@ -1073,23 +1085,23 @@ footer {
 
     <div class="epilogue-phones">
       <div class="ep-col">
-        <div class="ep-context">Morning · HRV low</div>
+        <div class="ep-context">Morning &middot; HRV low</div>
         <div class="ep-panel">
           <div class="p-header">
-            <div class="p-wordmark">Aether · via wearable</div>
+            <div class="p-wordmark">Aether &middot; via wearable</div>
             <div class="p-title">Holding.</div>
-            <div class="p-sub">HRV low · 3 tasks held</div>
+            <div class="p-sub">HRV low &middot; 3 tasks held</div>
           </div>
           <div class="p-body" id="ep-body-1">
             <div class="ep-metrics">
-              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">HRV</div><div class="ep-metric-val amber">38ms · −31% baseline</div></div>
-              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">Readiness</div><div class="ep-metric-val amber">54 · Low</div></div>
+              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">HRV</div><div class="ep-metric-val amber">38ms &middot; &minus;31% baseline</div></div>
+              <div class="ep-metric"><div class="ep-dot amber"></div><div class="ep-metric-name">Readiness</div><div class="ep-metric-val amber">54 &middot; Low</div></div>
               <div class="ep-metric"><div class="ep-dot red"></div><div class="ep-metric-name">Deep sleep</div><div class="ep-metric-val red">0h 41m</div></div>
             </div>
             <div class="ep-held">
-              <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">○ Send invoice #118 · held</div>
-              <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">○ Reply to Marcus · held</div>
-              <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">○ Book Doctor appointment · held</div>
+              <div class="ep-held-item" id="ep-h1" style="opacity:0;transform:translateY(6px)">&circ; Send invoice #118 &middot; held</div>
+              <div class="ep-held-item" id="ep-h2" style="opacity:0;transform:translateY(6px)">&circ; Reply to Marcus &middot; held</div>
+              <div class="ep-held-item" id="ep-h3" style="opacity:0;transform:translateY(6px)">&circ; Book Doctor appointment &middot; held</div>
             </div>
           </div>
           <div class="cs-nav">
@@ -1114,32 +1126,32 @@ footer {
       </div>
 
       <div class="ep-arrow-col" id="ep-arrow-col">
-        <div class="ep-arrow-icon">→</div>
-        <div class="ep-arrow-label">HRV 38 → 71ms</div>
+        <div class="ep-arrow-icon">&rarr;</div>
+        <div class="ep-arrow-label">HRV 38 &rarr; 71ms</div>
       </div>
 
       <div class="ep-col" id="ep-col-2" style="opacity:0;transform:translateX(14px)">
-        <div class="ep-context">11:14am · HRV recovered</div>
+        <div class="ep-context">11:14am &middot; HRV recovered</div>
         <div class="ep-panel">
           <div class="p-header">
             <div class="p-wordmark">Aether</div>
             <div class="p-title">Action Log</div>
-            <div class="p-sub">Today · wearable active</div>
+            <div class="p-sub">Today &middot; wearable active</div>
           </div>
           <div class="p-body">
             <div class="log-timestamp">11:14AM</div>
             <div class="action-entry gp-entry" id="ep-log-1" style="transform:translateY(0)">
-              <div class="e-icon">❖</div>
-              <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 — <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window · You didn't ask</div></div>
+              <div class="e-icon">&loz;</div>
+              <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 &mdash; <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window &middot; You didn't ask</div></div>
             </div>
             <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
               <div class="e-icon">🛡️</div>
-              <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block — <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
+              <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block &mdash; <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
             </div>
-            <div class="log-timestamp">9:00AM · Held</div>
+            <div class="log-timestamp">9:00AM &middot; Held</div>
             <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
               <div class="e-icon">⏳</div>
-              <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held — <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m · wearable signal</div></div>
+              <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held &mdash; <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m &middot; wearable signal</div></div>
             </div>
           </div>
           <div class="cs-nav">
@@ -1164,8 +1176,9 @@ footer {
       </div>
     </div>
 
-    <p class="epilogue-sub">When your body isn't ready, Aether won't push. It waits — and acts at the right moment.</p>
-    <div class="epilogue-tag">Wearable integration · Coming</div>
+    <p class="epilogue-sub">When your body isn't ready, Aether won't push. It waits &mdash; and acts at the right moment.</p>
+    <button class="cta-btn cta-btn--epilogue" onclick="openModal()">I'm in <span class="arrow">&rarr;</span></button>
+    <div class="epilogue-tag">Wearable integration &middot; Coming</div>
   </div>
 
   <footer>
@@ -1177,7 +1190,7 @@ footer {
 
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
+    <button class="modal-close" onclick="closeModal()">&times;</button>
     <div id="modal-form-state">
       <div class="modal-tag">Early access</div>
       <div class="modal-title">You're almost in.</div>
@@ -1190,9 +1203,9 @@ footer {
       <div class="modal-error" id="modal-error"></div>
     </div>
     <div class="modal-success" id="modal-success-state">
-      <div class="success-icon">✦</div>
+      <div class="success-icon">&#10022;</div>
       <div class="success-title">You're on the list.</div>
-      <div class="success-sub">Aether will reach out when your spot opens — you're near the front.</div>
+      <div class="success-sub">Aether will reach out when your spot opens &mdash; you're near the front.</div>
     </div>
   </div>
 </div>
