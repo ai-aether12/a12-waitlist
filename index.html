@@ -478,7 +478,7 @@ nav {
 .staged-entry.sent .e-label { color: var(--green); }
 
 .gp-entry::before { background: var(--green); }
-.gp-entry .e-icon { background: var(--green-dim); }
+.gp-entry .e-icon { background: var(--green-dim); color: var(--green); }
 .gp-entry .e-label { color: var(--green); }
 
 .waited-entry::before { background: var(--amber); }
@@ -503,6 +503,29 @@ nav {
   display: flex;
   gap: 5px;
   line-height: 1.4;
+}
+
+.e-detail-key {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.e-overdue {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: 0.04em;
+  margin-left: 4px;
+}
+
+.e-action-row {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .call-chip {
@@ -907,15 +930,21 @@ footer {
             </div>
           </div>
           <div class="action-entry gp-entry" id="action-gp">
-            <div class="e-icon">📅</div>
+            <div class="e-icon">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
             <div class="e-body">
-              <div class="e-label">Surfaced</div>
-              <div class="e-text">GP appointment — <span class="dim">12 days overdue.</span></div>
+              <div class="e-label">Arranged</div>
+              <div class="e-text">GP appointment <span class="e-overdue">12d</span><span class="dim"> — book to clear it.</span></div>
               <div class="e-detail">
-                <div class="e-detail-row">📋 <span>Have insurance card ready — Aetna #4821-JY</span></div>
-                <div class="e-detail-row">📧 <span>Found in: confirmation email, Jan 2024</span></div>
+                <div class="e-detail-row"><span class="e-detail-key">Card ·</span> Aetna #4821-JY</div>
+                <div class="e-detail-row"><span class="e-detail-key">Source ·</span> Confirmation email, Jan 2024</div>
               </div>
-              <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
+              <div class="e-action-row">
+                <a class="tap-chip call-chip" href="tel:+12125550198">Call surgery ↗</a>
+              </div>
               <div class="e-time">You didn't ask</div>
             </div>
           </div>
@@ -1018,7 +1047,7 @@ footer {
           <div class="p-body">
             <div class="log-timestamp">11:14AM</div>
             <div class="action-entry gp-entry" id="ep-log-1" style="transform:translateY(0)">
-              <div class="e-icon">✦</div>
+              <div class="e-icon">❖</div>
               <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 — <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window · You didn't ask</div></div>
             </div>
             <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
