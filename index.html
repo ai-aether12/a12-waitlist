@@ -1214,7 +1214,6 @@ const LOOPS_API_KEY = 'd16f993b49fd6112763ee1e101b1d289';
 const LOOPS_TRANSACTIONAL_ID = 'cmq8e9jnv037x0jyv9ijvccei';
 
 const IDLE       = 4000;
-const DETECT     = 1200;
 const ENTRY_HOLD = 6000;
 const GP_HOLD    = 6500;
 const RESET_OUT  = 700;
@@ -1249,12 +1248,16 @@ function clearStyles(el, ...props) {
 
 function resetAll() {
   return new Promise(resolve => {
-    [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
-      el.style.transition = 'none';
-    });
-    if (taskLabel) taskLabel.style.transition = 'none';
+    const body = document.getElementById('p-body');
+    body.style.transition = 'opacity 0.12s ease';
+    body.style.opacity    = '0';
 
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    setTimeout(() => {
+      [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+        el.style.transition = 'none';
+      });
+      if (taskLabel) taskLabel.style.transition = 'none';
+
       const titleEl = document.getElementById('p-title');
       const subEl   = document.getElementById('p-sub');
       if (titleEl) titleEl.textContent = 'Today';
@@ -1284,8 +1287,13 @@ function resetAll() {
       invLabel.textContent = 'Sent';
 
       setNav('today');
-      resolve();
-    }));
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        body.style.transition = 'opacity 0.18s ease';
+        body.style.opacity    = '1';
+        resolve();
+      }));
+    }, 130);
   });
 }
 
@@ -1346,25 +1354,35 @@ async function runSequence() {
 
   await delay(IDLE);
 
+  // Fade out body — leaving-screen feel
+  const body = document.getElementById('p-body');
+  body.style.transition = 'opacity 0.15s ease';
+  body.style.opacity    = '0';
+  await delay(160);
+
+  // Snap all state at once — no per-element transitions
+  [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+    el.style.transition = 'none';
+  });
   document.getElementById('p-title').textContent = 'While you were away';
   document.getElementById('p-sub').textContent   = 'Aether acted';
   setNav('log');
 
-  ambient.style.transition = 'opacity 0.5s ease';
-  ambient.style.opacity = '1';
-  await delay(DETECT);
-
-  taskInv.style.transition  = 'opacity 0.5s ease';
-  taskInv.style.opacity     = '0.35';
-
+  ambient.style.opacity    = '1';
+  taskInv.style.opacity    = '0.35';
   invEntry.classList.add('sent');
-  invLabel.textContent = 'Sent';
-  chip.style.display   = 'none';
+  invLabel.textContent     = 'Sent';
+  chip.style.display       = 'none';
+  invEntry.style.opacity   = '1';
+  invEntry.style.transform = 'translateY(0)';
 
-  invEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  invEntry.style.opacity    = '1';
-  invEntry.style.transform  = 'translateY(0)';
+  // Fade body back in — entering-screen feel
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    body.style.transition = 'opacity 0.22s ease';
+    body.style.opacity    = '1';
+  }));
 
+  await delay(240);
   sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
 }
 
