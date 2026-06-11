@@ -1032,6 +1032,181 @@ footer {
 .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.875rem; color: var(--text); letter-spacing: 0.02em; }
 .success-sub { font-size: 0.875rem; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
 
+/* ── PEEK STRIPS ── */
+.peek-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 5px 7px;
+  background: var(--blue-dim);
+  border: 1px solid rgba(91,155,213,0.18);
+  border-radius: 6px;
+}
+.peek-strip--green {
+  background: var(--green-dim);
+  border-color: rgba(85,185,140,0.18);
+}
+.peek-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+  animation: ambientpulse 2s ease-in-out infinite;
+}
+.peek-dot--green { background: var(--green); }
+.peek-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--blue);
+  flex: 1;
+  letter-spacing: 0.02em;
+}
+.peek-strip--green .peek-text { color: var(--green); }
+.peek-arr {
+  font-size: 0.75rem;
+  color: var(--blue);
+  opacity: 0.55;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.peek-strip--green .peek-arr { color: var(--green); }
+
+/* ── INSIGHT PANEL ── */
+#insight-marcus {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.insight-headline {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.insight-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+  margin-top: -4px;
+}
+.insight-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.insight-stat {
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 7px;
+  padding: 7px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.insight-stat-val {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.insight-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.insight-cycle {
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 7px;
+  padding: 8px 10px;
+}
+.insight-cycle-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.insight-cycle-row {
+  display: flex;
+  align-items: flex-start;
+}
+.insight-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+.insight-node-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.3);
+  color: var(--text-faint);
+}
+.insight-node--done .insight-node-dot {
+  background: var(--green-dim);
+  border-color: var(--green);
+  color: var(--green);
+}
+.insight-node--stall .insight-node-dot {
+  background: var(--amber-dim);
+  border-color: var(--amber);
+  color: var(--amber);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+}
+.insight-node--next .insight-node-dot {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.insight-node-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--text-faint);
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.insight-conn {
+  flex: 0 0 10px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.10);
+  margin-top: 11px;
+}
+.insight-notice {
+  background: var(--blue-dim);
+  border: 1px solid rgba(91,155,213,0.18);
+  border-radius: 7px;
+  padding: 8px 10px;
+}
+.insight-notice-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+.insight-cta { margin-top: 2px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
@@ -1121,6 +1296,11 @@ footer {
                   <a class="call-chip call-chip--undo" href="#">Void</a>
                 </div>
               </div>
+              <div class="peek-strip">
+                <div class="peek-dot"></div>
+                <span class="peek-text">Aether noticed something about invoices</span>
+                <span class="peek-arr">&#x25BE;</span>
+              </div>
             </div>
           </div>
 
@@ -1138,6 +1318,11 @@ footer {
                 <div class="e-action-row">
                   <a class="call-chip call-chip--slack" href="#">View in Slack &nearr;</a>
                 </div>
+              </div>
+              <div class="peek-strip">
+                <div class="peek-dot"></div>
+                <span class="peek-text">Aether noticed something about Marcus</span>
+                <span class="peek-arr">&#x25BE;</span>
               </div>
             </div>
           </div>
@@ -1161,12 +1346,77 @@ footer {
                   <a class="call-chip log-chip-grow" href="#">Reschedule &nearr;</a>
                 </div>
               </div>
+              <div class="peek-strip peek-strip--green">
+                <div class="peek-dot peek-dot--green"></div>
+                <span class="peek-text">Aether noticed something about your Tuesdays</span>
+                <span class="peek-arr">&#x25BE;</span>
+              </div>
             </div>
           </div>
 
           <div class="ambient-bar" id="ambient-bar">
             <div class="ambient-dot"></div>
             <div class="ambient-text">Done in the background</div>
+          </div>
+
+          <div id="insight-marcus" style="display:none">
+            <div class="log-entry staged-entry" style="flex-shrink:0">
+              <div class="e-icon">💬</div>
+              <div class="e-body">
+                <div class="log-summary">
+                  <span class="e-label">Replied</span>
+                  <span class="log-title">Marcus &middot; #design-reviews</span>
+                  <span class="log-age">3d</span>
+                </div>
+              </div>
+            </div>
+            <div class="insight-headline">
+              Marcus replies need a <span style="color:var(--blue)">better moment</span> to send.
+            </div>
+            <div class="insight-sub">Aether noticed this across 4 threads &middot; 3 weeks</div>
+            <div class="insight-stats">
+              <div class="insight-stat">
+                <div class="insight-stat-val" style="color:var(--blue)">4</div>
+                <div class="insight-stat-label">Drafts held<br>this week</div>
+              </div>
+              <div class="insight-stat">
+                <div class="insight-stat-val" style="color:var(--amber)">~2d</div>
+                <div class="insight-stat-label">Draft sits<br>before sending</div>
+              </div>
+              <div class="insight-stat">
+                <div class="insight-stat-val" style="color:var(--green)">Tue</div>
+                <div class="insight-stat-label">Mornings<br>work best</div>
+              </div>
+            </div>
+            <div class="insight-cycle">
+              <div class="insight-cycle-lbl">Where the handoff is</div>
+              <div class="insight-cycle-row">
+                <div class="insight-node insight-node--done">
+                  <div class="insight-node-dot">&#x2713;</div>
+                  <div class="insight-node-lbl">Draft<br>ready</div>
+                </div>
+                <div class="insight-conn"></div>
+                <div class="insight-node insight-node--done">
+                  <div class="insight-node-dot">&#x2713;</div>
+                  <div class="insight-node-lbl">Staged<br>for you</div>
+                </div>
+                <div class="insight-conn"></div>
+                <div class="insight-node insight-node--stall">
+                  <div class="insight-node-dot">···</div>
+                  <div class="insight-node-lbl" style="color:var(--amber)">Waiting<br>to send</div>
+                </div>
+                <div class="insight-conn"></div>
+                <div class="insight-node insight-node--next">
+                  <div class="insight-node-dot">&#x2197;</div>
+                  <div class="insight-node-lbl">Right<br>moment</div>
+                </div>
+              </div>
+            </div>
+            <div class="insight-notice">
+              <div class="insight-notice-lbl">What Aether can do</div>
+              <div class="e-text" style="margin-top:3px">Marcus messages tend to arrive when timing isn&rsquo;t right. Aether can hold the draft and release it on <strong>Tuesday mornings</strong> &mdash; when sending feels easier. Nothing goes out without you approving first.</div>
+            </div>
+            <a class="call-chip insight-cta" href="#">Let Aether pick the moment</a>
           </div>
           <div class="action-entry staged-entry" id="action-invoice">
             <div class="e-icon">✉️</div>
@@ -1407,7 +1657,7 @@ const IDLE       = 4000;
 const ENTRY_HOLD = 6000;
 const RESTART    = 500;
 
-let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel;
+let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
 
 function initEls() {
   ambient         = document.getElementById('ambient-bar');
@@ -1422,6 +1672,7 @@ function initEls() {
   logGpDetail     = document.getElementById('log-gp-detail');
   invoiceActionRow= document.getElementById('invoice-action-row');
   invLabel        = document.getElementById('invoice-label');
+  insightMarcus   = document.getElementById('insight-marcus');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -1457,9 +1708,10 @@ function resetAll() {
       invLabel.textContent = 'Staged';
       invEntry.classList.remove('sent');
 
-      // Hide log entries
+      // Hide log entries and insight panel
       [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
       ambient.style.display = 'none';
+      if (insightMarcus) insightMarcus.style.display = 'none';
 
       // Reset log details and chevrons for next cycle
       [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => {
@@ -1526,14 +1778,39 @@ async function runSequence() {
   logGpDetail.style.opacity    = '1';
   logGpDetail.style.overflow   = 'visible';
 
-  await delay(ENTRY_HOLD); // hold 6s with Doctor expanded
+  await delay(4000); // hold 4s with Doctor expanded
 
-  // Collapse and loop
+  // Collapse Doctor
   gpChevron.style.transform   = '';
   logGpDetail.style.maxHeight = '0';
   logGpDetail.style.opacity   = '0';
   logGpDetail.style.overflow  = 'hidden';
   await delay(500);
+
+  // Phase 4: Marcus insight panel
+  body.style.transition = 'opacity 0.15s ease';
+  body.style.opacity    = '0';
+  await delay(160);
+
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
+  insightMarcus.style.display        = 'flex';
+  insightMarcus.style.flexDirection  = 'column';
+  document.getElementById('p-title').textContent = 'Marcus · Insight';
+  document.getElementById('p-sub').textContent   = 'Pattern found';
+  setNav('insights');
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    body.style.transition = 'opacity 0.22s ease';
+    body.style.opacity    = '1';
+  }));
+  await delay(240);
+  await delay(ENTRY_HOLD); // hold 6s on insight
+
+  // Fade out before looping
+  body.style.transition = 'opacity 0.15s ease';
+  body.style.opacity    = '0';
+  await delay(160);
+  insightMarcus.style.display = 'none';
 
   await delay(RESTART);
   runSequence();
