@@ -216,7 +216,7 @@ nav {
 /* ── FLOATING CARD STACK ── */
 .card-stack {
   width: 340px;
-  height: 500px;
+  height: 580px;
   background: linear-gradient(160deg, #1e2d40 0%, #162030 45%, #0f1820 100%);
   border: 1px solid rgba(91,155,213,0.28);
   border-radius: 20px;
@@ -918,7 +918,7 @@ footer {
   .hero-right::before { display: none; }
   .cta-mobile { display: flex; justify-content: center; padding: 28px 24px 0; }
   .cta-mobile .cta-btn { width: 100%; max-width: 360px; }
-  .card-stack { width: 100%; max-width: 360px; height: 480px; }
+  .card-stack { width: 100%; max-width: 360px; height: 560px; }
   .proof-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; grid-template-columns: repeat(3, 220px); column-gap: 24px; padding: 0 24px 24px; margin: 60px auto 0; }
   .proof-strip::-webkit-scrollbar { display: none; }
   .proof-item { padding: 28px 0 0; }
@@ -1370,11 +1370,14 @@ async function runSequence() {
 
   ambient.style.opacity    = '1';
   taskInv.style.opacity    = '0.35';
+  taskGp.style.opacity     = '0.35';
   invEntry.classList.add('sent');
   invLabel.textContent     = 'Sent';
   chip.style.display       = 'none';
   invEntry.style.opacity   = '1';
   invEntry.style.transform = 'translateY(0)';
+  gpEntry.style.opacity    = '1';
+  gpEntry.style.transform  = 'translateY(0)';
 
   // Fade body back in — entering-screen feel
   requestAnimationFrame(() => requestAnimationFrame(() => {
