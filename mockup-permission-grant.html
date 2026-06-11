@@ -22,6 +22,8 @@
     --amber: #e6a817;
     --amber-dim: rgba(230,168,23,0.1);
     --red: #e05c5c;
+    --amber: #e6a817;
+    --amber-dim: rgba(230,168,23,0.10);
   }
 
   body {
@@ -138,6 +140,45 @@
     color: var(--red);
     flex-shrink: 0;
     margin-top: 2px;
+  }
+  .source-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-top: 4px;
+  }
+  .time-window {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+  }
+  .time-window-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--amber);
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    animation: amberpulse 1.8s ease-in-out infinite;
+  }
+  @keyframes amberpulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+  .convergence-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: var(--text-faint);
+    letter-spacing: 0.03em;
+    margin-top: 4px;
   }
 
   /* Reasoning card — why Aether thinks now is right */
@@ -291,7 +332,8 @@
   <div class="cs-header">
     <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
     <div class="cs-title">Before I act &mdash;</div>
-    <div class="cs-sub">1:35pm &middot; 25 min before your call</div>
+    <div class="time-window"><span class="time-window-dot"></span>25 min window &middot; 1:35pm</div>
+    <div class="convergence-line">3 signals converged. This is the moment.</div>
   </div>
 
   <div class="cs-body">
@@ -303,21 +345,21 @@
         <div class="signal-label">Overdue</div>
         <div class="signal-title">Invoice #118 &middot; Hartwell Co.</div>
         <div class="signal-detail">Draft ready &middot; unsent</div>
+        <div class="source-tag">from Log</div>
       </div>
       <div class="signal-age">6d</div>
     </div>
 
     <!-- Aether's reasoning -->
     <div class="reasoning-card">
-      <div class="reasoning-lbl">Why now</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="reasoning-lbl" style="margin-bottom:0">Why now</div>
+        <div class="source-tag" style="margin-top:0">from Insights</div>
+      </div>
       <div class="reasoning-rows">
         <div class="reasoning-row">
           <div class="reasoning-dot"></div>
           <div class="reasoning-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div>
-        </div>
-        <div class="reasoning-row">
-          <div class="reasoning-dot"></div>
-          <div class="reasoning-text"><strong>HRV baseline.</strong> You&rsquo;re in a good window to handle a reply if it comes.</div>
         </div>
         <div class="reasoning-row">
           <div class="reasoning-dot"></div>
