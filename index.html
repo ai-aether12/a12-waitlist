@@ -1217,6 +1217,229 @@ footer {
   animation: insightsPulse 2.2s ease-in-out infinite;
 }
 
+/* ── INTERRUPT SECTION ── */
+.interrupt-section {
+  margin-top: 120px;
+  padding: 100px 48px;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 40%, rgba(91,155,213,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 15% 75%, rgba(85,185,140,0.06) 0%, transparent 65%),
+    var(--bg);
+  border-top: 1px solid rgba(91,155,213,0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.interrupt-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(91,155,213,0.65);
+}
+.interrupt-section-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.625rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: rgba(240,240,238,0.78);
+}
+.interrupt-accent { color: rgba(91,155,213,0.95); }
+.interrupt-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(91,155,213,0.65);
+  border: 1px solid rgba(91,155,213,0.25);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+.int-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 9px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+.int-secondary {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.int-secondary-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-faint);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  padding: 7px 6px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.int-safety {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+/* V1 signal rows: ep-metric with coloured left border */
+.int-signal { border-left-width: 2px; border-left-style: solid; padding-left: 8px; align-items: flex-start; flex-wrap: nowrap; }
+.int-signal .ep-dot { margin-top: 3px; flex-shrink: 0; }
+.int-signal-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.int-signal-title { font-size: 0.6875rem; color: var(--text); line-height: 1.3; }
+.int-signal-sub { font-family: 'DM Mono', monospace; font-size: 0.625rem; color: var(--text-faint); }
+/* V2 ambient sheet */
+.ambient-bg { flex: 1; overflow: hidden; display: flex; flex-direction: column; padding: 0 11px; gap: 5px; opacity: 0.25; pointer-events: none; }
+.ambient-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, #1b2a3a 0%, #0f1820 100%);
+  border-top: 1px solid rgba(91,155,213,0.22);
+  border-radius: 10px 10px 0 0;
+  padding: 8px 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.ambient-sheet.open { transform: translateY(0); }
+.ambient-handle {
+  width: 28px;
+  height: 3px;
+  background: rgba(255,255,255,0.16);
+  border-radius: 2px;
+  margin: 0 auto 3px;
+  flex-shrink: 0;
+}
+.ambient-sheet-hdr { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.ambient-sheet-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--text-faint);
+}
+.ambient-later {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+.ambient-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.ambient-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+  margin-top: -2px;
+  flex-shrink: 0;
+}
+.ambient-handled-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ambient-chips { display: flex; flex-wrap: wrap; gap: 4px; flex-shrink: 0; }
+.ambient-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: var(--green);
+  background: var(--green-dim);
+  border: 1px solid rgba(85,185,140,0.25);
+  border-radius: 4px;
+  padding: 3px 6px;
+  letter-spacing: 0.02em;
+}
+.ambient-needs-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--blue);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ambient-needs-card {
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
+  padding: 7px 8px;
+  flex-shrink: 0;
+}
+.ambient-signal-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: var(--text-faint);
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+.ambient-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 9px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ambient-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-faint);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  padding: 7px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
@@ -1236,6 +1459,9 @@ footer {
   .ep-arrow-col { padding-top: 0; }
   .ep-panel { width: 100%; max-width: 300px; height: auto; }
   .cta-btn--epilogue { width: 100%; max-width: 320px; }
+  .interrupt-section { padding: 60px 24px; margin-top: 60px; }
+  .ambient-sheet { position: relative; transform: none; border-radius: 8px; margin-top: 8px; border: 1px solid rgba(91,155,213,0.18); }
+  .ambient-bg { flex: none; }
 }
 </style>
 </head>
@@ -1523,6 +1749,120 @@ footer {
       <div class="proof-label">What you get</div>
       <div class="proof-text"><strong>Full visibility.</strong> Everything Aether does &mdash; visible and yours to undo.</div>
     </div>
+  </div>
+
+  <div class="interrupt-section">
+    <div class="interrupt-section-label">How Aether asks</div>
+    <div class="interrupt-section-headline">
+      Handles what it can.<br>
+      <span class="interrupt-accent">Asks for the rest.</span>
+    </div>
+
+    <div class="epilogue-phones">
+
+      <!-- V1: Active interrupt — "Before I act" -->
+      <div class="ep-col">
+        <div class="ep-context" style="color:rgba(91,155,213,0.75)">Active interrupt &middot; user is in app</div>
+        <div class="ep-panel">
+          <div class="p-header">
+            <div class="p-wordmark">Aether</div>
+            <div class="p-title" style="font-size:1rem">Before I act &mdash;</div>
+            <div class="p-sub">your call is in 60 min</div>
+          </div>
+          <div class="p-body" id="int-body-1">
+            <div class="task-section-label">What Aether noticed</div>
+            <div class="ep-metric int-signal" id="int-s1" style="opacity:0;transform:translateY(6px);border-left-color:var(--red)">
+              <div class="ep-dot red"></div>
+              <div class="int-signal-body">
+                <div class="int-signal-title">Invoice #118 hasn&rsquo;t been sent</div>
+                <div class="int-signal-sub">Hartwell &middot; task untouched</div>
+              </div>
+              <div class="ep-metric-val red">6d</div>
+            </div>
+            <div class="ep-metric int-signal" id="int-s2" style="opacity:0;transform:translateY(6px);border-left-color:var(--amber)">
+              <div class="ep-dot amber"></div>
+              <div class="int-signal-body">
+                <div class="int-signal-title">Marcus reply sitting in draft</div>
+                <div class="int-signal-sub">Ready to send</div>
+              </div>
+              <div class="ep-metric-val amber">3d</div>
+            </div>
+            <div class="task-section-label" id="int-will-lbl" style="opacity:0">What Aether will do</div>
+            <div class="ep-held" id="int-reasoning" style="opacity:0;transform:translateY(4px)">
+              <div class="ep-held-item">Block 1:35&ndash;2:00pm on your calendar. Hold non-urgent notifications. Stage the Marcus reply for one tap.</div>
+            </div>
+            <div class="int-safety" id="int-safety" style="opacity:0">Nothing leaves without you. All actions undoable from the log.</div>
+            <a class="int-cta" id="int-cta" href="#" style="opacity:0">Let Aether handle it &nearr;</a>
+            <div class="int-secondary" id="int-secondary" style="opacity:0">
+              <a class="int-secondary-btn" href="#">I&rsquo;ll handle it</a>
+              <a class="int-secondary-btn" href="#">Change what it does</a>
+            </div>
+          </div>
+          <div class="cs-nav">
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">Log</span>
+            </div>
+            <div class="cs-nav-item active">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Current</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Insights</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="cs-nav-label">You</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- V2: Ambient interrupt — "Done what I could" -->
+      <div class="ep-col" id="int-col-2" style="opacity:0;transform:translateX(14px)">
+        <div class="ep-context" style="color:rgba(85,185,140,0.75)">Ambient interrupt &middot; user notices</div>
+        <div class="ep-panel" style="position:relative">
+          <!-- Underlying Log view (dimmed) -->
+          <div class="p-header" style="opacity:0.3;flex-shrink:0">
+            <div class="p-wordmark">Aether</div>
+            <div class="p-title" style="font-size:1rem">Log</div>
+            <div class="p-sub">Recent activity</div>
+          </div>
+          <div class="ambient-bg">
+            <div class="log-entry staged-entry"><div class="e-icon" style="font-size:0.75rem">✉️</div><div class="e-body"><div class="log-summary"><span class="e-label">Sent</span><span class="log-title">Invoice to Hartwell</span><span class="log-age e-overdue">6d</span></div></div></div>
+            <div class="log-entry staged-entry"><div class="e-icon" style="font-size:0.75rem">💬</div><div class="e-body"><div class="log-summary"><span class="e-label">Replied</span><span class="log-title">Marcus &middot; #design-reviews</span><span class="log-age">3d</span></div></div></div>
+            <div class="log-entry staged-entry"><div class="e-icon" style="color:var(--green);font-size:0.75rem"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="e-body"><div class="log-summary"><span class="e-label">Booked</span><span class="log-title">Doctor appointment</span><span class="log-age e-overdue">12d</span></div></div></div>
+          </div>
+          <!-- Bottom sheet -->
+          <div class="ambient-sheet" id="int-sheet">
+            <div class="ambient-handle"></div>
+            <div class="ambient-sheet-hdr">
+              <span class="ambient-sheet-lbl">Aether acted while you were here</span>
+              <span class="ambient-later">Later</span>
+            </div>
+            <div class="ambient-title">Done what I could. One thing needs you.</div>
+            <div class="ambient-sub">Your 1pm is in 60 minutes</div>
+            <div class="ambient-handled-lbl">Already handled</div>
+            <div class="ambient-chips">
+              <span class="ambient-chip">Buffer blocked 1:30&ndash;2:00pm</span>
+              <span class="ambient-chip">Notifications held</span>
+            </div>
+            <div class="ambient-needs-lbl">Needs you &middot; one tap</div>
+            <div class="ambient-needs-card">
+              <div class="e-text">Marcus reply is staged &mdash; draft ready, 3 days waiting.</div>
+              <div class="ambient-signal-note">Send or dismiss &mdash; Aether will log either way</div>
+            </div>
+            <a class="ambient-cta" href="#">Send Marcus reply &nearr;</a>
+            <a class="ambient-secondary" href="#">I&rsquo;ll deal with this later</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="epilogue-sub">Active interrupt asks before Aether acts &mdash; when something is time-sensitive and you&rsquo;re already here. Ambient interrupt surfaces after, with one tap if you want it.</p>
+    <div class="interrupt-tag">Interrupt modes &middot; Active &amp; Ambient</div>
   </div>
 
   <div class="epilogue">
@@ -1908,6 +2248,70 @@ const epObserver = new IntersectionObserver(entries => {
 
 const epBodyEl = document.getElementById('ep-body-1');
 if (epBodyEl) epObserver.observe(epBodyEl);
+
+let intStarted = false;
+
+async function runInterruptSequence() {
+  const s1        = document.getElementById('int-s1');
+  const s2        = document.getElementById('int-s2');
+  const willLbl   = document.getElementById('int-will-lbl');
+  const reasoning = document.getElementById('int-reasoning');
+  const safety    = document.getElementById('int-safety');
+  const cta       = document.getElementById('int-cta');
+  const secondary = document.getElementById('int-secondary');
+  const col2      = document.getElementById('int-col-2');
+  const sheet     = document.getElementById('int-sheet');
+  if (!s1) return;
+
+  await delay(300);
+  for (const el of [s1, s2]) {
+    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+    await delay(350);
+  }
+  await delay(300);
+
+  willLbl.style.transition = 'opacity 0.3s ease';
+  willLbl.style.opacity    = '1';
+  await delay(200);
+
+  reasoning.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  reasoning.style.opacity    = '1';
+  reasoning.style.transform  = 'translateY(0)';
+  await delay(350);
+
+  safety.style.transition = 'opacity 0.3s ease';
+  safety.style.opacity    = '1';
+  await delay(250);
+
+  cta.style.transition = 'opacity 0.35s ease';
+  cta.style.opacity    = '1';
+  await delay(200);
+
+  secondary.style.transition = 'opacity 0.35s ease';
+  secondary.style.opacity    = '1';
+  await delay(600);
+
+  col2.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  col2.style.opacity    = '1';
+  col2.style.transform  = 'translateX(0)';
+  await delay(500);
+
+  if (sheet) sheet.classList.add('open');
+}
+
+const intObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !intStarted) {
+      intStarted = true;
+      runInterruptSequence();
+    }
+  });
+}, { threshold: 0.2 });
+
+const intBodyEl = document.getElementById('int-body-1');
+if (intBodyEl) intObserver.observe(intBodyEl);
 
 function openModal() {
   document.getElementById('modal').classList.add('open');
