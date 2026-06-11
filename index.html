@@ -337,8 +337,7 @@ nav {
 .card-stack .e-text { font-size: 0.75rem; }
 .card-stack .e-label { font-size: 0.6875rem; }
 .card-stack .e-time { font-size: 0.6875rem; }
-.card-stack .e-detail { background: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.08); }
-.card-stack .e-detail-row { font-size: 0.6875rem; }
+.card-stack .e-detail { display: none; }
 .card-stack .tap-chip { font-size: 0.6875rem; padding: 4px 8px; }
 .card-stack .ambient-bar { padding: 9px 12px; }
 .card-stack .ambient-text { font-size: 0.6875rem; }
@@ -1273,7 +1272,7 @@ function resetAll() {
       gpEntry.style.opacity   = '0';
       gpEntry.style.transform = 'translateY(-8px)';
 
-      [taskInv, taskGp].forEach(t => {
+      [taskInv, taskMarcus, taskGp].forEach(t => {
         t.style.opacity = '1';
         clearStyles(t, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
       });
@@ -1295,7 +1294,7 @@ let sequenceActive = false;
 
 async function resolveSend() {
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
-  [taskInv, taskGp].forEach(t => {
+  [taskInv, taskMarcus, taskGp].forEach(t => {
     t.style.transition    = collapseTrans;
     t.style.opacity       = '0';
     t.style.maxHeight     = '0';
