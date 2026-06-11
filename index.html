@@ -1763,16 +1763,6 @@ footer {
           </div>
 
           <div id="insight-marcus" style="display:none">
-            <div class="log-entry staged-entry" style="flex-shrink:0">
-              <div class="e-icon">💬</div>
-              <div class="e-body">
-                <div class="log-summary">
-                  <span class="e-label">Replied</span>
-                  <span class="log-title">Marcus &middot; #design-reviews</span>
-                  <span class="log-age">3d</span>
-                </div>
-              </div>
-            </div>
             <div class="insight-headline">
               Marcus replies need a <span style="color:var(--blue)">better moment</span> to send.
             </div>
@@ -2337,8 +2327,8 @@ async function runSequence() {
   [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
   insightMarcus.style.display       = 'flex';
   insightMarcus.style.flexDirection = 'column';
-  document.getElementById('p-title').textContent = 'Marcus · Insight';
-  pSub.textContent = 'Pattern found';
+  document.getElementById('p-title').textContent = 'Insights';
+  pSub.textContent = 'Pattern found · Marcus messages';
   setNav('insights');
 
   const filterBtn = document.getElementById('cs-filter-btn');
