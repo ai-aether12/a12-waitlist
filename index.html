@@ -1144,12 +1144,12 @@ footer {
               <div class="e-body"><div class="e-label">Surfaced</div><div class="e-text">Send invoice #118 &mdash; <span class="dim">first step: open doc.</span></div><div class="e-time">HRV window &middot; You didn't ask</div></div>
             </div>
             <div class="action-entry gp-entry" id="ep-log-2" style="transform:translateY(0)">
-              <div class="e-icon">🛡️</div>
+              <div class="e-icon">&#x1F6E1;&#xFE0F;</div>
               <div class="e-body"><div class="e-label">Protected</div><div class="e-text">90-min block &mdash; <span class="dim">capacity window.</span></div><div class="e-time">You didn't ask</div></div>
             </div>
             <div class="log-timestamp">9:00AM &middot; Held</div>
             <div class="action-entry waited-entry" id="ep-log-3" style="transform:translateY(0)">
-              <div class="e-icon">⏳</div>
+              <div class="e-icon">&#x23F3;</div>
               <div class="e-body"><div class="e-label">Waited</div><div class="e-text">3 tasks held &mdash; <span class="dim">HRV below baseline.</span></div><div class="e-time">2h 14m &middot; wearable signal</div></div>
             </div>
           </div>
@@ -1294,7 +1294,7 @@ let sequenceActive = false;
 
 async function resolveSend() {
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
-  [taskInv, taskMarcus, taskGp].forEach(t => {
+  [taskInv, taskGp].forEach(t => {
     t.style.transition    = collapseTrans;
     t.style.opacity       = '0';
     t.style.maxHeight     = '0';
