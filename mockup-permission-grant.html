@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Permission Grant Moment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07111e;
+    --card-bg: #0e1d2f;
+    --surface: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.09);
+    --text: rgba(240,240,238,0.92);
+    --text-faint: rgba(240,240,238,0.42);
+    --text-dim: rgba(240,240,238,0.28);
+    --green: #55b98c;
+    --green-dim: rgba(85,185,140,0.09);
+    --blue: #5b9bd5;
+    --blue-dim: rgba(91,155,213,0.09);
+    --amber: #e6a817;
+    --amber-dim: rgba(230,168,23,0.1);
+    --red: #e05c5c;
+  }
+
+  body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* Card shell — matches hero card-stack */
+  .card-stack {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Header — matches cs-header */
+  .cs-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .cs-wordmark {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .cs-live-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .cs-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .cs-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+    margin-top: 3px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Body */
+  .cs-body {
+    padding: 14px 16px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  /* Signal card — what Aether noticed */
+  .signal-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--red);
+    border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .signal-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: rgba(224,92,92,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+  .signal-body { flex: 1; min-width: 0; }
+  .signal-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 2px;
+  }
+  .signal-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .signal-detail {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: var(--text-faint);
+    margin-top: 1px;
+  }
+  .signal-age {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--red);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Reasoning card — why Aether thinks now is right */
+  .reasoning-card {
+    background: var(--blue-dim);
+    border: 1px solid rgba(91,155,213,0.16);
+    border-left: 2px solid var(--blue);
+    border-radius: 8px;
+    padding: 9px 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .reasoning-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.7;
+  }
+  .reasoning-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .reasoning-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+  .reasoning-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.55;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .reasoning-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: rgba(240,240,238,0.62);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+  .reasoning-text strong {
+    color: rgba(240,240,238,0.82);
+    font-weight: 500;
+  }
+
+  /* Proposed action */
+  .action-proposal {
+    background: var(--green-dim);
+    border: 1px solid rgba(85,185,140,0.2);
+    border-left: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 9px 11px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .action-proposal-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 2px;
+  }
+  .action-proposal-text {
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+  .action-proposal-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* Approve + pass */
+  .approve-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+  }
+  .approve-btn {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 0;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+  .pass-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 2px;
+  }
+  .pass-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  /* Nav — matches cs-nav exactly */
+  .cs-nav {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 0 14px;
+    flex-shrink: 0;
+    margin-top: 10px;
+  }
+  .cs-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: rgba(240,240,238,0.22);
+    cursor: default;
+  }
+  .cs-nav-item.active { color: var(--blue); }
+  .cs-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="card-stack">
+
+  <div class="cs-header">
+    <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
+    <div class="cs-title">Before I act &mdash;</div>
+    <div class="cs-sub">1:35pm &middot; 25 min before your call</div>
+  </div>
+
+  <div class="cs-body">
+
+    <!-- What Aether noticed -->
+    <div class="signal-card">
+      <div class="signal-icon">✉️</div>
+      <div class="signal-body">
+        <div class="signal-label">Overdue</div>
+        <div class="signal-title">Invoice #118 &middot; Hartwell Co.</div>
+        <div class="signal-detail">Draft ready &middot; unsent</div>
+      </div>
+      <div class="signal-age">6d</div>
+    </div>
+
+    <!-- Aether's reasoning -->
+    <div class="reasoning-card">
+      <div class="reasoning-lbl">Why now</div>
+      <div class="reasoning-rows">
+        <div class="reasoning-row">
+          <div class="reasoning-dot"></div>
+          <div class="reasoning-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div>
+        </div>
+        <div class="reasoning-row">
+          <div class="reasoning-dot"></div>
+          <div class="reasoning-text"><strong>HRV baseline.</strong> You&rsquo;re in a good window to handle a reply if it comes.</div>
+        </div>
+        <div class="reasoning-row">
+          <div class="reasoning-dot"></div>
+          <div class="reasoning-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The single proposed action -->
+    <div class="action-proposal">
+      <div>
+        <div class="action-proposal-lbl">Aether will</div>
+        <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
+      </div>
+      <div class="action-proposal-icon">↗</div>
+    </div>
+
+    <!-- Approve / pass -->
+    <div class="approve-row">
+      <button class="approve-btn">Approve</button>
+      <div class="pass-row">
+        <span class="pass-btn">Not now</span>
+        <span class="pass-btn">Change what it does</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Nav — Current tab active -->
+  <div class="cs-nav">
+    <div class="cs-nav-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span class="cs-nav-label">Log</span>
+    </div>
+    <div class="cs-nav-item active">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+      <span class="cs-nav-label">Current</span>
+    </div>
+    <div class="cs-nav-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
+      <span class="cs-nav-label">Insights</span>
+    </div>
+    <div class="cs-nav-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span class="cs-nav-label">You</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
