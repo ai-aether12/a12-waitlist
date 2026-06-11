@@ -2319,13 +2319,10 @@ async function runSequence() {
   await delay(500);
 
   // Phase 4: tap Marcus insights bar, then open insight panel
-  const marcusPeekStrip = logMarcus.querySelector('.peek-strip');
-  if (marcusPeekStrip) {
-    marcusPeekStrip.classList.add('tap-flash');
-    await delay(350);
-    marcusPeekStrip.classList.remove('tap-flash');
-    await delay(100);
-  }
+  logMarcus.classList.add('tap-flash');
+  await delay(400);
+  logMarcus.classList.remove('tap-flash');
+  await delay(600);
 
   body.style.transition = 'opacity 0.15s ease';
   body.style.opacity    = '0';
