@@ -349,10 +349,6 @@ nav {
 }
 
 /* Scale-ups and surface overrides inside card stack */
-.card-stack .task-section-label { max-height: none; }
-.card-stack .stale-task { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.09); }
-.card-stack .task-label { font-size: 0.8125rem; }
-.card-stack .task-age { font-size: 0.6875rem; }
 .card-stack .action-entry { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.09); }
 .card-stack .e-icon { width: 28px; height: 28px; font-size: 0.8125rem; }
 .card-stack .e-text { font-size: 0.75rem; }
@@ -371,6 +367,11 @@ nav {
   margin-top: 0;
   letter-spacing: 0.04em;
 }
+
+/* Log entry card-stack overrides */
+.card-stack .log-entry { padding: 11px 13px; background: rgba(0,0,0,0.28); border-color: rgba(255,255,255,0.09); }
+.card-stack .log-chip-grow { width: auto !important; }
+.card-stack .call-chip--undo { width: auto; }
 
 /* ── EPILOGUE PANEL INNER ELEMENTS ── */
 .p-header { padding: 10px 14px 8px; flex-shrink: 0; }
@@ -624,6 +625,90 @@ nav {
   display: inline-flex;
   align-items: center;
   letter-spacing: 0.03em;
+}
+
+/* ── LOG ENTRIES ── */
+.log-entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  display: flex;
+  gap: 9px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.log-entry::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+}
+
+.log-entry.staged-entry::before { background: var(--green); }
+.log-entry.staged-entry .e-icon { background: var(--green-dim); }
+.log-entry.staged-entry .e-label { color: var(--green); }
+
+.log-entry.not-handled-entry::before { background: rgba(85,185,140,0.28); }
+.log-entry.not-handled-entry .e-label { color: rgba(85,185,140,0.45); }
+
+.log-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.log-summary .e-label { margin-bottom: 0; }
+
+.log-title {
+  flex: 1;
+  font-size: 0.6875rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.log-age {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.log-age.e-overdue { color: var(--red); margin-left: 0; }
+
+.log-chevron {
+  font-size: 0.875rem;
+  color: var(--text-faint);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.log-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.e-action-row--flex {
+  display: flex;
+  gap: 6px;
+}
+
+.log-chip-grow {
+  flex: 1;
+  justify-content: center;
+}
+
+.call-chip--undo {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-faint);
 }
 
 /* ── PROOF STRIP ── */
@@ -1008,10 +1093,10 @@ footer {
           <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
           <div class="cs-header-row">
             <div>
-              <div class="cs-title" id="p-title">Today</div>
-              <div class="cs-sub" id="p-sub">Watching quietly</div>
+              <div class="cs-title" id="p-title">Log</div>
+              <div class="cs-sub" id="p-sub">Recent activity</div>
             </div>
-            <button class="cs-filter-btn" id="cs-filter-btn" style="display:none" aria-label="Filter">
+            <button class="cs-filter-btn" id="cs-filter-btn" aria-label="Filter">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M1.5 3.5h11M3.5 7h7M5.5 10.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
               </svg>
@@ -1019,22 +1104,67 @@ footer {
           </div>
         </div>
         <div class="cs-body" id="p-body">
-          <div class="task-section-label">Open &mdash; not started</div>
-          <div class="stale-task" id="task-invoice">
-            <div class="task-box"></div>
-            <div class="task-label">Send invoice #118</div>
-            <div class="task-age">6d</div>
+
+          <div class="log-entry staged-entry" id="log-invoice">
+            <div class="e-icon">✉️</div>
+            <div class="e-body">
+              <div class="log-summary">
+                <span class="e-label">Staged</span>
+                <span class="log-title">Invoice to Hartwell</span>
+                <span class="log-age e-overdue">6d</span>
+                <span class="log-chevron">&#x203A;</span>
+              </div>
+              <div class="log-detail" id="log-invoice-detail">
+                <div class="e-text"><span class="dim">Draft ready &mdash; awaiting your review.</span></div>
+                <div class="e-action-row e-action-row--flex">
+                  <a class="call-chip log-chip-grow" href="#">Preview &nearr;</a>
+                  <a class="call-chip call-chip--undo" href="#">Undo</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="stale-task" id="task-marcus">
-            <div class="task-box"></div>
-            <div class="task-label">Reply to Marcus</div>
-            <div class="task-age">3d</div>
+
+          <div class="log-entry not-handled-entry" id="log-marcus">
+            <div class="e-icon">💬</div>
+            <div class="e-body">
+              <div class="log-summary">
+                <span class="e-label">Not handled</span>
+                <span class="log-title">Marcus &middot; #design-reviews</span>
+                <span class="log-age">3d</span>
+                <span class="log-chevron">&#x203A;</span>
+              </div>
+              <div class="log-detail" id="log-marcus-detail">
+                <div class="e-text"><span class="dim">&ldquo;Did you get a chance to review the Q3 deck?&rdquo;</span></div>
+                <div class="e-action-row">
+                  <a class="call-chip call-chip--slack" href="#">Reply in Slack &nearr;</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="stale-task" id="task-gp">
-            <div class="task-box"></div>
-            <div class="task-label">Book Doctor appointment</div>
-            <div class="task-age">12d</div>
+
+          <div class="log-entry staged-entry" id="log-gp">
+            <div class="e-icon" style="color: var(--green)">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="e-body">
+              <div class="log-summary">
+                <span class="e-label">Staged</span>
+                <span class="log-title">Doctor appointment</span>
+                <span class="log-age e-overdue">12d</span>
+                <span class="log-chevron">&#x203A;</span>
+              </div>
+              <div class="log-detail" id="log-gp-detail">
+                <div class="e-text"><span class="dim">Aetna #4821-JY &mdash; ready to book.</span></div>
+                <div class="e-action-row e-action-row--flex">
+                  <a class="call-chip log-chip-grow" href="#">Book &nearr;</a>
+                  <a class="call-chip call-chip--undo" href="#">Undo</a>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="ambient-bar" id="ambient-bar">
             <div class="ambient-dot"></div>
             <div class="ambient-text">Done in the background</div>
@@ -1084,15 +1214,15 @@ footer {
         <div class="cs-nav">
           <div class="cs-nav-item active" id="nav-today">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/>
-            </svg>
-            <span class="cs-nav-label">Today</span>
-          </div>
-          <div class="cs-nav-item" id="nav-log">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
             </svg>
             <span class="cs-nav-label">Log</span>
+          </div>
+          <div class="cs-nav-item" id="nav-log">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/>
+            </svg>
+            <span class="cs-nav-label">Current</span>
           </div>
           <div class="cs-nav-item" id="nav-insights">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1166,12 +1296,12 @@ footer {
           </div>
           <div class="cs-nav">
             <div class="cs-nav-item active">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
-              <span class="cs-nav-label">Today</span>
-            </div>
-            <div class="cs-nav-item">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               <span class="cs-nav-label">Log</span>
+            </div>
+            <div class="cs-nav-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Current</span>
             </div>
             <div class="cs-nav-item">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
@@ -1216,12 +1346,12 @@ footer {
           </div>
           <div class="cs-nav">
             <div class="cs-nav-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
-              <span class="cs-nav-label">Today</span>
-            </div>
-            <div class="cs-nav-item active">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               <span class="cs-nav-label">Log</span>
+            </div>
+            <div class="cs-nav-item active">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+              <span class="cs-nav-label">Current</span>
             </div>
             <div class="cs-nav-item">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
@@ -1280,20 +1410,21 @@ const GP_HOLD    = 6500;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
-let ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp, taskLabel, invoiceActionRow, invLabel, filterBtn;
+let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel;
 
 function initEls() {
-  ambient          = document.getElementById('ambient-bar');
-  invEntry         = document.getElementById('action-invoice');
-  gpEntry          = document.getElementById('action-gp');
-  marcusEntry      = document.getElementById('action-marcus-entry');
-  taskInv          = document.getElementById('task-invoice');
-  taskMarcus       = document.getElementById('task-marcus');
-  taskGp           = document.getElementById('task-gp');
-  taskLabel        = document.querySelector('.task-section-label');
-  invoiceActionRow = document.getElementById('invoice-action-row');
-  invLabel         = document.getElementById('invoice-label');
-  filterBtn        = document.getElementById('cs-filter-btn');
+  ambient         = document.getElementById('ambient-bar');
+  invEntry        = document.getElementById('action-invoice');
+  gpEntry         = document.getElementById('action-gp');
+  marcusEntry     = document.getElementById('action-marcus-entry');
+  logInv          = document.getElementById('log-invoice');
+  logMarcus       = document.getElementById('log-marcus');
+  logGp           = document.getElementById('log-gp');
+  logInvDetail    = document.getElementById('log-invoice-detail');
+  logMarcusDetail = document.getElementById('log-marcus-detail');
+  logGpDetail     = document.getElementById('log-gp-detail');
+  invoiceActionRow= document.getElementById('invoice-action-row');
+  invLabel        = document.getElementById('invoice-label');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -1316,20 +1447,11 @@ function resetAll() {
     body.style.opacity    = '0';
 
     setTimeout(() => {
-      [invEntry, gpEntry, marcusEntry].forEach(el => {
-        el.style.transition = 'none';
-      });
-
-      const titleEl = document.getElementById('p-title');
-      const subEl   = document.getElementById('p-sub');
-      if (titleEl) titleEl.textContent = 'Today';
-      if (subEl)   subEl.textContent   = 'Watching quietly';
-
-      ambient.style.opacity = '0';
-      ambient.style.display = '';
+      [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.transition = 'none'; });
 
       invEntry.style.opacity   = '0';
       invEntry.style.transform = 'translateY(-8px)';
+      invEntry.style.display   = 'none';
       clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
       invoiceActionRow.style.display = 'none';
       invLabel.textContent = 'Staged';
@@ -1337,15 +1459,32 @@ function resetAll() {
 
       gpEntry.style.opacity   = '0';
       gpEntry.style.transform = 'translateY(-8px)';
+      gpEntry.style.display   = 'none';
 
       marcusEntry.style.opacity   = '0';
       marcusEntry.style.transform = 'translateY(-8px)';
+      marcusEntry.style.display   = 'none';
       clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
 
-      [taskInv, taskMarcus, taskGp].forEach(t => { t.style.display = ''; });
-      if (taskLabel) { taskLabel.style.display = ''; }
+      ambient.style.opacity = '0';
+      ambient.style.display = '';
 
-      filterBtn.style.display = 'none';
+      [logInv, logMarcus, logGp].forEach(el => { el.style.transition = 'none'; el.style.display = ''; });
+      [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => {
+        d.style.transition = 'none';
+        d.style.maxHeight  = '0';
+        d.style.opacity    = '0';
+        d.style.overflow   = 'hidden';
+      });
+      [logInv, logMarcus, logGp].forEach(el => {
+        const chevron = el.querySelector('.log-chevron');
+        if (chevron) chevron.style.transform = '';
+      });
+
+      const titleEl = document.getElementById('p-title');
+      const subEl   = document.getElementById('p-sub');
+      if (titleEl) titleEl.textContent = 'Log';
+      if (subEl)   subEl.textContent   = 'Recent activity';
       setNav('today');
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1385,7 +1524,7 @@ async function resolveSend() {
   await delay(GP_HOLD);
   invEntry.style.transition = 'opacity 0.6s ease';
   gpEntry.style.transition  = 'opacity 0.6s ease';
-  invEntry.style.opacity    = '0';  
+  invEntry.style.opacity    = '0';
   gpEntry.style.opacity     = '0';
 
   await delay(RESET_OUT + 200);
@@ -1397,37 +1536,49 @@ async function resolveSend() {
 async function runSequence() {
   sequenceActive = true;
   await resetAll();
-
   await delay(IDLE);
 
+  // Phase 1: expand doctor log entry inline
+  const expandTrans = 'max-height 0.45s ease, opacity 0.35s ease';
+  const gpChevron = logGp.querySelector('.log-chevron');
+  gpChevron.style.transition = 'transform 0.3s ease';
+  gpChevron.style.transform  = 'rotate(90deg)';
+  logGpDetail.style.transition = expandTrans;
+  logGpDetail.style.maxHeight  = '120px';
+  logGpDetail.style.opacity    = '1';
+  logGpDetail.style.overflow   = 'visible';
+
+  await delay(ENTRY_HOLD);
+
+  gpChevron.style.transform   = '';
+  logGpDetail.style.maxHeight = '0';
+  logGpDetail.style.opacity   = '0';
+  logGpDetail.style.overflow  = 'hidden';
+  await delay(500);
+
+  // Phase 2: switch to Current view
   const body = document.getElementById('p-body');
   body.style.transition = 'opacity 0.15s ease';
   body.style.opacity    = '0';
   await delay(160);
 
-  [invEntry, gpEntry, marcusEntry].forEach(el => {
-    el.style.transition = 'none';
-  });
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
 
   document.getElementById('p-title').textContent = 'While you were away';
   document.getElementById('p-sub').textContent   = 'Aether acted';
   setNav('log');
-  filterBtn.style.display = '';
 
-  // Collapse task rows + label — display:none removes from flex layout entirely (no gap)
-  [taskInv, taskMarcus, taskGp].forEach(t => { t.style.display = 'none'; });
-  if (taskLabel) { taskLabel.style.display = 'none'; }
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
   ambient.style.display = 'none';
 
-  // Show all 3 action entries simultaneously
-  marcusEntry.style.opacity      = '1';
-  marcusEntry.style.transform    = 'translateY(0)';
-  invLabel.textContent           = 'Staged';
-  invEntry.style.opacity         = '1';
-  invEntry.style.transform       = 'translateY(0)';
+  marcusEntry.style.opacity   = '1';
+  marcusEntry.style.transform = 'translateY(0)';
+  invLabel.textContent        = 'Staged';
+  invEntry.style.opacity      = '1';
+  invEntry.style.transform    = 'translateY(0)';
   invoiceActionRow.style.display = '';
-  gpEntry.style.opacity          = '1';
-  gpEntry.style.transform        = 'translateY(0)';
+  gpEntry.style.opacity       = '1';
+  gpEntry.style.transform     = 'translateY(0)';
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
     body.style.transition = 'opacity 0.22s ease';
