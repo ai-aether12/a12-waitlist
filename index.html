@@ -2171,10 +2171,11 @@ const LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7';
 
 const IDLE         = 4000;
 const ENTRY_HOLD   = 6000;
-const INSIGHT_HOLD = 9000;
+const INSIGHT_HOLD = 15000;
 const RESTART      = 500;
 
 let paused = false;
+let firstRun = true;
 
 let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
 
@@ -2220,8 +2221,13 @@ function clearStyles(el, ...props) {
 function resetAll() {
   return new Promise(resolve => {
     const body = document.getElementById('p-body');
-    body.style.transition = 'opacity 0.12s ease';
-    body.style.opacity    = '0';
+    const skipFade = firstRun;
+    firstRun = false;
+
+    if (!skipFade) {
+      body.style.transition = 'opacity 0.12s ease';
+      body.style.opacity    = '0';
+    }
 
     setTimeout(() => {
       // Snap all action entries to fully visible
@@ -2375,10 +2381,6 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(document.getElementById('p-body'));
 
 const cardStack = document.querySelector('.card-stack');
-if (cardStack) {
-  cardStack.addEventListener('mouseenter', () => { paused = true; });
-  cardStack.addEventListener('mouseleave', () => { paused = false; });
-}
 
 let epStarted = false;
 
