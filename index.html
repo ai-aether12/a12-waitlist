@@ -1093,8 +1093,8 @@ footer {
           <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
           <div class="cs-header-row">
             <div>
-              <div class="cs-title" id="p-title">Log</div>
-              <div class="cs-sub" id="p-sub">Recent activity</div>
+              <div class="cs-title" id="p-title">While you were away</div>
+              <div class="cs-sub" id="p-sub">Aether acted</div>
             </div>
             <button class="cs-filter-btn" id="cs-filter-btn" aria-label="Filter">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1109,34 +1109,34 @@ footer {
             <div class="e-icon">✉️</div>
             <div class="e-body">
               <div class="log-summary">
-                <span class="e-label">Staged</span>
+                <span class="e-label">Sent</span>
                 <span class="log-title">Invoice to Hartwell</span>
                 <span class="log-age e-overdue">6d</span>
                 <span class="log-chevron">&#x203A;</span>
               </div>
               <div class="log-detail" id="log-invoice-detail">
-                <div class="e-text"><span class="dim">Draft ready &mdash; awaiting your review.</span></div>
+                <div class="e-text"><span class="dim">Invoice #118 sent &mdash; Hartwell Co.</span></div>
                 <div class="e-action-row e-action-row--flex">
-                  <a class="call-chip log-chip-grow" href="#">Preview &nearr;</a>
-                  <a class="call-chip call-chip--undo" href="#">Undo</a>
+                  <a class="call-chip log-chip-grow" href="#">View &nearr;</a>
+                  <a class="call-chip call-chip--undo" href="#">Void</a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="log-entry not-handled-entry" id="log-marcus">
+          <div class="log-entry staged-entry" id="log-marcus">
             <div class="e-icon">💬</div>
             <div class="e-body">
               <div class="log-summary">
-                <span class="e-label">Not handled</span>
+                <span class="e-label">Replied</span>
                 <span class="log-title">Marcus &middot; #design-reviews</span>
                 <span class="log-age">3d</span>
                 <span class="log-chevron">&#x203A;</span>
               </div>
               <div class="log-detail" id="log-marcus-detail">
-                <div class="e-text"><span class="dim">&ldquo;Did you get a chance to review the Q3 deck?&rdquo;</span></div>
+                <div class="e-text"><span class="dim">Replied to Marcus in Slack &mdash; Q3 deck.</span></div>
                 <div class="e-action-row">
-                  <a class="call-chip call-chip--slack" href="#">Reply in Slack &nearr;</a>
+                  <a class="call-chip call-chip--slack" href="#">View in Slack &nearr;</a>
                 </div>
               </div>
             </div>
@@ -1150,16 +1150,15 @@ footer {
             </div>
             <div class="e-body">
               <div class="log-summary">
-                <span class="e-label">Staged</span>
+                <span class="e-label">Booked</span>
                 <span class="log-title">Doctor appointment</span>
                 <span class="log-age e-overdue">12d</span>
                 <span class="log-chevron">&#x203A;</span>
               </div>
               <div class="log-detail" id="log-gp-detail">
-                <div class="e-text"><span class="dim">Aetna #4821-JY &mdash; ready to book.</span></div>
+                <div class="e-text"><span class="dim">Appointment confirmed &mdash; Aetna #4821-JY.</span></div>
                 <div class="e-action-row e-action-row--flex">
-                  <a class="call-chip log-chip-grow" href="#">Book &nearr;</a>
-                  <a class="call-chip call-chip--undo" href="#">Undo</a>
+                  <a class="call-chip log-chip-grow" href="#">Reschedule &nearr;</a>
                 </div>
               </div>
             </div>
@@ -1174,7 +1173,7 @@ footer {
             <div class="e-body">
               <div class="e-label" id="invoice-label">Staged</div>
               <div class="e-text">Invoice to Hartwell &mdash; <span class="e-overdue">6d overdue</span> &mdash; <span class="dim">draft ready.</span></div>
-              <div class="e-action-row" id="invoice-action-row" style="display:none">
+              <div class="e-action-row" id="invoice-action-row">
                 <a class="call-chip" href="#">Preview &nearr;</a>
               </div>
             </div>
@@ -1212,13 +1211,13 @@ footer {
           </div>
         </div>
         <div class="cs-nav">
-          <div class="cs-nav-item active" id="nav-today">
+          <div class="cs-nav-item" id="nav-today">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
             </svg>
             <span class="cs-nav-label">Log</span>
           </div>
-          <div class="cs-nav-item" id="nav-log">
+          <div class="cs-nav-item active" id="nav-log">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/>
             </svg>
@@ -1406,8 +1405,6 @@ const LOOPS_TRANSACTIONAL_ID = 'cmq8e9jnv037x0jyv9ijvccei';
 
 const IDLE       = 4000;
 const ENTRY_HOLD = 6000;
-const GP_HOLD    = 6500;
-const RESET_OUT  = 700;
 const RESTART    = 500;
 
 let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel;
@@ -1447,29 +1444,24 @@ function resetAll() {
     body.style.opacity    = '0';
 
     setTimeout(() => {
-      [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.transition = 'none'; });
-
-      invEntry.style.opacity   = '0';
-      invEntry.style.transform = 'translateY(-8px)';
-      invEntry.style.display   = 'none';
+      // Snap all action entries to fully visible
+      [invEntry, gpEntry, marcusEntry].forEach(el => {
+        el.style.transition = 'none';
+        el.style.display    = '';
+        el.style.opacity    = '1';
+        el.style.transform  = 'translateY(0)';
+      });
       clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
-      invoiceActionRow.style.display = 'none';
+      clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
+      invoiceActionRow.style.display = '';
       invLabel.textContent = 'Staged';
       invEntry.classList.remove('sent');
 
-      gpEntry.style.opacity   = '0';
-      gpEntry.style.transform = 'translateY(-8px)';
-      gpEntry.style.display   = 'none';
+      // Hide log entries
+      [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
+      ambient.style.display = 'none';
 
-      marcusEntry.style.opacity   = '0';
-      marcusEntry.style.transform = 'translateY(-8px)';
-      marcusEntry.style.display   = 'none';
-      clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
-
-      ambient.style.opacity = '0';
-      ambient.style.display = '';
-
-      [logInv, logMarcus, logGp].forEach(el => { el.style.transition = 'none'; el.style.display = ''; });
+      // Reset log details and chevrons for next cycle
       [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => {
         d.style.transition = 'none';
         d.style.maxHeight  = '0';
@@ -1477,15 +1469,15 @@ function resetAll() {
         d.style.overflow   = 'hidden';
       });
       [logInv, logMarcus, logGp].forEach(el => {
-        const chevron = el.querySelector('.log-chevron');
-        if (chevron) chevron.style.transform = '';
+        const ch = el.querySelector('.log-chevron');
+        if (ch) ch.style.transform = '';
       });
 
       const titleEl = document.getElementById('p-title');
       const subEl   = document.getElementById('p-sub');
-      if (titleEl) titleEl.textContent = 'Log';
-      if (subEl)   subEl.textContent   = 'Recent activity';
-      setNav('today');
+      if (titleEl) titleEl.textContent = 'While you were away';
+      if (subEl)   subEl.textContent   = 'Aether acted';
+      setNav('log'); // nav-log = Current tab
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         body.style.transition = 'opacity 0.18s ease';
@@ -1496,49 +1488,35 @@ function resetAll() {
   });
 }
 
-let sendTimer = null;
 let sequenceActive = false;
-
-async function resolveSend() {
-  const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
-
-  marcusEntry.style.transition    = collapseTrans;
-  marcusEntry.style.opacity       = '0';
-  marcusEntry.style.maxHeight     = '0';
-  marcusEntry.style.marginTop     = '-6px';
-  marcusEntry.style.marginBottom  = '-6px';
-  marcusEntry.style.paddingTop    = '0';
-  marcusEntry.style.paddingBottom = '0';
-  marcusEntry.style.overflow      = 'hidden';
-  invoiceActionRow.style.display  = 'none';
-
-  await delay(500);
-  invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
-  invEntry.style.opacity       = '0.28';
-  invEntry.style.maxHeight     = '38px';
-  invEntry.style.overflow      = 'hidden';
-  invEntry.style.paddingTop    = '6px';
-  invEntry.style.paddingBottom = '6px';
-  invEntry.style.marginTop     = '-6px';
-
-  await delay(GP_HOLD);
-  invEntry.style.transition = 'opacity 0.6s ease';
-  gpEntry.style.transition  = 'opacity 0.6s ease';
-  invEntry.style.opacity    = '0';
-  gpEntry.style.opacity     = '0';
-
-  await delay(RESET_OUT + 200);
-  await resetAll();
-  await delay(RESTART);
-  runSequence();
-}
 
 async function runSequence() {
   sequenceActive = true;
-  await resetAll();
-  await delay(IDLE);
+  await resetAll();         // Phase 1: Current view — While you were away
+  await delay(ENTRY_HOLD); // hold 6s
 
-  // Phase 1: expand doctor log entry inline
+  // Transition to Log view (collapsed)
+  const body = document.getElementById('p-body');
+  body.style.transition = 'opacity 0.15s ease';
+  body.style.opacity    = '0';
+  await delay(160);
+
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
+  ambient.style.display = 'none';
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
+  document.getElementById('p-title').textContent = 'Log';
+  document.getElementById('p-sub').textContent   = 'Recent activity';
+  setNav('today'); // nav-today = Log tab
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    body.style.transition = 'opacity 0.22s ease';
+    body.style.opacity    = '1';
+  }));
+  await delay(240);
+
+  await delay(2000); // Phase 2: Log collapsed — 2s to read entries
+
+  // Phase 3: expand Doctor entry
   const expandTrans = 'max-height 0.45s ease, opacity 0.35s ease';
   const gpChevron = logGp.querySelector('.log-chevron');
   gpChevron.style.transition = 'transform 0.3s ease';
@@ -1548,45 +1526,17 @@ async function runSequence() {
   logGpDetail.style.opacity    = '1';
   logGpDetail.style.overflow   = 'visible';
 
-  await delay(ENTRY_HOLD);
+  await delay(ENTRY_HOLD); // hold 6s with Doctor expanded
 
+  // Collapse and loop
   gpChevron.style.transform   = '';
   logGpDetail.style.maxHeight = '0';
   logGpDetail.style.opacity   = '0';
   logGpDetail.style.overflow  = 'hidden';
   await delay(500);
 
-  // Phase 2: switch to Current view
-  const body = document.getElementById('p-body');
-  body.style.transition = 'opacity 0.15s ease';
-  body.style.opacity    = '0';
-  await delay(160);
-
-  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
-
-  document.getElementById('p-title').textContent = 'While you were away';
-  document.getElementById('p-sub').textContent   = 'Aether acted';
-  setNav('log');
-
-  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
-  ambient.style.display = 'none';
-
-  marcusEntry.style.opacity   = '1';
-  marcusEntry.style.transform = 'translateY(0)';
-  invLabel.textContent        = 'Staged';
-  invEntry.style.opacity      = '1';
-  invEntry.style.transform    = 'translateY(0)';
-  invoiceActionRow.style.display = '';
-  gpEntry.style.opacity       = '1';
-  gpEntry.style.transform     = 'translateY(0)';
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    body.style.transition = 'opacity 0.22s ease';
-    body.style.opacity    = '1';
-  }));
-
-  await delay(240);
-  sendTimer = setTimeout(resolveSend, ENTRY_HOLD);
+  await delay(RESTART);
+  runSequence();
 }
 
 let started = false;
