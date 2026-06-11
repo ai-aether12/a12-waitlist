@@ -614,6 +614,63 @@ nav {
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
+.e-action-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 5px 7px;
+  background: var(--green-dim);
+  border: 1px solid rgba(85,185,140,0.18);
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.e-action-strip--blue {
+  background: var(--blue-dim);
+  border-color: rgba(91,155,213,0.18);
+}
+.e-action-strip--purple {
+  background: rgba(74,21,75,0.22);
+  border-color: rgba(155,111,196,0.24);
+}
+.e-action-strip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+  animation: ambientpulse 2s ease-in-out infinite;
+}
+.e-action-strip--blue  .e-action-strip-dot   { background: var(--blue); }
+.e-action-strip--purple .e-action-strip-dot  { background: #9b6fc4; }
+.e-action-strip-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--green);
+  flex: 1;
+  letter-spacing: 0.02em;
+}
+.e-action-strip--blue   .e-action-strip-text { color: var(--blue); }
+.e-action-strip--purple .e-action-strip-text { color: #9b6fc4; }
+.e-action-strip-arr {
+  font-size: 0.75rem;
+  color: var(--green);
+  opacity: 0.55;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.e-action-strip--blue   .e-action-strip-arr  { color: var(--blue); }
+.e-action-strip--purple .e-action-strip-arr  { color: #9b6fc4; }
+.e-action-strip-secondary {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: var(--text-faint);
+  opacity: 0.65;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
 .call-chip {
   background: var(--green);
   color: #fff;
@@ -1603,9 +1660,11 @@ footer {
               </div>
               <div class="log-detail" id="log-invoice-detail">
                 <div class="e-text"><span class="dim">Invoice #118 sent &mdash; Hartwell Co.</span></div>
-                <div class="e-action-row e-action-row--flex">
-                  <a class="call-chip log-chip-grow" href="#">View &nearr;</a>
-                  <a class="call-chip call-chip--undo" href="#">Void</a>
+                <div class="e-action-strip">
+                  <div class="e-action-strip-dot"></div>
+                  <span class="e-action-strip-text">View invoice</span>
+                  <span class="e-action-strip-secondary">Void</span>
+                  <span class="e-action-strip-arr">&#x203A;</span>
                 </div>
               </div>
             </div>
@@ -1622,9 +1681,11 @@ footer {
               </div>
               <div class="log-detail" id="log-marcus-detail">
                 <div class="e-text"><span class="dim">Replied to Marcus in Slack &mdash; Q3 deck.</span></div>
-                <div class="e-action-row">
-                  <a class="call-chip call-chip--slack" href="#">View in Slack &nearr;</a>
-                </div>
+                <a class="e-action-strip e-action-strip--purple" href="#">
+                  <div class="e-action-strip-dot"></div>
+                  <span class="e-action-strip-text">View in Slack</span>
+                  <span class="e-action-strip-arr">&#x203A;</span>
+                </a>
               </div>
               <div class="peek-strip">
                 <svg width="10" height="10" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--blue)"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
@@ -1649,9 +1710,11 @@ footer {
               </div>
               <div class="log-detail" id="log-gp-detail">
                 <div class="e-text"><span class="dim">Appointment confirmed &mdash; Aetna #4821-JY.</span></div>
-                <div class="e-action-row e-action-row--flex">
-                  <a class="call-chip log-chip-grow" href="#">Reschedule &nearr;</a>
-                </div>
+                <a class="e-action-strip e-action-strip--blue" href="#">
+                  <div class="e-action-strip-dot"></div>
+                  <span class="e-action-strip-text">Reschedule appointment</span>
+                  <span class="e-action-strip-arr">&#x203A;</span>
+                </a>
               </div>
             </div>
           </div>
@@ -1725,8 +1788,10 @@ footer {
             <div class="e-body">
               <div class="e-label" id="invoice-label">Staged</div>
               <div class="e-text">Invoice to Hartwell &mdash; <span class="e-overdue">6d overdue</span> &mdash; <span class="dim">draft ready.</span></div>
-              <div class="e-action-row" id="invoice-action-row">
-                <a class="call-chip" href="#">Preview &nearr;</a>
+              <div class="e-action-strip" id="invoice-action-row">
+                <div class="e-action-strip-dot"></div>
+                <span class="e-action-strip-text">Preview invoice draft</span>
+                <span class="e-action-strip-arr">&#x203A;</span>
               </div>
             </div>
           </div>
@@ -1743,9 +1808,11 @@ footer {
                 <div class="e-detail-row"><span class="e-detail-key">Card &middot;</span> Aetna #4821-JY</div>
                 <div class="e-detail-row"><span class="e-detail-key">Source &middot;</span> Confirmation email, Jan 2024</div>
               </div>
-              <div class="e-action-row">
-                <a class="call-chip" href="tel:+12125550198">Book appointment &nearr;</a>
-              </div>
+              <a class="e-action-strip e-action-strip--blue" href="tel:+12125550198">
+                <div class="e-action-strip-dot"></div>
+                <span class="e-action-strip-text">Book appointment</span>
+                <span class="e-action-strip-arr">&#x203A;</span>
+              </a>
             </div>
           </div>
           <div class="action-entry not-handled-entry" id="action-marcus-entry">
@@ -1756,9 +1823,11 @@ footer {
               <div class="e-detail">
                 <div class="e-detail-row e-slack-msg">&ldquo;Did you get a chance to review the Q3 deck? Needs your feedback before Friday.&rdquo;</div>
               </div>
-              <div class="e-action-row">
-                <a class="call-chip call-chip--slack" href="#">Reply in Slack &nearr;</a>
-              </div>
+              <a class="e-action-strip e-action-strip--purple" href="#">
+                <div class="e-action-strip-dot"></div>
+                <span class="e-action-strip-text">Reply in Slack</span>
+                <span class="e-action-strip-arr">&#x203A;</span>
+              </a>
             </div>
           </div>
         </div>
