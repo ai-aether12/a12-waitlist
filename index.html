@@ -263,6 +263,12 @@ nav {
   flex-shrink: 0;
 }
 
+.cs-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .cs-title {
   font-family: 'Lexend', sans-serif;
   font-size: 1.375rem;
@@ -279,6 +285,21 @@ nav {
   margin-top: 3px;
   letter-spacing: 0.04em;
   transition: color 0.4s ease;
+}
+
+.cs-filter-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  cursor: pointer;
+  margin-top: 4px;
+  flex-shrink: 0;
 }
 
 .cs-body {
@@ -523,6 +544,23 @@ nav {
 .not-handled-entry::before { background: rgba(85,185,140,0.28); }
 .not-handled-entry .e-icon { background: rgba(85,185,140,0.06); color: rgba(85,185,140,0.45); }
 .not-handled-entry .e-label { color: rgba(85,185,140,0.45); }
+
+.e-slack-msg {
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.call-chip--slack { background: #4A154B; }
+.card-stack .call-chip--slack {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.75rem;
+  padding: 9px 12px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
 
 .gp-entry::before { background: var(--green); }
 .gp-entry .e-icon { background: var(--green-dim); color: var(--green); }
@@ -968,8 +1006,17 @@ footer {
       <div class="card-stack">
         <div class="cs-header">
           <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
-          <div class="cs-title" id="p-title">Today</div>
-          <div class="cs-sub" id="p-sub">Watching quietly</div>
+          <div class="cs-header-row">
+            <div>
+              <div class="cs-title" id="p-title">Today</div>
+              <div class="cs-sub" id="p-sub">Watching quietly</div>
+            </div>
+            <button class="cs-filter-btn" id="cs-filter-btn" style="display:none" aria-label="Filter">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1.5 3.5h11M3.5 7h7M5.5 10.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
         <div class="cs-body" id="p-body">
           <div class="task-section-label">Open &mdash; not started</div>
@@ -996,8 +1043,7 @@ footer {
             <div class="e-icon">✉️</div>
             <div class="e-body">
               <div class="e-label" id="invoice-label">Staged</div>
-              <div class="e-text">Invoice to Hartwell &mdash; <span class="dim">draft ready.</span></div>
-              <div class="e-time">6 days overdue</div>
+              <div class="e-text">Invoice to Hartwell &mdash; <span class="e-overdue">6d overdue</span> &mdash; <span class="dim">draft ready.</span></div>
               <div class="e-action-row" id="invoice-action-row" style="display:none">
                 <a class="call-chip" href="#">Preview &nearr;</a>
               </div>
@@ -1011,7 +1057,7 @@ footer {
             </div>
             <div class="e-body">
               <div class="e-label">Staged</div>
-              <div class="e-text">Doctor appointment <span class="e-overdue">12d</span><span class="dim"> &mdash; ready to book.</span></div>
+              <div class="e-text">Doctor appointment &mdash; <span class="e-overdue">12d overdue</span> <span class="dim">&mdash; ready to book.</span></div>
               <div class="e-detail">
                 <div class="e-detail-row"><span class="e-detail-key">Card &middot;</span> Aetna #4821-JY</div>
                 <div class="e-detail-row"><span class="e-detail-key">Source &middot;</span> Confirmation email, Jan 2024</div>
@@ -1025,8 +1071,13 @@ footer {
             <div class="e-icon">💬</div>
             <div class="e-body">
               <div class="e-label">Not handled</div>
-              <div class="e-text">Reply to Marcus <span class="dim">&mdash; needs context.</span></div>
-              <div class="e-time">3 days</div>
+              <div class="e-text">Marcus &middot; #design-reviews <span class="dim">&mdash; 3 days ago</span></div>
+              <div class="e-detail">
+                <div class="e-detail-row e-slack-msg">&ldquo;Did you get a chance to review the Q3 deck? Needs your feedback before Friday.&rdquo;</div>
+              </div>
+              <div class="e-action-row">
+                <a class="call-chip call-chip--slack" href="#">Reply in Slack &nearr;</a>
+              </div>
             </div>
           </div>
         </div>
@@ -1229,7 +1280,7 @@ const GP_HOLD    = 6500;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
-let ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp, taskLabel, invoiceActionRow, invLabel;
+let ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp, taskLabel, invoiceActionRow, invLabel, filterBtn;
 
 function initEls() {
   ambient          = document.getElementById('ambient-bar');
@@ -1242,6 +1293,7 @@ function initEls() {
   taskLabel        = document.querySelector('.task-section-label');
   invoiceActionRow = document.getElementById('invoice-action-row');
   invLabel         = document.getElementById('invoice-label');
+  filterBtn        = document.getElementById('cs-filter-btn');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -1264,10 +1316,9 @@ function resetAll() {
     body.style.opacity    = '0';
 
     setTimeout(() => {
-      [ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+      [invEntry, gpEntry, marcusEntry].forEach(el => {
         el.style.transition = 'none';
       });
-      if (taskLabel) taskLabel.style.transition = 'none';
 
       const titleEl = document.getElementById('p-title');
       const subEl   = document.getElementById('p-sub');
@@ -1275,13 +1326,11 @@ function resetAll() {
       if (subEl)   subEl.textContent   = 'Watching quietly';
 
       ambient.style.opacity = '0';
-      clearStyles(ambient, 'maxHeight', 'overflow', 'marginTop', 'marginBottom');
+      ambient.style.display = '';
 
       invEntry.style.opacity   = '0';
       invEntry.style.transform = 'translateY(-8px)';
       clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
-      const eTime = invEntry.querySelector('.e-time');
-      if (eTime) eTime.style.display = '';
       invoiceActionRow.style.display = 'none';
       invLabel.textContent = 'Staged';
       invEntry.classList.remove('sent');
@@ -1293,13 +1342,10 @@ function resetAll() {
       marcusEntry.style.transform = 'translateY(-8px)';
       clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
 
-      [taskInv, taskMarcus, taskGp].forEach(t => {
-        t.style.opacity = '1';
-        clearStyles(t, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
-      });
+      [taskInv, taskMarcus, taskGp].forEach(t => { t.style.display = ''; });
+      if (taskLabel) { taskLabel.style.display = ''; }
 
-      if (taskLabel) clearStyles(taskLabel, 'opacity', 'maxHeight', 'overflow');
-
+      filterBtn.style.display = 'none';
       setNav('today');
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1335,8 +1381,6 @@ async function resolveSend() {
   invEntry.style.paddingTop    = '6px';
   invEntry.style.paddingBottom = '6px';
   invEntry.style.marginTop     = '-6px';
-  const eTime = invEntry.querySelector('.e-time');
-  if (eTime) eTime.style.display = 'none';
 
   await delay(GP_HOLD);
   invEntry.style.transition = 'opacity 0.6s ease';
@@ -1356,43 +1400,24 @@ async function runSequence() {
 
   await delay(IDLE);
 
-  // Fade out body — leaving-screen feel
   const body = document.getElementById('p-body');
   body.style.transition = 'opacity 0.15s ease';
   body.style.opacity    = '0';
   await delay(160);
 
-  // Snap all state at once — no per-element transitions
-  [ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+  [invEntry, gpEntry, marcusEntry].forEach(el => {
     el.style.transition = 'none';
   });
-  if (taskLabel) taskLabel.style.transition = 'none';
 
   document.getElementById('p-title').textContent = 'While you were away';
   document.getElementById('p-sub').textContent   = 'Aether acted';
   setNav('log');
+  filterBtn.style.display = '';
 
-  // Collapse task rows + label instantly
-  [taskInv, taskMarcus, taskGp].forEach(t => {
-    t.style.opacity       = '0';
-    t.style.maxHeight     = '0';
-    t.style.marginTop     = '-4px';
-    t.style.marginBottom  = '-4px';
-    t.style.paddingTop    = '0';
-    t.style.paddingBottom = '0';
-    t.style.overflow      = 'hidden';
-  });
-  if (taskLabel) {
-    taskLabel.style.opacity   = '0';
-    taskLabel.style.maxHeight = '0';
-    taskLabel.style.overflow  = 'hidden';
-  }
-
-  // Collapse ambient (not shown on this screen)
-  ambient.style.maxHeight    = '0';
-  ambient.style.overflow     = 'hidden';
-  ambient.style.marginTop    = '-6px';
-  ambient.style.marginBottom = '-6px';
+  // Collapse task rows + label — display:none removes from flex layout entirely (no gap)
+  [taskInv, taskMarcus, taskGp].forEach(t => { t.style.display = 'none'; });
+  if (taskLabel) { taskLabel.style.display = 'none'; }
+  ambient.style.display = 'none';
 
   // Show all 3 action entries simultaneously
   marcusEntry.style.opacity      = '1';
@@ -1404,7 +1429,6 @@ async function runSequence() {
   gpEntry.style.opacity          = '1';
   gpEntry.style.transform        = 'translateY(0)';
 
-  // Fade body back in — entering-screen feel
   requestAnimationFrame(() => requestAnimationFrame(() => {
     body.style.transition = 'opacity 0.22s ease';
     body.style.opacity    = '1';
