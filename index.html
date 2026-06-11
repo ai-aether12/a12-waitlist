@@ -1182,12 +1182,25 @@ footer {
   letter-spacing: -0.02em;
   color: var(--text);
 }
-.insight-sub {
+.evidence-card {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+.evidence-text {
   font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   color: var(--text-faint);
   letter-spacing: 0.03em;
-  margin-top: -4px;
+  line-height: 1.5;
+}
+.evidence-val {
+  color: rgba(240,240,238,0.72);
 }
 .insight-stats {
   display: grid;
@@ -1764,9 +1777,8 @@ footer {
 
           <div id="insight-marcus" style="display:none">
             <div class="insight-headline">
-              Marcus replies need a <span style="color:var(--blue)">better moment</span> to send.
+              Your Marcus replies stall in drafts. <span style="color:var(--blue)">Tuesday mornings</span> break the pattern.
             </div>
-            <div class="insight-sub">Aether noticed this across 4 threads &middot; 3 weeks</div>
             <div class="insight-stats">
               <div class="insight-stat">
                 <div class="insight-stat-val" style="color:var(--blue)">4</div>
@@ -1780,6 +1792,9 @@ footer {
                 <div class="insight-stat-val" style="color:var(--green)">Tue</div>
                 <div class="insight-stat-label">Mornings<br>work best</div>
               </div>
+            </div>
+            <div class="evidence-card">
+              <div class="evidence-text">Based on <span class="evidence-val">4 threads</span> across <span class="evidence-val">3 weeks</span> of messages</div>
             </div>
             <div class="insight-cycle">
               <div class="insight-cycle-lbl">Where the handoff is</div>
