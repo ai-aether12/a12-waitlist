@@ -337,7 +337,6 @@ nav {
 .card-stack .e-text { font-size: 0.75rem; }
 .card-stack .e-label { font-size: 0.6875rem; }
 .card-stack .e-time { font-size: 0.6875rem; }
-.card-stack .e-detail { display: none; }
 .card-stack .tap-chip { font-size: 0.6875rem; padding: 4px 8px; }
 .card-stack .ambient-bar { padding: 9px 12px; }
 .card-stack .ambient-text { font-size: 0.6875rem; }
@@ -517,12 +516,13 @@ nav {
   letter-spacing: 0.03em;
 }
 
-.staged-entry::before { background: var(--blue); }
-.staged-entry .e-icon { background: var(--blue-dim); }
-.staged-entry .e-label { color: var(--blue); }
-.staged-entry.sent::before { background: var(--green); }
-.staged-entry.sent .e-icon { background: var(--green-dim); }
-.staged-entry.sent .e-label { color: var(--green); }
+.staged-entry::before { background: var(--green); }
+.staged-entry .e-icon { background: var(--green-dim); }
+.staged-entry .e-label { color: var(--green); }
+
+.not-handled-entry::before { background: rgba(85,185,140,0.28); }
+.not-handled-entry .e-icon { background: rgba(85,185,140,0.06); color: rgba(85,185,140,0.45); }
+.not-handled-entry .e-label { color: rgba(85,185,140,0.45); }
 
 .gp-entry::before { background: var(--green); }
 .gp-entry .e-icon { background: var(--green-dim); color: var(--green); }
@@ -997,8 +997,10 @@ footer {
             <div class="e-body">
               <div class="e-label" id="invoice-label">Staged</div>
               <div class="e-text">Invoice to Hartwell &mdash; <span class="dim">draft ready.</span></div>
-              <div id="invoice-chip" class="tap-chip">Send &nearr;</div>
-              <div class="e-time">6 days overdue &middot; You didn't ask</div>
+              <div class="e-time">6 days overdue</div>
+              <div class="e-action-row" id="invoice-action-row" style="display:none">
+                <a class="call-chip" href="#">Preview &nearr;</a>
+              </div>
             </div>
           </div>
           <div class="action-entry gp-entry" id="action-gp">
@@ -1017,6 +1019,14 @@ footer {
               <div class="e-action-row">
                 <a class="call-chip" href="tel:+12125550198">Book appointment &nearr;</a>
               </div>
+            </div>
+          </div>
+          <div class="action-entry not-handled-entry" id="action-marcus-entry">
+            <div class="e-icon">💬</div>
+            <div class="e-body">
+              <div class="e-label">Not handled</div>
+              <div class="e-text">Reply to Marcus <span class="dim">&mdash; needs context.</span></div>
+              <div class="e-time">3 days</div>
             </div>
           </div>
         </div>
@@ -1219,18 +1229,19 @@ const GP_HOLD    = 6500;
 const RESET_OUT  = 700;
 const RESTART    = 500;
 
-let ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp, taskLabel, chip, invLabel;
+let ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp, taskLabel, invoiceActionRow, invLabel;
 
 function initEls() {
-  ambient    = document.getElementById('ambient-bar');
-  invEntry   = document.getElementById('action-invoice');
-  gpEntry    = document.getElementById('action-gp');
-  taskInv    = document.getElementById('task-invoice');
-  taskMarcus = document.getElementById('task-marcus');
-  taskGp     = document.getElementById('task-gp');
-  taskLabel  = document.querySelector('.task-section-label');
-  chip       = document.getElementById('invoice-chip');
-  invLabel   = document.getElementById('invoice-label');
+  ambient          = document.getElementById('ambient-bar');
+  invEntry         = document.getElementById('action-invoice');
+  gpEntry          = document.getElementById('action-gp');
+  marcusEntry      = document.getElementById('action-marcus-entry');
+  taskInv          = document.getElementById('task-invoice');
+  taskMarcus       = document.getElementById('task-marcus');
+  taskGp           = document.getElementById('task-gp');
+  taskLabel        = document.querySelector('.task-section-label');
+  invoiceActionRow = document.getElementById('invoice-action-row');
+  invLabel         = document.getElementById('invoice-label');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -1253,7 +1264,7 @@ function resetAll() {
     body.style.opacity    = '0';
 
     setTimeout(() => {
-      [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+      [ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp].forEach(el => {
         el.style.transition = 'none';
       });
       if (taskLabel) taskLabel.style.transition = 'none';
@@ -1271,9 +1282,16 @@ function resetAll() {
       clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
       const eTime = invEntry.querySelector('.e-time');
       if (eTime) eTime.style.display = '';
+      invoiceActionRow.style.display = 'none';
+      invLabel.textContent = 'Staged';
+      invEntry.classList.remove('sent');
 
       gpEntry.style.opacity   = '0';
       gpEntry.style.transform = 'translateY(-8px)';
+
+      marcusEntry.style.opacity   = '0';
+      marcusEntry.style.transform = 'translateY(-8px)';
+      clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
 
       [taskInv, taskMarcus, taskGp].forEach(t => {
         t.style.opacity = '1';
@@ -1281,10 +1299,6 @@ function resetAll() {
       });
 
       if (taskLabel) clearStyles(taskLabel, 'opacity', 'maxHeight', 'overflow');
-
-      invEntry.classList.remove('sent');
-      chip.style.display   = 'none';
-      invLabel.textContent = 'Sent';
 
       setNav('today');
 
@@ -1302,23 +1316,16 @@ let sequenceActive = false;
 
 async function resolveSend() {
   const collapseTrans = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease';
-  [taskInv, taskGp].forEach(t => {
-    t.style.transition    = collapseTrans;
-    t.style.opacity       = '0';
-    t.style.maxHeight     = '0';
-    t.style.marginTop     = '-6px';
-    t.style.marginBottom  = '-6px';
-    t.style.paddingTop    = '0';
-    t.style.paddingBottom = '0';
-    t.style.overflow      = 'hidden';
-  });
-  if (taskLabel) taskLabel.style.opacity = '1';
-  ambient.style.transition   = 'opacity 0.4s ease, max-height 0.5s ease, margin 0.5s ease';
-  ambient.style.opacity      = '0';
-  ambient.style.maxHeight    = '0';
-  ambient.style.overflow     = 'hidden';
-  ambient.style.marginTop    = '-6px';
-  ambient.style.marginBottom = '-6px';
+
+  marcusEntry.style.transition    = collapseTrans;
+  marcusEntry.style.opacity       = '0';
+  marcusEntry.style.maxHeight     = '0';
+  marcusEntry.style.marginTop     = '-6px';
+  marcusEntry.style.marginBottom  = '-6px';
+  marcusEntry.style.paddingTop    = '0';
+  marcusEntry.style.paddingBottom = '0';
+  marcusEntry.style.overflow      = 'hidden';
+  invoiceActionRow.style.display  = 'none';
 
   await delay(500);
   invEntry.style.transition    = 'opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, margin 0.5s ease';
@@ -1330,11 +1337,6 @@ async function resolveSend() {
   invEntry.style.marginTop     = '-6px';
   const eTime = invEntry.querySelector('.e-time');
   if (eTime) eTime.style.display = 'none';
-
-  await delay(50);
-  gpEntry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  gpEntry.style.opacity    = '1';
-  gpEntry.style.transform  = 'translateY(0)';
 
   await delay(GP_HOLD);
   invEntry.style.transition = 'opacity 0.6s ease';
@@ -1356,28 +1358,51 @@ async function runSequence() {
 
   // Fade out body — leaving-screen feel
   const body = document.getElementById('p-body');
-  body.style.transition = 'opacity 0.15s ease';  
+  body.style.transition = 'opacity 0.15s ease';
   body.style.opacity    = '0';
   await delay(160);
 
   // Snap all state at once — no per-element transitions
-  [ambient, invEntry, gpEntry, taskInv, taskMarcus, taskGp].forEach(el => {
+  [ambient, invEntry, gpEntry, marcusEntry, taskInv, taskMarcus, taskGp].forEach(el => {
     el.style.transition = 'none';
   });
+  if (taskLabel) taskLabel.style.transition = 'none';
+
   document.getElementById('p-title').textContent = 'While you were away';
   document.getElementById('p-sub').textContent   = 'Aether acted';
   setNav('log');
 
-  ambient.style.opacity    = '1';
-  taskInv.style.opacity    = '0.35';
-  taskGp.style.opacity     = '0.35';
-  invEntry.classList.add('sent');
-  invLabel.textContent     = 'Sent';
-  chip.style.display       = 'none';
-  invEntry.style.opacity   = '1';
-  invEntry.style.transform = 'translateY(0)';
-  gpEntry.style.opacity    = '1';
-  gpEntry.style.transform  = 'translateY(0)';
+  // Collapse task rows + label instantly
+  [taskInv, taskMarcus, taskGp].forEach(t => {
+    t.style.opacity       = '0';
+    t.style.maxHeight     = '0';
+    t.style.marginTop     = '-4px';
+    t.style.marginBottom  = '-4px';
+    t.style.paddingTop    = '0';
+    t.style.paddingBottom = '0';
+    t.style.overflow      = 'hidden';
+  });
+  if (taskLabel) {
+    taskLabel.style.opacity   = '0';
+    taskLabel.style.maxHeight = '0';
+    taskLabel.style.overflow  = 'hidden';
+  }
+
+  // Collapse ambient (not shown on this screen)
+  ambient.style.maxHeight    = '0';
+  ambient.style.overflow     = 'hidden';
+  ambient.style.marginTop    = '-6px';
+  ambient.style.marginBottom = '-6px';
+
+  // Show all 3 action entries simultaneously
+  marcusEntry.style.opacity      = '1';
+  marcusEntry.style.transform    = 'translateY(0)';
+  invLabel.textContent           = 'Staged';
+  invEntry.style.opacity         = '1';
+  invEntry.style.transform       = 'translateY(0)';
+  invoiceActionRow.style.display = '';
+  gpEntry.style.opacity          = '1';
+  gpEntry.style.transform        = 'translateY(0)';
 
   // Fade body back in — entering-screen feel
   requestAnimationFrame(() => requestAnimationFrame(() => {
