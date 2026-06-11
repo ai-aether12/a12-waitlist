@@ -1229,6 +1229,20 @@ footer {
 }
 
 /* ── INTERRUPT SECTION ── */
+.interrupt-intro {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: rgba(240,240,238,0.62);
+  max-width: 560px;
+  text-align: center;
+}
+.int-col-caption {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(240,240,238,0.55);
+  text-align: center;
+  max-width: 220px;
+}
 .interrupt-section {
   margin-top: 120px;
   padding: 100px 48px;
@@ -1804,17 +1818,17 @@ footer {
   </div>
 
   <div class="interrupt-section">
-    <div class="interrupt-section-label">How Aether asks</div>
     <div class="interrupt-section-headline">
       Handles what it can.<br>
       <span class="interrupt-accent">Asks for the rest.</span>
     </div>
+    <p class="interrupt-intro">Aether acts first. When it needs you, it asks once &mdash; clearly, with everything you need to decide.</p>
 
     <div class="epilogue-phones">
 
       <!-- V1: Active interrupt — "Before I act" -->
       <div class="ep-col">
-        <div class="ep-context" style="color:rgba(91,155,213,0.75)">Active interrupt &middot; user is in app</div>
+        <div class="ep-context" style="color:rgba(91,155,213,0.75)">Active interrupt &middot; you&rsquo;re in the app</div>
         <div class="ep-panel">
           <div class="p-header">
             <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
@@ -1873,11 +1887,12 @@ footer {
             </div>
           </div>
         </div>
+        <p class="int-col-caption">When something time-sensitive converges, Aether shows its reasoning and asks before acting. You approve, adjust, or handle it yourself.</p>
       </div>
 
       <!-- V2: Ambient interrupt — "Done what I could" -->
       <div class="ep-col" id="int-col-2" style="opacity:0;transform:translateX(14px)">
-        <div class="ep-context" style="color:rgba(85,185,140,0.75)">Ambient interrupt &middot; user notices</div>
+        <div class="ep-context" style="color:rgba(85,185,140,0.65);text-transform:none;letter-spacing:0.03em;font-size:0.75rem">Ambient &middot; Aether gets you most of the way there. You handle the rest when you&rsquo;re ready.</div>
         <div class="ep-panel" style="position:relative">
           <!-- Underlying Log view (dimmed) -->
           <div class="p-header" style="opacity:0.3;flex-shrink:0">
@@ -1901,11 +1916,11 @@ footer {
             <a class="ambient-secondary" href="#">Later</a>
           </div>
         </div>
+        <p class="int-col-caption">Prefer not to be interrupted? Aether acts quietly. A gentle indicator appears when something&rsquo;s waiting. Open it when you&rsquo;re ready &mdash; or don&rsquo;t.</p>
       </div>
 
     </div>
 
-    <p class="epilogue-sub">Active interrupt asks before Aether acts &mdash; when something is time-sensitive and you&rsquo;re already here. Ambient interrupt surfaces after, with one tap if you want it.</p>
     <div class="interrupt-tag">Interrupt modes &middot; Active &amp; Ambient</div>
   </div>
 
