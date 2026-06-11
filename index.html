@@ -475,6 +475,15 @@ nav {
   50% { opacity: 0.3; }
 }
 
+@keyframes tapFlash {
+  0%   { background: rgba(255,255,255,0); }
+  30%  { background: rgba(255,255,255,0.07); }
+  100% { background: rgba(255,255,255,0); }
+}
+.tap-flash {
+  animation: tapFlash 0.35s ease forwards;
+}
+
 .ambient-text { font-family: 'DM Mono', monospace; font-size: 0.6875rem; color: var(--blue); letter-spacing: 0.04em; }
 
 /* ── ACTION ENTRIES ── */
@@ -2261,6 +2270,10 @@ async function runSequence() {
   await pauseableDelay(2000);        // Phase 2: Log collapsed — 2s read time (pauseable)
 
   // Phase 3: expand Doctor entry
+  logGp.classList.add('tap-flash');
+  await delay(350);
+  logGp.classList.remove('tap-flash');
+
   const expandTrans = 'max-height 0.45s ease, opacity 0.35s ease';
   const gpChevron = logGp.querySelector('.log-chevron');
   gpChevron.style.transition = 'transform 0.3s ease';
