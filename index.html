@@ -374,7 +374,7 @@ nav {
 .card-stack .call-chip--undo { width: auto; }
 
 /* ── EPILOGUE PANEL INNER ELEMENTS ── */
-.p-header { padding: 10px 14px 8px; flex-shrink: 0; }
+.p-header { padding: 10px 14px 8px; border-bottom: 1px solid rgba(91,155,213,0.14); margin-bottom: 8px; flex-shrink: 0; }
 
 .p-wordmark {
   font-size: 0.6875rem;
@@ -709,6 +709,23 @@ nav {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.12);
   color: var(--text-faint);
+}
+
+/* Interrupt signal entry variants */
+.log-entry.overdue-entry::before { background: var(--red); }
+.log-entry.overdue-entry .e-icon { background: var(--red-dim); }
+.log-entry.pending-entry::before { background: var(--amber); }
+.log-entry.pending-entry .e-icon { background: var(--amber-dim); }
+
+/* Full-width call-chip inside ep-panel */
+.ep-panel .call-chip {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.75rem;
+  padding: 9px 12px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
 }
 
 /* ── PROOF STRIP ── */
@@ -1257,21 +1274,6 @@ footer {
   padding: 6px 16px;
   border-radius: 20px;
 }
-.int-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--green);
-  color: #fff;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 9px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
-}
 .int-secondary {
   display: flex;
   gap: 5px;
@@ -1301,12 +1303,6 @@ footer {
   padding: 0 4px;
   flex-shrink: 0;
 }
-/* V1 signal rows: ep-metric with coloured left border */
-.int-signal { border-left-width: 2px; border-left-style: solid; padding-left: 8px; align-items: flex-start; flex-wrap: nowrap; }
-.int-signal .ep-dot { margin-top: 3px; flex-shrink: 0; }
-.int-signal-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.int-signal-title { font-size: 0.6875rem; color: var(--text); line-height: 1.3; }
-.int-signal-sub { font-family: 'DM Mono', monospace; font-size: 0.625rem; color: var(--text-faint); }
 /* V2 ambient sheet */
 .ambient-bg { flex: 1; overflow: hidden; display: flex; flex-direction: column; padding: 0 11px; gap: 5px; opacity: 0.25; pointer-events: none; }
 .ambient-sheet {
@@ -1336,14 +1332,14 @@ footer {
 .ambient-sheet-hdr { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .ambient-sheet-lbl {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.10em;
   color: var(--text-faint);
 }
 .ambient-later {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-faint);
@@ -1367,7 +1363,7 @@ footer {
 }
 .ambient-handled-lbl {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.10em;
   color: var(--green);
@@ -1377,7 +1373,7 @@ footer {
 .ambient-chips { display: flex; flex-wrap: wrap; gap: 4px; flex-shrink: 0; }
 .ambient-chip {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   color: var(--green);
   background: var(--green-dim);
   border: 1px solid rgba(85,185,140,0.25);
@@ -1387,7 +1383,7 @@ footer {
 }
 .ambient-needs-lbl {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.10em;
   color: var(--blue);
@@ -1403,7 +1399,7 @@ footer {
 }
 .ambient-signal-note {
   font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   color: var(--text-faint);
   margin-top: 3px;
   letter-spacing: 0.02em;
@@ -1771,28 +1767,34 @@ footer {
           </div>
           <div class="p-body" id="int-body-1">
             <div class="task-section-label">What Aether noticed</div>
-            <div class="ep-metric int-signal" id="int-s1" style="opacity:0;transform:translateY(6px);border-left-color:var(--red)">
-              <div class="ep-dot red"></div>
-              <div class="int-signal-body">
-                <div class="int-signal-title">Invoice #118 hasn&rsquo;t been sent</div>
-                <div class="int-signal-sub">Hartwell &middot; task untouched</div>
+            <div class="log-entry overdue-entry" id="int-s1" style="opacity:0;transform:translateY(6px)">
+              <div class="e-icon">✉️</div>
+              <div class="e-body">
+                <div class="log-summary">
+                  <span class="e-label">Unsent</span>
+                  <span class="log-title">Invoice #118 &middot; Hartwell</span>
+                  <span class="log-age e-overdue">6d</span>
+                </div>
               </div>
-              <div class="ep-metric-val red">6d</div>
             </div>
-            <div class="ep-metric int-signal" id="int-s2" style="opacity:0;transform:translateY(6px);border-left-color:var(--amber)">
-              <div class="ep-dot amber"></div>
-              <div class="int-signal-body">
-                <div class="int-signal-title">Marcus reply sitting in draft</div>
-                <div class="int-signal-sub">Ready to send</div>
+            <div class="log-entry pending-entry" id="int-s2" style="opacity:0;transform:translateY(6px)">
+              <div class="e-icon">💬</div>
+              <div class="e-body">
+                <div class="log-summary">
+                  <span class="e-label">Draft</span>
+                  <span class="log-title">Marcus reply &middot; staged</span>
+                  <span class="log-age" style="color:var(--amber)">3d</span>
+                </div>
               </div>
-              <div class="ep-metric-val amber">3d</div>
             </div>
             <div class="task-section-label" id="int-will-lbl" style="opacity:0">What Aether will do</div>
-            <div class="ep-held" id="int-reasoning" style="opacity:0;transform:translateY(4px)">
-              <div class="ep-held-item">Block 1:35&ndash;2:00pm on your calendar. Hold non-urgent notifications. Stage the Marcus reply for one tap.</div>
+            <div class="log-entry" id="int-reasoning" style="opacity:0;transform:translateY(4px)">
+              <div class="e-body">
+                <div class="e-text">Block 1:35&ndash;2:00pm on your calendar. Hold non-urgent notifications. Stage the Marcus reply for one tap.</div>
+              </div>
             </div>
             <div class="int-safety" id="int-safety" style="opacity:0">Nothing leaves without you. All actions undoable from the log.</div>
-            <a class="int-cta" id="int-cta" href="#" style="opacity:0">Let Aether handle it &nearr;</a>
+            <a class="call-chip" id="int-cta" href="#" style="opacity:0">Let Aether handle it &nearr;</a>
             <div class="int-secondary" id="int-secondary" style="opacity:0">
               <a class="int-secondary-btn" href="#">I&rsquo;ll handle it</a>
               <a class="int-secondary-btn" href="#">Change what it does</a>
