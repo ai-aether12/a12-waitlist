@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interrupt Contrast</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07111e;
+    --card-bg: #0e1d2f;
+    --surface: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.09);
+    --text: rgba(240,240,238,0.92);
+    --text-faint: rgba(240,240,238,0.42);
+    --text-dim: rgba(240,240,238,0.28);
+    --green: #55b98c;
+    --green-dim: rgba(85,185,140,0.09);
+    --blue: #5b9bd5;
+    --blue-dim: rgba(91,155,213,0.09);
+    --amber: #e6a817;
+    --red: #e05c5c;
+  }
+
+  body {
+    background: var(--bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 48px 24px;
+    gap: 20px;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 340px;
+  }
+  .col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* ── SHARED SHELL ── */
+  .card-stack {
+    border-radius: 20px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── NAV ── */
+  .cs-nav {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 0 14px;
+    flex-shrink: 0;
+  }
+  .cs-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: rgba(240,240,238,0.22);
+  }
+  .cs-nav-item.active { color: var(--blue); }
+  .cs-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @keyframes amberpulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  @keyframes greenpulse  { 0%,100%{opacity:.7} 50%{opacity:.25} }
+
+
+  /* ════════════════
+     V1 — BEFORE I ACT
+  ════════════════ */
+  .card-v1 {
+    background: var(--card-bg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+    border-top: 2px solid rgba(230,168,23,0.55);
+  }
+  .notif-banner {
+    background: linear-gradient(90deg, rgba(230,168,23,0.11), rgba(230,168,23,0.04));
+    border-bottom: 1px solid rgba(230,168,23,0.14);
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .notif-dot { width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:amberpulse 1.8s ease-in-out infinite; }
+  .notif-text { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);flex:1; }
+  .notif-time { font-family:'DM Mono',monospace;font-size:.5625rem;color:rgba(230,168,23,.5);letter-spacing:.04em; }
+
+  .v1-header { padding:13px 16px 11px;border-bottom:1px solid rgba(255,255,255,0.06); }
+  .prov-row { display:flex;align-items:center;gap:5px;margin-bottom:9px; }
+  .prov-chip {
+    display:flex;align-items:center;gap:4px;
+    font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.09em;text-transform:uppercase;
+    padding:2px 6px;border-radius:3px;
+  }
+  .prov-dot { width:4px;height:4px;border-radius:50%;flex-shrink:0; }
+  .prov-chip--red   { color:rgba(224,92,92,.75);  background:rgba(224,92,92,.08);  border:1px solid rgba(224,92,92,.18); }
+  .prov-chip--red   .prov-dot { background:var(--red); }
+  .prov-chip--blue  { color:rgba(91,155,213,.75); background:rgba(91,155,213,.08); border:1px solid rgba(91,155,213,.18); }
+  .prov-chip--blue  .prov-dot { background:var(--blue); }
+  .prov-chip--amber { color:rgba(230,168,23,.75); background:rgba(230,168,23,.08); border:1px solid rgba(230,168,23,.18); }
+  .prov-chip--amber .prov-dot { background:var(--amber); }
+  .prov-arrow { font-size:.5rem;color:var(--text-dim); }
+
+  .v1-title { font-family:'Lexend',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text);line-height:1.15;letter-spacing:-.02em;margin-bottom:3px; }
+  .v1-window { font-family:'DM Mono',monospace;font-size:.625rem;color:var(--amber);letter-spacing:.04em;display:flex;align-items:center;gap:6px; }
+  .v1-window-dot { width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:amberpulse 1.8s ease-in-out infinite; }
+
+  .v1-body { padding:12px 16px 12px;display:flex;flex-direction:column;gap:8px; }
+
+  .excerpt-card { border-radius:7px;overflow:hidden; }
+  .excerpt-label {
+    font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;
+    padding:4px 10px;display:flex;align-items:center;gap:5px;
+  }
+  .exc-lbl-dot { width:4px;height:4px;border-radius:50%;flex-shrink:0;opacity:.7; }
+  .excerpt-label--log { background:rgba(224,92,92,.07);color:rgba(224,92,92,.6);border-bottom:1px solid rgba(224,92,92,.10); }
+  .excerpt-label--log .exc-lbl-dot { background:var(--red); }
+  .excerpt-label--ins { background:rgba(91,155,213,.07);color:rgba(91,155,213,.6);border-bottom:1px solid rgba(91,155,213,.10); }
+  .excerpt-label--ins .exc-lbl-dot { background:var(--blue); }
+
+  .exc-body-log {
+    display:flex;align-items:flex-start;gap:10px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(224,92,92,.15);border-top:none;border-radius:0 0 7px 7px;padding:8px 10px;
+  }
+  .exc-icon { width:26px;height:26px;border-radius:5px;background:rgba(224,92,92,.1);display:flex;align-items:center;justify-content:center;font-size:.8125rem;flex-shrink:0; }
+  .exc-meta { flex:1;min-width:0; }
+  .exc-lbl  { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:2px; }
+  .exc-title { font-size:.75rem;font-weight:500;color:var(--text); }
+  .exc-detail { font-family:'DM Mono',monospace;font-size:.5625rem;color:var(--text-faint);margin-top:1px; }
+  .exc-age { font-family:'DM Mono',monospace;font-size:.6875rem;color:var(--red);flex-shrink:0; }
+
+  .exc-body-ins {
+    background:rgba(91,155,213,.05);border:1px solid rgba(91,155,213,.13);border-top:none;border-radius:0 0 7px 7px;padding:8px 10px;
+    display:flex;flex-direction:column;gap:5px;
+  }
+  .ins-row { display:flex;align-items:flex-start;gap:7px; }
+  .ins-dot { width:4px;height:4px;border-radius:50%;background:var(--blue);opacity:.5;flex-shrink:0;margin-top:5px; }
+  .ins-text { font-family:'DM Mono',monospace;font-size:.625rem;color:rgba(240,240,238,.6);letter-spacing:.02em;line-height:1.5; }
+  .ins-text strong { color:rgba(240,240,238,.82);font-weight:500; }
+
+  .action-proposal {
+    background:var(--green-dim);border:1px solid rgba(85,185,140,.2);border-left:2px solid var(--green);
+    border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:9px;
+  }
+  .ap-lbl { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.04em;color:var(--green);opacity:.7;margin-bottom:2px; }
+  .ap-text { font-family:'Lexend',sans-serif;font-size:.8125rem;font-weight:600;color:var(--text);flex:1; }
+  .ap-icon { font-size:1rem;flex-shrink:0;opacity:.7; }
+
+  .approve-row { display:flex;flex-direction:column;gap:6px;padding:2px 0 4px; }
+  .approve-btn {
+    background:var(--green);color:#fff;border:none;border-radius:7px;padding:10px 0;
+    font-family:'Lexend',sans-serif;font-size:.8125rem;font-weight:600;text-align:center;cursor:pointer;
+  }
+  .pass-row { display:flex;justify-content:center;gap:20px;padding-bottom:2px; }
+  .pass-btn { font-family:'DM Mono',monospace;font-size:.625rem;color:var(--text-faint);letter-spacing:.04em;cursor:pointer;padding:4px 0; }
+
+
+  /* ════════════════
+     V2 — AMBIENT
+  ════════════════ */
+  .card-v2 {
+    background: var(--card-bg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .v2-header {
+    padding:16px 20px 12px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .v2-wordmark {
+    font-family:'DM Mono',monospace;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-faint);display:flex;align-items:center;gap:7px;margin-bottom:10px;
+  }
+  .v2-live-dot { width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0; }
+  .v2-title { font-family:'Lexend',sans-serif;font-size:1.375rem;font-weight:700;color:var(--text);line-height:1.15;letter-spacing:-.02em; }
+  .v2-sub { font-family:'DM Mono',monospace;font-size:.6875rem;color:var(--text-faint);margin-top:3px;letter-spacing:.04em; }
+
+  .v2-body { padding:12px 14px 4px;display:flex;flex-direction:column;gap:7px;flex:1; }
+
+  /* Regular log entries — calm, normal state */
+  .log-entry {
+    display:flex;align-items:flex-start;gap:9px;
+    background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 10px;
+  }
+  .le-icon { width:26px;height:26px;border-radius:5px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:.8125rem;flex-shrink:0; }
+  .le-meta { flex:1;min-width:0; }
+  .le-title { font-size:.75rem;font-weight:500;color:var(--text); }
+  .le-detail { font-family:'DM Mono',monospace;font-size:.5625rem;color:var(--text-faint);margin-top:2px;letter-spacing:.03em; }
+  .le-status { font-family:'DM Mono',monospace;font-size:.5625rem;flex-shrink:0;margin-top:2px; }
+  .le-status--done { color:var(--green); }
+  .le-status--dim  { color:var(--text-dim); }
+
+  /* Ambient indicator — quiet, no urgency */
+  .ambient-strip {
+    display:flex;align-items:center;gap:8px;
+    background:rgba(85,185,140,0.05);
+    border:1px solid rgba(85,185,140,0.12);
+    border-radius:6px;
+    padding:8px 11px;
+    margin-top:2px;
+  }
+  .ambient-strip-dot {
+    width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;
+    animation:greenpulse 3s ease-in-out infinite;
+  }
+  .ambient-strip-text {
+    font-family:'DM Mono',monospace;font-size:.625rem;color:rgba(85,185,140,0.55);
+    letter-spacing:.03em;flex:1;
+  }
+  .ambient-strip-hint {
+    font-family:'DM Mono',monospace;font-size:.5rem;color:var(--text-dim);
+    letter-spacing:.06em;text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- V1 -->
+<div class="col">
+  <div class="col-label">Needs your decision</div>
+  <div class="card-stack card-v1">
+
+    <div class="notif-banner">
+      <div class="notif-dot"></div>
+      <div class="notif-text">Action Required</div>
+      <div class="notif-time">just now</div>
+    </div>
+
+    <div class="v1-header">
+      <div class="prov-row">
+        <div class="prov-chip prov-chip--red"><div class="prov-dot"></div>Log</div>
+        <div class="prov-arrow">+</div>
+        <div class="prov-chip prov-chip--blue"><div class="prov-dot"></div>Insights</div>
+        <div class="prov-arrow">+</div>
+        <div class="prov-chip prov-chip--amber"><div class="prov-dot"></div>Calendar</div>
+      </div>
+      <div class="v1-title">Before I act &mdash;</div>
+      <div class="v1-window"><div class="v1-window-dot"></div>25 min window &middot; 1:35pm</div>
+    </div>
+
+    <div class="v1-body">
+
+      <div class="excerpt-card">
+        <div class="excerpt-label excerpt-label--log"><div class="exc-lbl-dot"></div>From Log</div>
+        <div class="exc-body-log">
+          <div class="exc-icon">✉️</div>
+          <div class="exc-meta">
+            <div class="exc-lbl">Overdue</div>
+            <div class="exc-title">Invoice #118 &middot; Hartwell Co.</div>
+            <div class="exc-detail">Draft ready &middot; unsent</div>
+          </div>
+          <div class="exc-age">6d</div>
+        </div>
+      </div>
+
+      <div class="excerpt-card">
+        <div class="excerpt-label excerpt-label--ins"><div class="exc-lbl-dot"></div>From Insights</div>
+        <div class="exc-body-ins">
+          <div class="ins-row"><div class="ins-dot"></div><div class="ins-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div></div>
+          <div class="ins-row"><div class="ins-dot"></div><div class="ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div></div>
+        </div>
+      </div>
+
+      <div class="action-proposal">
+        <div>
+          <div class="ap-lbl">Aether will</div>
+          <div class="ap-text">Send Invoice #118 to Hartwell Co.</div>
+        </div>
+        <div class="ap-icon">↗</div>
+      </div>
+
+      <div class="approve-row">
+        <button class="approve-btn">Approve</button>
+        <div class="pass-row">
+          <span class="pass-btn">Not now</span>
+          <span class="pass-btn">Change what it does</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cs-nav">
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span class="cs-nav-label">Log</span></div>
+      <div class="cs-nav-item active"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg><span class="cs-nav-label">Current</span></div>
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg><span class="cs-nav-label">Insights</span></div>
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span class="cs-nav-label">You</span></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- V2 -->
+<div class="col">
+  <div class="col-label">No decision needed</div>
+  <div class="card-stack card-v2">
+
+    <div class="v2-header">
+      <div class="v2-wordmark"><span class="v2-live-dot"></span>Aether</div>
+      <div class="v2-title">Log</div>
+      <div class="v2-sub">Tuesday &middot; up to date</div>
+    </div>
+
+    <div class="v2-body">
+
+      <div class="log-entry">
+        <div class="le-icon">📅</div>
+        <div class="le-meta">
+          <div class="le-title">Dentist rescheduled</div>
+          <div class="le-detail">Moved to Thu 3pm &middot; confirmed</div>
+        </div>
+        <div class="le-status le-status--done">Done</div>
+      </div>
+
+      <div class="log-entry">
+        <div class="le-icon">✉️</div>
+        <div class="le-meta">
+          <div class="le-title">Weekly summary sent</div>
+          <div class="le-detail">To team &middot; 9:02am</div>
+        </div>
+        <div class="le-status le-status--done">Done</div>
+      </div>
+
+      <div class="log-entry">
+        <div class="le-icon">💬</div>
+        <div class="le-meta">
+          <div class="le-title">Marcus &middot; #design-reviews</div>
+          <div class="le-detail">Draft held &middot; Tue window</div>
+        </div>
+        <div class="le-status le-status--dim">Holding</div>
+      </div>
+
+      <!-- Ambient indicator — quiet, no pressure -->
+      <div class="ambient-strip">
+        <div class="ambient-strip-dot"></div>
+        <div class="ambient-strip-text">1 thing ready when you are</div>
+        <div class="ambient-strip-hint">tap to see</div>
+      </div>
+
+    </div>
+
+    <div class="cs-nav">
+      <div class="cs-nav-item active"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span class="cs-nav-label">Log</span></div>
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg><span class="cs-nav-label">Current</span></div>
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg><span class="cs-nav-label">Insights</span></div>
+      <div class="cs-nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span class="cs-nav-label">You</span></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
