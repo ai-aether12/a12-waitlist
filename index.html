@@ -1302,7 +1302,7 @@ footer {
 }
 .insight-cta { margin-top: 2px; }
 
-/* ── INSIGHTS NAV GLOW (Phase 1) ── */
+/* ── INSIGHTS GLOW ── */
 @keyframes insightsPulse {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -1310,6 +1310,13 @@ footer {
 .insights-glow {
   color: var(--amber) !important;
   animation: insightsPulse 2.2s ease-in-out infinite;
+}
+@keyframes peekStripPulse {
+  0%, 100% { border-color: rgba(91,155,213,0.18); background: var(--blue-dim); }
+  50%       { border-color: rgba(91,155,213,0.5);  background: rgba(91,155,213,0.14); }
+}
+.peek-strip-glow {
+  animation: peekStripPulse 2s ease-in-out infinite;
 }
 
 /* ── INTERRUPT SECTION ── */
@@ -2252,8 +2259,6 @@ function resetAll() {
       if (titleEl) titleEl.textContent = 'While you were away';
       if (subEl) { subEl.textContent = 'Aether acted'; subEl.style.color = 'var(--green)'; }
       setNav('log'); // nav-log = Current tab
-      const insightsNavEl = document.getElementById('nav-insights');
-      if (insightsNavEl) insightsNavEl.classList.add('insights-glow');
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         body.style.transition = 'opacity 0.18s ease';
@@ -2283,9 +2288,7 @@ async function runSequence() {
   document.getElementById('p-title').textContent = 'Log';
   const pSub = document.getElementById('p-sub');
   pSub.textContent = 'Recent activity';
-  pSub.style.color = '';                              // restore faint default
-  const insightsNavEl = document.getElementById('nav-insights');
-  if (insightsNavEl) insightsNavEl.classList.remove('insights-glow');
+  pSub.style.color = '';
   setNav('today'); // nav-today = Log tab
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -2293,6 +2296,8 @@ async function runSequence() {
     body.style.opacity    = '1';
   }));
   await delay(240);
+  const marcusPeekStrip = logMarcus.querySelector('.peek-strip');
+  if (marcusPeekStrip) marcusPeekStrip.classList.add('peek-strip-glow');
   await pauseableDelay(2000);        // Phase 2: Log collapsed — 2s read time (pauseable)
 
   // Phase 3: expand Doctor entry
@@ -2319,6 +2324,7 @@ async function runSequence() {
   await delay(500);
 
   // Phase 4: tap Marcus insights bar, then open insight panel
+  if (marcusPeekStrip) marcusPeekStrip.classList.remove('peek-strip-glow');
   logMarcus.classList.add('tap-flash');
   await delay(400);
   logMarcus.classList.remove('tap-flash');
@@ -2333,7 +2339,6 @@ async function runSequence() {
   insightMarcus.style.flexDirection = 'column';
   document.getElementById('p-title').textContent = 'Marcus · Insight';
   pSub.textContent = 'Pattern found';
-  if (insightsNavEl) insightsNavEl.classList.remove('insights-glow');
   setNav('insights');
 
   const filterBtn = document.getElementById('cs-filter-btn');
