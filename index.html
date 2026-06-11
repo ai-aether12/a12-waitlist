@@ -1199,121 +1199,68 @@ footer {
   letter-spacing: 0.03em;
   line-height: 1.5;
 }
-.evidence-val {
-  color: rgba(240,240,238,0.72);
+.evidence-val { color: rgba(240,240,238,0.72); }
+
+/* Day-pattern grid */
+.day-grid-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px 9px;
 }
-.insight-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+.day-grid-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 9px;
 }
-.insight-stat {
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 7px;
-  padding: 7px 6px;
+.day-grid { display: flex; gap: 5px; align-items: flex-end; }
+.day-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.day-bar-track { width: 100%; height: 48px; background: rgba(255,255,255,0.04); border-radius: 3px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+.day-bar-fill { width: 100%; border-radius: 3px; }
+.day-name { font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.05em; color: var(--text-faint); text-transform: uppercase; }
+.day-name--tue { color: var(--green); }
+
+/* Bridge footer */
+.bridge-footer {
+  margin-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 10px 11px 12px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 8px;
+  flex-shrink: 0;
 }
-.insight-stat-val {
-  font-family: 'Lexend', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.insight-stat-label {
+.bridge-context { display: flex; align-items: center; gap: 8px; }
+.bridge-icon { width: 24px; height: 24px; border-radius: 5px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+.bridge-meta { flex: 1; min-width: 0; }
+.bridge-title { font-size: 0.6875rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bridge-sub { font-family: 'DM Mono', monospace; font-size: 0.5625rem; color: var(--text-faint); letter-spacing: 0.04em; margin-top: 1px; }
+.bridge-actions { display: flex; gap: 6px; }
+.bridge-action {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 7px 10px;
+  border-radius: 6px;
   font-family: 'DM Mono', monospace;
   font-size: 0.625rem;
-  color: var(--text-faint);
-  letter-spacing: 0.02em;
-  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
 }
-.insight-cycle {
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 7px;
-  padding: 8px 10px;
-}
-.insight-cycle-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--text-faint);
-  margin-bottom: 8px;
-}
-.insight-cycle-row {
-  display: flex;
-  align-items: flex-start;
-}
-.insight-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  flex: 1;
-}
-.insight-node-dot {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  border: 1.5px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.3);
+.bridge-action--send {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.11);
   color: var(--text-faint);
 }
-.insight-node--done .insight-node-dot {
+.bridge-action--stage {
   background: var(--green-dim);
-  border-color: var(--green);
+  border: 1px solid rgba(85,185,140,0.25);
   color: var(--green);
 }
-.insight-node--stall .insight-node-dot {
-  background: var(--amber-dim);
-  border-color: var(--amber);
-  color: var(--amber);
-  font-size: 0.5rem;
-  letter-spacing: 0.08em;
-}
-.insight-node--next .insight-node-dot {
-  background: var(--blue-dim);
-  border-color: var(--blue);
-  color: var(--blue);
-}
-.insight-node-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  color: var(--text-faint);
-  text-align: center;
-  letter-spacing: 0.02em;
-  line-height: 1.4;
-}
-.insight-conn {
-  flex: 0 0 10px;
-  height: 1.5px;
-  background: rgba(255,255,255,0.10);
-  margin-top: 11px;
-}
-.insight-notice {
-  background: var(--blue-dim);
-  border: 1px solid rgba(91,155,213,0.18);
-  border-radius: 7px;
-  padding: 8px 10px;
-}
-.insight-notice-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--blue);
-  margin-bottom: 4px;
-}
-.insight-cta { margin-top: 2px; }
+.bridge-action-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
 
 /* ── INSIGHTS GLOW ── */
 @keyframes insightsPulse {
@@ -1779,49 +1726,35 @@ footer {
             <div class="insight-headline">
               Your Marcus replies stall in drafts. <span style="color:var(--blue)">Tuesday mornings</span> break the pattern.
             </div>
-            <div class="insight-notice">
-              <div class="e-text">Aether can hold the draft and release it on <strong>Tuesday mornings</strong> &mdash; when sending feels easier. Nothing goes out without you approving first.</div>
-            </div>
-            <a class="call-chip insight-cta" href="#">Let Aether pick the moment</a>
-            <div class="insight-stats">
-              <div class="insight-stat">
-                <div class="insight-stat-val" style="color:var(--blue)">4</div>
-                <div class="insight-stat-label">Drafts held<br>this week</div>
-              </div>
-              <div class="insight-stat">
-                <div class="insight-stat-val" style="color:var(--amber)">~2d</div>
-                <div class="insight-stat-label">Draft sits<br>before sending</div>
-              </div>
-              <div class="insight-stat">
-                <div class="insight-stat-val" style="color:var(--green)">Tue</div>
-                <div class="insight-stat-label">Mornings<br>work best</div>
+            <div class="day-grid-card">
+              <div class="day-grid-lbl">When you actually send Marcus replies</div>
+              <div class="day-grid">
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:16%;background:rgba(91,155,213,0.28)"></div></div><div class="day-name">Mon</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track" style="background:rgba(85,185,140,0.07)"><div class="day-bar-fill" style="height:90%;background:var(--green)"></div></div><div class="day-name day-name--tue">Tue ✓</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:12%;background:rgba(91,155,213,0.28)"></div></div><div class="day-name">Wed</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:4%;background:rgba(91,155,213,0.14)"></div></div><div class="day-name">Thu</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:12%;background:rgba(91,155,213,0.28)"></div></div><div class="day-name">Fri</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:0%"></div></div><div class="day-name">Sat</div></div>
+                <div class="day-bar-wrap"><div class="day-bar-track"><div class="day-bar-fill" style="height:0%"></div></div><div class="day-name">Sun</div></div>
               </div>
             </div>
             <div class="evidence-card">
               <div class="evidence-text">Based on <span class="evidence-val">4 threads</span> across <span class="evidence-val">3 weeks</span> of messages</div>
             </div>
-            <div class="insight-cycle">
-              <div class="insight-cycle-lbl">Where the handoff is</div>
-              <div class="insight-cycle-row">
-                <div class="insight-node insight-node--done">
-                  <div class="insight-node-dot">&#x2713;</div>
-                  <div class="insight-node-lbl">Draft<br>ready</div>
+            <div class="bridge-footer">
+              <div class="bridge-context">
+                <div class="bridge-icon">💬</div>
+                <div class="bridge-meta">
+                  <div class="bridge-title">Marcus reply &middot; #design-reviews</div>
+                  <div class="bridge-sub">Draft ready &middot; 3d waiting</div>
                 </div>
-                <div class="insight-conn"></div>
-                <div class="insight-node insight-node--done">
-                  <div class="insight-node-dot">&#x2713;</div>
-                  <div class="insight-node-lbl">Staged<br>for you</div>
-                </div>
-                <div class="insight-conn"></div>
-                <div class="insight-node insight-node--stall">
-                  <div class="insight-node-dot">···</div>
-                  <div class="insight-node-lbl" style="color:var(--amber)">Waiting<br>to send</div>
-                </div>
-                <div class="insight-conn"></div>
-                <div class="insight-node insight-node--next">
-                  <div class="insight-node-dot">&#x2197;</div>
-                  <div class="insight-node-lbl">Right<br>moment</div>
-                </div>
+              </div>
+              <div class="bridge-actions">
+                <a class="bridge-action bridge-action--send" href="#">Send now &rsaquo;</a>
+                <a class="bridge-action bridge-action--stage" href="#">
+                  <div class="bridge-action-dot"></div>
+                  Stage for Tue AM
+                </a>
               </div>
             </div>
           </div>
