@@ -31,8 +31,6 @@
     justify-content: center;
     min-height: 100vh;
     padding: 40px 20px;
-    gap: 28px;
-    flex-wrap: wrap;
   }
 
   /* ── SHARED SHELL ── */
@@ -117,8 +115,7 @@
   .action-proposal-lbl {
     font-family: 'DM Mono', monospace;
     font-size: 0.5625rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--green);
     opacity: 0.7;
     margin-bottom: 2px;
@@ -249,7 +246,7 @@
     align-items: center;
     gap: 5px;
   }
-  .excerpt-label-dot { width: 3px; height: 3px; border-radius: 50%; flex-shrink: 0; }
+  .excerpt-label-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; opacity: 0.7; }
   .excerpt-label--log  { background: rgba(224,92,92,0.07);  color: rgba(224,92,92,0.6);  border-bottom: 1px solid rgba(224,92,92,0.10); }
   .excerpt-label--log  .excerpt-label-dot  { background: var(--red); }
   .excerpt-label--ins  { background: rgba(91,155,213,0.07); color: rgba(91,155,213,0.6); border-bottom: 1px solid rgba(91,155,213,0.10); }
@@ -316,159 +313,15 @@
     line-height: 1.5;
   }
   .ins-text strong { color: rgba(240,240,238,0.82); font-weight: 500; }
-
-
-  /* ════════════════════════════════════════
-     VERSION B — Notification overlay feel
-  ════════════════════════════════════════ */
-
-  .card-b {
-    background: #0a1828;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(230,168,23,0.18), 0 0 32px rgba(230,168,23,0.06);
-  }
-
-  .b-header {
-    padding: 14px 16px 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .b-aether-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  .b-wordmark {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6875rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .b-live-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--amber);
-    animation: amberpulse 1.8s ease-in-out infinite;
-  }
-  .b-assembled-pill {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(230,168,23,0.10);
-    border: 1px solid rgba(230,168,23,0.22);
-    border-radius: 20px;
-    padding: 3px 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--amber);
-  }
-  .b-assembled-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--amber); animation: amberpulse 1.8s ease-in-out infinite; }
-
-  .b-title {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 2px;
-  }
-  .b-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.625rem;
-    color: var(--amber);
-    letter-spacing: 0.04em;
-    opacity: 0.8;
-  }
-
-  .b-body {
-    padding: 12px 16px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  /* Thread — shows provenance as a visual connector */
-  .b-thread {
-    display: flex;
-    gap: 10px;
-  }
-  .b-thread-spine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 4px;
-    flex-shrink: 0;
-    width: 16px;
-  }
-  .b-thread-node {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    border: 1.5px solid;
-    flex-shrink: 0;
-  }
-  .b-thread-node--log  { border-color: var(--red);  background: rgba(224,92,92,0.15); }
-  .b-thread-node--ins  { border-color: var(--blue); background: rgba(91,155,213,0.15); }
-  .b-thread-line {
-    width: 1px;
-    flex: 1;
-    min-height: 8px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
-    margin: 3px 0;
-  }
-  .b-thread-content { flex: 1; min-width: 0; padding-bottom: 10px; }
-
-  .b-signal {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(224,92,92,0.16);
-    border-radius: 7px;
-    padding: 8px 10px;
-  }
-  .b-signal-src {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(224,92,92,0.55);
-    margin-bottom: 4px;
-  }
-  .b-signal-title { font-size: 0.75rem; font-weight: 500; color: var(--text); }
-  .b-signal-detail { font-family: 'DM Mono', monospace; font-size: 0.5625rem; color: var(--text-faint); margin-top: 2px; }
-
-  .b-insight {
-    background: rgba(91,155,213,0.06);
-    border: 1px solid rgba(91,155,213,0.14);
-    border-radius: 7px;
-    padding: 8px 10px;
-  }
-  .b-insight-src {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(91,155,213,0.55);
-    margin-bottom: 4px;
-  }
-  .b-insight-rows { display: flex; flex-direction: column; gap: 4px; }
-  .b-insight-row { display: flex; align-items: flex-start; gap: 7px; }
-  .b-insight-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--blue); opacity: 0.5; flex-shrink: 0; margin-top: 5px; }
-  .b-insight-text { font-family: 'DM Mono', monospace; font-size: 0.625rem; color: rgba(240,240,238,0.58); line-height: 1.5; }
-  .b-insight-text strong { color: rgba(240,240,238,0.8); font-weight: 500; }
 </style>
 </head>
 <body>
 
-<!-- ═══ VERSION A: Excerpt cards with amber stripe ═══ -->
 <div class="card-stack card-a">
 
   <div class="notif-banner">
     <div class="notif-banner-dot"></div>
-    <div class="notif-banner-text">Aether assembled &middot; 3 sources</div>
+    <div class="notif-banner-text">Action Required</div>
     <div class="notif-banner-time">just now</div>
   </div>
 
@@ -481,7 +334,7 @@
       <div class="prov-chip prov-chip--amber"><div class="prov-chip-dot"></div>Calendar</div>
     </div>
     <div class="a-title">Before I act &mdash;</div>
-    <div class="a-window">↯ 25 min window &middot; 1:35pm</div>
+    <div class="a-window"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--amber);vertical-align:middle;margin-right:6px;margin-bottom:1px;animation:amberpulse 1.8s ease-in-out infinite"></span>25 min window &middot; 1:35pm</div>
   </div>
 
   <div class="a-body">
@@ -513,88 +366,6 @@
         <div class="ins-row">
           <div class="ins-dot"></div>
           <div class="ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="action-proposal">
-      <div>
-        <div class="action-proposal-lbl">Aether will</div>
-        <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
-      </div>
-      <div class="action-proposal-icon">↗</div>
-    </div>
-
-    <div class="approve-row">
-      <button class="approve-btn">Approve</button>
-      <div class="pass-row">
-        <span class="pass-btn">Not now</span>
-        <span class="pass-btn">Change what it does</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="cs-nav">
-    <div class="cs-nav-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span class="cs-nav-label">Log</span>
-    </div>
-    <div class="cs-nav-item active">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
-      <span class="cs-nav-label">Current</span>
-    </div>
-    <div class="cs-nav-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
-      <span class="cs-nav-label">Insights</span>
-    </div>
-    <div class="cs-nav-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span class="cs-nav-label">You</span>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- ═══ VERSION B: Amber glow + threaded provenance ═══ -->
-<div class="card-stack card-b">
-
-  <div class="b-header">
-    <div class="b-aether-row">
-      <div class="b-wordmark"><span class="b-live-dot"></span>Aether</div>
-      <div class="b-assembled-pill"><span class="b-assembled-dot"></span>Assembled now</div>
-    </div>
-    <div class="b-title">Before I act &mdash;</div>
-    <div class="b-sub">↯ 25 min window &middot; 1:35pm</div>
-  </div>
-
-  <div class="b-body">
-
-    <div class="b-thread">
-      <div class="b-thread-spine">
-        <div class="b-thread-node b-thread-node--log"></div>
-        <div class="b-thread-line"></div>
-        <div class="b-thread-node b-thread-node--ins"></div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px">
-        <div class="b-signal">
-          <div class="b-signal-src">Log · overdue</div>
-          <div class="b-signal-title">Invoice #118 &middot; Hartwell Co.</div>
-          <div class="b-signal-detail">Draft ready &middot; unsent &middot; 6d</div>
-        </div>
-        <div class="b-insight">
-          <div class="b-insight-src">Insights · pattern</div>
-          <div class="b-insight-rows">
-            <div class="b-insight-row">
-              <div class="b-insight-dot"></div>
-              <div class="b-insight-text"><strong>25-min window</strong> before your call.</div>
-            </div>
-            <div class="b-insight-row">
-              <div class="b-insight-dot"></div>
-              <div class="b-insight-text">Hartwell responds <strong>Tuesday mornings.</strong></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
