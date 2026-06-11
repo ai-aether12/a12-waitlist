@@ -28,7 +28,7 @@
   --red-dim: rgba(224,92,92,0.12);
 }
 
-html { font-size: 100%; scroll-behavior: smooth; }
+html { font-size: 100%; scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   background: var(--bg);
@@ -916,6 +916,7 @@ footer {
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 20px; }
   .hero-left .subhead { margin-bottom: 20px; }
   .hero-left .cta-block { display: none; }
+  .hero-right::before { display: none; }
   .cta-mobile { display: flex; justify-content: center; padding: 28px 24px 0; }
   .cta-mobile .cta-btn { width: 100%; max-width: 360px; }
   .card-stack { width: 100%; max-width: 360px; height: 480px; }
@@ -955,7 +956,7 @@ footer {
         starts it.
       </h1>
       <p class="subhead">
-        Aether monitors your calendar, tasks, and inbox — then acts on your behalf. No prompts. No alerts. It just does it.
+        Aether monitors your calendar, tasks, and inbox &mdash; then acts on your behalf. No prompts. No alerts. It just does it.
       </p>
       <div class="cta-block">
         <button class="cta-btn" onclick="openModal()">
