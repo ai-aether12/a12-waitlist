@@ -1207,6 +1207,16 @@ footer {
 }
 .insight-cta { margin-top: 2px; }
 
+/* ── INSIGHTS NAV GLOW (Phase 1) ── */
+@keyframes insightsPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.insights-glow {
+  color: var(--amber) !important;
+  animation: insightsPulse 2.2s ease-in-out infinite;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
@@ -1652,9 +1662,12 @@ footer {
 <script>
 const LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7';
 
-const IDLE       = 4000;
-const ENTRY_HOLD = 6000;
-const RESTART    = 500;
+const IDLE         = 4000;
+const ENTRY_HOLD   = 6000;
+const INSIGHT_HOLD = 9000;
+const RESTART      = 500;
+
+let paused = false;
 
 let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
 
@@ -1675,6 +1688,16 @@ function initEls() {
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
+
+function pauseableDelay(ms) {
+  return new Promise(resolve => {
+    let elapsed = 0;
+    const tick = setInterval(() => {
+      if (!paused) elapsed += 50;
+      if (elapsed >= ms) { clearInterval(tick); resolve(); }
+    }, 50);
+  });
+}
 
 function setNav(name) {
   ['today', 'log', 'insights', 'you'].forEach(n => {
@@ -1727,8 +1750,10 @@ function resetAll() {
       const titleEl = document.getElementById('p-title');
       const subEl   = document.getElementById('p-sub');
       if (titleEl) titleEl.textContent = 'While you were away';
-      if (subEl)   subEl.textContent   = 'Aether acted';
+      if (subEl) { subEl.textContent = 'Aether acted'; subEl.style.color = 'var(--green)'; }
       setNav('log'); // nav-log = Current tab
+      const insightsNavEl = document.getElementById('nav-insights');
+      if (insightsNavEl) insightsNavEl.classList.add('insights-glow');
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         body.style.transition = 'opacity 0.18s ease';
@@ -1743,8 +1768,8 @@ let sequenceActive = false;
 
 async function runSequence() {
   sequenceActive = true;
-  await resetAll();         // Phase 1: Current view — While you were away
-  await delay(ENTRY_HOLD); // hold 6s
+  await resetAll();                  // Phase 1: Current view — While you were away
+  await pauseableDelay(ENTRY_HOLD); // hold 6s (pauseable)
 
   // Transition to Log view (collapsed)
   const body = document.getElementById('p-body');
@@ -1756,7 +1781,11 @@ async function runSequence() {
   ambient.style.display = 'none';
   [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
   document.getElementById('p-title').textContent = 'Log';
-  document.getElementById('p-sub').textContent   = 'Recent activity';
+  const pSub = document.getElementById('p-sub');
+  pSub.textContent = 'Recent activity';
+  pSub.style.color = '';                              // restore faint default
+  const insightsNavEl = document.getElementById('nav-insights');
+  if (insightsNavEl) insightsNavEl.classList.remove('insights-glow');
   setNav('today'); // nav-today = Log tab
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1764,8 +1793,7 @@ async function runSequence() {
     body.style.opacity    = '1';
   }));
   await delay(240);
-
-  await delay(2000); // Phase 2: Log collapsed — 2s to read entries
+  await pauseableDelay(2000);        // Phase 2: Log collapsed — 2s read time (pauseable)
 
   // Phase 3: expand Doctor entry
   const expandTrans = 'max-height 0.45s ease, opacity 0.35s ease';
@@ -1777,7 +1805,7 @@ async function runSequence() {
   logGpDetail.style.opacity    = '1';
   logGpDetail.style.overflow   = 'visible';
 
-  await delay(4000); // hold 4s with Doctor expanded
+  await pauseableDelay(4000);        // hold 4s with Doctor expanded (pauseable)
 
   // Collapse Doctor
   gpChevron.style.transform   = '';
@@ -1792,10 +1820,11 @@ async function runSequence() {
   await delay(160);
 
   [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
-  insightMarcus.style.display        = 'flex';
-  insightMarcus.style.flexDirection  = 'column';
+  insightMarcus.style.display       = 'flex';
+  insightMarcus.style.flexDirection = 'column';
   document.getElementById('p-title').textContent = 'Marcus · Insight';
-  document.getElementById('p-sub').textContent   = 'Pattern found';
+  pSub.textContent = 'Pattern found';
+  if (insightsNavEl) insightsNavEl.classList.remove('insights-glow');
   setNav('insights');
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1803,15 +1832,9 @@ async function runSequence() {
     body.style.opacity    = '1';
   }));
   await delay(240);
-  await delay(ENTRY_HOLD); // hold 6s on insight
+  await pauseableDelay(INSIGHT_HOLD); // hold 9s on insight (pauseable)
 
-  // Fade out before looping
-  body.style.transition = 'opacity 0.15s ease';
-  body.style.opacity    = '0';
-  await delay(160);
-  insightMarcus.style.display = 'none';
-
-  await delay(RESTART);
+  // Loop — resetAll() handles fade-out, hides insightMarcus, snaps to Current, fades in
   runSequence();
 }
 
@@ -1827,6 +1850,12 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 observer.observe(document.getElementById('p-body'));
+
+const cardStack = document.querySelector('.card-stack');
+if (cardStack) {
+  cardStack.addEventListener('mouseenter', () => { paused = true; });
+  cardStack.addEventListener('mouseleave', () => { paused = false; });
+}
 
 let epStarted = false;
 
