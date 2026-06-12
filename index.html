@@ -1761,6 +1761,7 @@ footer {
           <button class="slide-dot active" data-slide="1" aria-label="Slide 1"></button>
           <button class="slide-dot" data-slide="2" aria-label="Slide 2"></button>
           <button class="slide-dot" data-slide="3" aria-label="Slide 3"></button>
+          <button class="slide-dot" data-slide="4" aria-label="Slide 4"></button>
           <button class="slide-arrow" id="slide-next" aria-label="Next slide">&#8250;</button>
         </div>
       </div>
@@ -1966,9 +1967,10 @@ let slidePermission, slideCopyEl;
 let currentSlide = 0;
 
 const SLIDE_COPY = {
-  1: 'Aether handles what it can while you’re away. Open the app to a clean summary — nothing to hunt down.',
-  2: 'Aether notices patterns across your messages and connects them to action.',
-  3: 'For anything consequential, Aether assembles what it knows and asks first. One tap to approve.'
+  1: ‘Aether handles what it can while you’re away. Open the app to a clean summary — nothing to hunt down.’,
+  2: ‘Every action Aether takes is logged. See exactly what happened and jump back in where needed.’,
+  3: ‘Aether notices patterns across your messages and connects them to action.’,
+  4: ‘For anything consequential, Aether assembles what it knows and asks first. One tap to approve.’
 };
 
 function updateDots(n) {
@@ -1978,7 +1980,7 @@ function updateDots(n) {
   const prevBtn = document.getElementById('slide-prev');
   const nextBtn = document.getElementById('slide-next');
   if (prevBtn) prevBtn.disabled = n <= 1;
-  if (nextBtn) nextBtn.disabled = n >= 3;
+  if (nextBtn) nextBtn.disabled = n >= 4;
 }
 
 function updateCopy(n) {
@@ -1996,11 +1998,39 @@ function fadeBody(to, ms) {
 }
 
 async function runSlide1() {
-  const body = document.getElementById('p-body');
   const cardStack = document.querySelector('.card-stack');
   cardStack.classList.remove('card-stack--perm');
 
-  // Show Log view directly — no auto-transitions
+  // WYWA — action entries (staged / awaiting action)
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
+  ambient.style.display = 'none';
+  if (insightMarcus) insightMarcus.style.display = 'none';
+  if (slidePermission) slidePermission.style.display = 'none';
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
+
+  const filterBtn = document.getElementById('cs-filter-btn');
+  const backBtn   = document.getElementById('cs-back-btn');
+  if (filterBtn) filterBtn.style.display = '';
+  if (backBtn)   backBtn.style.display   = 'none';
+
+  const titleEl = document.getElementById('p-title');
+  const subEl   = document.getElementById('p-sub');
+  titleEl.textContent = 'While you were away';
+  subEl.textContent   = 'Aether staged';
+  subEl.style.color   = 'var(--green)';
+  setNav('today');
+
+  await fadeBody('1', 220);
+  // Hold — user navigates when ready
+}
+
+async function runSlide2() {
+  const cardStack = document.querySelector('.card-stack');
+  cardStack.classList.remove('card-stack--perm');
+
+  await fadeBody('0', 150);
+
+  // Log view — completed actions
   [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
   ambient.style.display = 'none';
   if (insightMarcus) insightMarcus.style.display = 'none';
@@ -2016,22 +2046,22 @@ async function runSlide1() {
 
   const titleEl = document.getElementById('p-title');
   const subEl   = document.getElementById('p-sub');
-  titleEl.textContent = 'While you were away';
+  titleEl.textContent = 'Log';
   subEl.textContent   = 'Aether acted';
   subEl.style.color   = 'var(--green)';
-  setNav('today');
+  setNav('log');
 
   await fadeBody('1', 220);
 
   const marcusPeekStrip = logMarcus.querySelector('.peek-strip');
   if (marcusPeekStrip) marcusPeekStrip.classList.add('peek-strip-glow');
 
-  // Expand Doctor entry after a beat — abort if user has navigated away
+  // Expand Doctor entry after a beat — abort if user navigates away
   await delay(1800);
-  if (currentSlide !== 1) return;
+  if (currentSlide !== 2) return;
   logGp.classList.add('tap-flash');
   await delay(350);
-  if (currentSlide !== 1) return;
+  if (currentSlide !== 2) return;
   logGp.classList.remove('tap-flash');
   const gpChevron = logGp.querySelector('.log-chevron');
   gpChevron.style.transition = 'transform 0.3s ease';
@@ -2043,8 +2073,7 @@ async function runSlide1() {
   // Hold — user navigates when ready
 }
 
-async function runSlide2() {
-  const body = document.getElementById('p-body');
+async function runSlide3() {
   const cardStack = document.querySelector('.card-stack');
   cardStack.classList.remove('card-stack--perm');
 
@@ -2079,8 +2108,7 @@ async function runSlide2() {
   // Hold — user navigates when ready
 }
 
-async function runSlide3() {
-  const body = document.getElementById('p-body');
+async function runSlide4() {
   const cardStack = document.querySelector('.card-stack');
 
   const marcusPeekStrip = logMarcus ? logMarcus.querySelector('.peek-strip') : null;
@@ -2120,6 +2148,7 @@ async function showSlide(n) {
   if (n === 1) await runSlide1();
   else if (n === 2) await runSlide2();
   else if (n === 3) await runSlide3();
+  else if (n === 4) await runSlide4();
 }
 
 let started = false;
@@ -2136,7 +2165,7 @@ const observer = new IntersectionObserver(entries => {
       const prevBtn = document.getElementById('slide-prev');
       const nextBtn = document.getElementById('slide-next');
       if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 1) showSlide(currentSlide - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < 3) showSlide(currentSlide + 1); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < 4) showSlide(currentSlide + 1); });
       updateCopy(1);
       setTimeout(() => { showSlide(1); }, 400);
     }
@@ -2154,7 +2183,7 @@ observer.observe(document.getElementById('p-body'));
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) < 40) return;
     const next = dx < 0
-      ? Math.min(currentSlide + 1, 3)
+      ? Math.min(currentSlide + 1, 4)
       : Math.max(currentSlide - 1, 1);
     if (next !== currentSlide) showSlide(next);
   }, { passive: true });
