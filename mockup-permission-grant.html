@@ -242,6 +242,42 @@
   }
   .ins-text strong { color: rgba(240,240,238,0.82); font-weight: 500; }
 
+  /* ── REASONING RAIL ── */
+  .reasoning-rail {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 11px;
+  }
+  .reasoning-rail::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 18px;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.07) 0%,
+      rgba(85,185,140,0.3) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── HOW AETHER DECIDES ── */
+  .how-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    text-align: center;
+    padding: 6px 0 2px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .how-link:hover { color: var(--text-faint); }
+
   /* ── ACTION PROPOSAL ── */
   .action-proposal {
     background: var(--green-dim);
@@ -344,43 +380,47 @@
 
   <div class="a-body">
 
-    <div class="excerpt-card">
-      <div class="excerpt-label excerpt-label--log">
-        <div class="excerpt-label-dot"></div>From Log
-      </div>
-      <div class="excerpt-body-log">
-        <div class="exc-icon">✉️</div>
-        <div class="exc-meta">
-          <div class="exc-label">Overdue</div>
-          <div class="exc-title">Invoice #118 &middot; Hartwell Co.</div>
-          <div class="exc-detail">Draft ready &middot; unsent</div>
-        </div>
-        <div class="exc-age">6d</div>
-      </div>
-    </div>
+    <div class="reasoning-rail">
 
-    <div class="excerpt-card">
-      <div class="excerpt-label excerpt-label--ins">
-        <div class="excerpt-label-dot"></div>From Insights
-      </div>
-      <div class="excerpt-body-ins">
-        <div class="ins-row">
-          <div class="ins-dot"></div>
-          <div class="ins-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div>
+      <div class="excerpt-card">
+        <div class="excerpt-label excerpt-label--log">
+          <div class="excerpt-label-dot"></div>From Log
         </div>
-        <div class="ins-row">
-          <div class="ins-dot"></div>
-          <div class="ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div>
+        <div class="excerpt-body-log">
+          <div class="exc-icon">✉️</div>
+          <div class="exc-meta">
+            <div class="exc-label">Overdue</div>
+            <div class="exc-title">Invoice #118 &middot; Hartwell Co.</div>
+            <div class="exc-detail">Draft ready &middot; unsent</div>
+          </div>
+          <div class="exc-age">6d</div>
         </div>
       </div>
-    </div>
 
-    <div class="action-proposal">
-      <div>
-        <div class="action-proposal-lbl">Aether will</div>
-        <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
+      <div class="excerpt-card">
+        <div class="excerpt-label excerpt-label--ins">
+          <div class="excerpt-label-dot"></div>From Insights
+        </div>
+        <div class="excerpt-body-ins">
+          <div class="ins-row">
+            <div class="ins-dot"></div>
+            <div class="ins-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div>
+          </div>
+          <div class="ins-row">
+            <div class="ins-dot"></div>
+            <div class="ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div>
+          </div>
+        </div>
       </div>
-      <div class="action-proposal-icon">↗</div>
+
+      <div class="action-proposal">
+        <div>
+          <div class="action-proposal-lbl">Aether will</div>
+          <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
+        </div>
+        <div class="action-proposal-icon">↗</div>
+      </div>
+
     </div>
 
     <div class="perm-actions">
@@ -398,6 +438,8 @@
         <span class="perm-strip-arr">&#8250;</span>
       </div>
     </div>
+
+    <a class="how-link" href="#">How Aether decides &rsaquo;</a>
 
   </div>
 
