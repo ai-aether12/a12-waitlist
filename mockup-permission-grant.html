@@ -33,8 +33,11 @@
     padding: 40px 20px;
   }
 
-  /* ── SHARED SHELL ── */
+  /* ── SHELL ── */
   .card-stack {
+    background: var(--card-bg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+    border-top: 2px solid rgba(230,168,23,0.55);
     border-radius: 20px;
     width: 340px;
     display: flex;
@@ -42,7 +45,7 @@
     overflow: hidden;
   }
 
-  /* ── NAV (shared) ── */
+  /* ── NAV ── */
   .cs-nav {
     display: flex;
     align-items: center;
@@ -61,12 +64,213 @@
   .cs-nav-item.active { color: var(--blue); }
   .cs-nav-label {
     font-family: 'DM Mono', monospace;
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  /* ── APPROVE / PASS (shared) ── */
+  @keyframes amberpulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+  }
+
+  /* ── NOTIFICATION BANNER ── */
+  .notif-banner {
+    background: linear-gradient(90deg, rgba(230,168,23,0.11) 0%, rgba(230,168,23,0.04) 100%);
+    border-bottom: 1px solid rgba(230,168,23,0.14);
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .notif-banner-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    flex-shrink: 0;
+    animation: amberpulse 1.8s ease-in-out infinite;
+    will-change: opacity;
+  }
+  .notif-banner-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    flex: 1;
+  }
+  .notif-banner-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    color: rgba(230,168,23,0.5);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HEADER ── */
+  .a-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .provenance-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 9px;
+  }
+  .prov-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .prov-chip-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+  /* Log = neutral — no urgency connotation */
+  .prov-chip--neutral { color: rgba(240,240,238,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); }
+  .prov-chip--neutral .prov-chip-dot { background: rgba(240,240,238,0.4); }
+  .prov-chip--blue { color: rgba(91,155,213,0.75); background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.18); }
+  .prov-chip--blue .prov-chip-dot { background: var(--blue); }
+  .prov-chip--amber { color: rgba(230,168,23,0.75); background: rgba(230,168,23,0.08); border: 1px solid rgba(230,168,23,0.18); }
+  .prov-chip--amber .prov-chip-dot { background: var(--amber); }
+  .prov-arrow { font-size: 0.5625rem; color: var(--text-dim); }
+
+  .a-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 3px;
+  }
+  .a-window {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── BODY ── */
+  .a-body {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── EXCERPT CARDS ── */
+  .excerpt-card {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .excerpt-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .excerpt-label-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; opacity: 0.7; }
+  /* Log excerpt — neutral header, red only where semantically overdue */
+  .excerpt-label--log  { background: rgba(255,255,255,0.04); color: var(--text-faint); border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .excerpt-label--log  .excerpt-label-dot { background: rgba(240,240,238,0.4); }
+  .excerpt-label--ins  { background: rgba(91,155,213,0.07); color: rgba(91,155,213,0.6); border-bottom: 1px solid rgba(91,155,213,0.10); }
+  .excerpt-label--ins  .excerpt-label-dot { background: var(--blue); }
+
+  .excerpt-body-log {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 8px 10px;
+  }
+  .exc-icon {
+    width: 26px; height: 26px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8125rem;
+    flex-shrink: 0;
+  }
+  .exc-meta { flex: 1; min-width: 0; }
+  .exc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 2px;
+  }
+  .exc-title { font-size: 0.75rem; font-weight: 500; color: var(--text); }
+  .exc-detail { font-family: 'DM Mono', monospace; font-size: 0.5625rem; color: var(--text-faint); margin-top: 1px; }
+  .exc-age { font-family: 'DM Mono', monospace; font-size: 0.6875rem; color: var(--red); flex-shrink: 0; }
+
+  .excerpt-body-ins {
+    background: rgba(91,155,213,0.05);
+    border: 1px solid rgba(91,155,213,0.13);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .ins-row { display: flex; align-items: flex-start; gap: 7px; }
+  .ins-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(91,155,213,0.5);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .ins-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    color: rgba(240,240,238,0.6);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+  .ins-text strong { color: rgba(240,240,238,0.82); font-weight: 500; }
+
+  /* ── ACTION PROPOSAL ── */
+  .action-proposal {
+    background: var(--green-dim);
+    border: 1px solid rgba(85,185,140,0.2);
+    border-left: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 9px 11px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .action-proposal-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(85,185,140,0.7);
+    margin-bottom: 2px;
+  }
+  .action-proposal-text {
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+  .action-proposal-icon { font-size: 1rem; flex-shrink: 0; color: rgba(85,185,140,0.7); }
+
+  /* ── APPROVE / PASS ── */
   .approve-row {
     display: flex;
     flex-direction: column;
@@ -77,7 +281,7 @@
     background: var(--green);
     color: #fff;
     border: none;
-    border-radius: 7px;
+    border-radius: 8px;
     padding: 10px 0;
     font-family: 'Lexend', sans-serif;
     font-size: 0.8125rem;
@@ -100,224 +304,11 @@
     cursor: pointer;
     padding: 4px 0;
   }
-
-  /* ── ACTION PROPOSAL (shared) ── */
-  .action-proposal {
-    background: var(--green-dim);
-    border: 1px solid rgba(85,185,140,0.2);
-    border-left: 2px solid var(--green);
-    border-radius: 8px;
-    padding: 9px 11px;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-  }
-  .action-proposal-lbl {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5625rem;
-    letter-spacing: 0.04em;
-    color: var(--green);
-    opacity: 0.7;
-    margin-bottom: 2px;
-  }
-  .action-proposal-text {
-    font-family: 'Lexend', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--text);
-    flex: 1;
-  }
-  .action-proposal-icon { font-size: 1rem; flex-shrink: 0; opacity: 0.7; }
-
-  @keyframes amberpulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.35; }
-  }
-
-
-  /* ════════════════════════════════════════
-     VERSION A — Assembled notification
-  ════════════════════════════════════════ */
-
-  .card-a {
-    background: var(--card-bg);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
-    /* Amber top stripe = notification / assembled state */
-    border-top: 2px solid rgba(230,168,23,0.55);
-  }
-
-  /* Notification banner — sits above header */
-  .notif-banner {
-    background: linear-gradient(90deg, rgba(230,168,23,0.11) 0%, rgba(230,168,23,0.04) 100%);
-    border-bottom: 1px solid rgba(230,168,23,0.14);
-    padding: 7px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .notif-banner-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--amber);
-    flex-shrink: 0;
-    animation: amberpulse 1.8s ease-in-out infinite;
-  }
-  .notif-banner-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5625rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--amber);
-    flex: 1;
-  }
-  .notif-banner-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5625rem;
-    color: rgba(230,168,23,0.5);
-    letter-spacing: 0.04em;
-  }
-
-  /* Source provenance row */
-  .provenance-row {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 9px;
-  }
-  .prov-chip {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 3px;
-  }
-  .prov-chip-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-  .prov-chip--red  { color: rgba(224,92,92,0.75);  background: rgba(224,92,92,0.08);  border: 1px solid rgba(224,92,92,0.18); }
-  .prov-chip--red  .prov-chip-dot  { background: var(--red); }
-  .prov-chip--blue { color: rgba(91,155,213,0.75); background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.18); }
-  .prov-chip--blue .prov-chip-dot { background: var(--blue); }
-  .prov-chip--amber { color: rgba(230,168,23,0.75); background: rgba(230,168,23,0.08); border: 1px solid rgba(230,168,23,0.18); }
-  .prov-chip--amber .prov-chip-dot { background: var(--amber); }
-  .prov-arrow { font-size: 0.5rem; color: var(--text-dim); }
-
-  .a-header {
-    padding: 13px 16px 11px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .a-title {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 3px;
-  }
-  .a-window {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.625rem;
-    color: var(--amber);
-    letter-spacing: 0.04em;
-  }
-
-  .a-body {
-    padding: 12px 16px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  /* Excerpt cards — look like they were lifted from their source screens */
-  .excerpt-card {
-    border-radius: 7px;
-    overflow: hidden;
-  }
-  .excerpt-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .excerpt-label-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; opacity: 0.7; }
-  .excerpt-label--log  { background: rgba(224,92,92,0.07);  color: rgba(224,92,92,0.6);  border-bottom: 1px solid rgba(224,92,92,0.10); }
-  .excerpt-label--log  .excerpt-label-dot  { background: var(--red); }
-  .excerpt-label--ins  { background: rgba(91,155,213,0.07); color: rgba(91,155,213,0.6); border-bottom: 1px solid rgba(91,155,213,0.10); }
-  .excerpt-label--ins  .excerpt-label-dot  { background: var(--blue); }
-  .excerpt-body-log {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(224,92,92,0.15);
-    border-top: none;
-    border-radius: 0 0 7px 7px;
-    padding: 8px 10px;
-  }
-  .exc-icon {
-    width: 26px; height: 26px;
-    border-radius: 5px;
-    background: rgba(224,92,92,0.1);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.8125rem;
-    flex-shrink: 0;
-  }
-  .exc-meta { flex: 1; min-width: 0; }
-  .exc-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5625rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 2px;
-  }
-  .exc-title { font-size: 0.75rem; font-weight: 500; color: var(--text); }
-  .exc-detail { font-family: 'DM Mono', monospace; font-size: 0.5625rem; color: var(--text-faint); margin-top: 1px; }
-  .exc-age { font-family: 'DM Mono', monospace; font-size: 0.6875rem; color: var(--red); flex-shrink: 0; }
-
-  .excerpt-body-ins {
-    background: rgba(91,155,213,0.05);
-    border: 1px solid rgba(91,155,213,0.13);
-    border-top: none;
-    border-radius: 0 0 7px 7px;
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .ins-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
-  }
-  .ins-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--blue);
-    opacity: 0.5;
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
-  .ins-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.625rem;
-    color: rgba(240,240,238,0.6);
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-  }
-  .ins-text strong { color: rgba(240,240,238,0.82); font-weight: 500; }
 </style>
 </head>
 <body>
 
-<div class="card-stack card-a">
+<div class="card-stack">
 
   <div class="notif-banner">
     <div class="notif-banner-dot"></div>
@@ -327,14 +318,14 @@
 
   <div class="a-header">
     <div class="provenance-row">
-      <div class="prov-chip prov-chip--red"><div class="prov-chip-dot"></div>Log</div>
+      <div class="prov-chip prov-chip--neutral"><div class="prov-chip-dot"></div>Log</div>
       <div class="prov-arrow">+</div>
       <div class="prov-chip prov-chip--blue"><div class="prov-chip-dot"></div>Insights</div>
       <div class="prov-arrow">+</div>
       <div class="prov-chip prov-chip--amber"><div class="prov-chip-dot"></div>Calendar</div>
     </div>
     <div class="a-title">Before I act &mdash;</div>
-    <div class="a-window"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--amber);vertical-align:middle;margin-right:6px;margin-bottom:1px;animation:amberpulse 1.8s ease-in-out infinite"></span>25 min window &middot; 1:35pm</div>
+    <div class="a-window"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--amber);vertical-align:middle;margin-right:6px;margin-bottom:1px;animation:amberpulse 1.8s ease-in-out infinite;will-change:opacity"></span>25 min window &middot; 1:35pm</div>
   </div>
 
   <div class="a-body">
@@ -390,12 +381,12 @@
 
   <div class="cs-nav">
     <div class="cs-nav-item">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span class="cs-nav-label">Log</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 7L8 2l6 5v7a1 1 0 01-1 1H3a1 1 0 01-1-1V7z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      <span class="cs-nav-label">Today</span>
     </div>
     <div class="cs-nav-item active">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
-      <span class="cs-nav-label">Current</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span class="cs-nav-label">Log</span>
     </div>
     <div class="cs-nav-item">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
