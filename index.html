@@ -1492,6 +1492,32 @@ footer {
   flex-shrink: 0;
 }
 
+/* ── NOTIFICATION CONTEXT STRIP (phase 5) ── */
+.perm-nav-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-top: 1px solid rgba(230,168,23,0.18);
+  padding: 10px 0 4px;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+.perm-nav-strip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  animation: amberpulse 1.8s ease-in-out infinite;
+  will-change: opacity;
+}
+.perm-nav-strip-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(230,168,23,0.65);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
@@ -1799,6 +1825,10 @@ footer {
             <span class="cs-nav-label">You</span>
           </div>
         </div>
+        <div class="perm-nav-strip" id="perm-nav-strip" style="display:none">
+          <div class="perm-nav-strip-dot"></div>
+          <span class="perm-nav-strip-text">Notification &middot; just now</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1974,7 +2004,7 @@ const RESTART      = 500;
 let paused = false;
 let firstRun = true;
 
-let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus, permCard;
+let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus, permCard, csNav, permNavStrip;
 
 function initEls() {
   ambient         = document.getElementById('ambient-bar');
@@ -1991,6 +2021,8 @@ function initEls() {
   invLabel        = document.getElementById('invoice-label');
   insightMarcus   = document.getElementById('insight-marcus');
   permCard        = document.getElementById('perm-card');
+  csNav           = document.querySelector('.cs-nav');
+  permNavStrip    = document.getElementById('perm-nav-strip');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -2047,6 +2079,8 @@ function resetAll() {
       ambient.style.display = 'none';
       if (insightMarcus) insightMarcus.style.display = 'none';
       if (permCard) permCard.style.display = 'none';
+      if (csNav) csNav.style.display = '';
+      if (permNavStrip) permNavStrip.style.display = 'none';
       const cs = document.querySelector('.card-stack');
       if (cs) cs.style.borderTop = '';
       const filterBtnR = document.getElementById('cs-filter-btn');
@@ -2176,7 +2210,9 @@ async function runSequence() {
   document.getElementById('p-title').textContent = 'Waiting on you —';
   pSub.textContent = '';
   pSub.style.color = '';
-  setNav('today');
+  setNav(null);
+  if (csNav) csNav.style.display = 'none';
+  if (permNavStrip) permNavStrip.style.display = '';
   if (filterBtn) filterBtn.style.display = 'none';
   if (backBtn)   backBtn.style.display   = 'none';
 
