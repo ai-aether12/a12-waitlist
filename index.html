@@ -1284,38 +1284,6 @@ footer {
 }
 
 /* ── PERMISSION GRANT (carousel phase 5) ── */
-.perm-notif-banner {
-  margin: 0 -22px;
-  padding: 7px 22px;
-  background: linear-gradient(90deg, rgba(230,168,23,0.11) 0%, rgba(230,168,23,0.04) 100%);
-  border-bottom: 1px solid rgba(230,168,23,0.14);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.perm-notif-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--amber);
-  flex-shrink: 0;
-  animation: amberpulse 1.8s ease-in-out infinite;
-  will-change: opacity;
-}
-.perm-notif-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--amber);
-  flex: 1;
-}
-.perm-notif-time {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.5625rem;
-  color: rgba(230,168,23,0.5);
-  letter-spacing: 0.04em;
-}
 .perm-window {
   font-family: 'DM Mono', monospace;
   font-size: 0.625rem;
@@ -1754,11 +1722,6 @@ footer {
             </div>
           </div>
           <div id="perm-card" style="display:none">
-            <div class="perm-notif-banner">
-              <div class="perm-notif-dot"></div>
-              <div class="perm-notif-text">Action Required</div>
-              <div class="perm-notif-time">just now</div>
-            </div>
             <div class="perm-window"><span class="perm-window-dot"></span>It&rsquo;s 1:35pm. You have 25 minutes to act on this.</div>
             <div class="reasoning-rail">
               <div class="excerpt-card">
@@ -2199,7 +2162,7 @@ async function runSequence() {
   await delay(240);
   await pauseableDelay(INSIGHT_HOLD); // hold 9s on insight (pauseable)
 
-  // Phase 5: Permission grant — Waiting on you
+  // Phase 5: Permission grant
   body.style.transition = 'opacity 0.15s ease';
   body.style.opacity    = '0';
   await delay(160);
@@ -2207,8 +2170,8 @@ async function runSequence() {
   insightMarcus.style.display = 'none';
   if (permCard) permCard.style.display = '';
 
-  document.getElementById('p-title').textContent = 'Waiting on you —';
-  pSub.textContent = '';
+  document.getElementById('p-title').textContent = 'Send Invoice #118?';
+  pSub.textContent = 'Hartwell Co.';
   pSub.style.color = '';
   setNav(null);
   if (csNav) csNav.style.display = 'none';
