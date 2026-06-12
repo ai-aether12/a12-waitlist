@@ -57,9 +57,30 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 48px;
+  padding: 20px 48px;
   max-width: 1100px;
   margin: 0 auto;
+}
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7,17,30,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-cta {
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--green);
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
 }
 
 .nav-wordmark {
@@ -1404,7 +1425,7 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  nav { padding: 20px 24px; }
+  nav { padding: 16px 24px; }
   .hero { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 20px; }
   .hero-left .subhead { margin-bottom: 20px; }
   .hero-left .cta-block { display: none; }
@@ -1432,10 +1453,12 @@ footer {
 
 <div class="page">
 
-  <nav>
-    <div class="nav-wordmark">Aether</div>
-    <div class="nav-tag" style="display:none">Early access</div>
-  </nav>
+  <div class="nav-wrap">
+    <nav>
+      <div class="nav-wordmark">Aether</div>
+      <button class="nav-cta" onclick="openModal()">I&rsquo;m in &rarr;</button>
+    </nav>
+  </div>
 
   <section class="hero">
     <div class="hero-left">
