@@ -493,6 +493,15 @@ nav {
   50% { opacity: 0.3; }
 }
 
+@keyframes swipeHint {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-10px); }
+  60%  { transform: translateX(4px); }
+  80%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+.swipe-hint { animation: swipeHint 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both; }
+
 @keyframes tapFlash {
   0%   { background: rgba(255,255,255,0); }
   30%  { background: rgba(255,255,255,0.07); }
@@ -2113,7 +2122,15 @@ const observer = new IntersectionObserver(entries => {
         btn.addEventListener('click', () => showSlide(+btn.dataset.slide));
       });
       updateCopy(1);
-      setTimeout(() => showSlide(1), 400);
+      setTimeout(() => {
+        showSlide(1).then(() => {
+          const cs = document.querySelector('.card-stack');
+          setTimeout(() => {
+            cs.classList.add('swipe-hint');
+            cs.addEventListener('animationend', () => cs.classList.remove('swipe-hint'), { once: true });
+          }, 1200);
+        });
+      }, 400);
     }
   });
 }, { threshold: 0.4 });
