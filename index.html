@@ -1279,291 +1279,119 @@ footer {
   animation: peekStripPulse 2s ease-in-out infinite;
 }
 
-/* ── INTERRUPT SECTION ── */
-.interrupt-intro {
-  font-size: 0.9375rem;
+/* ── SLIDE NAV ── */
+@keyframes amberpulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-right { flex-direction: column; gap: 20px; }
+.slide-copy-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 340px;
+  width: 100%;
+}
+.slide-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+  text-align: center;
   line-height: 1.65;
-  color: rgba(240,240,238,0.62);
-  max-width: 560px;
-  text-align: center;
-}
-.int-col-caption {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: rgba(240,240,238,0.55);
-  text-align: center;
-  max-width: 220px;
-  margin-top: 8px;
-}
-.interrupt-section {
-  margin-top: 120px;
-  padding: 100px 48px;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 40%, rgba(91,155,213,0.08) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 50% at 15% 75%, rgba(85,185,140,0.06) 0%, transparent 65%),
-    var(--bg);
-  border-top: 1px solid rgba(91,155,213,0.14);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 40px;
-}
-.interrupt-section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.20em;
-  text-transform: uppercase;
-  color: rgba(91,155,213,0.65);
-}
-.interrupt-section-headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.25rem, 4.5vw, 3.625rem);
-  line-height: 1;
-  letter-spacing: 0.01em;
-  color: rgba(240,240,238,0.78);
-}
-.interrupt-accent { color: rgba(91,155,213,0.95); }
-.interrupt-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(91,155,213,0.65);
-  border: 1px solid rgba(91,155,213,0.25);
-  padding: 6px 16px;
-  border-radius: 20px;
-}
-.int-secondary {
-  display: flex;
-  gap: 5px;
-  flex-shrink: 0;
-}
-.int-secondary-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text-faint);
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  padding: 7px 6px;
-  border-radius: 6px;
-  text-decoration: none;
   letter-spacing: 0.02em;
+  min-height: 2.6em;
+  transition: opacity 0.2s ease;
 }
-.int-safety {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  color: var(--text-faint);
-  text-align: center;
-  line-height: 1.5;
-  padding: 0 4px;
-  flex-shrink: 0;
+.slide-nav { display: flex; gap: 8px; align-items: center; }
+.slide-dot {
+  width: 6px; height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.25s ease, background 0.25s ease;
 }
-/* V1 interrupt interior components */
-.int-section-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  padding: 2px 0;
-}
-.int-section-lbl--green { color: var(--green); }
-.int-section-lbl--blue  { color: var(--blue); }
+.slide-dot.active { width: 20px; background: var(--blue); }
 
-.int-signal-group {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--green);
-  border-radius: 8px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.int-signal-group-hdr {
-  padding: 7px 10px 6px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.int-signal-group-title {
-  font-family: 'Lexend', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-.int-signal-row {
+/* ── CARD AMBER STATE (Slide 3) ── */
+.card-stack--perm { border-top: 2px solid rgba(230,168,23,0.55); }
+
+/* ── PERMISSION GRANT (Slide 3 content) ── */
+.perm-banner {
+  margin: -14px -16px 0;
+  padding: 7px 16px;
+  background: linear-gradient(90deg, rgba(230,168,23,0.11), rgba(230,168,23,0.04));
+  border-bottom: 1px solid rgba(230,168,23,0.14);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
-  padding: 6px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
-.int-signal-row:last-child { border-bottom: none; }
-.int-signal-dot     { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-.int-signal-content { flex: 1; min-width: 0; }
-.int-signal-name    { font-size: 0.6875rem; color: var(--text); font-weight: 500; }
-.int-signal-detail  { font-family: 'DM Mono', monospace; font-size: 0.625rem; color: var(--text-faint); margin-top: 1px; }
-.int-signal-age     { font-family: 'DM Mono', monospace; font-size: 0.6875rem; flex-shrink: 0; margin-top: 1px; }
-
-
-.int-action-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--blue);
-  border-radius: 8px;
-  padding: 8px 10px;
+.perm-banner-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
   flex-shrink: 0;
+  animation: amberpulse 1.8s ease-in-out infinite;
 }
-.int-action-text { font-family: 'DM Mono', monospace; font-size: 0.6875rem; color: var(--text-faint); line-height: 1.5; }
-.int-action-meta { font-family: 'DM Mono', monospace; font-size: 0.625rem; color: var(--text-faint); opacity: 0.6; margin-top: 4px; }
-
-/* Interrupt panel nav — match hero nav bottom spacing */
-.interrupt-section .ep-panel .cs-nav {
-  padding-bottom: 14px;
-  margin-top: 10px;
+.perm-banner-text { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);flex:1; }
+.perm-banner-time { font-family:'DM Mono',monospace;font-size:.5625rem;color:rgba(230,168,23,.5);letter-spacing:.04em; }
+.perm-body { display:flex;flex-direction:column;gap:8px;padding-top:12px; }
+.prov-row { display:flex;align-items:center;gap:5px; }
+.prov-chip {
+  display:flex;align-items:center;gap:4px;
+  font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 6px;border-radius:3px;
 }
-
-/* V2 ambient sheet */
-.ambient-bg { flex: 1; overflow: hidden; display: flex; flex-direction: column; padding: 0 11px; gap: 5px; opacity: 0.25; pointer-events: none; }
-.ambient-sheet {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, #1b2a3a 0%, #0f1820 100%);
-  border-top: 1px solid rgba(91,155,213,0.22);
-  border-radius: 10px 10px 0 0;
-  padding: 8px 11px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  transform: translateY(100%);
-  transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+.prov-dot { width:4px;height:4px;border-radius:50%;flex-shrink:0; }
+.prov-chip--red   { color:rgba(224,92,92,.75);  background:rgba(224,92,92,.08);  border:1px solid rgba(224,92,92,.18); }
+.prov-chip--red   .prov-dot { background:var(--red); }
+.prov-chip--blue  { color:rgba(91,155,213,.75); background:rgba(91,155,213,.08); border:1px solid rgba(91,155,213,.18); }
+.prov-chip--blue  .prov-dot { background:var(--blue); }
+.prov-chip--amber { color:rgba(230,168,23,.75); background:rgba(230,168,23,.08); border:1px solid rgba(230,168,23,.18); }
+.prov-chip--amber .prov-dot { background:var(--amber); }
+.prov-arrow { font-size:.5rem;color:var(--text-dim); }
+.perm-window { display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.625rem;color:var(--amber);letter-spacing:.04em; }
+.perm-window-dot { width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:amberpulse 1.8s ease-in-out infinite; }
+.excerpt-card { border-radius:7px;overflow:hidden; }
+.excerpt-label {
+  font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;display:flex;align-items:center;gap:5px;
 }
-.ambient-sheet.open { transform: translateY(0); }
-.ambient-handle {
-  width: 28px;
-  height: 3px;
-  background: rgba(255,255,255,0.16);
-  border-radius: 2px;
-  margin: 0 auto 3px;
-  flex-shrink: 0;
+.exc-lbl-dot { width:4px;height:4px;border-radius:50%;flex-shrink:0;opacity:.7; }
+.excerpt-label--log { background:rgba(224,92,92,.07);color:rgba(224,92,92,.6);border-bottom:1px solid rgba(224,92,92,.10); }
+.excerpt-label--log .exc-lbl-dot { background:var(--red); }
+.excerpt-label--ins { background:rgba(91,155,213,.07);color:rgba(91,155,213,.6);border-bottom:1px solid rgba(91,155,213,.10); }
+.excerpt-label--ins .exc-lbl-dot { background:var(--blue); }
+.exc-body-log {
+  display:flex;align-items:flex-start;gap:10px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(224,92,92,.15);border-top:none;border-radius:0 0 7px 7px;padding:8px 10px;
 }
-.ambient-sheet-hdr { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.ambient-sheet-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--text-faint);
+.exc-entry-icon { width:26px;height:26px;border-radius:5px;background:rgba(224,92,92,.1);display:flex;align-items:center;justify-content:center;font-size:.8125rem;flex-shrink:0; }
+.exc-entry-meta { flex:1;min-width:0; }
+.exc-entry-lbl { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:2px; }
+.exc-entry-title { font-size:.75rem;font-weight:500;color:var(--text); }
+.exc-entry-detail { font-family:'DM Mono',monospace;font-size:.5625rem;color:var(--text-faint);margin-top:1px; }
+.exc-entry-age { font-family:'DM Mono',monospace;font-size:.6875rem;color:var(--red);flex-shrink:0; }
+.exc-body-ins {
+  background:rgba(91,155,213,.05);border:1px solid rgba(91,155,213,.13);border-top:none;border-radius:0 0 7px 7px;padding:8px 10px;
+  display:flex;flex-direction:column;gap:5px;
 }
-.ambient-later {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-faint);
+.exc-ins-row { display:flex;align-items:flex-start;gap:7px; }
+.exc-ins-dot { width:4px;height:4px;border-radius:50%;background:var(--blue);opacity:.5;flex-shrink:0;margin-top:5px; }
+.exc-ins-text { font-family:'DM Mono',monospace;font-size:.625rem;color:rgba(240,240,238,.6);letter-spacing:.02em;line-height:1.5; }
+.exc-ins-text strong { color:rgba(240,240,238,.82);font-weight:500; }
+.action-proposal {
+  background:var(--green-dim);border:1px solid rgba(85,185,140,.2);border-left:2px solid var(--green);
+  border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:9px;
 }
-.ambient-title {
-  font-family: 'Lexend', sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  flex-shrink: 0;
+.action-proposal-lbl { font-family:'DM Mono',monospace;font-size:.5625rem;letter-spacing:.04em;color:var(--green);opacity:.7;margin-bottom:2px; }
+.action-proposal-text { font-family:'Lexend',sans-serif;font-size:.8125rem;font-weight:600;color:var(--text);flex:1; }
+.action-proposal-icon { font-size:1rem;flex-shrink:0;opacity:.7; }
+.perm-approve-btn {
+  background:var(--green);color:#fff;border:none;border-radius:7px;padding:10px 0;
+  font-family:'Lexend',sans-serif;font-size:.8125rem;font-weight:600;text-align:center;cursor:pointer;width:100%;
 }
-.ambient-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  color: var(--text-faint);
-  letter-spacing: 0.02em;
-  margin-top: -2px;
-  flex-shrink: 0;
-}
-.ambient-handled-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--green);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.ambient-chips { display: flex; flex-wrap: wrap; gap: 4px; flex-shrink: 0; }
-.ambient-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  color: var(--green);
-  background: var(--green-dim);
-  border: 1px solid rgba(85,185,140,0.25);
-  border-radius: 4px;
-  padding: 3px 6px;
-  letter-spacing: 0.02em;
-}
-.ambient-chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-.ambient-needs-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  color: var(--blue);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.ambient-needs-card {
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-left: 2px solid var(--blue);
-  border-radius: 6px;
-  padding: 7px 8px;
-  flex-shrink: 0;
-}
-.ambient-signal-note {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.625rem;
-  color: var(--text-faint);
-  margin-top: 3px;
-  letter-spacing: 0.02em;
-}
-.ambient-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--green);
-  color: #fff;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 9px;
-  border-radius: 6px;
-  text-decoration: none;
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.ambient-secondary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text-faint);
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  padding: 7px;
-  border-radius: 6px;
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  flex-shrink: 0;
-}
+.perm-pass-row { display:flex;justify-content:center;gap:20px;padding-bottom:2px; }
+.perm-pass-btn { font-family:'DM Mono',monospace;font-size:.625rem;color:var(--text-faint);letter-spacing:.04em;cursor:pointer;padding:4px 0; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
@@ -1584,9 +1412,6 @@ footer {
   .ep-arrow-col { padding-top: 0; }
   .ep-panel { width: 100%; max-width: 300px; height: auto; }
   .cta-btn--epilogue { width: 100%; max-width: 320px; }
-  .interrupt-section { padding: 60px 24px; margin-top: 60px; }
-  .interrupt-section .epilogue-phones { gap: 56px; }
-  .int-col-caption { max-width: 280px; margin-top: 16px; }
   .ambient-sheet { position: relative; transform: none; border-radius: 8px; margin-top: 8px; border: 1px solid rgba(91,155,213,0.18); }
   .ambient-bg { flex: none; }
 }
@@ -1758,6 +1583,57 @@ footer {
               </div>
             </div>
           </div>
+          <div id="slide-permission" style="display:none">
+            <div class="perm-banner">
+              <div class="perm-banner-dot"></div>
+              <div class="perm-banner-text">Action Required</div>
+              <div class="perm-banner-time">just now</div>
+            </div>
+            <div class="perm-body">
+              <div class="prov-row">
+                <div class="prov-chip prov-chip--red"><div class="prov-dot"></div>Log</div>
+                <div class="prov-arrow">+</div>
+                <div class="prov-chip prov-chip--blue"><div class="prov-dot"></div>Insights</div>
+                <div class="prov-arrow">+</div>
+                <div class="prov-chip prov-chip--amber"><div class="prov-dot"></div>Calendar</div>
+              </div>
+              <div class="perm-window"><div class="perm-window-dot"></div>25 min window &middot; 1:35pm</div>
+              <div class="excerpt-card">
+                <div class="excerpt-label excerpt-label--log"><div class="exc-lbl-dot"></div>From Log</div>
+                <div class="exc-body-log">
+                  <div class="exc-entry-icon">✉️</div>
+                  <div class="exc-entry-meta">
+                    <div class="exc-entry-lbl">Overdue</div>
+                    <div class="exc-entry-title">Invoice #118 &middot; Hartwell Co.</div>
+                    <div class="exc-entry-detail">Draft ready &middot; unsent</div>
+                  </div>
+                  <div class="exc-entry-age">6d</div>
+                </div>
+              </div>
+              <div class="excerpt-card">
+                <div class="excerpt-label excerpt-label--ins"><div class="exc-lbl-dot"></div>From Insights</div>
+                <div class="exc-body-ins">
+                  <div class="exc-ins-row"><div class="exc-ins-dot"></div><div class="exc-ins-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div></div>
+                  <div class="exc-ins-row"><div class="exc-ins-dot"></div><div class="exc-ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div></div>
+                </div>
+              </div>
+              <div class="action-proposal">
+                <div>
+                  <div class="action-proposal-lbl">Aether will</div>
+                  <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
+                </div>
+                <div class="action-proposal-icon">↗</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding-top:2px">
+                <button class="perm-approve-btn">Approve</button>
+                <div class="perm-pass-row">
+                  <span class="perm-pass-btn">Not now</span>
+                  <span class="perm-pass-btn">Change what it does</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="action-entry staged-entry" id="action-invoice">
             <div class="e-icon">✉️</div>
             <div class="e-body">
@@ -1834,6 +1710,14 @@ footer {
           </div>
         </div>
       </div>
+      <div class="slide-copy-wrap">
+        <div class="slide-copy" id="slide-copy"></div>
+        <div class="slide-nav">
+          <button class="slide-dot active" data-slide="1" aria-label="Slide 1"></button>
+          <button class="slide-dot" data-slide="2" aria-label="Slide 2"></button>
+          <button class="slide-dot" data-slide="3" aria-label="Slide 3"></button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1861,109 +1745,6 @@ footer {
     </div>
   </div>
 
-  <div class="interrupt-section">
-    <div class="interrupt-section-headline">
-      Handles what it can.<br>
-      <span class="interrupt-accent">Asks for the rest.</span>
-    </div>
-    <p class="interrupt-intro">Aether acts first. When it needs you, it asks once &mdash; clearly, with everything you need to decide.</p>
-
-    <div class="epilogue-phones">
-
-      <!-- V1: Active interrupt — "Before I act" -->
-      <div class="ep-col">
-        <div class="ep-panel">
-          <div class="p-header">
-            <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
-            <div class="p-title">Before I act &mdash;</div>
-            <div class="p-sub">your call is in 60 min</div>
-          </div>
-          <div class="p-body" id="int-body-1">
-            <div class="int-signal-group">
-              <div class="int-signal-group-hdr">
-                <div class="int-signal-group-title">Two things before your call.</div>
-              </div>
-              <div class="int-signal-row" id="int-s1" style="opacity:0;transform:translateY(4px)">
-                <div class="int-signal-dot" style="background:var(--red)"></div>
-                <div class="int-signal-content">
-                  <div class="int-signal-name">Invoice #118 unsent</div>
-                  <div class="int-signal-detail">Hartwell &middot; untouched</div>
-                </div>
-                <div class="int-signal-age" style="color:var(--red)">6d</div>
-              </div>
-              <div class="int-signal-row" id="int-s2" style="opacity:0;transform:translateY(4px)">
-                <div class="int-signal-dot" style="background:var(--amber)"></div>
-                <div class="int-signal-content">
-                  <div class="int-signal-name">Marcus reply in draft</div>
-                  <div class="int-signal-detail">Ready to send</div>
-                </div>
-                <div class="int-signal-age" style="color:var(--amber)">3d</div>
-              </div>
-            </div>
-            <div class="int-action-card" id="int-reasoning" style="opacity:0;transform:translateY(4px)">
-              <div class="int-action-text">Block 1:35&ndash;2:00pm. Hold notifications. Stage Marcus reply for one tap.</div>
-            </div>
-            <div id="int-will-lbl" style="display:none"></div>
-            <div id="int-safety" style="display:none"></div>
-            <a class="call-chip" id="int-cta" href="#" style="opacity:0">Let Aether handle it &nearr;</a>
-            <div class="int-secondary" id="int-secondary" style="opacity:0">
-              <a class="int-secondary-btn" href="#">I&rsquo;ll handle it</a>
-              <a class="int-secondary-btn" href="#">Change what it does</a>
-            </div>
-          </div>
-          <div class="cs-nav">
-            <div class="cs-nav-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5h10M3 8h10M3 11h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="cs-nav-label">Log</span>
-            </div>
-            <div class="cs-nav-item active">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
-              <span class="cs-nav-label">Current</span>
-            </div>
-            <div class="cs-nav-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="9" width="3" height="5.5" rx="1" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="11.5" y="3" width="3" height="11.5" rx="1" fill="currentColor"/></svg>
-              <span class="cs-nav-label">Insights</span>
-            </div>
-            <div class="cs-nav-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="cs-nav-label">You</span>
-            </div>
-          </div>
-        </div>
-        <p class="int-col-caption">When something time-sensitive converges, Aether shows its reasoning and asks before acting. You approve, adjust, or handle it yourself.</p>
-      </div>
-
-      <!-- V2: Ambient interrupt — "Done what I could" -->
-      <div class="ep-col" id="int-col-2" style="opacity:0;transform:translateX(14px)">
-        <div class="ep-panel" style="position:relative">
-          <!-- Underlying Log view (dimmed) -->
-          <div class="p-header" style="opacity:0.3;flex-shrink:0">
-            <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
-            <div class="p-title">Log</div>
-            <div class="p-sub">Recent activity</div>
-          </div>
-          <div class="ambient-bg">
-            <div class="log-entry staged-entry"><div class="e-icon" style="font-size:0.75rem">✉️</div><div class="e-body"><div class="log-summary"><span class="e-label">Sent</span><span class="log-title">Invoice to Hartwell</span><span class="log-age e-overdue">6d</span></div></div></div>
-            <div class="log-entry staged-entry"><div class="e-icon" style="font-size:0.75rem">💬</div><div class="e-body"><div class="log-summary"><span class="e-label">Replied</span><span class="log-title">Marcus &middot; #design-reviews</span><span class="log-age">3d</span></div></div></div>
-            <div class="log-entry staged-entry"><div class="e-icon" style="color:var(--green);font-size:0.75rem"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="e-body"><div class="log-summary"><span class="e-label">Booked</span><span class="log-title">Doctor appointment</span><span class="log-age e-overdue">12d</span></div></div></div>
-          </div>
-          <!-- Bottom sheet -->
-          <div class="ambient-sheet" id="int-sheet">
-            <div class="ambient-handle"></div>
-            <div class="ambient-title">One thing needs you.</div>
-            <div class="ambient-needs-card">
-              <div class="e-text">Marcus reply &mdash; draft ready, 3 days waiting.</div>
-            </div>
-            <a class="ambient-cta" href="#">Send Marcus reply &nearr;</a>
-            <a class="ambient-secondary" href="#">Later</a>
-          </div>
-        </div>
-        <p class="int-col-caption">Prefer not to be interrupted? Aether acts quietly. A gentle indicator appears when something&rsquo;s waiting. Open it when you&rsquo;re ready &mdash; or don&rsquo;t.</p>
-      </div>
-
-    </div>
-
-  </div>
 
   <div class="epilogue">
     <div class="epilogue-label">What's coming</div>
@@ -2102,13 +1883,7 @@ footer {
 <script>
 const LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7';
 
-const IDLE         = 4000;
-const ENTRY_HOLD   = 6000;
-const INSIGHT_HOLD = 15000;
-const RESTART      = 500;
-
 let paused = false;
-let firstRun = true;
 
 let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
 
@@ -2151,137 +1926,127 @@ function clearStyles(el, ...props) {
   props.forEach(p => { el.style[p] = ''; });
 }
 
-function resetAll() {
-  return new Promise(resolve => {
-    const body = document.getElementById('p-body');
-    const skipFade = firstRun;
-    firstRun = false;
+let slidePermission, slideCopyEl;
+let currentSlide = 0;
 
-    if (!skipFade) {
-      body.style.transition = 'opacity 0.12s ease';
-      body.style.opacity    = '0';
-    }
+const SLIDE_COPY = {
+  1: 'Aether handles what it can while you’re away. Open the app to a clean summary — nothing to hunt down.',
+  2: 'Aether notices patterns across your messages and connects them to action.',
+  3: 'For anything consequential, Aether assembles what it knows and asks first. One tap to approve.'
+};
 
-    setTimeout(() => {
-      // Snap all action entries to fully visible
-      [invEntry, gpEntry, marcusEntry].forEach(el => {
-        el.style.transition = 'none';
-        el.style.display    = '';
-        el.style.opacity    = '1';
-        el.style.transform  = 'translateY(0)';
-      });
-      clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
-      clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
-      invoiceActionRow.style.display = '';
-      invLabel.textContent = 'Staged';
-      invEntry.classList.remove('sent');
-
-      // Hide log entries and insight panel
-      [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
-      ambient.style.display = 'none';
-      if (insightMarcus) insightMarcus.style.display = 'none';
-      const filterBtnR = document.getElementById('cs-filter-btn');
-      const backBtnR   = document.getElementById('cs-back-btn');
-      if (filterBtnR) filterBtnR.style.display = '';
-      if (backBtnR)   backBtnR.style.display   = 'none';
-
-      // Reset log details and chevrons for next cycle
-      [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => {
-        d.style.transition = 'none';
-        d.style.maxHeight  = '0';
-        d.style.opacity    = '0';
-        d.style.overflow   = 'hidden';
-      });
-      [logInv, logMarcus, logGp].forEach(el => {
-        const ch = el.querySelector('.log-chevron');
-        if (ch) ch.style.transform = '';
-      });
-
-      const titleEl = document.getElementById('p-title');
-      const subEl   = document.getElementById('p-sub');
-      if (titleEl) titleEl.textContent = 'While you were away';
-      if (subEl) { subEl.textContent = 'Aether acted'; subEl.style.color = 'var(--green)'; }
-      setNav('log'); // nav-log = Current tab
-
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        body.style.transition = 'opacity 0.18s ease';
-        body.style.opacity    = '1';
-        resolve();
-      }));
-    }, 130);
+function updateDots(n) {
+  document.querySelectorAll('.slide-dot').forEach(d => {
+    d.classList.toggle('active', +d.dataset.slide === n);
   });
 }
 
-let sequenceActive = false;
+function updateCopy(n) {
+  if (!slideCopyEl) slideCopyEl = document.getElementById('slide-copy');
+  if (slideCopyEl) slideCopyEl.textContent = SLIDE_COPY[n] || '';
+}
 
-async function runSequence() {
-  sequenceActive = true;
-  await resetAll();                  // Phase 1: Current view — While you were away
-  await pauseableDelay(ENTRY_HOLD); // hold 6s (pauseable)
+function fadeBody(to, ms) {
+  return new Promise(resolve => {
+    const body = document.getElementById('p-body');
+    body.style.transition = `opacity ${ms}ms ease`;
+    body.style.opacity = to;
+    setTimeout(resolve, ms + 20);
+  });
+}
 
-  // Transition to Log view (collapsed)
+async function runSlide1() {
   const body = document.getElementById('p-body');
-  body.style.transition = 'opacity 0.15s ease';
-  body.style.opacity    = '0';
-  await delay(160);
+  const cardStack = document.querySelector('.card-stack');
+  cardStack.classList.remove('card-stack--perm');
 
-  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
+  // Reset all state cleanly
+  [invEntry, gpEntry, marcusEntry].forEach(el => {
+    el.style.display = ''; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; el.style.transition = 'none';
+  });
+  clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
+  clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
+  invoiceActionRow.style.display = '';
+  invLabel.textContent = 'Staged';
+  invEntry.classList.remove('sent');
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
+  [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => { d.style.transition = 'none'; d.style.maxHeight = '0'; d.style.opacity = '0'; d.style.overflow = 'hidden'; });
+  [logInv, logMarcus, logGp].forEach(el => { const ch = el.querySelector('.log-chevron'); if (ch) ch.style.transform = ''; });
   ambient.style.display = 'none';
-  [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
-  document.getElementById('p-title').textContent = 'Log';
-  const pSub = document.getElementById('p-sub');
-  pSub.textContent = 'Recent activity';
-  pSub.style.color = '';
-  setNav('today'); // nav-today = Log tab
+  if (insightMarcus) insightMarcus.style.display = 'none';
+  if (slidePermission) slidePermission.style.display = 'none';
 
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    body.style.transition = 'opacity 0.22s ease';
-    body.style.opacity    = '1';
-  }));
-  await delay(240);
+  const filterBtn = document.getElementById('cs-filter-btn');
+  const backBtn   = document.getElementById('cs-back-btn');
+  if (filterBtn) filterBtn.style.display = '';
+  if (backBtn)   backBtn.style.display   = 'none';
+
+  const titleEl = document.getElementById('p-title');
+  const subEl   = document.getElementById('p-sub');
+  titleEl.textContent = 'While you were away';
+  subEl.textContent = 'Aether acted';
+  subEl.style.color = 'var(--green)';
+  setNav('log');
+
+  body.style.opacity = '1';
+  body.style.transition = '';
+
+  // Transition to Log view with entries
+  await delay(600);
+  await fadeBody('0', 150);
+
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; });
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
+  titleEl.textContent = 'Log';
+  subEl.textContent = 'Recent activity';
+  subEl.style.color = '';
+  setNav('today');
+
+  await fadeBody('1', 220);
+
   const marcusPeekStrip = logMarcus.querySelector('.peek-strip');
   if (marcusPeekStrip) marcusPeekStrip.classList.add('peek-strip-glow');
-  await pauseableDelay(2000);        // Phase 2: Log collapsed — 2s read time (pauseable)
 
-  // Phase 3: expand Doctor entry
+  // Expand Doctor entry after a beat
+  await delay(1800);
   logGp.classList.add('tap-flash');
   await delay(350);
   logGp.classList.remove('tap-flash');
-
-  const expandTrans = 'max-height 0.45s ease, opacity 0.35s ease';
   const gpChevron = logGp.querySelector('.log-chevron');
   gpChevron.style.transition = 'transform 0.3s ease';
   gpChevron.style.transform  = 'rotate(90deg)';
-  logGpDetail.style.transition = expandTrans;
+  logGpDetail.style.transition = 'max-height 0.45s ease, opacity 0.35s ease';
   logGpDetail.style.maxHeight  = '120px';
   logGpDetail.style.opacity    = '1';
   logGpDetail.style.overflow   = 'visible';
+  // Hold — user navigates when ready
+}
 
-  await pauseableDelay(4000);        // hold 4s with Doctor expanded (pauseable)
+async function runSlide2() {
+  const body = document.getElementById('p-body');
+  const cardStack = document.querySelector('.card-stack');
+  cardStack.classList.remove('card-stack--perm');
 
-  // Collapse Doctor
-  gpChevron.style.transform   = '';
-  logGpDetail.style.maxHeight = '0';
-  logGpDetail.style.opacity   = '0';
-  logGpDetail.style.overflow  = 'hidden';
-  await delay(500);
-
-  // Phase 4: tap Marcus insights bar, then open insight panel
+  const marcusPeekStrip = logMarcus ? logMarcus.querySelector('.peek-strip') : null;
   if (marcusPeekStrip) marcusPeekStrip.classList.remove('peek-strip-glow');
-  logMarcus.classList.add('tap-flash');
-  await delay(400);
-  logMarcus.classList.remove('tap-flash');
-  await delay(600);
 
-  body.style.transition = 'opacity 0.15s ease';
-  body.style.opacity    = '0';
-  await delay(160);
+  if (slidePermission) slidePermission.style.display = 'none';
+
+  await fadeBody('0', 150);
 
   [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
-  insightMarcus.style.display       = 'flex';
-  insightMarcus.style.flexDirection = 'column';
-  document.getElementById('p-title').textContent = 'Insights';
-  pSub.textContent = 'Pattern found · Marcus messages';
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; });
+  ambient.style.display = 'none';
+  if (insightMarcus) {
+    insightMarcus.style.display       = 'flex';
+    insightMarcus.style.flexDirection = 'column';
+  }
+
+  const titleEl = document.getElementById('p-title');
+  const subEl   = document.getElementById('p-sub');
+  titleEl.textContent = 'Insights';
+  subEl.textContent   = 'Pattern found · Marcus messages';
+  subEl.style.color   = '';
   setNav('insights');
 
   const filterBtn = document.getElementById('cs-filter-btn');
@@ -2289,15 +2054,51 @@ async function runSequence() {
   if (filterBtn) filterBtn.style.display = 'none';
   if (backBtn)   backBtn.style.display   = '';
 
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    body.style.transition = 'opacity 0.22s ease';
-    body.style.opacity    = '1';
-  }));
-  await delay(240);
-  await pauseableDelay(INSIGHT_HOLD); // hold 9s on insight (pauseable)
+  await fadeBody('1', 220);
+  // Hold — user navigates when ready
+}
 
-  // Loop — resetAll() handles fade-out, hides insightMarcus, snaps to Current, fades in
-  runSequence();
+async function runSlide3() {
+  const body = document.getElementById('p-body');
+  const cardStack = document.querySelector('.card-stack');
+
+  const marcusPeekStrip = logMarcus ? logMarcus.querySelector('.peek-strip') : null;
+  if (marcusPeekStrip) marcusPeekStrip.classList.remove('peek-strip-glow');
+
+  await fadeBody('0', 150);
+
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; });
+  ambient.style.display = 'none';
+  if (insightMarcus) insightMarcus.style.display = 'none';
+  if (slidePermission) slidePermission.style.display = 'block';
+
+  const titleEl = document.getElementById('p-title');
+  const subEl   = document.getElementById('p-sub');
+  titleEl.textContent = 'Before I act —';
+  subEl.textContent   = '';
+  subEl.style.color   = '';
+  setNav('log');
+
+  const filterBtn = document.getElementById('cs-filter-btn');
+  const backBtn   = document.getElementById('cs-back-btn');
+  if (filterBtn) filterBtn.style.display = 'none';
+  if (backBtn)   backBtn.style.display   = 'none';
+
+  cardStack.classList.add('card-stack--perm');
+
+  await fadeBody('1', 220);
+  // Hold — static card
+}
+
+async function showSlide(n) {
+  if (n === currentSlide) return;
+  currentSlide = n;
+  updateDots(n);
+  updateCopy(n);
+  if (n === 1) await runSlide1();
+  else if (n === 2) await runSlide2();
+  else if (n === 3) await runSlide3();
 }
 
 let started = false;
@@ -2306,14 +2107,18 @@ const observer = new IntersectionObserver(entries => {
     if (entry.isIntersecting && !started) {
       started = true;
       initEls();
-      setTimeout(runSequence, 600);
+      slidePermission = document.getElementById('slide-permission');
+      slideCopyEl     = document.getElementById('slide-copy');
+      document.querySelectorAll('.slide-dot').forEach(btn => {
+        btn.addEventListener('click', () => showSlide(+btn.dataset.slide));
+      });
+      updateCopy(1);
+      setTimeout(() => showSlide(1), 400);
     }
   });
 }, { threshold: 0.4 });
 
 observer.observe(document.getElementById('p-body'));
-
-const cardStack = document.querySelector('.card-stack');
 
 let epStarted = false;
 
@@ -2367,69 +2172,6 @@ const epObserver = new IntersectionObserver(entries => {
 const epBodyEl = document.getElementById('ep-body-1');
 if (epBodyEl) epObserver.observe(epBodyEl);
 
-let intStarted = false;
-
-async function runInterruptSequence() {
-  const s1        = document.getElementById('int-s1');
-  const s2        = document.getElementById('int-s2');
-  const willLbl   = document.getElementById('int-will-lbl');
-  const reasoning = document.getElementById('int-reasoning');
-  const safety    = document.getElementById('int-safety');
-  const cta       = document.getElementById('int-cta');
-  const secondary = document.getElementById('int-secondary');
-  const col2      = document.getElementById('int-col-2');
-  const sheet     = document.getElementById('int-sheet');
-  if (!s1) return;
-
-  await delay(300);
-  for (const el of [s1, s2]) {
-    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    el.style.opacity    = '1';
-    el.style.transform  = 'translateY(0)';
-    await delay(350);
-  }
-  await delay(300);
-
-  willLbl.style.transition = 'opacity 0.3s ease';
-  willLbl.style.opacity    = '1';
-  await delay(200);
-
-  reasoning.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-  reasoning.style.opacity    = '1';
-  reasoning.style.transform  = 'translateY(0)';
-  await delay(350);
-
-  safety.style.transition = 'opacity 0.3s ease';
-  safety.style.opacity    = '1';
-  await delay(250);
-
-  cta.style.transition = 'opacity 0.35s ease';
-  cta.style.opacity    = '1';
-  await delay(200);
-
-  secondary.style.transition = 'opacity 0.35s ease';
-  secondary.style.opacity    = '1';
-  await delay(600);
-
-  col2.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  col2.style.opacity    = '1';
-  col2.style.transform  = 'translateX(0)';
-  await delay(500);
-
-  if (sheet) sheet.classList.add('open');
-}
-
-const intObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !intStarted) {
-      intStarted = true;
-      runInterruptSequence();
-    }
-  });
-}, { threshold: 0.2 });
-
-const intBodyEl = document.getElementById('int-body-1');
-if (intBodyEl) intObserver.observe(intBodyEl);
 
 function openModal() {
   document.getElementById('modal').classList.add('open');
