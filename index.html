@@ -1279,8 +1279,216 @@ footer {
   animation: peekStripPulse 2s ease-in-out infinite;
 }
 
+/* ── PERMISSION GRANT (carousel phase 5) ── */
+.perm-notif-banner {
+  margin: 0 -11px;
+  padding: 7px 14px;
+  background: linear-gradient(90deg, rgba(230,168,23,0.11) 0%, rgba(230,168,23,0.04) 100%);
+  border-bottom: 1px solid rgba(230,168,23,0.14);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.perm-notif-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+  animation: amberpulse 1.8s ease-in-out infinite;
+  will-change: opacity;
+}
+.perm-notif-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  flex: 1;
+}
+.perm-notif-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: rgba(230,168,23,0.5);
+  letter-spacing: 0.04em;
+}
+.perm-window {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  padding: 8px 0 4px;
+  flex-shrink: 0;
+}
+.perm-window-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  vertical-align: middle;
+  margin-right: 6px;
+  margin-bottom: 1px;
+  animation: amberpulse 1.8s ease-in-out infinite;
+  will-change: opacity;
+}
+.reasoning-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 11px;
+  flex-shrink: 0;
+}
+.reasoning-rail::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 18px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.07) 0%, rgba(85,185,140,0.3) 80%, transparent 100%);
+}
+.excerpt-card { border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.excerpt-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.excerpt-label-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; opacity: 0.7; }
+.excerpt-label--log  { background: rgba(255,255,255,0.04); color: var(--text-faint); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.excerpt-label--log  .excerpt-label-dot { background: rgba(240,240,238,0.4); }
+.excerpt-label--ins  { background: rgba(91,155,213,0.07); color: rgba(91,155,213,0.6); border-bottom: 1px solid rgba(91,155,213,0.10); }
+.excerpt-label--ins  .excerpt-label-dot { background: var(--blue); }
+.excerpt-body-log {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 8px 10px;
+}
+.exc-icon {
+  width: 26px; height: 26px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+}
+.exc-meta { flex: 1; min-width: 0; }
+.exc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 2px;
+}
+.exc-title { font-size: 0.75rem; font-weight: 500; color: var(--text); }
+.exc-detail { font-family: 'DM Mono', monospace; font-size: 0.5625rem; color: var(--text-faint); margin-top: 1px; }
+.exc-age { font-family: 'DM Mono', monospace; font-size: 0.6875rem; color: var(--red); flex-shrink: 0; }
+.excerpt-body-ins {
+  background: rgba(91,155,213,0.05);
+  border: 1px solid rgba(91,155,213,0.13);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.perm-ins-row { display: flex; align-items: flex-start; gap: 7px; }
+.perm-ins-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(91,155,213,0.5);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.perm-ins-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  color: rgba(240,240,238,0.6);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+.perm-ins-text strong { color: rgba(240,240,238,0.82); font-weight: 500; }
+.approve-card {
+  background: var(--green-dim);
+  border: 1px solid rgba(85,185,140,0.22);
+  border-left: 2px solid var(--green);
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.approve-card-context { padding: 10px 12px 9px; }
+.approve-card-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(85,185,140,0.65);
+  margin-bottom: 3px;
+}
+.approve-card-action {
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.approve-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  border-top: 1px solid rgba(85,185,140,0.14);
+  background: rgba(85,185,140,0.06);
+}
+.approve-card-footer-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.approve-card-footer-arr { font-size: 1rem; color: rgba(85,185,140,0.55); }
+.secondary-options {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  padding: 6px 0 2px;
+  flex-shrink: 0;
+}
+.secondary-opt {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 3px 0;
+  text-decoration: none;
+}
+.how-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5625rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 4px 0 2px;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
 /* ── INTERRUPT SECTION ── */
-.interrupt-intro {
   font-size: 0.9375rem;
   line-height: 1.65;
   color: rgba(240,240,238,0.62);
@@ -1805,6 +2013,50 @@ footer {
               </a>
             </div>
           </div>
+          <div id="perm-card" style="display:none">
+            <div class="perm-notif-banner">
+              <div class="perm-notif-dot"></div>
+              <div class="perm-notif-text">Action Required</div>
+              <div class="perm-notif-time">just now</div>
+            </div>
+            <div class="perm-window"><span class="perm-window-dot"></span>It&rsquo;s 1:35pm. You have 25 minutes to act on this.</div>
+            <div class="reasoning-rail">
+              <div class="excerpt-card">
+                <div class="excerpt-label excerpt-label--log"><div class="excerpt-label-dot"></div>From Log</div>
+                <div class="excerpt-body-log">
+                  <div class="exc-icon">✉️</div>
+                  <div class="exc-meta">
+                    <div class="exc-label">Overdue</div>
+                    <div class="exc-title">Invoice #118 &middot; Hartwell Co.</div>
+                    <div class="exc-detail">Draft ready &middot; unsent</div>
+                  </div>
+                  <div class="exc-age">6d</div>
+                </div>
+              </div>
+              <div class="excerpt-card">
+                <div class="excerpt-label excerpt-label--ins"><div class="excerpt-label-dot"></div>From Insights</div>
+                <div class="excerpt-body-ins">
+                  <div class="perm-ins-row"><div class="perm-ins-dot"></div><div class="perm-ins-text"><strong>25-min window</strong> before your call &mdash; enough time for Hartwell to confirm receipt.</div></div>
+                  <div class="perm-ins-row"><div class="perm-ins-dot"></div><div class="perm-ins-text">Hartwell typically responds <strong>Tuesday mornings.</strong> This is the window.</div></div>
+                </div>
+              </div>
+              <div class="approve-card">
+                <div class="approve-card-context">
+                  <div class="approve-card-lbl">Aether will</div>
+                  <div class="approve-card-action">Send Invoice #118 to Hartwell Co.</div>
+                </div>
+                <div class="approve-card-footer">
+                  <span class="approve-card-footer-text">Approve</span>
+                  <span class="approve-card-footer-arr">&#8250;</span>
+                </div>
+              </div>
+            </div>
+            <div class="secondary-options">
+              <a class="secondary-opt" href="#">Not now</a>
+              <a class="secondary-opt" href="#">Tell Aether something &rsaquo;</a>
+            </div>
+            <a class="how-link" href="#">How Aether decides &rsaquo;</a>
+          </div>
         </div>
         <div class="cs-nav">
           <div class="cs-nav-item" id="nav-today">
@@ -2104,13 +2356,14 @@ const LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7';
 
 const IDLE         = 4000;
 const ENTRY_HOLD   = 6000;
-const INSIGHT_HOLD = 15000;
+const INSIGHT_HOLD = 9000;
+const PERM_HOLD    = 8000;
 const RESTART      = 500;
 
 let paused = false;
 let firstRun = true;
 
-let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
+let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus, permCard;
 
 function initEls() {
   ambient         = document.getElementById('ambient-bar');
@@ -2126,6 +2379,7 @@ function initEls() {
   invoiceActionRow= document.getElementById('invoice-action-row');
   invLabel        = document.getElementById('invoice-label');
   insightMarcus   = document.getElementById('insight-marcus');
+  permCard        = document.getElementById('perm-card');
 }
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
@@ -2180,6 +2434,9 @@ function resetAll() {
       [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; });
       ambient.style.display = 'none';
       if (insightMarcus) insightMarcus.style.display = 'none';
+      if (permCard) permCard.style.display = 'none';
+      const cs = document.querySelector('.card-stack');
+      if (cs) cs.style.borderTop = '';
       const filterBtnR = document.getElementById('cs-filter-btn');
       const backBtnR   = document.getElementById('cs-back-btn');
       if (filterBtnR) filterBtnR.style.display = '';
@@ -2296,7 +2553,33 @@ async function runSequence() {
   await delay(240);
   await pauseableDelay(INSIGHT_HOLD); // hold 9s on insight (pauseable)
 
-  // Loop — resetAll() handles fade-out, hides insightMarcus, snaps to Current, fades in
+  // Phase 5: Permission grant — Waiting on you
+  body.style.transition = 'opacity 0.15s ease';
+  body.style.opacity    = '0';
+  await delay(160);
+
+  insightMarcus.style.display = 'none';
+  if (permCard) permCard.style.display = '';
+
+  document.getElementById('p-title').textContent = 'Waiting on you —';
+  pSub.textContent = '';
+  pSub.style.color = '';
+  setNav('log');
+  if (filterBtn) filterBtn.style.display = 'none';
+  if (backBtn)   backBtn.style.display   = 'none';
+
+  const csEl = document.querySelector('.card-stack');
+  if (csEl) csEl.style.borderTop = '2px solid rgba(230,168,23,0.55)';
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    body.style.transition = 'opacity 0.22s ease';
+    body.style.opacity    = '1';
+  }));
+  await delay(240);
+
+  await pauseableDelay(PERM_HOLD); // hold 8s on permission grant (pauseable)
+
+  // Loop — resetAll() handles fade-out, hides permCard, resets amber border, snaps to Current, fades in
   runSequence();
 }
 
