@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aether — Early Access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lexend:wght@600;700;800&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lexend:wght@600;700&family=Syne:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -261,6 +262,7 @@ nav {
   background: var(--blue);
   animation: pulse-dot 2s ease-in-out infinite;
   flex-shrink: 0;
+  will-change: opacity, transform;
 }
 
 .cs-header-row {
@@ -486,6 +488,7 @@ nav {
   background: var(--blue);
   animation: ambientpulse 1.4s ease-in-out infinite;
   flex-shrink: 0;
+  will-change: opacity;
 }
 
 @keyframes ambientpulse {
@@ -2394,10 +2397,11 @@ function pauseableDelay(ms) {
   });
 }
 
+const navEls = {};
 function setNav(name) {
   ['today', 'log', 'insights', 'you'].forEach(n => {
-    const el = document.getElementById('nav-' + n);
-    if (el) el.classList.toggle('active', n === name);
+    if (!navEls[n]) navEls[n] = document.getElementById('nav-' + n);
+    if (navEls[n]) navEls[n].classList.toggle('active', n === name);
   });
 }
 
