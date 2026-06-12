@@ -252,73 +252,71 @@
   }
   .how-link:hover { color: var(--text-faint); }
 
-  /* ── ACTION PROPOSAL ── */
-  .action-proposal {
+  /* ── APPROVE CARD (whole card = tap target) ── */
+  .approve-card {
     background: var(--green-dim);
-    border: 1px solid rgba(85,185,140,0.2);
+    border: 1px solid rgba(85,185,140,0.22);
     border-left: 2px solid var(--green);
     border-radius: 8px;
-    padding: 9px 11px;
-    display: flex;
-    align-items: center;
-    gap: 9px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.15s ease;
   }
-  .action-proposal-lbl {
+  .approve-card:active { background: rgba(85,185,140,0.14); }
+  .approve-card-context {
+    padding: 10px 12px 9px;
+  }
+  .approve-card-lbl {
     font-family: 'DM Mono', monospace;
     font-size: 0.5625rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(85,185,140,0.7);
-    margin-bottom: 2px;
+    color: rgba(85,185,140,0.65);
+    margin-bottom: 3px;
   }
-  .action-proposal-text {
+  .approve-card-action {
     font-family: 'Lexend', sans-serif;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--text);
-    flex: 1;
   }
-  .action-proposal-icon { font-size: 1rem; flex-shrink: 0; color: rgba(85,185,140,0.7); }
-
-  /* ── ACTIONS ── */
-  .perm-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 4px 0 2px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    margin-top: 2px;
-  }
-  .perm-action {
+  .approve-card-footer {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 7px 0;
+    justify-content: space-between;
+    padding: 7px 12px;
+    border-top: 1px solid rgba(85,185,140,0.14);
+    background: rgba(85,185,140,0.06);
+  }
+  .approve-card-footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .approve-card-footer-arr {
+    font-size: 1rem;
+    color: rgba(85,185,140,0.55);
+  }
+
+  /* ── SECONDARY OPTIONS ── */
+  .secondary-options {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    padding: 8px 0 2px;
+  }
+  .secondary-opt {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5625rem;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
     cursor: pointer;
+    padding: 3px 0;
     text-decoration: none;
   }
-  .perm-action-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--green);
-    flex-shrink: 0;
-    animation: amberpulse 1.8s ease-in-out infinite;
-    will-change: opacity;
-  }
-  .perm-action-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6875rem;
-    letter-spacing: 0.02em;
-    color: var(--green);
-    flex: 1;
-  }
-  .perm-action-arr {
-    font-size: 0.875rem;
-    color: rgba(85,185,140,0.45);
-    flex-shrink: 0;
-  }
-  .perm-action--secondary .perm-action-text { color: var(--text-faint); font-size: 0.625rem; }
-  .perm-action--secondary .perm-action-arr { color: var(--text-dim); }
+  .secondary-opt:hover { color: var(--text-faint); }
 </style>
 </head>
 <body>
@@ -371,30 +369,22 @@
         </div>
       </div>
 
-      <div class="action-proposal">
-        <div>
-          <div class="action-proposal-lbl">Aether will</div>
-          <div class="action-proposal-text">Send Invoice #118 to Hartwell Co.</div>
+      <div class="approve-card">
+        <div class="approve-card-context">
+          <div class="approve-card-lbl">Aether will</div>
+          <div class="approve-card-action">Send Invoice #118 to Hartwell Co.</div>
         </div>
-        <div class="action-proposal-icon">↗</div>
+        <div class="approve-card-footer">
+          <span class="approve-card-footer-text">Approve</span>
+          <span class="approve-card-footer-arr">&#8250;</span>
+        </div>
       </div>
 
     </div>
 
-    <div class="perm-actions">
-      <div class="perm-action">
-        <div class="perm-action-dot"></div>
-        <span class="perm-action-text">Approve</span>
-        <span class="perm-action-arr">&#8250;</span>
-      </div>
-      <div class="perm-action perm-action--secondary">
-        <span class="perm-action-text">Not now</span>
-        <span class="perm-action-arr">&#8250;</span>
-      </div>
-      <div class="perm-action perm-action--secondary">
-        <span class="perm-action-text">Change what it does</span>
-        <span class="perm-action-arr">&#8250;</span>
-      </div>
+    <div class="secondary-options">
+      <a class="secondary-opt" href="#">Not now</a>
+      <a class="secondary-opt" href="#">Change what it does</a>
     </div>
 
     <a class="how-link" href="#">How Aether decides &rsaquo;</a>
