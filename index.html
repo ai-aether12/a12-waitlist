@@ -2603,8 +2603,6 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(document.getElementById('p-body'));
 
 const cardStack = document.querySelector('.card-stack');
-cardStack.addEventListener('mouseenter', () => { paused = true; });
-cardStack.addEventListener('mouseleave', () => { paused = false; });
 
 let epStarted = false;
 
