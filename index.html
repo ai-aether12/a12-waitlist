@@ -51,7 +51,7 @@ body {
   pointer-events: none;
 }
 
-.page { position: relative; z-index: 1; }
+.page { position: relative; z-index: 1; padding-top: 68px; }
 
 nav {
   display: flex;
@@ -62,8 +62,10 @@ nav {
   margin: 0 auto;
 }
 .nav-wrap {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: rgba(7,17,30,0.82);
   backdrop-filter: blur(12px);
