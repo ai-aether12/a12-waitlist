@@ -544,6 +544,7 @@ nav {
 .e-body { flex: 1; min-width: 0; }
 
 .e-label {
+  font-family: 'DM Mono', monospace;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -1284,8 +1285,8 @@ footer {
 
 /* ── PERMISSION GRANT (carousel phase 5) ── */
 .perm-notif-banner {
-  margin: 0 -11px;
-  padding: 7px 14px;
+  margin: 0 -22px;
+  padding: 7px 22px;
   background: linear-gradient(90deg, rgba(230,168,23,0.11) 0%, rgba(230,168,23,0.04) 100%);
   border-bottom: 1px solid rgba(230,168,23,0.14);
   display: flex;
@@ -1492,6 +1493,7 @@ footer {
 }
 
 /* ── INTERRUPT SECTION ── */
+.interrupt-intro {
   font-size: 0.9375rem;
   line-height: 1.65;
   color: rgba(240,240,238,0.62);
@@ -2130,7 +2132,7 @@ footer {
         <div class="ep-panel">
           <div class="p-header">
             <div class="cs-wordmark"><span class="cs-live-dot"></span>Aether</div>
-            <div class="p-title">Before I act &mdash;</div>
+            <div class="p-title">Waiting on you &mdash;</div>
             <div class="p-sub">your call is in 60 min</div>
           </div>
           <div class="p-body" id="int-body-1">
@@ -2568,7 +2570,7 @@ async function runSequence() {
   document.getElementById('p-title').textContent = 'Waiting on you —';
   pSub.textContent = '';
   pSub.style.color = '';
-  setNav('log');
+  setNav('today');
   if (filterBtn) filterBtn.style.display = 'none';
   if (backBtn)   backBtn.style.display   = 'none';
 
@@ -2601,6 +2603,8 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(document.getElementById('p-body'));
 
 const cardStack = document.querySelector('.card-stack');
+cardStack.addEventListener('mouseenter', () => { paused = true; });
+cardStack.addEventListener('mouseleave', () => { paused = false; });
 
 let epStarted = false;
 
