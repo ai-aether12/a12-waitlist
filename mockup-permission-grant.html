@@ -280,32 +280,24 @@
   }
   .action-proposal-icon { font-size: 1rem; flex-shrink: 0; color: rgba(85,185,140,0.7); }
 
-  /* ── ACTION STRIPS ── */
+  /* ── ACTIONS ── */
   .perm-actions {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 2px 0 4px;
+    gap: 2px;
+    padding: 4px 0 2px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 2px;
   }
-  .perm-strip {
+  .perm-action {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 8px 10px;
-    border-radius: 8px;
+    gap: 8px;
+    padding: 7px 0;
     cursor: pointer;
-    border: 1px solid transparent;
     text-decoration: none;
   }
-  .perm-strip--approve {
-    background: var(--green-dim);
-    border-color: rgba(85,185,140,0.22);
-  }
-  .perm-strip--secondary {
-    background: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.08);
-  }
-  .perm-strip-dot {
+  .perm-action-dot {
     width: 5px; height: 5px;
     border-radius: 50%;
     background: var(--green);
@@ -313,21 +305,20 @@
     animation: amberpulse 1.8s ease-in-out infinite;
     will-change: opacity;
   }
-  .perm-strip-text {
+  .perm-action-text {
     font-family: 'DM Mono', monospace;
     font-size: 0.6875rem;
     letter-spacing: 0.02em;
     color: var(--green);
     flex: 1;
   }
-  .perm-strip--secondary .perm-strip-text { color: var(--text-faint); }
-  .perm-strip-arr {
+  .perm-action-arr {
     font-size: 0.875rem;
-    color: var(--green);
-    opacity: 0.55;
+    color: rgba(85,185,140,0.45);
     flex-shrink: 0;
   }
-  .perm-strip--secondary .perm-strip-arr { color: var(--text-dim); }
+  .perm-action--secondary .perm-action-text { color: var(--text-faint); font-size: 0.625rem; }
+  .perm-action--secondary .perm-action-arr { color: var(--text-dim); }
 </style>
 </head>
 <body>
@@ -391,18 +382,18 @@
     </div>
 
     <div class="perm-actions">
-      <div class="perm-strip perm-strip--approve">
-        <div class="perm-strip-dot"></div>
-        <span class="perm-strip-text">Approve</span>
-        <span class="perm-strip-arr">&#8250;</span>
+      <div class="perm-action">
+        <div class="perm-action-dot"></div>
+        <span class="perm-action-text">Approve</span>
+        <span class="perm-action-arr">&#8250;</span>
       </div>
-      <div class="perm-strip perm-strip--secondary">
-        <span class="perm-strip-text">Not now</span>
-        <span class="perm-strip-arr">&#8250;</span>
+      <div class="perm-action perm-action--secondary">
+        <span class="perm-action-text">Not now</span>
+        <span class="perm-action-arr">&#8250;</span>
       </div>
-      <div class="perm-strip perm-strip--secondary">
-        <span class="perm-strip-text">Change what it does</span>
-        <span class="perm-strip-arr">&#8250;</span>
+      <div class="perm-action perm-action--secondary">
+        <span class="perm-action-text">Change what it does</span>
+        <span class="perm-action-arr">&#8250;</span>
       </div>
     </div>
 
