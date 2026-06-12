@@ -270,40 +270,54 @@
   }
   .action-proposal-icon { font-size: 1rem; flex-shrink: 0; color: rgba(85,185,140,0.7); }
 
-  /* ── APPROVE / PASS ── */
-  .approve-row {
+  /* ── ACTION STRIPS ── */
+  .perm-actions {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     padding: 2px 0 4px;
   }
-  .approve-btn {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 0;
-    font-family: 'Lexend', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    letter-spacing: 0.01em;
-  }
-  .pass-row {
+  .perm-strip {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding-bottom: 2px;
-  }
-  .pass-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.625rem;
-    color: var(--text-faint);
-    letter-spacing: 0.04em;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 10px;
+    border-radius: 8px;
     cursor: pointer;
-    padding: 4px 0;
+    border: 1px solid transparent;
+    text-decoration: none;
   }
+  .perm-strip--approve {
+    background: var(--green-dim);
+    border-color: rgba(85,185,140,0.22);
+  }
+  .perm-strip--secondary {
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.08);
+  }
+  .perm-strip-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: amberpulse 1.8s ease-in-out infinite;
+    will-change: opacity;
+  }
+  .perm-strip-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--green);
+    flex: 1;
+  }
+  .perm-strip--secondary .perm-strip-text { color: var(--text-faint); }
+  .perm-strip-arr {
+    font-size: 0.875rem;
+    color: var(--green);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+  .perm-strip--secondary .perm-strip-arr { color: var(--text-dim); }
 </style>
 </head>
 <body>
@@ -369,11 +383,19 @@
       <div class="action-proposal-icon">↗</div>
     </div>
 
-    <div class="approve-row">
-      <button class="approve-btn">Approve</button>
-      <div class="pass-row">
-        <span class="pass-btn">Not now</span>
-        <span class="pass-btn">Change what it does</span>
+    <div class="perm-actions">
+      <div class="perm-strip perm-strip--approve">
+        <div class="perm-strip-dot"></div>
+        <span class="perm-strip-text">Approve</span>
+        <span class="perm-strip-arr">&#8250;</span>
+      </div>
+      <div class="perm-strip perm-strip--secondary">
+        <span class="perm-strip-text">Not now</span>
+        <span class="perm-strip-arr">&#8250;</span>
+      </div>
+      <div class="perm-strip perm-strip--secondary">
+        <span class="perm-strip-text">Change what it does</span>
+        <span class="perm-strip-arr">&#8250;</span>
       </div>
     </div>
 
