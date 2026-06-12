@@ -111,32 +111,6 @@
     padding: 12px 16px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-  .provenance-row {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 9px;
-  }
-  .prov-chip {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.5625rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-  .prov-chip-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-  /* Log = neutral — no urgency connotation */
-  .prov-chip--neutral { color: rgba(240,240,238,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); }
-  .prov-chip--neutral .prov-chip-dot { background: rgba(240,240,238,0.4); }
-  .prov-chip--blue { color: rgba(91,155,213,0.75); background: rgba(91,155,213,0.08); border: 1px solid rgba(91,155,213,0.18); }
-  .prov-chip--blue .prov-chip-dot { background: var(--blue); }
-  .prov-chip--amber { color: rgba(230,168,23,0.75); background: rgba(230,168,23,0.08); border: 1px solid rgba(230,168,23,0.18); }
-  .prov-chip--amber .prov-chip-dot { background: var(--amber); }
-  .prov-arrow { font-size: 0.5625rem; color: var(--text-dim); }
 
   .a-title {
     font-family: 'Lexend', sans-serif;
@@ -367,13 +341,6 @@
   </div>
 
   <div class="a-header">
-    <div class="provenance-row">
-      <div class="prov-chip prov-chip--neutral"><div class="prov-chip-dot"></div>Log</div>
-      <div class="prov-arrow">+</div>
-      <div class="prov-chip prov-chip--blue"><div class="prov-chip-dot"></div>Insights</div>
-      <div class="prov-arrow">+</div>
-      <div class="prov-chip prov-chip--amber"><div class="prov-chip-dot"></div>Calendar</div>
-    </div>
     <div class="a-title">Waiting on you &mdash;</div>
     <div class="a-window"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--amber);vertical-align:middle;margin-right:6px;margin-bottom:1px;animation:amberpulse 1.8s ease-in-out infinite;will-change:opacity"></span>25 min window &middot; 1:35pm</div>
   </div>
