@@ -133,6 +133,7 @@ nav {
   border-radius: 50%;
   background: var(--blue);
   animation: pulse-dot 2s ease-in-out infinite;
+  will-change: opacity, transform;
 }
 
 @keyframes pulse-dot {
@@ -1173,6 +1174,7 @@ footer {
   background: var(--blue);
   flex-shrink: 0;
   animation: ambientpulse 2s ease-in-out infinite;
+  will-change: opacity;
 }
 .peek-dot--green { background: var(--green); }
 .peek-text {
@@ -1296,11 +1298,12 @@ footer {
   animation: insightsPulse 2.2s ease-in-out infinite;
 }
 @keyframes peekStripPulse {
-  0%, 100% { border-color: rgba(91,155,213,0.18); background: var(--blue-dim); }
-  50%       { border-color: rgba(91,155,213,0.5);  background: rgba(91,155,213,0.14); }
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1; }
 }
 .peek-strip-glow {
   animation: peekStripPulse 2s ease-in-out infinite;
+  will-change: opacity;
 }
 
 /* ── SLIDE NAV ── */
@@ -1926,7 +1929,6 @@ footer {
 <script>
 const LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7';
 
-let paused = false;
 
 let ambient, invEntry, gpEntry, marcusEntry, logInv, logMarcus, logGp, logInvDetail, logMarcusDetail, logGpDetail, invoiceActionRow, invLabel, insightMarcus;
 
@@ -1948,15 +1950,6 @@ function initEls() {
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
 
-function pauseableDelay(ms) {
-  return new Promise(resolve => {
-    let elapsed = 0;
-    const tick = setInterval(() => {
-      if (!paused) elapsed += 50;
-      if (elapsed >= ms) { clearInterval(tick); resolve(); }
-    }, 50);
-  });
-}
 
 function setNav(name) {
   ['today', 'log', 'insights', 'you'].forEach(n => {
@@ -2033,10 +2026,12 @@ async function runSlide1() {
   const marcusPeekStrip = logMarcus.querySelector('.peek-strip');
   if (marcusPeekStrip) marcusPeekStrip.classList.add('peek-strip-glow');
 
-  // Expand Doctor entry after a beat
+  // Expand Doctor entry after a beat — abort if user has navigated away
   await delay(1800);
+  if (currentSlide !== 1) return;
   logGp.classList.add('tap-flash');
   await delay(350);
+  if (currentSlide !== 1) return;
   logGp.classList.remove('tap-flash');
   const gpChevron = logGp.querySelector('.log-chevron');
   gpChevron.style.transition = 'transform 0.3s ease';
