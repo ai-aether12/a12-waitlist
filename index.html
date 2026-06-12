@@ -1969,21 +1969,14 @@ async function runSlide1() {
   const cardStack = document.querySelector('.card-stack');
   cardStack.classList.remove('card-stack--perm');
 
-  // Reset all state cleanly
-  [invEntry, gpEntry, marcusEntry].forEach(el => {
-    el.style.display = ''; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; el.style.transition = 'none';
-  });
-  clearStyles(invEntry, 'maxHeight', 'overflow', 'paddingTop', 'paddingBottom', 'marginTop');
-  clearStyles(marcusEntry, 'maxHeight', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom', 'overflow');
-  invoiceActionRow.style.display = '';
-  invLabel.textContent = 'Staged';
-  invEntry.classList.remove('sent');
-  [logInv, logMarcus, logGp].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
-  [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => { d.style.transition = 'none'; d.style.maxHeight = '0'; d.style.opacity = '0'; d.style.overflow = 'hidden'; });
-  [logInv, logMarcus, logGp].forEach(el => { const ch = el.querySelector('.log-chevron'); if (ch) ch.style.transform = ''; });
+  // Show Log view directly — no auto-transitions
+  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; el.style.transition = 'none'; });
   ambient.style.display = 'none';
   if (insightMarcus) insightMarcus.style.display = 'none';
   if (slidePermission) slidePermission.style.display = 'none';
+  [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
+  [logInvDetail, logMarcusDetail, logGpDetail].forEach(d => { d.style.transition = 'none'; d.style.maxHeight = '0'; d.style.opacity = '0'; d.style.overflow = 'hidden'; });
+  [logInv, logMarcus, logGp].forEach(el => { const ch = el.querySelector('.log-chevron'); if (ch) ch.style.transform = ''; });
 
   const filterBtn = document.getElementById('cs-filter-btn');
   const backBtn   = document.getElementById('cs-back-btn');
@@ -1993,22 +1986,8 @@ async function runSlide1() {
   const titleEl = document.getElementById('p-title');
   const subEl   = document.getElementById('p-sub');
   titleEl.textContent = 'While you were away';
-  subEl.textContent = 'Aether acted';
-  subEl.style.color = 'var(--green)';
-  setNav('log');
-
-  body.style.opacity = '1';
-  body.style.transition = '';
-
-  // Transition to Log view with entries
-  await delay(600);
-  await fadeBody('0', 150);
-
-  [invEntry, gpEntry, marcusEntry].forEach(el => { el.style.display = 'none'; });
-  [logInv, logMarcus, logGp].forEach(el => { el.style.display = ''; el.style.transition = 'none'; });
-  titleEl.textContent = 'Log';
-  subEl.textContent = 'Recent activity';
-  subEl.style.color = '';
+  subEl.textContent   = 'Aether acted';
+  subEl.style.color   = 'var(--green)';
   setNav('today');
 
   await fadeBody('1', 220);
