@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Notification Deep Link · v4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #c8c2ba;
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 56px 48px;
+  color: #1a1512;
+}
+
+/* ══ PAGE STRUCTURE ══ */
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1a1512;
+  margin-bottom: 6px;
+}
+.page-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(26,21,18,0.38);
+  margin-bottom: 56px;
+}
+
+.path-block {
+  margin-bottom: 80px;
+}
+.path-header {
+  border-top: 2px solid rgba(26,21,18,0.18);
+  padding-top: 14px;
+  margin-bottom: 32px;
+}
+.path-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(26,21,18,0.5);
+  margin-bottom: 4px;
+}
+.path-title {
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em; color: #1a1512;
+}
+.path-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: rgba(26,21,18,0.38);
+  margin-top: 4px; letter-spacing: 0.04em;
+}
+
+/* ── SCREEN ROW: phones in a horizontal row ── */
+.screen-row {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.screen-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.screen-step {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(26,21,18,0.35); text-align: center;
+}
+
+.flow-arrow {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 0 20px;
+  padding-top: 110px;
+  gap: 6px; flex-shrink: 0;
+}
+.arrow-line { width: 1px; height: 36px; background: rgba(26,21,18,0.18); }
+.arrow-label {
+  font-family: 'DM Mono', monospace; font-size: 8px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(26,21,18,0.28);
+  writing-mode: vertical-rl;
+}
+.arrow-head { font-size: 14px; color: rgba(26,21,18,0.28); }
+
+/* ── ANNOTATION ROW: matched columns below phones ── */
+.ann-row {
+  display: grid;
+  gap: 32px;
+}
+.ann-row.two-col { grid-template-columns: 1fr 1fr; }
+.ann-row.three-col { grid-template-columns: 1fr 1fr 1fr; }
+
+.ann-block {
+  background: rgba(26,21,18,0.04);
+  border: 1px solid rgba(26,21,18,0.09);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+.ann-block-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(26,21,18,0.4);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(26,21,18,0.08);
+}
+.ann-item { padding-left: 13px; margin-bottom: 16px; }
+.ann-item:last-child { margin-bottom: 0; }
+.a-gr { border-left: 2px solid #3d9e72; }
+.a-bl { border-left: 2px solid #3a7bbf; }
+.a-am { border-left: 2px solid #c4841a; }
+.a-nt { border-left: 2px solid rgba(26,21,18,0.2); }
+.ann-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px; font-weight: 600; color: #1a1512; margin-bottom: 4px;
+}
+.ann-body {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px; color: rgba(26,21,18,0.55); line-height: 1.6;
+}
+.ann-tag {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 8px; padding: 2px 8px; border-radius: 4px; margin-top: 5px;
+  background: rgba(26,21,18,0.05); color: rgba(26,21,18,0.4);
+  border: 1px solid rgba(26,21,18,0.10);
+}
+
+/* ── DECISIONS TABLE ── */
+.decisions-block {
+  margin-top: 16px;
+  border-top: 2px solid rgba(26,21,18,0.18);
+  padding-top: 28px;
+}
+.decisions-title {
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 18px; font-weight: 700; color: #1a1512;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.dec-table { width: 100%; border-collapse: collapse; }
+.dec-table th {
+  font-family: 'DM Mono', monospace; font-size: 8px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(26,21,18,0.4); text-align: left;
+  padding: 8px 12px; border-bottom: 1px solid rgba(26,21,18,0.12);
+}
+.dec-table td {
+  font-family: 'Lexend', sans-serif; font-size: 12px;
+  color: rgba(26,21,18,0.7); padding: 10px 12px;
+  border-bottom: 1px solid rgba(26,21,18,0.07);
+  vertical-align: top; line-height: 1.5;
+}
+.dec-table td:first-child { color: #1a1512; font-weight: 500; white-space: nowrap; }
+.dec-table td .tag {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 8px; padding: 1px 7px; border-radius: 3px; margin-top: 4px;
+  background: rgba(26,21,18,0.05); color: rgba(26,21,18,0.4);
+  border: 1px solid rgba(26,21,18,0.10);
+}
+.dec-table tr:last-child td { border-bottom: none; }
+.tag-gr { background: rgba(61,158,114,0.08) !important; color: #3d9e72 !important; border-color: rgba(61,158,114,0.2) !important; }
+.tag-rd { background: rgba(184,48,48,0.08) !important; color: #b83030 !important; border-color: rgba(184,48,48,0.2) !important; }
+.tag-bl { background: rgba(58,123,191,0.08) !important; color: #3a7bbf !important; border-color: rgba(58,123,191,0.2) !important; }
+.tag-am { background: rgba(196,132,26,0.08) !important; color: #c4841a !important; border-color: rgba(196,132,26,0.2) !important; }
+
+/* ══ PHONE SHELL ══ */
+.phone-shell {
+  flex-shrink: 0; width: 260px;
+  background: #d8d2ca;
+  border-radius: 46px; padding: 10px;
+  box-shadow: 0 0 0 1px rgba(26,21,18,0.12), 0 24px 48px rgba(26,21,18,0.18);
+}
+.phone-screen {
+  border-radius: 38px; overflow: hidden; height: 560px;
+  display: flex; flex-direction: column;
+}
+
+/* ══ LOCK SCREEN ══ */
+.lock-screen {
+  background: linear-gradient(160deg, #ddd8d0 0%, #cec8c0 100%);
+  height: 100%; display: flex; flex-direction: column;
+}
+.status-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px; flex-shrink: 0; }
+.status-time { font-size: 14px; font-weight: 700; color: #1a1512; }
+.status-right { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(26,21,18,0.5); }
+.lock-time-block { text-align: center; padding: 14px 0; flex-shrink: 0; }
+.lock-hour {
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 60px; font-weight: 300; color: #1a1512;
+  letter-spacing: -0.04em; line-height: 1;
+}
+.lock-date { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(26,21,18,0.45); margin-top: 3px; }
+.notif-stack { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+.notif-other { background: rgba(26,21,18,0.08); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+.no-icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(26,21,18,0.10); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.no-app { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(26,21,18,0.4); }
+.no-text { font-size: 12px; color: rgba(26,21,18,0.5); }
+.no-time { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(26,21,18,0.28); margin-left: auto; }
+.notif-aether { background: rgba(235,228,220,0.97); border: 1px solid rgba(61,158,114,0.45); border-radius: 18px; overflow: hidden; }
+.notif-main { padding: 11px 13px 9px; display: flex; gap: 9px; align-items: flex-start; }
+.notif-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(61,158,114,0.12); border: 1px solid rgba(61,158,114,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notif-icon-dot { width: 7px; height: 7px; border-radius: 50%; background: #3d9e72; }
+.notif-body-wrap { flex: 1; }
+.notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.notif-app { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #3d9e72; }
+.notif-ts { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(26,21,18,0.28); }
+.notif-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-size: 15px; font-weight: 700; color: #1a1512; letter-spacing: -0.01em; margin-bottom: 2px; }
+.notif-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(26,21,18,0.55); }
+.notif-sub .red { color: #b83030; font-weight: 500; }
+.tap-hint { padding: 4px 13px 8px; }
+.tap-hint-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(61,158,114,0.55); letter-spacing: 0.08em; }
+.notif-actions { display: flex; border-top: 1px solid rgba(26,21,18,0.08); }
+.na { flex: 1; padding: 10px; min-height: 44px; display: flex; align-items: center; justify-content: center; font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; }
+.na.primary { background: rgba(61,158,114,0.18); color: #2d7a57; font-weight: 700; border-right: 1px solid rgba(26,21,18,0.08); }
+.na.secondary { color: rgba(26,21,18,0.35); }
+.tap-indicator { margin: 10px 14px 0; display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(61,158,114,0.07); border: 1px solid rgba(61,158,114,0.15); border-radius: 8px; }
+.tap-ind-dot { width: 5px; height: 5px; border-radius: 50%; background: #3d9e72; animation: pp 1.5s ease-in-out infinite; }
+@keyframes pp { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.tap-ind-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(61,158,114,0.65); letter-spacing: 0.06em; }
+.lock-bottom { margin-top: auto; padding: 12px 0 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.lock-swipe-text { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(26,21,18,0.25); }
+.h-pill { width: 80px; height: 4px; background: rgba(26,21,18,0.18); border-radius: 2px; }
+
+/* ══ CONFIRM SCREEN ══ */
+.confirm-screen { background: #f2ede6; height: 100%; display: flex; flex-direction: column; }
+.confirm-notch { height: 24px; display: flex; justify-content: center; flex-shrink: 0; }
+.confirm-notch-pill { width: 72px; height: 17px; background: rgba(26,21,18,0.15); border-radius: 0 0 12px 12px; }
+.confirm-top { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; gap: 11px; }
+.confirm-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(61,158,114,0.12); border: 1px solid rgba(61,158,114,0.25); display: flex; align-items: center; justify-content: center; }
+.confirm-icon-dot { width: 10px; height: 10px; border-radius: 50%; background: #3d9e72; }
+.confirm-eyebrow { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(61,158,114,0.7); text-align: center; }
+.confirm-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-size: 17px; font-weight: 700; color: #1a1512; letter-spacing: -0.02em; text-align: center; line-height: 1.2; }
+.confirm-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(26,21,18,0.45); text-align: center; line-height: 1.6; }
+.confirm-sub .red { color: #b83030; font-weight: 500; }
+.confirm-draft { background: rgba(58,123,191,0.06); border: 1px solid rgba(58,123,191,0.15); border-radius: 10px; padding: 9px 11px; width: 100%; position: relative; overflow: hidden; }
+.confirm-draft::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #3a7bbf; }
+.confirm-draft-eye { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(58,123,191,0.6); margin-bottom: 3px; }
+.confirm-draft-text { font-family: 'Lexend', sans-serif; font-size: 10px; color: rgba(26,21,18,0.5); font-style: italic; line-height: 1.5; }
+.confirm-rev { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.3); text-align: center; line-height: 1.5; }
+.confirm-rev strong { color: rgba(26,21,18,0.5); font-weight: 400; }
+.confirm-bottom { padding: 0 16px 24px; display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+.confirm-btn-send { width: 100%; padding: 13px; min-height: 48px; background: #2d7a57; color: #f2ede6; border: none; border-radius: 10px; font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer; }
+.confirm-btn-row { display: flex; gap: 6px; }
+.confirm-btn-ghost { flex: 1; padding: 10px; min-height: 44px; background: rgba(26,21,18,0.05); border: 1px solid rgba(26,21,18,0.10); border-radius: 10px; color: rgba(26,21,18,0.38); font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; }
+.confirm-home { height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.confirm-home-pill { width: 60px; height: 3px; background: rgba(26,21,18,0.15); border-radius: 2px; }
+
+/* ══ TRANSITION SCREEN ══ */
+.transition-screen { background: #f2ede6; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.trans-ring { width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(61,158,114,0.28); background: rgba(61,158,114,0.08); display: flex; align-items: center; justify-content: center; animation: trans-pulse 1.5s ease-in-out infinite; }
+@keyframes trans-pulse { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.05)} }
+.trans-dot { width: 10px; height: 10px; border-radius: 50%; background: #3d9e72; }
+.trans-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(26,21,18,0.35); }
+
+/* ══ DETAIL SCREEN ══ */
+.detail-screen { background: #f2ede6; height: 100%; display: flex; flex-direction: column; }
+.notch { height: 24px; display: flex; justify-content: center; flex-shrink: 0; }
+.notch-pill { width: 72px; height: 17px; background: rgba(26,21,18,0.15); border-radius: 0 0 12px 12px; }
+.detail-header { padding: 6px 16px 6px; flex-shrink: 0; }
+.detail-back { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.detail-back-chevron { font-size: 14px; color: rgba(26,21,18,0.3); }
+.detail-back-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,21,18,0.3); }
+.detail-arow { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.detail-adot { width: 6px; height: 6px; border-radius: 50%; background: #c4841a; }
+.detail-abrand { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(26,21,18,0.35); }
+.detail-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-size: 20px; font-weight: 700; color: #1a1512; letter-spacing: -0.02em; line-height: 1.15; }
+.detail-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.32); margin-top: 2px; }
+.detail-scroll { flex: 1; overflow: hidden; padding: 6px 13px 8px; display: flex; flex-direction: column; gap: 7px; }
+.from-notif-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(61,158,114,0.08); border: 1px solid rgba(61,158,114,0.18); border-radius: 6px; padding: 4px 9px; width: fit-content; }
+.fnc-dot { width: 5px; height: 5px; border-radius: 50%; background: #3d9e72; flex-shrink: 0; }
+.fnc-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(61,158,114,0.65); letter-spacing: 0.06em; }
+.reason-card { background: rgba(61,158,114,0.07); border: 1px solid rgba(61,158,114,0.28); border-radius: 11px; padding: 10px 11px; position: relative; overflow: hidden; }
+.reason-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #3d9e72; }
+.rc-eye { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(61,158,114,0.8); margin-bottom: 4px; }
+.rc-hl { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-size: 13px; font-weight: 700; color: #1a1512; line-height: 1.3; margin-bottom: 7px; }
+.rc-sigs { display: flex; flex-direction: column; gap: 4px; }
+.rc-sig { display: flex; align-items: center; gap: 7px; background: rgba(26,21,18,0.04); border: 1px solid rgba(26,21,18,0.08); border-radius: 6px; padding: 6px 8px; }
+.rc-sig.urgent { background: rgba(184,48,48,0.06); border-color: rgba(184,48,48,0.18); }
+.rsd { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.rsd.r { background: #b83030; }
+.rsd.a { background: #c4841a; }
+.rsd.b { background: #3a7bbf; }
+.rsl { font-family: 'Lexend', sans-serif; font-size: 10px; color: #1a1512; font-weight: 400; flex: 1; }
+.rsm { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.32); }
+.rsa { font-family: 'DM Mono', monospace; font-size: 9px; color: #b83030; font-weight: 500; }
+.rsm-green { font-family: 'DM Mono', monospace; font-size: 8px; color: #3d9e72; }
+.draft-card { background: rgba(58,123,191,0.06); border: 1px solid rgba(58,123,191,0.16); border-radius: 11px; padding: 10px 11px; position: relative; overflow: hidden; }
+.draft-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #3a7bbf; }
+.dc-eye { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(58,123,191,0.65); margin-bottom: 4px; }
+.dc-preview { font-family: 'Lexend', sans-serif; font-size: 11px; color: rgba(26,21,18,0.55); line-height: 1.55; font-style: italic; }
+.dc-preview strong { color: rgba(26,21,18,0.8); font-style: normal; font-weight: 500; }
+.dc-meta { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.28); margin-top: 5px; }
+.rev { display: flex; align-items: flex-start; gap: 6px; padding: 6px 9px; background: rgba(26,21,18,0.04); border: 1px solid rgba(26,21,18,0.08); border-radius: 7px; }
+.rev-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.4); line-height: 1.5; }
+.rev-text strong { color: rgba(26,21,18,0.6); font-weight: 400; }
+.btn-send { width: 100%; padding: 13px; min-height: 48px; background: #2d7a57; color: #f2ede6; border: none; border-radius: 9px; font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer; }
+.btn-row-sm { display: flex; gap: 5px; }
+.btn-ghost-sm { flex: 1; padding: 9px; min-height: 44px; background: rgba(26,21,18,0.05); border: 1px solid rgba(26,21,18,0.10); border-radius: 9px; color: rgba(26,21,18,0.4); font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; }
+.d-tab-bar { height: 50px; background: rgba(26,21,18,0.04); border-top: 1px solid rgba(26,21,18,0.08); display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; }
+.d-tab { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.d-tab-lbl { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; }
+.d-lbl-on { color: #3d9e72; }
+.d-lbl-off { color: rgba(26,21,18,0.25); }
+.t-svg { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.s-on { stroke: #3d9e72; }
+.s-off { stroke: rgba(26,21,18,0.28); }
+.d-home { height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.d-home-pill { width: 60px; height: 3px; background: rgba(26,21,18,0.15); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Notification Deep Link Flow</div>
+<div class="page-sub">Light mode · v4 · canonical · June 2026</div>
+
+
+<!-- ════════════════════════════════════════
+     PATH B — DEFAULT (shown first, most users)
+════════════════════════════════════════ -->
+<div class="path-block">
+  <div class="path-header">
+    <div class="path-label">Path B · Default — all users unless trust setting enabled</div>
+    <div class="path-title">Lock screen → One-tap confirm</div>
+    <div class="path-desc">User taps "Send now" on notification · App opens directly to confirm screen · Per-instance approval always</div>
+  </div>
+
+  <!-- PHONES -->
+  <div class="screen-row">
+
+    <div class="screen-col">
+      <div class="screen-step">① Lock screen</div>
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="lock-screen">
+            <div class="status-bar">
+              <div class="status-time">1:35</div>
+              <div class="status-right">5G ▪ ⬛</div>
+            </div>
+            <div class="lock-time-block">
+              <div class="lock-hour">1:35</div>
+              <div class="lock-date">Tuesday, June 11</div>
+            </div>
+            <div class="notif-stack">
+              <div class="notif-other">
+                <div class="no-icon">📧</div>
+                <div style="flex:1;"><div class="no-app">Mail</div><div class="no-text">3 new messages</div></div>
+                <div class="no-time">9:12</div>
+              </div>
+              <div class="notif-aether">
+                <div class="notif-main">
+                  <div class="notif-icon"><div class="notif-icon-dot"></div></div>
+                  <div class="notif-body-wrap">
+                    <div class="notif-row">
+                      <div class="notif-app">Aether</div>
+                      <div class="notif-ts">Just now</div>
+                    </div>
+                    <div class="notif-title">Send Invoice #118?</div>
+                    <div class="notif-sub">Draft ready · <span class="red">6d overdue</span> · 25 min before call</div>
+                  </div>
+                </div>
+                <div class="tap-hint"><div class="tap-hint-text">↑ Tap for full detail</div></div>
+                <div class="notif-actions">
+                  <div class="na primary">Send now ↗</div>
+                  <div class="na secondary">Not now</div>
+                </div>
+              </div>
+              <div class="tap-indicator">
+                <div class="tap-ind-dot"></div>
+                <div class="tap-ind-text">User taps "Send now"</div>
+              </div>
+            </div>
+            <div class="lock-bottom">
+              <div class="lock-swipe-text">Swipe up to unlock</div>
+              <div class="h-pill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-label">opens app</div>
+      <div class="arrow-line"></div>
+      <div class="arrow-head">→</div>
+    </div>
+
+    <div class="screen-col">
+      <div class="screen-step">② One-tap confirm</div>
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="confirm-screen">
+            <div class="confirm-notch"><div class="confirm-notch-pill"></div></div>
+            <div class="confirm-top">
+              <div class="confirm-icon"><div class="confirm-icon-dot"></div></div>
+              <div class="confirm-eyebrow">Ready to send</div>
+              <div class="confirm-title">Send Invoice #118 to Hartwell?</div>
+              <div class="confirm-sub">Draft ready · <span class="red">6d overdue</span><br>25 min before your call</div>
+              <div class="confirm-draft">
+                <div class="confirm-draft-eye">Draft preview</div>
+                <div class="confirm-draft-text">"Hi Sarah, following up on invoice #118 for the <strong style="color:rgba(26,21,18,0.75);font-style:normal;">Hartwell project</strong> — please find the attached..."</div>
+              </div>
+              <div class="confirm-rev"><strong>Nothing sends without you.</strong><br>This is your confirmation step.</div>
+            </div>
+            <div class="confirm-bottom">
+              <button class="confirm-btn-send">Send Invoice #118 ↗</button>
+              <div class="confirm-btn-row">
+                <button class="confirm-btn-ghost">Edit draft</button>
+                <button class="confirm-btn-ghost">Not now</button>
+              </div>
+            </div>
+            <div class="confirm-home"><div class="confirm-home-pill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screen-row -->
+
+  <!-- ANNOTATIONS — matched columns below each phone -->
+  <div class="ann-row two-col">
+
+    <div class="ann-block">
+      <div class="ann-block-head">Lock screen · notification</div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">Aether notification stands out</div>
+        <div class="ann-body">Stronger green border and heavier icon contrast than surrounding notifications. Situational urgency — "6d overdue" in deep red — is a system observation, not an accusation. The user reads the situation before making a decision.</div>
+        <div class="ann-tag">Pre-attentive · situation not failure</div>
+      </div>
+      <div class="ann-item a-nt">
+        <div class="ann-title">Three tap targets, one flow</div>
+        <div class="ann-body">"↑ Tap for full detail" opens the app to the action detail screen. "Send now" opens the app to the one-tap confirm (this path). "Not now" is a named deferral — logged as signal, Aether re-evaluates. Never labelled dismiss or ignore.</div>
+        <div class="ann-tag">Named deferral · no shame label</div>
+      </div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">"Send now" is weighted — secondary is not</div>
+        <div class="ann-body">Primary action is darker green at font-weight 700. Secondary "Not now" is recessive. The hierarchy is clear before reading. A user in a time-pressured, distracted state can identify the primary action without parsing both options.</div>
+        <div class="ann-tag">Ford Williams · pre-attentive hierarchy</div>
+      </div>
+    </div>
+
+    <div class="ann-block">
+      <div class="ann-block-head">Confirm screen</div>
+      <div class="ann-item a-nt">
+        <div class="ann-title">This screen is the product, not friction</div>
+        <div class="ann-body">Per-instance approval is the architectural response to Tier 3 external actions. This screen is not a workaround — it is the correct default. The draft is visible, the recipient is named, and three options are available. The user sees exactly what will happen before it happens.</div>
+        <div class="ann-tag">Tier 3 · reversibility · trust architecture</div>
+      </div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">Draft preview earns the send</div>
+        <div class="ann-body">The first two lines of the draft appear here, not in the notification. Enough to confirm it's right without reading the full email. "Edit draft" opens the full draft. The user is never asked to send something they haven't seen.</div>
+        <div class="ann-tag">Transparency before action</div>
+      </div>
+      <div class="ann-item a-bl">
+        <div class="ann-title">Lock-screen send is a trust setting, not a default</div>
+        <div class="ann-body">Users who want to send directly from the lock screen can enable this in trust settings after using the product. Never surfaced at onboarding. The trust arc runs in one direction: the user initiates, the system never proposes escalation.</div>
+        <div class="ann-tag">Trust arc · user-initiated only</div>
+      </div>
+    </div>
+
+  </div><!-- /ann-row Path B -->
+</div><!-- /path-block B -->
+
+
+<!-- ════════════════════════════════════════
+     PATH A — TRUST SETTING ENABLED
+════════════════════════════════════════ -->
+<div class="path-block">
+  <div class="path-header">
+    <div class="path-label">Path A · Trust setting enabled — user opted in</div>
+    <div class="path-title">Lock screen → App resolves → Action detail</div>
+    <div class="path-desc">User taps notification body · Deep link routes to action detail · Full context before send</div>
+  </div>
+
+  <!-- PHONES -->
+  <div class="screen-row">
+
+    <div class="screen-col">
+      <div class="screen-step">① Lock screen</div>
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="lock-screen">
+            <div class="status-bar">
+              <div class="status-time">1:35</div>
+              <div class="status-right">5G ▪ ⬛</div>
+            </div>
+            <div class="lock-time-block">
+              <div class="lock-hour">1:35</div>
+              <div class="lock-date">Tuesday, June 11</div>
+            </div>
+            <div class="notif-stack">
+              <div class="notif-other">
+                <div class="no-icon">📧</div>
+                <div style="flex:1;"><div class="no-app">Mail</div><div class="no-text">3 new messages</div></div>
+                <div class="no-time">9:12</div>
+              </div>
+              <div class="notif-aether">
+                <div class="notif-main">
+                  <div class="notif-icon"><div class="notif-icon-dot"></div></div>
+                  <div class="notif-body-wrap">
+                    <div class="notif-row">
+                      <div class="notif-app">Aether</div>
+                      <div class="notif-ts">Just now</div>
+                    </div>
+                    <div class="notif-title">Send Invoice #118?</div>
+                    <div class="notif-sub">Draft ready · <span class="red">6d overdue</span> · 25 min before call</div>
+                  </div>
+                </div>
+                <div class="tap-hint"><div class="tap-hint-text">↑ Tap for full detail</div></div>
+                <div class="notif-actions">
+                  <div class="na primary">Send now ↗</div>
+                  <div class="na secondary">Not now</div>
+                </div>
+              </div>
+              <div class="tap-indicator">
+                <div class="tap-ind-dot"></div>
+                <div class="tap-ind-text">User taps notification body</div>
+              </div>
+            </div>
+            <div class="lock-bottom">
+              <div class="lock-swipe-text">Swipe up to unlock</div>
+              <div class="h-pill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-label">deep link</div>
+      <div class="arrow-line"></div>
+      <div class="arrow-head">→</div>
+    </div>
+
+    <div class="screen-col">
+      <div class="screen-step">② App resolves</div>
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="transition-screen">
+            <div class="trans-ring"><div class="trans-dot"></div></div>
+            <div class="trans-label">Opening action #118</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-label">lands on</div>
+      <div class="arrow-line"></div>
+      <div class="arrow-head">→</div>
+    </div>
+
+    <div class="screen-col">
+      <div class="screen-step">③ Action detail</div>
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="detail-screen">
+            <div class="notch"><div class="notch-pill"></div></div>
+            <div class="detail-header">
+              <div class="detail-back"><span class="detail-back-chevron">‹</span><span class="detail-back-label">Back</span></div>
+              <div class="detail-arow"><div class="detail-adot"></div><div class="detail-abrand">Aether</div></div>
+              <div class="detail-title">Before I act —</div>
+              <div class="detail-sub">via notification · buffer already set · 25 min before call</div>
+            </div>
+            <div class="detail-scroll">
+              <div class="from-notif-chip">
+                <div class="fnc-dot"></div>
+                <div class="fnc-text">Opened from notification</div>
+              </div>
+              <div class="reason-card">
+                <div class="rc-eye">What Aether noticed</div>
+                <div class="rc-hl">Invoice #118 is ready to send before your 2pm.</div>
+                <div class="rc-sigs">
+                  <div class="rc-sig urgent"><div class="rsd r"></div><div class="rsl">Invoice #118 unsent</div><div class="rsa">6d</div></div>
+                  <div class="rc-sig"><div class="rsd b"></div><div class="rsl">Buffer blocked 1:35–2:00pm</div><div class="rsm-green">Already done · you didn't ask</div></div>
+                  <div class="rc-sig"><div class="rsd a"></div><div class="rsl">25 min window open now</div><div class="rsm">Right moment</div></div>
+                </div>
+              </div>
+              <div class="draft-card">
+                <div class="dc-eye">Draft preview</div>
+                <div class="dc-preview">"Hi Sarah, following up on invoice #118 for the <strong>Hartwell project</strong> — please find the attached..."</div>
+                <div class="dc-meta">Full draft opens on Edit ↗</div>
+              </div>
+              <div class="rev">
+                <div class="rev-text"><strong>Nothing leaves without you.</strong> Send confirms. Edit opens the draft. Not now defers.</div>
+              </div>
+              <button class="btn-send">Send Invoice #118 ↗</button>
+              <div class="btn-row-sm">
+                <button class="btn-ghost-sm">Edit draft</button>
+                <button class="btn-ghost-sm">Not now</button>
+              </div>
+            </div>
+            <div class="d-tab-bar">
+              <div class="d-tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="d-tab-lbl d-lbl-off">Log</div></div>
+              <div class="d-tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-on" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="#3d9e72"/></svg><div class="d-tab-lbl d-lbl-on">Current</div></div>
+              <div class="d-tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/><circle class="t-svg s-off" cx="17" cy="5" r="1.5"/></svg><div class="d-tab-lbl d-lbl-off">Insights</div></div>
+              <div class="d-tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="d-tab-lbl d-lbl-off">You</div></div>
+            </div>
+            <div class="d-home"><div class="d-home-pill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screen-row -->
+
+  <!-- ANNOTATIONS — three columns matching three screens -->
+  <div class="ann-row three-col">
+
+    <div class="ann-block">
+      <div class="ann-block-head">Lock screen · notification</div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">Same notification, different tap</div>
+        <div class="ann-body">The notification is identical to Path B. The difference is which tap target the user hits. Body tap → deep link to action detail. "Send now" → confirm screen (Path B). The notification design supports both paths from one surface.</div>
+        <div class="ann-tag">One notification · two paths</div>
+      </div>
+      <div class="ann-item a-nt">
+        <div class="ann-title">"↑ Tap for full detail" makes the affordance explicit</div>
+        <div class="ann-body">iOS and Android both make the notification body tappable by convention. The hint makes this explicit for users who want context before deciding. It is not a button — just a label. No extra tap cost.</div>
+        <div class="ann-tag">Convention + explicit hint · zero friction</div>
+      </div>
+    </div>
+
+    <div class="ann-block">
+      <div class="ann-block-head">Transition screen</div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">Routing state, not a loading screen</div>
+        <div class="ann-body">The app opens to "Opening action #118" rather than a blank screen or the default tab. This confirms the tap landed somewhere specific. Sub-300ms in production — the visual is an arrival affordance, not a wait state.</div>
+        <div class="ann-tag">Purposeful routing · orientation</div>
+      </div>
+      <div class="ann-item a-nt">
+        <div class="ann-title">Only animation on this screen</div>
+        <div class="ann-body">The transition ring pulse is the sole active animation. Animation constraint: one at a time, never concurrent. The detail screen has no ambient animation — the amber dot is static. The ring resolves before the detail screen appears.</div>
+        <div class="ann-tag">Animation constraint · one at a time</div>
+      </div>
+    </div>
+
+    <div class="ann-block">
+      <div class="ann-block-head">Action detail screen</div>
+      <div class="ann-item a-am">
+        <div class="ann-title">Amber dot — pending, not done</div>
+        <div class="ann-body">The Aether brand dot on this screen is amber (held / pending approval), not green (done). The system has not acted yet — it is asking. Colour semantics are load-bearing: green on this screen would be an architectural misread.</div>
+        <div class="ann-tag">Colour semantics · amber = held</div>
+      </div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">"Already done · you didn't ask"</div>
+        <div class="ann-body">The buffer row shows the Tier 1 action that already happened silently. Without surfacing this, the screen reads as "Aether always asks before acting." The green label establishes the notification as the exception — silent action is the norm.</div>
+        <div class="ann-tag">Tier 1 visible · notification is the exception</div>
+      </div>
+      <div class="ann-item a-gr">
+        <div class="ann-title">Fraunces on the headline</div>
+        <div class="ann-body">The reason card headline uses Fraunces 700 rather than Lexend. It is the single most load-bearing sentence on the screen — the situation summary. The display serif gives it authority without aggression.</div>
+        <div class="ann-tag">Typography · situation lands with weight</div>
+      </div>
+    </div>
+
+  </div><!-- /ann-row Path A -->
+</div><!-- /path-block A -->
+
+
+<!-- ════════════════════════════════════════
+     DESIGN DECISIONS
+════════════════════════════════════════ -->
+<div class="decisions-block">
+  <div class="decisions-title">Design decisions</div>
+  <table class="dec-table">
+    <thead>
+      <tr>
+        <th>Decision</th>
+        <th>What</th>
+        <th>Why</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Urgency signal — overdue</td>
+        <td>"6d overdue" in #b83030 at font-weight 500. Appears in notification sub, confirm sub, and reason card red row.</td>
+        <td>Situational urgency is RSD-safe. The signal attributes the gap to the situation, not the user. Without it, the screen reads as if everything is equally calm — wrong for a 6-day overdue invoice 25 minutes before a call.</td>
+        <td><span class="tag tag-rd">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Primary action weight</td>
+        <td>"Send now" at font-weight 700, background rgba(61,158,114,0.18), colour #2d7a57. Secondary "Not now" is recessive — no background, muted colour.</td>
+        <td>Ford Williams' pre-attentive hierarchy: the user must be able to identify the primary action before reading both options. A time-pressured ADHD user in an executive-function-depleted state cannot parse two equally weighted options reliably.</td>
+        <td><span class="tag tag-gr">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Send button darkness</td>
+        <td>Primary send buttons use #2d7a57 (dark forest green) rather than the canonical #3d9e72 (mid green).</td>
+        <td>At light mode background (#f2ede6), #3d9e72 is too soft for an action that requires a response. Darkening to #2d7a57 gives the button authority without breaking semantic colour consistency — it is still unambiguously green = action.</td>
+        <td><span class="tag tag-gr">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Amber dot on detail screen</td>
+        <td>Aether brand dot on action detail header is amber (#c4841a), static — no pulse animation.</td>
+        <td>The system has not acted yet — it is pending approval. Green would read as "done." Amber = held / pending is the correct semantic. Static because the sole animation on this screen is the transition ring; concurrent animation is prohibited.</td>
+        <td><span class="tag tag-am">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Reason card headline typeface</td>
+        <td>Fraunces 700 on the reason card headline. All other card content uses Lexend.</td>
+        <td>The headline is the load-bearing sentence — the situation summary the user reads before deciding. Fraunces gives it display-level authority. Using Lexend would visually equalise it with surrounding body content.</td>
+        <td><span class="tag tag-gr">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Red signal row tint</td>
+        <td>Unsent invoice row: background rgba(184,48,48,0.06), border rgba(184,48,48,0.18). Other rows use neutral alpha.</td>
+        <td>The three signal rows are not equal weight. The unsent invoice is the reason this notification exists. A tinted background makes the primary signal visually distinct before the label is read. Walter's pre-attentive encoding: signal before conscious processing.</td>
+        <td><span class="tag tag-rd">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Path order</td>
+        <td>Path B (default) shown first. Path A (trust setting) shown second.</td>
+        <td>Default first, exception second. Path B is the experience for all users. Path A is a user-initiated escalation available after establishing trust. Reversing the order would imply symmetry that does not exist architecturally.</td>
+        <td><span class="tag tag-bl">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Touch targets</td>
+        <td>All interactive elements: min-height 44px. Primary send buttons: min-height 48px.</td>
+        <td>WCAG 2.5.5 and Ford Williams' mobile accessibility guidelines. ADHD users frequently interact in distracted, stressed, or executive-function-depleted states. Fine motor precision degrades under cognitive load. 44px is the floor; primary actions get additional height.</td>
+        <td><span class="tag tag-gr">Settled</span></td>
+      </tr>
+      <tr>
+        <td>Button chrome typeface</td>
+        <td>Ghost buttons (Edit draft, Not now, secondary actions) use DM Mono. Primary send buttons use Lexend.</td>
+        <td>DM Mono on chrome elements (labels, secondary actions, metadata) creates visual rhythm and separation from reading surfaces. Lexend on primary actions (send) reads as human voice rather than system label — appropriate for a consequential action.</td>
+        <td><span class="tag tag-gr">Settled</span></td>
+      </tr>
+      <tr>
+        <td>RSD copy throughout</td>
+        <td>"Not now" (not dismiss/ignore). "Nothing leaves without you." "Nothing sends without you." "Opened from notification." Reason card headline states situation, not user pattern.</td>
+        <td>RSD safety framework: every copy element must attribute a pattern to a system observation, not a personal failure. "Not now" is a named deferral. "Nothing leaves without you" is a control assertion. No copy implies the user has failed, avoided, or fallen behind.</td>
+        <td><span class="tag tag-gr">Settled · non-negotiable</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

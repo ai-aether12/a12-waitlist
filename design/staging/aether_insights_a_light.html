@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Insights A · Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #c8c2ba;
+  padding: 48px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.lt {
+  --bg:              #f2ede6;
+  --panel-bg:        #ebe4dc;
+  --s1:              rgba(26,21,18,0.055);
+  --s2:              rgba(26,21,18,0.03);
+  --bd:              rgba(26,21,18,0.12);
+  --bd-dim:          rgba(26,21,18,0.07);
+  --green:           #3d9e72;
+  --blue:            #3a7bbf;
+  --amber:           #c4841a;
+  --red:             #c44a4a;
+  --tp:              #1a1512;
+  --ts:              rgba(26,21,18,0.55);
+  --tt:              rgba(26,21,18,0.38);
+  --tab-bg:          rgba(26,21,18,0.05);
+  --tab-active:      #3a7bbf;
+  --hdr-btn-bg:      rgba(26,21,18,0.06);
+  --c-done-bg:       rgba(58,123,191,0.10);
+  --c-done-cl:       #3a7bbf;
+  --c-done-bd:       rgba(58,123,191,0.28);
+  --c-wait-bg:       rgba(196,132,26,0.10);
+  --c-wait-cl:       #c4841a;
+  --c-wait-bd:       rgba(196,132,26,0.28);
+  --c-next-bg:       rgba(61,158,114,0.10);
+  --c-next-cl:       #3d9e72;
+  --c-next-bd:       rgba(61,158,114,0.25);
+  --btn-primary-txt: #f2ede6;
+}
+
+.panel {
+  width: 320px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  outline: 16px solid var(--bg);
+}
+
+.panel-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--bd-dim);
+  flex-shrink: 0;
+}
+
+.panel-scroll {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.aether-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.aether-left { display: flex; align-items: center; gap: 7px; }
+.a-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(26,21,18,0.22); flex-shrink: 0; }
+.a-brand { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tt); }
+.header-btn {
+  background: var(--hdr-btn-bg);
+  border: 1px solid var(--bd);
+  border-radius: 9px;
+  padding: 6px 13px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  letter-spacing: 0.06em;
+}
+
+.screen-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+  font-size: 26px;
+}
+.screen-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); margin-top: 4px; letter-spacing: 0.04em; }
+
+/* ── INSIGHT HEADLINE ── */
+.insight-headline {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--tp);
+}
+.accent { color: var(--blue); font-style: italic; }
+
+/* ── NOTICE CARD ── */
+.notice-card {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.notice-text { font-size: 13px; color: var(--ts); line-height: 1.65; }
+.notice-text strong { color: var(--tp); font-weight: 500; }
+
+/* ── PRIMARY BUTTON ── */
+.btn-primary {
+  width: 100%;
+  min-height: 48px;
+  background: var(--green);
+  color: var(--btn-primary-txt);
+  border: none;
+  border-radius: 11px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── STATS ── */
+.stat-trio { display: flex; gap: 6px; }
+.stat-card {
+  flex: 1;
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px 11px;
+}
+.stat-val {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  color: var(--tt);
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+/* ── PROVENANCE ── */
+.prov-strip {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 10px 13px;
+}
+.prov-text { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ts); line-height: 1.6; }
+.prov-text strong { color: var(--tp); font-weight: 400; }
+
+/* ── CYCLE VIZ ── */
+.cycle-wrap {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.cycle-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 12px;
+}
+.cycle-track { display: flex; align-items: center; }
+.cycle-node { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.c-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+}
+.c-done { background: var(--c-done-bg); color: var(--c-done-cl); border: 1px solid var(--c-done-bd); }
+.c-wait { background: var(--c-wait-bg); color: var(--c-wait-cl); border: 1px solid var(--c-wait-bd); }
+.c-next { background: var(--c-next-bg); color: var(--c-next-cl); border: 1px solid var(--c-next-bd); }
+.c-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--tt);
+}
+.c-lbl.amber { color: var(--amber); opacity: 0.85; }
+.c-lbl.green { color: var(--green); opacity: 0.85; }
+.cycle-line { flex: 0 0 12px; height: 1px; background: var(--bd-dim); margin-bottom: 18px; }
+
+/* ── TAB BAR ── */
+.tab-bar {
+  height: 58px;
+  border-top: 1px solid var(--bd-dim);
+  background: var(--tab-bg);
+  display: flex; align-items: center; justify-content: space-around;
+  flex-shrink: 0;
+}
+.tab { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tab-lbl { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tt); }
+.tab-lbl.on { color: var(--tab-active); }
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+
+<div class="lt">
+  <div class="panel">
+
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left"><div class="a-dot"></div><span class="a-brand">Aether</span></div>
+        <div class="header-btn">‹ Log</div>
+      </div>
+      <div class="screen-title">Insights</div>
+      <div class="screen-sub">Pattern found · Marcus messages</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <div class="insight-headline">Your Marcus replies stall in drafts.<span class="accent"> Tuesday mornings</span> break the pattern.</div>
+
+      <div class="notice-card">
+        <div class="notice-text">Aether can hold the draft and release it on <strong>Tuesday mornings</strong> — when sending feels easier. Nothing goes out without you approving first.</div>
+      </div>
+
+      <button class="btn-primary">Let Aether pick the moment</button>
+
+      <div class="stat-trio">
+        <div class="stat-card">
+          <div class="stat-val" style="color:var(--blue);">4</div>
+          <div class="stat-lbl">Drafts held<br>this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" style="color:var(--amber);">~2d</div>
+          <div class="stat-lbl">Draft sits<br>before sending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" style="color:var(--green);">Tue</div>
+          <div class="stat-lbl">Mornings<br>work best</div>
+        </div>
+      </div>
+
+      <div class="prov-strip">
+        <div class="prov-text">Based on <strong>4 threads</strong> across <strong>3 weeks</strong> of messages</div>
+      </div>
+
+      <div class="cycle-wrap">
+        <div class="cycle-label">Where the handoff is</div>
+        <div class="cycle-track">
+          <div class="cycle-node"><div class="c-dot c-done">✓</div><div class="c-lbl">Draft<br>ready</div></div>
+          <div class="cycle-line"></div>
+          <div class="cycle-node"><div class="c-dot c-done">✓</div><div class="c-lbl">Staged<br>for you</div></div>
+          <div class="cycle-line"></div>
+          <div class="cycle-node"><div class="c-dot c-wait">…</div><div class="c-lbl amber">Waiting<br>to send</div></div>
+          <div class="cycle-line"></div>
+          <div class="cycle-node"><div class="c-dot c-next">↗</div><div class="c-lbl green">Right<br>moment</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><svg width="19" height="19" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl">Log</div></div>
+      <div class="tab"><svg width="19" height="19" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="var(--tt)" stroke="none"/></svg><div class="tab-lbl">Current</div></div>
+      <div class="tab"><svg width="19" height="19" viewBox="0 0 20 20" class="t-base" stroke="var(--tab-active)"><polyline points="3,14 7,9 11,11 17,5"/><circle cx="17" cy="5" r="1.5" fill="var(--tab-active)" stroke="none"/></svg><div class="tab-lbl on">Insights</div></div>
+      <div class="tab"><svg width="19" height="19" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl">You</div></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

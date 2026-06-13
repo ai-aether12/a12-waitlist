@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Chip Variant Hypothesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0a0807;
+  --panel-bg:  #0f1218;
+  --s1:        rgba(255,255,255,0.05);
+  --s2:        rgba(255,255,255,0.03);
+  --bd:        rgba(255,255,255,0.09);
+  --bd-dim:    rgba(255,255,255,0.05);
+  --green:     #55b98c;
+  --blue:      #5b9bd5;
+  --amber:     #e0a038;
+  --red:       #e05c5c;
+  --tp:        #f0f0ee;
+  --ts:        rgba(240,240,238,0.60);
+  --tt:        rgba(240,240,238,0.35);
+  --r-panel:   16px;
+  --r-card:    12px;
+  --r-nested:  8px;
+  --r-btn:     10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--tp);
+  padding: 48px;
+}
+
+.suite { display: flex; flex-direction: column; gap: 64px; }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tt);
+  border-top: 1px solid var(--bd-dim);
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.screen-row {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.panel {
+  flex-shrink: 0;
+  width: 280px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+}
+
+.panel-header {
+  padding: 16px 18px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+
+.panel-scroll {
+  flex: 1;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.screen-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+}
+
+.screen-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+.aether-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.aether-left { display: flex; align-items: center; gap: 7px; }
+.a-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.a-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+
+/* LOG ENTRY */
+.log-entry {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-left-width: 3px;
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.entry-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.entry-body { flex: 1; min-width: 0; }
+.entry-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.entry-text {
+  font-size: 12px;
+  color: var(--tp);
+  font-weight: 400;
+  line-height: 1.4;
+}
+.entry-meta {
+  font-size: 11px;
+  color: var(--ts);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.entry-age {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CHIP — base */
+.action-chip {
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 0 10px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  background: var(--s2);
+  cursor: pointer;
+}
+.chip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.chip-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  flex: 1;
+}
+.chip-arrow { font-size: 10px; color: var(--tt); margin-left: auto; }
+
+/* CHIP — variant: reversal (amber) */
+.chip-reversal {
+  border-color: rgba(224,160,56,0.2);
+  background: rgba(224,160,56,0.04);
+}
+.chip-reversal .chip-text { color: var(--amber); }
+.chip-reversal .chip-arrow { color: rgba(224,160,56,0.4); }
+
+/* CHIP — variant: forward action (blue) */
+.chip-forward {
+  border-color: rgba(91,155,213,0.2);
+  background: rgba(91,155,213,0.04);
+}
+.chip-forward .chip-text { color: var(--blue); }
+.chip-forward .chip-arrow { color: rgba(91,155,213,0.4); }
+
+/* CHIP — variant: system offer (green) */
+.chip-offer {
+  border-color: rgba(85,185,140,0.2);
+  background: rgba(85,185,140,0.04);
+}
+.chip-offer .chip-text { color: var(--green); }
+.chip-offer .chip-arrow { color: rgba(85,185,140,0.4); }
+
+/* TAB BAR */
+.tab-bar {
+  height: 52px;
+  border-top: 1px solid var(--bd-dim);
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tab-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.tab-lbl.on { color: var(--green); }
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ANNOTATIONS */
+.ann { flex: 1; max-width: 400px; }
+.ann-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 20px;
+}
+.ann-item {
+  padding-left: 13px;
+  margin-bottom: 22px;
+  border-left: 2px solid var(--bd);
+}
+.ann-item.gr { border-left-color: var(--green); }
+.ann-item.bl { border-left-color: var(--blue); }
+.ann-item.am { border-left-color: var(--amber); }
+.ann-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  margin-bottom: 3px;
+}
+.ann-body {
+  font-size: 12px;
+  color: var(--ts);
+  line-height: 1.65;
+}
+.ann-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  background: var(--s1);
+  color: var(--tt);
+  border: 1px solid var(--bd);
+}
+
+/* CHIP REFERENCE TABLE */
+.ref-table {
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-panel);
+  padding: 20px 24px;
+  max-width: 560px;
+}
+.ref-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 16px;
+}
+.ref-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.ref-row:last-child { border-bottom: none; }
+.ref-chip-wrap { width: 180px; flex-shrink: 0; }
+.ref-desc { flex: 1; }
+.ref-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  margin-bottom: 2px;
+}
+.ref-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  line-height: 1.5;
+}
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="suite">
+
+<!-- CHIP REFERENCE -->
+<div>
+<div class="section-label">Chip variant hypothesis — reference</div>
+<div class="ref-table">
+  <div class="ref-head">Action chip · three variants</div>
+
+  <div class="ref-row">
+    <div class="ref-chip-wrap">
+      <div class="action-chip chip-reversal" style="margin-top:0;">
+        <div class="chip-dot" style="background:var(--amber);"></div>
+        <span class="chip-text">Undo [action]</span>
+        <span class="chip-arrow">›</span>
+      </div>
+    </div>
+    <div class="ref-desc">
+      <div class="ref-label">Amber · Reversal</div>
+      <div class="ref-note">Internal completed action, or external confirmed reversible.<br>Undoes what Aether did.</div>
+    </div>
+  </div>
+
+  <div class="ref-row">
+    <div class="ref-chip-wrap">
+      <div class="action-chip chip-forward" style="margin-top:0;">
+        <div class="chip-dot" style="background:var(--blue);"></div>
+        <span class="chip-text">Reschedule / Follow up</span>
+        <span class="chip-arrow">›</span>
+      </div>
+    </div>
+    <div class="ref-desc">
+      <div class="ref-label">Blue · Forward action</div>
+      <div class="ref-note">External completed, not reversible.<br>Context-aware next step offer.</div>
+    </div>
+  </div>
+
+  <div class="ref-row">
+    <div class="ref-chip-wrap">
+      <div class="action-chip chip-offer" style="margin-top:0;">
+        <div class="chip-dot" style="background:var(--green);"></div>
+        <span class="chip-text">Stage for Tue AM</span>
+        <span class="chip-arrow">›</span>
+      </div>
+    </div>
+    <div class="ref-desc">
+      <div class="ref-label">Green · System offer</div>
+      <div class="ref-note">Staged, not yet acted.<br>System's recommendation — awaiting user.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- LOG SCREEN — ALL THREE CHIPS IN CONTEXT -->
+<div>
+<div class="section-label">Log tab — all three chip variants in context</div>
+<div class="screen-row">
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot pulse" style="background:var(--green);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+      </div>
+      <div class="screen-title" style="font-size:28px;">Log</div>
+      <div class="screen-sub">Recent activity</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- SENT — external, irreversible → blue forward chip -->
+      <div class="log-entry" style="border-left-color:var(--green);">
+        <div class="entry-icon" style="background:rgba(85,185,140,0.1);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#55b98c">
+            <path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"/>
+            <polyline points="3,4 10,11 17,4"/>
+          </svg>
+        </div>
+        <div class="entry-body">
+          <div class="entry-label" style="color:var(--green);">Sent</div>
+          <div class="entry-text">Invoice to Hartwell</div>
+          <div class="action-chip chip-forward">
+            <div class="chip-dot" style="background:var(--blue);"></div>
+            <span class="chip-text">Send a reminder</span>
+            <span class="chip-arrow">›</span>
+          </div>
+        </div>
+        <div class="entry-age" style="color:var(--ts);">3d ›</div>
+      </div>
+
+      <!-- BOOKED — external, forward action → blue chip -->
+      <div class="log-entry" style="border-left-color:var(--green);">
+        <div class="entry-icon" style="background:rgba(85,185,140,0.1);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#55b98c">
+            <path d="M10 3v14M3 10h14"/>
+          </svg>
+        </div>
+        <div class="entry-body">
+          <div class="entry-label" style="color:var(--green);">Booked</div>
+          <div class="entry-text">Doctor appointment</div>
+          <div class="entry-meta">Confirmed — Aetna #4821-JY.</div>
+          <div class="action-chip chip-forward">
+            <div class="chip-dot" style="background:var(--blue);"></div>
+            <span class="chip-text">Reschedule appointment</span>
+            <span class="chip-arrow">›</span>
+          </div>
+        </div>
+        <div class="entry-age" style="color:var(--ts);">1d ›</div>
+      </div>
+
+      <!-- CALENDAR BUFFER — internal, reversible → amber reversal chip -->
+      <div class="log-entry" style="border-left-color:var(--green);">
+        <div class="entry-icon" style="background:rgba(85,185,140,0.1);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#55b98c">
+            <rect x="3" y="4" width="14" height="13" rx="2"/>
+            <line x1="3" y1="8" x2="17" y2="8"/>
+            <line x1="7" y1="2" x2="7" y2="6"/>
+            <line x1="13" y1="2" x2="13" y2="6"/>
+          </svg>
+        </div>
+        <div class="entry-body">
+          <div class="entry-label" style="color:var(--green);">Protected</div>
+          <div class="entry-text">Focus time · Thu 9–10am</div>
+          <div class="entry-meta">Added before your 10am deadline.</div>
+          <div class="action-chip chip-reversal">
+            <div class="chip-dot" style="background:var(--amber);"></div>
+            <span class="chip-text">Remove buffer</span>
+            <span class="chip-arrow">›</span>
+          </div>
+        </div>
+        <div class="entry-age" style="color:var(--ts);">2h ›</div>
+      </div>
+
+      <!-- DRAFT STAGED — system offer → green chip -->
+      <div class="log-entry" style="border-left-color:var(--blue);">
+        <div class="entry-icon" style="background:rgba(91,155,213,0.1);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#5b9bd5">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="entry-body">
+          <div class="entry-label" style="color:var(--blue);">Staged</div>
+          <div class="entry-text">Marcus reply · <span style="color:var(--ts);">#design-reviews</span></div>
+          <div class="action-chip chip-offer">
+            <div class="chip-dot" style="background:var(--green);"></div>
+            <span class="chip-text">Preview draft</span>
+            <span class="chip-arrow">›</span>
+          </div>
+        </div>
+        <div class="entry-age" style="color:var(--ts);">now ›</div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(240,240,238,0.25)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="rgba(240,240,238,0.25)" stroke="none"/></svg>
+        <div class="tab-lbl">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#55b98c"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl on">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(240,240,238,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(240,240,238,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Chip variant hypothesis · in context</div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">Blue · forward action · "Send a reminder" / "Reschedule"</div>
+      <div class="ann-body">External completed actions where reversal is not available. The chip offers a context-aware next step — not an undo. Blue is consistent with staged/pending semantics: there's more to do, and the system has a suggestion. Label is a plain verb phrase, not "undo."</div>
+      <div class="ann-tag">External · irreversible · next step offer</div>
+    </div>
+
+    <div class="ann-item am">
+      <div class="ann-title">Amber · reversal · "Remove buffer"</div>
+      <div class="ann-body">Internal completed action — calendar buffer is fully reversible. Amber maps to held/caution semantics: the system did something that can be undone if the user disagrees. Label pattern is "Remove / Undo [action]" — unambiguous about what happens on tap. This is the first amber chip in the design system; legibility against the warm dark background holds.</div>
+      <div class="ann-tag">Internal · reversible · genuine undo · amber first use</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Green · system offer · "Preview draft"</div>
+      <div class="ann-body">Staged item awaiting user action — nothing sent, nothing irreversible yet. Green signals the system's recommendation. Consistent with "acted/done" semantics: Aether has done its part; this is the handoff moment. "Preview draft" names what the user sees on tap, not what the system did.</div>
+      <div class="ann-tag">Staged · system recommendation · handoff</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">Pre-attentive scan reads correctly</div>
+      <div class="ann-body">Scanning the four entries: green → green → amber → blue. The amber entry is visually distinct before reading. A user who has learned the colour semantics can triage at a glance — "that's something I can undo" — without processing the label. Consistent with Ford Williams' pre-attentive encoding principle.</div>
+      <div class="ann-tag">Ford Williams · pre-attentive · colour-before-text</div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+</div><!-- /suite -->
+</body>
+</html>

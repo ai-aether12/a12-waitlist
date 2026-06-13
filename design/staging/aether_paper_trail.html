@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Paper Trail · Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #c8c2ba;
+  padding: 56px 48px;
+  color: #1a1512;
+}
+
+/* ══ PAGE STRUCTURE ══ */
+.page-title {
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+  color: #1a1512; margin-bottom: 6px;
+}
+.page-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(26,21,18,0.38); margin-bottom: 48px;
+}
+
+.section-block { margin-bottom: 72px; }
+.section-header {
+  border-top: 2px solid rgba(26,21,18,0.18);
+  padding-top: 14px; margin-bottom: 28px;
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(26,21,18,0.4); margin-bottom: 4px;
+}
+.section-title {
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: #1a1512;
+}
+.section-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: rgba(26,21,18,0.35); margin-top: 4px;
+}
+
+/* ══ SCREEN ROW ══ */
+.screen-row { display: flex; gap: 40px; align-items: flex-start; }
+.screen-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.screen-step {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(26,21,18,0.35); text-align: center;
+}
+
+/* ══ ANNOTATION ══ */
+.ann-col {
+  flex: 1; min-width: 260px;
+  display: flex; flex-direction: column; gap: 14px;
+  padding-top: 36px;
+}
+.ann-block {
+  background: rgba(26,21,18,0.04);
+  border: 1px solid rgba(26,21,18,0.09);
+  border-radius: 14px; padding: 18px 20px;
+}
+.ann-block-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(26,21,18,0.38); margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid rgba(26,21,18,0.08);
+}
+.ann-item { padding-left: 12px; margin-bottom: 14px; }
+.ann-item:last-child { margin-bottom: 0; }
+.a-gr { border-left: 2px solid #3d9e72; }
+.a-bl { border-left: 2px solid #3a7bbf; }
+.a-am { border-left: 2px solid #c4841a; }
+.a-nt { border-left: 2px solid rgba(26,21,18,0.2); }
+.ann-title { font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 600; color: #1a1512; margin-bottom: 3px; }
+.ann-body { font-family: 'Lexend', sans-serif; font-size: 12px; color: rgba(26,21,18,0.55); line-height: 1.6; }
+.ann-tag {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 8px; padding: 2px 8px; border-radius: 4px; margin-top: 5px;
+  background: rgba(26,21,18,0.05); color: rgba(26,21,18,0.4);
+  border: 1px solid rgba(26,21,18,0.10);
+}
+
+/* ══ LIGHT TOKENS ══ */
+.lt {
+  --bg:            #f2ede6;
+  --panel-bg:      #ebe4dc;
+  --s1:            rgba(26,21,18,0.055);
+  --bd:            rgba(26,21,18,0.12);
+  --bd-dim:        rgba(26,21,18,0.07);
+  --green:         #3d9e72;
+  --blue:          #3a7bbf;
+  --amber:         #c4841a;
+  --red:           #b83030;
+  --tp:            #1a1512;
+  --ts:            rgba(26,21,18,0.55);
+  --tt:            rgba(26,21,18,0.38);
+  --tab-bg:        rgba(26,21,18,0.05);
+  --tab-active:    #3a7bbf;
+  --icon-green-bg: rgba(61,158,114,0.10);
+  --icon-blue-bg:  rgba(58,123,191,0.10);
+  --icon-dim-bg:   rgba(26,21,18,0.05);
+  /* paper trail specific */
+  --pt-bg:         rgba(26,21,18,0.03);
+  --pt-bd:         rgba(26,21,18,0.09);
+  --pt-toggle-bg:  rgba(26,21,18,0.05);
+  --pt-toggle-bd:  rgba(26,21,18,0.10);
+  --pt-toggle-cl:  rgba(26,21,18,0.38);
+  --pt-row-bg:     rgba(26,21,18,0.03);
+  --pt-row-bd:     rgba(26,21,18,0.07);
+  --pt-sig-gr:     rgba(61,158,114,0.08);
+  --pt-sig-gr-bd:  rgba(61,158,114,0.20);
+  --pt-sig-am:     rgba(196,132,26,0.08);
+  --pt-sig-am-bd:  rgba(196,132,26,0.20);
+  --pt-sig-rd:     rgba(184,48,48,0.06);
+  --pt-sig-rd-bd:  rgba(184,48,48,0.18);
+  --pt-sig-bl:     rgba(58,123,191,0.06);
+  --pt-sig-bl-bd:  rgba(58,123,191,0.16);
+}
+
+/* ══ PANEL ══ */
+.panel {
+  width: 300px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: 20px; overflow: hidden;
+  display: flex; flex-direction: column;
+  outline: 16px solid var(--bg);
+}
+.panel-header {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--bd-dim); flex-shrink: 0;
+}
+.panel-scroll {
+  flex: 1; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 9px; overflow: hidden;
+}
+
+/* ══ CHROME ══ */
+.aether-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.aether-left { display: flex; align-items: center; gap: 6px; }
+.a-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.a-dot.amber { background: var(--amber); }
+.a-dot.dim { background: rgba(26,21,18,0.22); animation: none; }
+.a-brand { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tt); }
+.screen-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--tp); font-size: 24px; }
+.screen-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); margin-top: 3px; letter-spacing: 0.04em; }
+.screen-acted { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--green); margin-top: 4px; letter-spacing: 0.1em; }
+
+/* ══ LOG ENTRY ══ */
+.log-entry {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-left-width: 3px;
+  border-radius: 0 11px 11px 0;
+  padding: 10px 12px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.entry-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.entry-body { flex: 1; min-width: 0; }
+.entry-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2px; }
+.entry-text { font-size: 12px; color: var(--tp); font-weight: 400; line-height: 1.4; }
+.entry-meta { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); margin-top: 2px; }
+.entry-age { font-family: 'DM Mono', monospace; font-size: 9px; flex-shrink: 0; margin-top: 2px; }
+
+/* ══ ACTION CHIP ══ */
+.action-chip {
+  border: 1px solid rgba(26,21,18,0.10); border-radius: 8px;
+  padding: 7px 10px; display: flex; align-items: center; gap: 7px;
+  margin-top: 7px; background: rgba(26,21,18,0.03); min-height: 38px;
+}
+.chip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.chip-text { font-family: 'DM Mono', monospace; font-size: 8px; }
+.chip-arrow { font-size: 10px; color: var(--tt); margin-left: auto; }
+
+/* ══ PAPER TRAIL TOGGLE ══ */
+.pt-toggle {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 8px; padding: 6px 9px;
+  background: var(--pt-toggle-bg);
+  border: 1px solid var(--pt-toggle-bd);
+  border-radius: 7px; cursor: pointer;
+  min-height: 32px;
+}
+.pt-toggle-icon { font-size: 9px; color: var(--pt-toggle-cl); flex-shrink: 0; }
+.pt-toggle-text { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--pt-toggle-cl); letter-spacing: 0.06em; flex: 1; }
+.pt-toggle-chev { font-size: 9px; color: rgba(26,21,18,0.25); }
+.pt-toggle.open .pt-toggle-chev { transform: rotate(180deg); }
+
+/* ══ PAPER TRAIL BODY ══ */
+.pt-body {
+  background: var(--pt-bg);
+  border: 1px solid var(--pt-bd);
+  border-radius: 0 0 10px 10px;
+  border-top: none;
+  padding: 10px 11px;
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: -1px;
+}
+.pt-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(26,21,18,0.3); margin-bottom: 4px; margin-top: 4px;
+}
+.pt-section-label:first-child { margin-top: 0; }
+
+/* signal rows */
+.pt-row {
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 8px; border-radius: 6px;
+  border: 1px solid var(--pt-row-bd);
+  background: var(--pt-row-bg);
+}
+.pt-row.gr { background: var(--pt-sig-gr); border-color: var(--pt-sig-gr-bd); }
+.pt-row.am { background: var(--pt-sig-am); border-color: var(--pt-sig-am-bd); }
+.pt-row.rd { background: var(--pt-sig-rd); border-color: var(--pt-sig-rd-bd); }
+.pt-row.bl { background: var(--pt-sig-bl); border-color: var(--pt-sig-bl-bd); }
+.pt-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.pt-dot.gr { background: #3d9e72; }
+.pt-dot.am { background: #c4841a; }
+.pt-dot.rd { background: #b83030; }
+.pt-dot.bl { background: #3a7bbf; }
+.pt-dot.nt { background: rgba(26,21,18,0.25); }
+.pt-signal-text { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--ts); flex: 1; line-height: 1.4; }
+.pt-signal-val { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); flex-shrink: 0; }
+.pt-signal-val.rd { color: #b83030; font-weight: 500; }
+.pt-signal-val.gr { color: #3d9e72; }
+.pt-signal-val.am { color: #c4841a; }
+
+/* ruled out */
+.pt-ruled { opacity: 0.55; }
+.pt-strike { text-decoration: line-through; }
+
+/* outcome row */
+.pt-outcome {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 8px; border-radius: 6px;
+  background: rgba(61,158,114,0.08);
+  border: 1px solid rgba(61,158,114,0.20);
+  margin-top: 2px;
+}
+.pt-outcome-text { font-family: 'DM Mono', monospace; font-size: 8px; color: #3d9e72; flex: 1; line-height: 1.4; }
+
+/* tab bar */
+.tab-bar { height: 52px; border-top: 1px solid var(--bd-dim); background: var(--tab-bg); display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tab-lbl { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tt); }
+.tab-lbl.on { color: var(--tab-active); }
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* detail screen specifics */
+.detail-notch { height: 22px; display: flex; justify-content: center; flex-shrink: 0; }
+.detail-notch-pill { width: 64px; height: 15px; background: rgba(26,21,18,0.15); border-radius: 0 0 10px 10px; }
+.detail-back { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+.detail-back-chevron { font-size: 12px; color: rgba(26,21,18,0.3); }
+.detail-back-label { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(26,21,18,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+.reason-card { background: rgba(61,158,114,0.07); border: 1px solid rgba(61,158,114,0.28); border-radius: 10px; padding: 9px 10px; position: relative; overflow: hidden; }
+.reason-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #3d9e72; }
+.rc-eye { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(61,158,114,0.8); margin-bottom: 3px; }
+.rc-hl { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-size: 12px; font-weight: 700; color: #1a1512; line-height: 1.3; }
+.btn-send { width: 100%; padding: 11px; min-height: 44px; background: #2d7a57; color: #f2ede6; border: none; border-radius: 8px; font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; }
+.btn-row-sm { display: flex; gap: 5px; }
+.btn-ghost-sm { flex: 1; padding: 8px; min-height: 38px; background: rgba(26,21,18,0.05); border: 1px solid rgba(26,21,18,0.10); border-radius: 8px; color: rgba(26,21,18,0.4); font-family: 'DM Mono', monospace; font-size: 10px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; }
+.from-notif-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(61,158,114,0.08); border: 1px solid rgba(61,158,114,0.18); border-radius: 5px; padding: 3px 8px; width: fit-content; }
+.fnc-dot { width: 4px; height: 4px; border-radius: 50%; background: #3d9e72; }
+.fnc-text { font-family: 'DM Mono', monospace; font-size: 7px; color: rgba(61,158,114,0.65); }
+</style>
+</head>
+<body>
+
+<div class="page-title">Paper Trail</div>
+<div class="page-sub">Expandable · Available system-wide · Light mode · June 2026</div>
+
+
+<!-- ════════════════ SURFACE 1: LOG ════════════════ -->
+<div class="section-block">
+  <div class="section-header">
+    <div class="section-label">Surface 1</div>
+    <div class="section-title">Log — collapsed vs. expanded</div>
+    <div class="section-desc">Paper trail toggle appears on every log entry. Left: collapsed default. Right: expanded paper trail.</div>
+  </div>
+
+  <div class="screen-row">
+
+    <!-- LOG COLLAPSED -->
+    <div class="screen-col">
+      <div class="screen-step">Collapsed · default</div>
+      <div class="lt">
+        <div class="panel" style="min-height:520px;">
+          <div class="panel-header">
+            <div class="aether-row">
+              <div class="aether-left"><div class="a-dot"></div><span class="a-brand">Aether</span></div>
+            </div>
+            <div class="screen-title">Log</div>
+            <div class="screen-sub">Recent activity</div>
+          </div>
+          <div class="panel-scroll">
+
+            <!-- SENT entry -->
+            <div class="log-entry" style="border-left-color:#3d9e72;">
+              <div class="entry-icon" style="background:var(--icon-green-bg);">
+                <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3d9e72"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"/><polyline points="3,4 10,11 17,4"/></svg>
+              </div>
+              <div class="entry-body">
+                <div class="entry-label" style="color:#3d9e72;">Sent</div>
+                <div class="entry-text">Invoice #118 to Hartwell</div>
+                <div class="entry-meta">Today · 1:38pm</div>
+                <!-- PAPER TRAIL TOGGLE — CLOSED -->
+                <div class="pt-toggle">
+                  <span class="pt-toggle-icon">⬡</span>
+                  <span class="pt-toggle-text">Why Aether did this</span>
+                  <span class="pt-toggle-chev">▾</span>
+                </div>
+              </div>
+              <div class="entry-age" style="color:#b83030;">6d</div>
+            </div>
+
+            <!-- REPLIED entry -->
+            <div class="log-entry" style="border-left-color:#3d9e72;">
+              <div class="entry-icon" style="background:var(--icon-green-bg);">
+                <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3d9e72"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/></svg>
+              </div>
+              <div class="entry-body">
+                <div class="entry-label" style="color:#3d9e72;">Replied</div>
+                <div class="entry-text">Marcus · #design-reviews</div>
+                <div class="entry-meta">Yesterday · 9:02am</div>
+                <div class="pt-toggle">
+                  <span class="pt-toggle-icon">⬡</span>
+                  <span class="pt-toggle-text">Why Aether did this</span>
+                  <span class="pt-toggle-chev">▾</span>
+                </div>
+              </div>
+              <div class="entry-age" style="color:var(--ts);">3d</div>
+            </div>
+
+            <!-- BOOKED entry -->
+            <div class="log-entry" style="border-left-color:#3d9e72;">
+              <div class="entry-icon" style="background:var(--icon-green-bg);">
+                <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3d9e72"><path d="M10 3v14M3 10h14"/></svg>
+              </div>
+              <div class="entry-body">
+                <div class="entry-label" style="color:#3d9e72;">Booked</div>
+                <div class="entry-text">Doctor appointment</div>
+                <div class="entry-meta">Jun 9 · 3:14pm</div>
+                <div class="action-chip" style="border-color:rgba(58,123,191,0.2);">
+                  <div class="chip-dot" style="background:#3a7bbf;"></div>
+                  <span class="chip-text" style="color:#3a7bbf;">Reschedule appointment</span>
+                  <span class="chip-arrow">›</span>
+                </div>
+                <div class="pt-toggle">
+                  <span class="pt-toggle-icon">⬡</span>
+                  <span class="pt-toggle-text">Why Aether did this</span>
+                  <span class="pt-toggle-chev">▾</span>
+                </div>
+              </div>
+              <div class="entry-age" style="color:#b83030;">12d</div>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="var(--tt)" stroke="none"/></svg><div class="tab-lbl">Current</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tab-active)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl on">Log</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><polyline points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl">Insights</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl">You</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG EXPANDED -->
+    <div class="screen-col">
+      <div class="screen-step">Expanded · first entry</div>
+      <div class="lt">
+        <div class="panel" style="min-height:520px;">
+          <div class="panel-header">
+            <div class="aether-row">
+              <div class="aether-left"><div class="a-dot"></div><span class="a-brand">Aether</span></div>
+            </div>
+            <div class="screen-title">Log</div>
+            <div class="screen-sub">Recent activity</div>
+          </div>
+          <div class="panel-scroll">
+
+            <!-- SENT — PAPER TRAIL EXPANDED -->
+            <div class="log-entry" style="border-left-color:#3d9e72; flex-direction: column; gap: 0;">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <div class="entry-icon" style="background:var(--icon-green-bg); flex-shrink:0;">
+                  <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3d9e72"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"/><polyline points="3,4 10,11 17,4"/></svg>
+                </div>
+                <div class="entry-body">
+                  <div class="entry-label" style="color:#3d9e72;">Sent</div>
+                  <div class="entry-text">Invoice #118 to Hartwell</div>
+                  <div class="entry-meta">Today · 1:38pm</div>
+                </div>
+                <div class="entry-age" style="color:#b83030; flex-shrink:0;">6d</div>
+              </div>
+              <!-- toggle open state -->
+              <div class="pt-toggle open" style="margin-top:8px; border-radius: 7px 7px 0 0; border-bottom: none;">
+                <span class="pt-toggle-icon">⬡</span>
+                <span class="pt-toggle-text">Why Aether did this</span>
+                <span class="pt-toggle-chev">▴</span>
+              </div>
+              <!-- paper trail body -->
+              <div class="pt-body">
+                <div class="pt-section-label">Signals detected</div>
+                <div class="pt-row rd"><div class="pt-dot rd"></div><span class="pt-signal-text">Invoice #118 unsent</span><span class="pt-signal-val rd">6d overdue</span></div>
+                <div class="pt-row bl"><div class="pt-dot bl"></div><span class="pt-signal-text">Calendar buffer open · 1:35–2:00pm</span><span class="pt-signal-val gr">Tier 1 · auto</span></div>
+                <div class="pt-row am"><div class="pt-dot am"></div><span class="pt-signal-text">25 min before Hartwell call</span><span class="pt-signal-val am">Right moment</span></div>
+
+                <div class="pt-section-label">What was ruled out</div>
+                <div class="pt-row pt-ruled"><div class="pt-dot nt"></div><span class="pt-signal-text pt-strike">Send at 9am</span><span class="pt-signal-val">Call conflict</span></div>
+                <div class="pt-row pt-ruled"><div class="pt-dot nt"></div><span class="pt-signal-text pt-strike">Hold for tomorrow</span><span class="pt-signal-val">7d threshold</span></div>
+
+                <div class="pt-section-label">Decision</div>
+                <div class="pt-outcome">
+                  <div class="pt-dot gr"></div>
+                  <span class="pt-outcome-text">Staged for send · you approved · 1:38pm</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- REPLIED — collapsed -->
+            <div class="log-entry" style="border-left-color:#3d9e72;">
+              <div class="entry-icon" style="background:var(--icon-green-bg);">
+                <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3d9e72"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/></svg>
+              </div>
+              <div class="entry-body">
+                <div class="entry-label" style="color:#3d9e72;">Replied</div>
+                <div class="entry-text">Marcus · #design-reviews</div>
+                <div class="entry-meta">Yesterday · 9:02am</div>
+                <div class="pt-toggle">
+                  <span class="pt-toggle-icon">⬡</span>
+                  <span class="pt-toggle-text">Why Aether did this</span>
+                  <span class="pt-toggle-chev">▾</span>
+                </div>
+              </div>
+              <div class="entry-age" style="color:var(--ts);">3d</div>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="var(--tt)" stroke="none"/></svg><div class="tab-lbl">Current</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tab-active)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl on">Log</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><polyline points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl">Insights</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl">You</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATIONS -->
+    <div class="ann-col">
+      <div class="ann-block">
+        <div class="ann-block-head">Log · paper trail</div>
+        <div class="ann-item a-nt">
+          <div class="ann-title">"Why Aether did this"</div>
+          <div class="ann-body">The toggle is present on every log entry by default. It is recessive — same weight as a secondary label, not a button. Users who don't want the reasoning never see it. Users who do can expand at any time after the fact.</div>
+          <div class="ann-tag">Always available · never foregrounded</div>
+        </div>
+        <div class="ann-item a-gr">
+          <div class="ann-title">Three sections in the paper trail</div>
+          <div class="ann-body">Signals detected — what Aether saw. What was ruled out — alternatives considered and why they were skipped. Decision — what happened and when. The "ruled out" section is unique to the paper trail and not surfaced anywhere else in the product.</div>
+          <div class="ann-tag">Signals · ruled out · decision</div>
+        </div>
+        <div class="ann-item a-am">
+          <div class="ann-title">Ruled out rows use strikethrough + dim</div>
+          <div class="ann-body">Options that were considered but not taken are visually recessive — 55% opacity, strikethrough on the label. The user sees the reasoning without being asked to process active information. The hierarchy between "what happened" and "what didn't" is pre-attentive.</div>
+          <div class="ann-tag">Pre-attentive hierarchy</div>
+        </div>
+        <div class="ann-item a-bl">
+          <div class="ann-title">Tier 1 actions surface here too</div>
+          <div class="ann-body">"Calendar buffer open · Tier 1 · auto" — the buffer was set silently before the send decision. The paper trail makes this visible without requiring a separate notification. The user can see the full picture of what happened in sequence.</div>
+          <div class="ann-tag">Silent actions visible in paper trail</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════ SURFACE 2: WHILE YOU WERE AWAY ════════════════ -->
+<div class="section-block">
+  <div class="section-header">
+    <div class="section-label">Surface 2</div>
+    <div class="section-title">While you were away — staged entry with paper trail</div>
+    <div class="section-desc">Paper trail on a staged (not yet approved) entry. Reasoning supports the decision, not just informs retrospectively.</div>
+  </div>
+
+  <div class="screen-row">
+
+    <div class="screen-col">
+      <div class="screen-step">Expanded · staged entry</div>
+      <div class="lt">
+        <div class="panel" style="min-height:560px;">
+          <div class="panel-header">
+            <div class="aether-row">
+              <div class="aether-left"><div class="a-dot dim"></div><span class="a-brand">Aether</span></div>
+            </div>
+            <div class="screen-title" style="font-size:20px;">While you were away</div>
+            <div class="screen-acted">Aether acted</div>
+          </div>
+          <div class="panel-scroll">
+
+            <!-- STAGED INVOICE — paper trail expanded -->
+            <div class="log-entry" style="border-left-color:#3a7bbf; flex-direction:column; gap:0;">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <div class="entry-icon" style="background:var(--icon-blue-bg); flex-shrink:0;">
+                  <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3a7bbf"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"/><polyline points="3,4 10,11 17,4"/></svg>
+                </div>
+                <div class="entry-body">
+                  <div class="entry-label" style="color:#3a7bbf;">Staged</div>
+                  <div class="entry-text">Invoice #118 — <span style="color:#b83030;">6d overdue</span> — draft ready.</div>
+                </div>
+              </div>
+              <!-- toggle open -->
+              <div class="pt-toggle open" style="margin-top:8px; border-radius:7px 7px 0 0; border-bottom:none;">
+                <span class="pt-toggle-icon">⬡</span>
+                <span class="pt-toggle-text">Why now</span>
+                <span class="pt-toggle-chev">▴</span>
+              </div>
+              <div class="pt-body">
+                <div class="pt-section-label">Why Aether chose this moment</div>
+                <div class="pt-row rd"><div class="pt-dot rd"></div><span class="pt-signal-text">Invoice unsent · threshold reached</span><span class="pt-signal-val rd">6d</span></div>
+                <div class="pt-row bl"><div class="pt-dot bl"></div><span class="pt-signal-text">Buffer blocked · 1:35–2:00pm</span><span class="pt-signal-val gr">Auto · Tier 1</span></div>
+                <div class="pt-row am"><div class="pt-dot am"></div><span class="pt-signal-text">25 min window before Hartwell call</span><span class="pt-signal-val am">Optimal window</span></div>
+                <div class="pt-section-label">What was ruled out</div>
+                <div class="pt-row pt-ruled"><div class="pt-dot nt"></div><span class="pt-signal-text pt-strike">Earlier today</span><span class="pt-signal-val">No window</span></div>
+                <div class="pt-section-label">Awaiting you</div>
+                <div class="pt-outcome"><div class="pt-dot gr"></div><span class="pt-outcome-text">Draft staged · nothing sent · your approval required</span></div>
+              </div>
+              <!-- action chip below paper trail -->
+              <div class="action-chip" style="margin-top:8px; border-color:rgba(61,158,114,0.22);">
+                <div class="chip-dot" style="background:#3d9e72;"></div>
+                <span class="chip-text" style="color:#3d9e72;">Preview invoice draft</span>
+                <span class="chip-arrow" style="color:#3d9e72;">›</span>
+              </div>
+            </div>
+
+            <!-- STAGED DOCTOR — collapsed -->
+            <div class="log-entry" style="border-left-color:#3a7bbf;">
+              <div class="entry-icon" style="background:var(--icon-blue-bg);">
+                <svg width="14" height="14" viewBox="0 0 20 20" class="t-base" stroke="#3a7bbf"><path d="M10 3v14M3 10h14"/></svg>
+              </div>
+              <div class="entry-body">
+                <div class="entry-label" style="color:#3a7bbf;">Staged</div>
+                <div class="entry-text">Doctor appointment — <span style="color:#b83030;">12d overdue</span></div>
+                <div class="pt-toggle" style="margin-top:6px;">
+                  <span class="pt-toggle-icon">⬡</span>
+                  <span class="pt-toggle-text">Why now</span>
+                  <span class="pt-toggle-chev">▾</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tab-active)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="var(--tab-active)" stroke="none"/></svg><div class="tab-lbl on">Current</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl">Log</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><polyline points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl">Insights</div></div>
+            <div class="tab"><svg width="17" height="17" viewBox="0 0 20 20" class="t-base" stroke="var(--tt)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl">You</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATIONS -->
+    <div class="ann-col">
+      <div class="ann-block">
+        <div class="ann-block-head">While you were away · paper trail</div>
+        <div class="ann-item a-bl">
+          <div class="ann-title">"Why now" — not "Why Aether did this"</div>
+          <div class="ann-body">On staged entries the action hasn't happened yet — the user is being asked to decide. The toggle label shifts from retrospective ("Why Aether did this") to prospective ("Why now"). The reasoning supports the decision, not just explains it after the fact.</div>
+          <div class="ann-tag">Copy adapts to entry state</div>
+        </div>
+        <div class="ann-item a-gr">
+          <div class="ann-title">Outcome row changes for staged entries</div>
+          <div class="ann-body">"Draft staged · nothing sent · your approval required" — the outcome row isn't a completed action, it's a status. The user reads the full reasoning chain and arrives at a clear statement of what's waiting for them. The action chip below is the next step.</div>
+          <div class="ann-tag">Reasoning → status → action</div>
+        </div>
+        <div class="ann-item a-nt">
+          <div class="ann-title">Paper trail before the decision, not after</div>
+          <div class="ann-body">In the Log, the paper trail is retrospective — it explains a completed action. Here it is prospective — it builds confidence before the user acts. Both are the same component. The surface determines the meaning, not the structure.</div>
+          <div class="ann-tag">Same component · context determines meaning</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════ SURFACE 3: ACTION DETAIL ════════════════ -->
+<div class="section-block">
+  <div class="section-header">
+    <div class="section-label">Surface 3</div>
+    <div class="section-title">Action detail — paper trail integrated</div>
+    <div class="section-desc">On the deep link action detail screen, the reason card expands to full paper trail. The toggle replaces the condensed signal rows.</div>
+  </div>
+
+  <div class="screen-row">
+
+    <!-- DETAIL COLLAPSED -->
+    <div class="screen-col">
+      <div class="screen-step">Reason card · collapsed</div>
+      <div class="lt">
+        <div class="panel" style="min-height:560px; background:#f2ede6; border:none; border-radius:0; outline:none;">
+          <div class="detail-notch"><div class="detail-notch-pill"></div></div>
+          <div class="panel-header" style="background:#f2ede6;">
+            <div class="detail-back"><span class="detail-back-chevron">‹</span><span class="detail-back-label">Back</span></div>
+            <div class="aether-left" style="gap:6px; margin-bottom:2px;"><div class="a-dot amber" style="animation:none;"></div><span class="a-brand">Aether</span></div>
+            <div class="screen-title" style="font-size:20px;">Before I act —</div>
+            <div class="screen-sub">via notification · 25 min before call</div>
+          </div>
+          <div class="panel-scroll" style="background:#f2ede6;">
+            <div class="from-notif-chip"><div class="fnc-dot"></div><div class="fnc-text">Opened from notification</div></div>
+            <div class="reason-card">
+              <div class="rc-eye">What Aether noticed</div>
+              <div class="rc-hl">Invoice #118 is ready to send before your 2pm.</div>
+              <!-- condensed signals -->
+              <div style="display:flex; flex-direction:column; gap:4px; margin-top:7px;">
+                <div class="pt-row rd" style="padding:5px 7px;"><div class="pt-dot rd"></div><span class="pt-signal-text">Invoice #118 unsent</span><span class="pt-signal-val rd">6d</span></div>
+                <div class="pt-row bl" style="padding:5px 7px;"><div class="pt-dot bl"></div><span class="pt-signal-text">Buffer blocked 1:35–2:00pm</span><span class="pt-signal-val gr">Auto</span></div>
+                <div class="pt-row am" style="padding:5px 7px;"><div class="pt-dot am"></div><span class="pt-signal-text">25 min window open now</span><span class="pt-signal-val am">Right moment</span></div>
+              </div>
+              <!-- paper trail toggle inside reason card -->
+              <div class="pt-toggle" style="margin-top:8px;">
+                <span class="pt-toggle-icon">⬡</span>
+                <span class="pt-toggle-text">Full reasoning</span>
+                <span class="pt-toggle-chev">▾</span>
+              </div>
+            </div>
+            <div style="font-family:'DM Mono',monospace; font-size:8px; color:rgba(26,21,18,0.35); padding:4px 2px; line-height:1.5;"><strong style="color:rgba(26,21,18,0.5); font-weight:400;">Nothing leaves without you.</strong> Send confirms. Edit opens the draft. Not now defers.</div>
+            <button class="btn-send">Send Invoice #118 ↗</button>
+            <div class="btn-row-sm">
+              <button class="btn-ghost-sm">Edit draft</button>
+              <button class="btn-ghost-sm">Not now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL EXPANDED -->
+    <div class="screen-col">
+      <div class="screen-step">Full reasoning · expanded</div>
+      <div class="lt">
+        <div class="panel" style="min-height:560px; background:#f2ede6; border:none; border-radius:0; outline:none;">
+          <div class="detail-notch"><div class="detail-notch-pill"></div></div>
+          <div class="panel-header" style="background:#f2ede6;">
+            <div class="detail-back"><span class="detail-back-chevron">‹</span><span class="detail-back-label">Back</span></div>
+            <div class="aether-left" style="gap:6px; margin-bottom:2px;"><div class="a-dot amber" style="animation:none;"></div><span class="a-brand">Aether</span></div>
+            <div class="screen-title" style="font-size:20px;">Before I act —</div>
+            <div class="screen-sub">via notification · 25 min before call</div>
+          </div>
+          <div class="panel-scroll" style="background:#f2ede6;">
+            <div class="from-notif-chip"><div class="fnc-dot"></div><div class="fnc-text">Opened from notification</div></div>
+            <div class="reason-card">
+              <div class="rc-eye">What Aether noticed</div>
+              <div class="rc-hl">Invoice #118 is ready to send before your 2pm.</div>
+              <!-- toggle open — replaces condensed signals -->
+              <div class="pt-toggle open" style="margin-top:8px; border-radius:7px 7px 0 0; border-bottom:none;">
+                <span class="pt-toggle-icon">⬡</span>
+                <span class="pt-toggle-text">Full reasoning</span>
+                <span class="pt-toggle-chev">▴</span>
+              </div>
+              <div class="pt-body" style="border-radius:0 0 7px 7px;">
+                <div class="pt-section-label">Signals</div>
+                <div class="pt-row rd"><div class="pt-dot rd"></div><span class="pt-signal-text">Invoice #118 unsent · Hartwell</span><span class="pt-signal-val rd">6d overdue</span></div>
+                <div class="pt-row bl"><div class="pt-dot bl"></div><span class="pt-signal-text">Calendar buffer blocked 1:35–2pm</span><span class="pt-signal-val gr">Tier 1 · auto</span></div>
+                <div class="pt-row am"><div class="pt-dot am"></div><span class="pt-signal-text">25 min window · Hartwell call at 2pm</span><span class="pt-signal-val am">Optimal window</span></div>
+                <div class="pt-section-label">Ruled out</div>
+                <div class="pt-row pt-ruled"><div class="pt-dot nt"></div><span class="pt-signal-text pt-strike">Send at 9am</span><span class="pt-signal-val">Call conflict</span></div>
+                <div class="pt-row pt-ruled"><div class="pt-dot nt"></div><span class="pt-signal-text pt-strike">Hold for tomorrow</span><span class="pt-signal-val">7d threshold</span></div>
+                <div class="pt-section-label">Decision</div>
+                <div class="pt-outcome"><div class="pt-dot gr"></div><span class="pt-outcome-text">Staged for send · awaiting your approval</span></div>
+              </div>
+            </div>
+            <div style="font-family:'DM Mono',monospace; font-size:8px; color:rgba(26,21,18,0.35); padding:4px 2px; line-height:1.5;"><strong style="color:rgba(26,21,18,0.5); font-weight:400;">Nothing leaves without you.</strong> Send confirms. Edit opens the draft. Not now defers.</div>
+            <button class="btn-send">Send Invoice #118 ↗</button>
+            <div class="btn-row-sm">
+              <button class="btn-ghost-sm">Edit draft</button>
+              <button class="btn-ghost-sm">Not now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATIONS -->
+    <div class="ann-col">
+      <div class="ann-block">
+        <div class="ann-block-head">Action detail · paper trail</div>
+        <div class="ann-item a-am">
+          <div class="ann-title">"Full reasoning" — not "Why Aether did this"</div>
+          <div class="ann-body">On the action detail screen the condensed signals are already visible. The toggle label shifts to "Full reasoning" — it's an expansion of what's already there, not a reveal of something hidden. The condensed view is replaced by the full paper trail on expand, not stacked below it.</div>
+          <div class="ann-tag">Replace · not append</div>
+        </div>
+        <div class="ann-item a-gr">
+          <div class="ann-title">Paper trail lives inside the reason card</div>
+          <div class="ann-body">The toggle sits within the reason card boundary. Expanding it extends the card — it doesn't break out of it. The action buttons stay below, always visible and reachable. The paper trail never pushes actions off screen.</div>
+          <div class="ann-tag">Card-contained · actions always reachable</div>
+        </div>
+        <div class="ann-item a-nt">
+          <div class="ann-title">Same structure across all three surfaces</div>
+          <div class="ann-body">Signals → Ruled out → Decision. The three-section structure is identical whether you're reading past actions in the Log, evaluating a staged item in Current, or deciding from the deep link detail. Users who engage with the paper trail in one place know how to read it everywhere.</div>
+          <div class="ann-tag">Consistent structure · surfaces differ · logic doesn't</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
