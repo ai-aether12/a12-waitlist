@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Wearable Flow · Light Mode · Oura Ring 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── LIGHT MODE TOKENS (from Design System) ── */
+:root {
+  --bg:       #f2ede6;
+  --panel:    #ebe4dc;
+  --panel-b:  #e4ddd5;
+  --s1:       rgba(26,21,18,0.05);
+  --s2:       rgba(26,21,18,0.03);
+  --bd:       rgba(26,21,18,0.1);
+  --bd-dim:   rgba(26,21,18,0.06);
+  --tp:       #1a1512;
+  --ts:       rgba(26,21,18,0.55);
+  --tt:       rgba(26,21,18,0.35);
+  /* deepened semantic colours for light bg */
+  --green:    #3d9e72;
+  --blue:     #3a7bbf;
+  --amber:    #c4841a;
+  --red:      #c44a4a;
+  /* alpha fills */
+  --green-fill: rgba(61,158,114,0.08);
+  --green-bd:   rgba(61,158,114,0.22);
+  --blue-fill:  rgba(58,123,191,0.07);
+  --blue-bd:    rgba(58,123,191,0.2);
+  --amber-fill: rgba(196,132,26,0.07);
+  --amber-bd:   rgba(196,132,26,0.22);
+  --red-fill:   rgba(196,74,74,0.07);
+  --red-bd:     rgba(196,74,74,0.18);
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 48px;
+  color: var(--tp);
+}
+
+/* ── LAYOUT ── */
+.flow-section { display: flex; flex-direction: column; gap: 56px; }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tt);
+  border-top: 1px solid var(--bd);
+  padding-top: 10px;
+  margin-bottom: 4px;
+}
+
+.flow-row { display: flex; gap: 0; align-items: flex-start; }
+.flow-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.flow-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  text-align: center;
+}
+
+/* ── ARROWS ── */
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 0 14px; padding-top: 100px; gap: 6px; flex-shrink: 0;
+}
+.arrow-line { width: 1px; height: 36px; background: var(--bd); }
+.arrow-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt); writing-mode: vertical-rl; }
+.arrow-head { font-size: 13px; color: var(--tt); }
+.arrow-amber .arrow-line { background: rgba(196,132,26,0.3); }
+.arrow-amber .arrow-head { color: var(--amber); }
+.arrow-amber .arrow-label { color: var(--amber); opacity: 0.7; }
+
+/* ── PHONE SHELL ── */
+.phone-shell {
+  flex-shrink: 0;
+  width: 256px;
+  background: #d8d2cc;
+  border-radius: 44px;
+  padding: 10px;
+  box-shadow: 0 0 0 1px rgba(26,21,18,0.12), 0 20px 40px rgba(26,21,18,0.15);
+}
+.phone-screen {
+  border-radius: 36px;
+  overflow: hidden;
+  height: 554px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── LOCK SCREEN ── */
+.lock-screen {
+  background: linear-gradient(160deg, #ddd8d0 0%, #cec8c0 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.status-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px; flex-shrink: 0; }
+.status-time { font-size: 14px; font-weight: 600; color: var(--tp); letter-spacing: -0.01em; }
+.status-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ts); }
+.lock-time-block { text-align: center; padding: 12px 0 14px; flex-shrink: 0; }
+.lock-hour { font-family: 'Fraunces', serif; font-size: 54px; font-weight: 300; color: var(--tp); letter-spacing: -0.04em; line-height: 1; }
+.lock-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ts); margin-top: 3px; }
+
+.notif-stack { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+.notif-other { background: rgba(255,255,255,0.55); border-radius: 14px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; }
+.no-icon { width: 26px; height: 26px; border-radius: 7px; background: rgba(26,21,18,0.1); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.no-app { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); }
+.no-text { font-family: 'Lexend', sans-serif; font-size: 11px; color: var(--ts); }
+.no-time { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); margin-left: auto; }
+
+/* Aether amber notification */
+.notif-aether {
+  background: rgba(245,239,230,0.96);
+  border: 1px solid rgba(196,132,26,0.3);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.notif-main { padding: 11px 13px 9px; display: flex; gap: 9px; align-items: flex-start; }
+.notif-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--amber-fill);
+  border: 1px solid var(--amber-bd);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.notif-icon-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+.notif-body-wrap { flex: 1; }
+.notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.notif-app { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+.notif-ts { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); }
+.notif-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; color: var(--tp); letter-spacing: -0.01em; margin-bottom: 2px; line-height: 1.2; }
+.notif-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ts); line-height: 1.4; }
+.notif-sub .grn { color: var(--green); }
+.tap-hint { padding: 3px 13px 7px; }
+.tap-hint-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(196,132,26,0.55); letter-spacing: 0.07em; }
+.notif-actions { display: flex; border-top: 1px solid var(--bd-dim); }
+.na { flex: 1; padding: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; }
+.na.primary { background: var(--amber-fill); color: var(--amber); border-right: 1px solid var(--bd-dim); }
+.na.secondary { color: var(--tt); }
+
+.tap-indicator { margin: 9px 14px 0; display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--amber-fill); border: 1px solid var(--amber-bd); border-radius: 8px; }
+.tap-ind-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); animation: pp 1.5s ease-in-out infinite; }
+@keyframes pp { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.tap-ind-text { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--amber); letter-spacing: 0.06em; opacity: 0.75; }
+
+.lock-bottom { margin-top: auto; padding: 10px 0 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+.lock-swipe-text { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tt); }
+.h-pill { width: 72px; height: 4px; background: rgba(26,21,18,0.18); border-radius: 2px; }
+
+/* ── SHARED APP CHROME ── */
+.app-screen {
+  background: var(--panel);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.notch { height: 22px; display: flex; justify-content: center; flex-shrink: 0; }
+.notch-pill { width: 68px; height: 16px; background: #1a1512; border-radius: 0 0 11px 11px; }
+
+.app-header {
+  padding: 6px 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.back-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.back-chev { font-size: 14px; color: var(--tt); }
+.back-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt); }
+
+.brand-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.brand-dot { width: 6px; height: 6px; border-radius: 50%; animation: pp 2s ease-in-out infinite; }
+.brand-dot.amber { background: var(--amber); }
+.brand-dot.green { background: var(--green); }
+.brand-name { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tt); }
+
+.app-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+}
+.app-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); margin-top: 2px; }
+
+.hrv-readout { display: flex; align-items: baseline; gap: 5px; margin-top: 4px; }
+.hrv-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; line-height: 1; }
+.hrv-unit { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); }
+
+.app-scroll { flex: 1; overflow: hidden; padding: 8px 14px 10px; display: flex; flex-direction: column; gap: 7px; }
+
+/* ── ARRIVAL CHIP ── */
+.arrival-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  border-radius: 6px; padding: 4px 9px; width: fit-content;
+}
+.arrival-chip.from-notif { background: var(--amber-fill); border: 1px solid var(--amber-bd); }
+.ac-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.ac-text { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.06em; }
+
+/* ── ARC ── */
+.arc-row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: var(--green-fill); border: 1px solid var(--green-bd); border-radius: 8px; }
+.arc-line { flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(to right, var(--amber), var(--green)); }
+.arc-lbl { font-family: 'DM Mono', monospace; font-size: 7px; }
+
+/* ── LEFT-BAR CARDS ── */
+.lbar-card {
+  border-radius: 0 11px 11px 0;
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-top: 1px solid var(--bd-dim);
+  border-right: 1px solid var(--bd-dim);
+  border-bottom: 1px solid var(--bd-dim);
+  padding: 9px 11px 9px 13px;
+}
+.lbar-card.amber { border-left-color: var(--amber); background: var(--amber-fill); }
+.lbar-card.green { border-left-color: var(--green); background: var(--green-fill); }
+.lbar-card.neutral { border-left-color: var(--bd); background: var(--s1); }
+
+.rc-eye { font-family: 'DM Mono', monospace; font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.rc-hl { font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 500; color: var(--tp); line-height: 1.35; margin-bottom: 6px; }
+
+/* ── SIGNAL ROWS ── */
+.sig-list { display: flex; flex-direction: column; gap: 4px; }
+.sig-row { display: flex; align-items: center; gap: 7px; background: rgba(26,21,18,0.04); border: 1px solid var(--bd-dim); border-radius: 6px; padding: 5px 8px; }
+.sdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.sdot.a { background: var(--amber); }
+.sdot.g { background: var(--green); }
+.sdot.b { background: var(--blue); }
+.sdot.r { background: var(--red); }
+.sl { font-family: 'Lexend', sans-serif; font-size: 10px; color: var(--tp); font-weight: 400; flex: 1; line-height: 1.3; }
+.sm { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); }
+.sm.grn { color: var(--green); }
+.sm.amb { color: var(--amber); }
+.sm.rd { color: var(--red); }
+
+/* ── HELD ROWS ── */
+.held-list { display: flex; flex-direction: column; gap: 4px; margin-top: 5px; }
+.held-row {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(26,21,18,0.03);
+  border: 1px solid var(--bd-dim);
+  border-left: 3px solid rgba(196,132,26,0.45);
+  border-radius: 0 7px 7px 0;
+  padding: 5px 9px 5px 8px;
+}
+.hr-badge { font-family: 'DM Mono', monospace; font-size: 6.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); background: var(--amber-fill); border: 1px solid var(--amber-bd); border-radius: 3px; padding: 1px 5px; flex-shrink: 0; }
+.hr-text { font-family: 'Lexend', sans-serif; font-size: 10px; color: var(--ts); flex: 1; }
+
+/* ── CHIP ── */
+.chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 6px; padding: 4px 8px; margin-top: 5px; }
+.chip.grn { background: var(--green-fill); border: 1px solid var(--green-bd); }
+.chip.grn .cdot { background: var(--green); }
+.chip.grn .ctxt { color: var(--green); }
+.chip.amb { background: var(--amber-fill); border: 1px solid var(--amber-bd); }
+.chip.amb .cdot { background: var(--amber); }
+.chip.amb .ctxt { color: var(--amber); }
+.cdot { width: 4px; height: 4px; border-radius: 50%; }
+.ctxt { font-family: 'DM Mono', monospace; font-size: 8px; }
+
+/* ── POSTURE BANNER ── */
+.posture-banner { border-radius: 10px; padding: 8px 11px; display: flex; align-items: center; gap: 8px; }
+.posture-banner.holding { background: var(--amber-fill); border: 1px solid var(--amber-bd); }
+.posture-banner.recovered { background: var(--green-fill); border: 1px solid var(--green-bd); }
+.pb-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.pb-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+.pb-sub { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--tt); margin-top: 1px; }
+
+/* ── DRAFT CARD ── */
+.draft-card { background: var(--blue-fill); border: 1px solid var(--blue-bd); border-radius: 0 10px 10px 0; border-left: 3px solid var(--blue); padding: 9px 11px 9px 12px; }
+.dc-eye { font-family: 'DM Mono', monospace; font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+.dc-preview { font-family: 'Lexend', sans-serif; font-size: 11px; color: var(--ts); line-height: 1.55; font-style: italic; }
+.dc-preview strong { color: var(--tp); font-style: normal; }
+.dc-meta { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--tt); margin-top: 5px; }
+
+/* ── REV NOTE ── */
+.rev-note { display: flex; align-items: flex-start; gap: 6px; padding: 6px 9px; background: var(--s1); border: 1px solid var(--bd-dim); border-radius: 7px; }
+.rev-text { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--ts); line-height: 1.5; }
+.rev-text strong { color: var(--tp); font-weight: 400; }
+
+/* ── BUTTONS ── */
+.btn-primary { width: 100%; padding: 12px; border: none; border-radius: 10px; font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+.btn-primary.green { background: var(--green); color: #fff; }
+.btn-primary.amber { background: var(--amber); color: #fff; }
+.btn-row { display: flex; gap: 5px; margin-top: 5px; }
+.btn-ghost { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--bd); border-radius: 9px; color: var(--ts); font-family: 'Lexend', sans-serif; font-size: 11px; cursor: pointer; text-align: center; }
+
+/* ── TAB BAR ── */
+.tab-bar { height: 50px; background: var(--panel-b); border-top: 1px solid var(--bd-dim); display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tab-lbl { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; }
+.t-on-a { color: var(--amber); } .t-on-g { color: var(--green); } .t-off { color: var(--tt); }
+.t-svg { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.s-amb { stroke: var(--amber); } .s-grn { stroke: var(--green); } .s-off { stroke: var(--tt); opacity: 0.5; }
+.home-wrap { height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.home-pill { width: 60px; height: 3px; background: rgba(26,21,18,0.15); border-radius: 2px; }
+
+/* ── ANNOTATION ── */
+.ann-col { padding: 0 0 0 36px; flex: 1; min-width: 240px; }
+.ann-head { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tt); margin-bottom: 20px; }
+.ann-item { padding-left: 13px; margin-bottom: 18px; }
+.a-am { border-left: 2px solid var(--amber); }
+.a-gr { border-left: 2px solid var(--green); }
+.a-bl { border-left: 2px solid var(--blue); }
+.a-nt { border-left: 2px solid var(--bd); }
+.ann-title { font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 500; color: var(--tp); margin-bottom: 3px; }
+.ann-body { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.65; }
+.ann-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; margin-top: 5px; background: var(--s1); color: var(--tt); border: 1px solid var(--bd-dim); }
+
+.tapmap { background: var(--s1); border: 1px solid var(--bd-dim); border-radius: 12px; padding: 14px 16px; margin-top: 8px; }
+.tapmap-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tt); margin-bottom: 12px; }
+.tapmap-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.tapmap-row:last-child { margin-bottom: 0; }
+.tapmap-key { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--amber); min-width: 90px; flex-shrink: 0; padding-top: 1px; }
+.tapmap-val { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.5; }
+.tapmap-val strong { color: var(--tp); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="flow-section">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PATH A — NOTIFICATION ARRIVAL -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+
+<div class="section-label">Path A — Notification arrival · HRV recovered, first item releasing</div>
+<div class="flow-row">
+
+  <!-- A1: LOCK SCREEN -->
+  <div class="flow-col">
+    <div class="flow-label">① Lock screen</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="lock-screen">
+          <div class="status-bar">
+            <div class="status-time">11:04</div>
+            <div class="status-right">5G ▪ ⬛</div>
+          </div>
+          <div class="lock-time-block">
+            <div class="lock-hour">11:04</div>
+            <div class="lock-date">Tuesday, June 10</div>
+          </div>
+          <div class="notif-stack">
+            <div class="notif-other">
+              <div class="no-icon">📅</div>
+              <div style="flex:1;"><div class="no-app">Calendar</div><div class="no-text">2pm — project sync</div></div>
+              <div class="no-time">7:30</div>
+            </div>
+            <div class="notif-aether">
+              <div class="notif-main">
+                <div class="notif-icon"><div class="notif-icon-dot"></div></div>
+                <div class="notif-body-wrap">
+                  <div class="notif-row">
+                    <div class="notif-app">Aether</div>
+                    <div class="notif-ts">Just now</div>
+                  </div>
+                  <div class="notif-title">Ready when you are.</div>
+                  <div class="notif-sub">HRV recovered · <span class="grn">invoice #118 staged</span> · draft ready</div>
+                </div>
+              </div>
+              <div class="tap-hint"><div class="tap-hint-text">↑ Tap to see what's ready</div></div>
+              <div class="notif-actions">
+                <div class="na primary">Open ↗</div>
+                <div class="na secondary">Later</div>
+              </div>
+            </div>
+            <div class="tap-indicator">
+              <div class="tap-ind-dot"></div>
+              <div class="tap-ind-text">User taps notification body</div>
+            </div>
+          </div>
+          <div class="lock-bottom">
+            <div class="lock-swipe-text">Swipe up to unlock</div>
+            <div class="h-pill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow arrow-amber">
+    <div class="arrow-label">deep link</div>
+    <div class="arrow-line"></div>
+    <div class="arrow-head">→</div>
+  </div>
+
+  <!-- A2: CURRENT TAB — RECOVERY -->
+  <div class="flow-col">
+    <div class="flow-label">② Current tab — recovery</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="app-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="app-header">
+            <div class="brand-row">
+              <div class="brand-dot green"></div>
+              <div class="brand-name">Aether</div>
+            </div>
+            <div class="app-title">Readiness<br>recovered.</div>
+            <div class="app-sub">HRV 58ms · held items releasing now</div>
+            <div class="hrv-readout">
+              <span class="hrv-val" style="color:var(--green);">58</span>
+              <span class="hrv-unit">ms · was 34ms at 7:12 am</span>
+            </div>
+          </div>
+          <div class="app-scroll">
+
+            <div class="arrival-chip from-notif">
+              <div class="ac-dot" style="background:var(--amber);"></div>
+              <div class="ac-text" style="color:var(--amber);">Opened from notification</div>
+            </div>
+
+            <div class="arc-row">
+              <span class="arc-lbl" style="color:var(--amber);">7:12 am — held</span>
+              <div class="arc-line"></div>
+              <span class="arc-lbl" style="color:var(--green);">11:04 am — ready</span>
+            </div>
+
+            <div class="lbar-card green">
+              <div class="rc-eye" style="color:var(--green);">First item</div>
+              <div class="rc-hl">Send Invoice #118</div>
+              <div class="sig-list">
+                <div class="sig-row"><div class="sdot r"></div><div class="sl">Unsent · 6d overdue</div><div class="sm rd">High</div></div>
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Held this morning — low HRV</div><div class="sm amb">Released</div></div>
+                <div class="sig-row"><div class="sdot g"></div><div class="sl">Draft ready · 2pm call noted</div><div class="sm grn">Staged</div></div>
+              </div>
+              <div class="chip grn"><div class="cdot"></div><span class="ctxt">Preview draft</span></div>
+            </div>
+
+            <div class="lbar-card neutral">
+              <div class="rc-eye" style="color:var(--tt);">2 more items · after invoice</div>
+              <div class="held-list">
+                <div class="held-row"><div class="hr-badge">NEXT</div><div class="hr-text">Reply to Marcus</div></div>
+                <div class="held-row"><div class="hr-badge">NEXT</div><div class="hr-text">Book GP appointment</div></div>
+              </div>
+            </div>
+
+            <div class="rev-note">
+              <div class="rev-text"><strong>Nothing sends without you.</strong> Send confirms. Later defers. Aether re-evaluates.</div>
+            </div>
+
+            <button class="btn-primary green">Send Invoice #118 ↗</button>
+            <div class="btn-row">
+              <button class="btn-ghost">Edit draft</button>
+              <button class="btn-ghost">Later</button>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl t-off">Log</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-grn" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="var(--green)" stroke="none"/></svg><div class="tab-lbl t-on-g">Current</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl t-off">Insights</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl t-off">You</div></div>
+          </div>
+          <div class="home-wrap"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATH A ANNOTATION -->
+  <div class="ann-col">
+    <div class="ann-head">Path A · notification tells, app acts</div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">"Ready when you are" — not an alert about a problem</div>
+      <div class="ann-body">The notification does not say "Invoice overdue" or "You need to act." It says the system has done its part and something is ready. Urgency context lives in the app, behind a tap. The notification is an invitation, not a pressure point.</div>
+      <div class="ann-tag">RSD safe · system announcement not user failure</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">Amber notification on a light lock screen</div>
+      <div class="ann-body">On a warm stone lock screen, the amber border and icon are visibly distinct from other notifications without competing for attention. Colour carries the reason before the copy is read — this one is different because of body state, not task state.</div>
+      <div class="ann-tag">Pre-attentive · amber = wearable · legible on warm bg</div>
+    </div>
+
+    <div class="ann-item a-gr">
+      <div class="ann-title">Arc line — the morning as a shape</div>
+      <div class="ann-body">7:12 am → 11:04 am communicates that the system waited. The amber-to-green gradient encodes the state transition without a word. On the light background the arc sits cleanly in a green-tinted row — same component logic as dark mode, different surface.</div>
+      <div class="ann-tag">System observation visible · no data dump</div>
+    </div>
+
+    <div class="ann-item a-gr">
+      <div class="ann-title">Left-bar cards on light — green fill, not full card colour</div>
+      <div class="ann-body">The released item uses a green left bar and a very light green-alpha fill. The signal is the bar; the fill is a secondary confirmation. At 8% opacity the fill is readable without competing with text. Consistent with the settled left-accent bar convention.</div>
+      <div class="ann-tag">Left-bar convention · light mode alpha fill</div>
+    </div>
+
+    <div class="tapmap">
+      <div class="tapmap-title">Notification tap map</div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">Body tap</div>
+        <div class="tapmap-val"><strong>Opens Current tab</strong> — deep links to recovery state. Full context, staged item, sequenced queue.</div>
+      </div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">Open ↗</div>
+        <div class="tapmap-val"><strong>Same as body tap.</strong> No lock-screen action for recovery notifications — in-app confirmation required.</div>
+      </div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">Later</div>
+        <div class="tapmap-val"><strong>Named deferral.</strong> Items remain held. Aether re-evaluates at next HRV window.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end Path A -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PATH B — PROACTIVE OPEN -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+
+<div class="section-label">Path B — Proactive open · user feels anxious, opens Aether directly · no notification context</div>
+<div class="flow-row">
+
+  <!-- B1: CURRENT TAB — HOLDING -->
+  <div class="flow-col">
+    <div class="flow-label">① Current tab — holding posture</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="app-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="app-header">
+            <div class="brand-row">
+              <div class="brand-dot amber"></div>
+              <div class="brand-name">Aether</div>
+            </div>
+            <div class="app-title">Holding<br>for you.</div>
+            <div class="app-sub">HRV low this morning · high-friction items held</div>
+            <div class="hrv-readout">
+              <span class="hrv-val" style="color:var(--amber);">34</span>
+              <span class="hrv-unit">ms HRV · readiness 41</span>
+            </div>
+          </div>
+          <div class="app-scroll">
+
+            <div class="posture-banner holding">
+              <div class="pb-dot" style="background:var(--amber); animation:pp 2s infinite;"></div>
+              <div>
+                <div class="pb-label" style="color:var(--amber);">Holding · since 7:12 am</div>
+                <div class="pb-sub">Returns when readiness recovers</div>
+              </div>
+            </div>
+
+            <div class="lbar-card amber">
+              <div class="rc-eye" style="color:var(--amber);">What Aether noticed</div>
+              <div class="rc-hl" style="font-size:11px;">Readiness lower than your baseline this morning.</div>
+              <div class="sig-list" style="margin-top:4px;">
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">HRV 34ms</div><div class="sm amb">Below baseline</div></div>
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Readiness score 41</div><div class="sm amb">Low</div></div>
+                <div class="sig-row"><div class="sdot b"></div><div class="sl">Deep sleep 0.6h last night</div><div class="sm">Disrupted</div></div>
+              </div>
+            </div>
+
+            <div class="lbar-card neutral">
+              <div class="rc-eye" style="color:var(--tt);">3 items held</div>
+              <div class="held-list">
+                <div class="held-row"><div class="hr-badge">HELD</div><div class="hr-text">Send Invoice #118</div></div>
+                <div class="held-row"><div class="hr-badge">HELD</div><div class="hr-text">Reply to Marcus</div></div>
+                <div class="held-row"><div class="hr-badge">HELD</div><div class="hr-text">Book GP appointment</div></div>
+              </div>
+            </div>
+
+            <div class="lbar-card neutral" style="border-left-color:var(--green);">
+              <div class="rc-eye" style="color:var(--green);">Available now</div>
+              <div style="font-family:'Lexend',sans-serif; font-size:10px; color:var(--ts); margin-top:2px;">Short walk · water · low-effort task</div>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl t-off">Log</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-amb" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="var(--amber)" stroke="none"/></svg><div class="tab-lbl t-on-a">Current</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl t-off">Insights</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl t-off">You</div></div>
+          </div>
+          <div class="home-wrap"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow">
+    <div class="arrow-label">taps held item</div>
+    <div class="arrow-line"></div>
+    <div class="arrow-head">→</div>
+  </div>
+
+  <!-- B2: HELD ITEM DETAIL -->
+  <div class="flow-col">
+    <div class="flow-label">② Held item detail — if tapped</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="app-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="app-header">
+            <div class="back-row">
+              <span class="back-chev">‹</span>
+              <span class="back-lbl">Current</span>
+            </div>
+            <div class="brand-row">
+              <div class="brand-dot amber"></div>
+              <div class="brand-name">Aether</div>
+            </div>
+            <div class="app-title">Held until<br>you're ready.</div>
+            <div class="app-sub">Invoice #118 · not surfaced · not lost</div>
+          </div>
+          <div class="app-scroll">
+
+            <div class="lbar-card amber">
+              <div class="rc-eye" style="color:var(--amber);">Why Aether held this</div>
+              <div class="rc-hl" style="font-size:11px;">High-initiation task. HRV below your baseline this morning.</div>
+              <div class="sig-list" style="margin-top:4px;">
+                <div class="sig-row"><div class="sdot r"></div><div class="sl">Invoice #118 unsent</div><div class="sm rd">6d overdue</div></div>
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">HRV 34ms — below baseline</div><div class="sm amb">Held</div></div>
+                <div class="sig-row"><div class="sdot b"></div><div class="sl">Draft ready · nothing is lost</div><div class="sm">Staged</div></div>
+              </div>
+            </div>
+
+            <div class="draft-card">
+              <div class="dc-eye">Draft preview</div>
+              <div class="dc-preview">"Hi Sarah, following up on invoice #118 for the <strong>Hartwell project</strong>…"</div>
+              <div class="dc-meta">Full draft opens on Edit ↗</div>
+            </div>
+
+            <div class="rev-note">
+              <div class="rev-text"><strong>Aether held this — not you.</strong> It's ready when readiness recovers. You can send now if you choose.</div>
+            </div>
+
+            <button class="btn-primary amber">Send now anyway ↗</button>
+            <div class="btn-row">
+              <button class="btn-ghost">Edit draft</button>
+              <button class="btn-ghost">Keep held</button>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl t-off">Log</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-amb" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="var(--amber)" stroke="none"/></svg><div class="tab-lbl t-on-a">Current</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl t-off">Insights</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl t-off">You</div></div>
+          </div>
+          <div class="home-wrap"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATH B ANNOTATION -->
+  <div class="ann-col">
+    <div class="ann-head">Path B · the product absorbs the anxiety</div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">Posture is the first thing they see</div>
+      <div class="ann-body">An anxious user opening Aether directly does not land on a task list. They land on the system's posture: "Holding for you." The title communicates that the system is active and has made a decision. Nothing is lost. Nothing is waiting on them.</div>
+      <div class="ann-tag">Posture first · not task list first</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">Tab icon turns amber in holding state</div>
+      <div class="ann-body">The Current tab icon fills amber — on the warm stone panel background, the amber is clearly readable. Green = Aether is acting. Amber = Aether is watching and holding. The tab bar is the system's state indicator. In light mode the amber deepened to #c4841a holds contrast cleanly.</div>
+      <div class="ann-tag">Tab bar as state signal · deepened amber on light</div>
+    </div>
+
+    <div class="ann-item a-nt">
+      <div class="ann-title">Items visible but clearly held — not hidden</div>
+      <div class="ann-body">Hiding held items entirely increases anxiety. Showing them with HELD badges and muted treatment communicates: they exist, Aether knows, they are not gone. The neutral left-bar at reduced opacity distinguishes held from surfaced. List is reassurance, not a task queue.</div>
+      <div class="ann-tag">Visible but not actionable · anxiety reduction</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">"Aether held this — not you" on the detail screen</div>
+      <div class="ann-body">If the user taps a held item, the detail reframes explicitly: the system made a decision. The user didn't fail. RSD safety framework applied to a wearable-gated state. In light mode the amber fill is warm without being alarming — the tone of the copy and the colour are consistent.</div>
+      <div class="ann-tag">RSD safe · system takes ownership</div>
+    </div>
+
+    <div class="ann-item a-gr">
+      <div class="ann-title">"Send now anyway" — override always available</div>
+      <div class="ann-body">Not blocked, not warned against. The system's recommendation is clear (wait); the user's override is one tap. Aether is an advisor that has already done the work, not a gatekeeper. The amber primary button colour signals "this is non-standard" without blocking.</div>
+      <div class="ann-tag">User autonomy · override always accessible</div>
+    </div>
+
+    <div class="tapmap">
+      <div class="tapmap-title">Proactive open — interaction map</div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">App open</div>
+        <div class="tapmap-val"><strong>Current tab</strong> — system posture visible immediately. Title, HRV, held list, reason card.</div>
+      </div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">Tap held item</div>
+        <div class="tapmap-val"><strong>Held item detail.</strong> Reason visible. Draft staged. Override available.</div>
+      </div>
+      <div class="tapmap-row">
+        <div class="tapmap-key">Send now anyway</div>
+        <div class="tapmap-val"><strong>User override.</strong> Logged as signal. No friction added.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end Path B -->
+</div><!-- end flow-section -->
+</body>
+</html>
