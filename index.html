@@ -212,50 +212,6 @@ button { cursor: pointer; }
   letter-spacing: 0.03em;
 }
 
-/* ── SECOND QUESTION ── */
-.second-q {
-  margin-top: 20px;
-  max-width: 430px;
-}
-.second-q-label {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-55);
-  margin-bottom: 10px;
-}
-.second-q-textarea {
-  width: 100%;
-  background: rgba(26,21,18,0.05);
-  border: 1px solid rgba(26,21,18,0.15);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 14px;
-  color: var(--text);
-  line-height: 1.55;
-  resize: vertical;
-  min-height: 80px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.second-q-textarea:focus { border-color: rgba(26,21,18,0.35); }
-.second-q-submit {
-  display: inline-block;
-  margin-top: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text-45);
-  background: none;
-  border: none;
-  padding: 0;
-  letter-spacing: 0.04em;
-}
-.second-q-thanks {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text-45);
-  margin-top: 8px;
-  letter-spacing: 0.04em;
-}
 
 /* ── CAROUSEL ── */
 .hero-carousel {
@@ -1076,15 +1032,6 @@ button { cursor: pointer; }
           </div>
         </div>
 
-        <!-- SECOND QUESTION -->
-        <div class="second-q">
-          <p id="second-q-label" class="second-q-label">What's the one thing you keep putting off — even though you know exactly what to do?</p>
-          <div id="second-q-fields">
-            <textarea id="second-q-input" class="second-q-textarea" placeholder="It's okay if it feels obvious."></textarea>
-            <button id="second-q-btn" class="second-q-submit" type="button">Send it →</button>
-          </div>
-          <p id="second-q-thanks" class="second-q-thanks hidden">Thanks.</p>
-        </div>
       </div>
     </div>
   </div>
@@ -1767,7 +1714,6 @@ button { cursor: pointer; }
 
   function init() {
     document.getElementById('email-form').addEventListener('submit', handleSubmit);
-    document.getElementById('second-q-btn').addEventListener('click', handleSecondQ);
   }
 
   function handleSubmit(e) {
@@ -1812,31 +1758,8 @@ button { cursor: pointer; }
     btn.disabled = false;
   }
 
-  function handleSecondQ() {
-    var answer = document.getElementById('second-q-input').value.trim();
-    var sqBtn = document.getElementById('second-q-btn');
 
-    sqBtn.textContent = 'Sending…';
-    sqBtn.disabled = true;
-
-    var finish = function() {
-      document.getElementById('second-q-label').classList.add('hidden');
-      document.getElementById('second-q-fields').classList.add('hidden');
-      document.getElementById('second-q-thanks').classList.remove('hidden');
-    };
-
-    if (!answer || !capturedEmail) { finish(); return; }
-
-    fetch(LOOPS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'email=' + encodeURIComponent(capturedEmail) + '&notes=' + encodeURIComponent(answer)
-    })
-    .finally(finish)
-    .catch(finish);
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
 </body>
