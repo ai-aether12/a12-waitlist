@@ -2,80 +2,71 @@
 
 ## Repository
 - **Repo:** `ai-aether12/a12-waitlist`
-- **Dev branch:** `claude/sleepy-franklin-1x10rb`
-- **Production:** `main` (GitHub Pages)
+- **Production:** `main` (GitHub Pages at `join.aether12.com`)
 - **Only production file:** `index.html` — all CSS and JS are inline, no build step
 
-## Current state
-The hero card is an auto-playing 5-phase carousel:
-1. **WYWA** — action entries (invoice staged, doctor appointment with Aetna card detail, Marcus not-handled). 6s hold.
-2. **Log** — completed actions. Collapses to list, Doctor entry expands after 2s, holds 4s.
-3. **Log → Insights** — Marcus peek strip tap, transitions to Insights panel.
-4. **Insights** — Marcus pattern panel with day chart. 9s hold.
-5. **Permission grant** — "Waiting on you —" screen with amber border, reasoning rail, approve card. 8s hold → loop.
-
-## Next task
-Design changes and bug fixes to all app screens before deciding whether to restore the slider.
-
-## Key design decisions
-- **Permission grant title:** "Waiting on you —" (not "Before I act" — was ambiguous)
-- **Approve action:** whole card is the tap target (ADHD-friendly, largest tap zone)
-- **"Tell Aether something":** secondary option that invokes a Claude conversation, not a form
-- **Reasoning rail:** thin left-rail line connecting Log excerpt → Insights excerpt → Approve card
-- **Provenance chips:** removed from header — excerpt cards carry the source story
-- **Red = overdue/urgency only** — Log provenance chip is neutral white, not red
-- **"How Aether decides →":** dim link below actions pointing to future explainer page
-- **Design system:** DM Mono for labels/mono text, Lexend for headings/CTAs, Bebas Neue for hero headline, Syne for body
-
-## Design system
+## Branch convention
+Create a new `claude/[name]` branch per PR. After every squash-merge to main, working branches diverge — fix by creating a fresh branch from main rather than rebasing:
+```bash
+git fetch origin main && git checkout -b claude/[new-name] origin/main
+# then copy current index.html onto it
 ```
---green:  #55b98c   (actions taken, approve)
---blue:   #5b9bd5   (insights, patterns)
---amber:  #e6a817   (permission/urgency, time-sensitive)
---red:    #e05c5c   (overdue only)
---bg:     #07111e
---card-bg:#0e1d2f
---text:   rgba(240,240,238,0.92)
---text-faint: rgba(240,240,238,0.42)
---text-dim:   rgba(240,240,238,0.28)
-```
-- Uppercase DM Mono labels: `letter-spacing: 0.1em` throughout
-- Border radii: `8px` for cards/strips, `20px` for the card-stack shell
-- All animations use `opacity` or `transform` only (GPU-compositable)
-- `will-change: opacity` on all continuously pulsing elements
-
-## Interactive elements in the app card
-- `.e-action-strip` — primary action rows (dot + DM Mono text + `›`)
-- `.log-entry` — completed log items with expandable detail
-- `.action-entry` — staged/pending items (WYWA view)
-- `.peek-strip` — Marcus insight hint strip (glows blue in carousel)
-- `.approve-card` — whole-card tap target for permission grant
-
-## Files
-- `index.html` — production site
-- `mockup-permission-grant.html` — permission grant design reference (standalone)
-- `mockup-ambient.html` — ambient interrupt design reference (standalone, not used in site)
-
-## Security constraint
-`LOOPS_FORM_ID` in the email submit handler must never be modified.
 
 ## Git hygiene
-Every commit requires author fix before push:
+Set author config once per session before committing:
 ```bash
 git config user.email noreply@anthropic.com && git config user.name Claude
-git commit --amend --no-edit --reset-author
-git push --force origin HEAD:claude/sleepy-franklin-1x10rb
 ```
-Or set config once per session before committing.
 
-## Carousel JS structure
-- `runSequence()` — main loop, phases 1–5 then recurses
-- `resetAll()` — snaps back to WYWA state, hides all non-WYWA elements
-- `initEls()` — caches all DOM references (called once on first IntersectionObserver trigger)
-- `setNav(name)` — updates bottom nav active state, caches element refs in `navEls{}`
-- `pauseableDelay(ms)` — delay that respects `paused` flag (hover-pause)
-- `ENTRY_HOLD=6000`, `INSIGHT_HOLD=9000`, `PERM_HOLD=8000`
+## GitHub operations
+Use GitHub MCP tools (`mcp__github__*`) for all PR/merge operations — no `gh` CLI available. Load via ToolSearch before use.
 
-## Mockup file notes
-- `mockup-permission-grant.html` is the approved design used as the source for Phase 5 in the carousel
-- Do not merge mockup files into each other — they are independent design artifacts
+## Security constraint
+`LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7'` in the FormController IIFE must never be modified.
+
+## Current design system
+Light warm-stone theme:
+```css
+--bg:          #f2ede6
+--text:        #1a1512
+--green:       #3d9e72
+--blue:        #3a7bbf
+--amber:       #c4841a
+--red:         #c44a4a
+--panel:       #ebe4dc
+--wearable-bg: #C4B5A3
+```
+Typography: Fraunces (headings), Lexend (body/CTAs), DM Mono (labels/mono)
+
+## Page structure (top to bottom)
+1. **Nav** — sticky, blur backdrop, `AETHER` wordmark + "First 100" pill
+2. **Hero** — 2-col grid (`1fr 348px`): copy left, carousel right
+   - Copy split into `.hero-copy-head` (h1 only) and `.hero-copy-body` (tagline + form)
+   - On mobile (`≤767px`): `.hero-copy { display:contents }` so order becomes headline → carousel → form
+3. **Proof strip** — 3-col grid:
+   - Col 1: `? ? ?` connector (Knowing → Done), eyebrow "Activation energy"
+   - Col 2: "Built for ADHD." Fraunces heading
+   - Col 3: Visible/Traceable/Reversible chips, eyebrow "NO BLACK BOX"
+4. **Wearable section** — `#C4B5A3` background, two phone panels (capacity framing)
+5. **Footer** — share pills (X, LinkedIn, WhatsApp, Email) + copyright
+
+## Email form flow
+- Default: input + "I'm In" button
+- Submit → POST to Loops (`/api/newsletter-form/[LOOPS_FORM_ID]`)
+- Success: "You're in." + share row (X, LinkedIn, WhatsApp, Email, Copy link)
+- Error: inline error message, button resets
+
+## Carousel
+- 5 phases, user-navigated (no auto-advance — ADHD constraint)
+- `CarouselController` IIFE: `init()`, `goTo(n)`, `prev()`, `next()`
+- Phase transitions: `opacity 0.7s ease-in-out`
+- Nav: `← [dots] →`, 44×44px buttons (min touch target)
+
+## Social / OG
+- OG and Twitter Card meta tags are set for `join.aether12.com`
+- `og:image` placeholder at `/og-image.png` — needs a real 1200×630px image uploaded to repo root
+- Share URLs in HTML and JS all point to `join.aether12.com`
+
+## JS modules (both inline in `<script>`)
+- `CarouselController` IIFE — carousel navigation
+- `FormController` IIFE — email capture, Loops POST, success/error states, copy-link clipboard
