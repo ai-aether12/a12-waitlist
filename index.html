@@ -970,10 +970,11 @@ button { cursor: pointer; }
     gap: 40px;
     padding: 32px 20px 0;
   }
-  .hero-copy      { display: contents; }
-  .hero-copy-head { order: 1; }
-  .hero-carousel  { order: 2; width: 100%; }
-  .hero-copy-body { order: 3; }
+  .hero-copy         { display: contents; }
+  .hero-copy-head    { order: 1; }
+  .hero-copy-tagline { order: 2; }
+  .hero-carousel     { order: 3; width: 100%; }
+  .hero-copy-body    { order: 4; }
   .proof {
     grid-template-columns: 1fr;
     padding: 0 20px;
@@ -984,9 +985,22 @@ button { cursor: pointer; }
     padding-left: 0;
     border-top: 1px solid rgba(26,21,18,0.09);
   }
+  .proof-body { font-size: 16px; }
+  .proof-pills-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .proof-pill-item {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+  }
+  .proof-pill-item span { font-size: 11px !important; }
   .wearable-inner { padding: 56px 20px 56px; }
+  .wearable-body { font-size: 16px; }
   .wearable-panels { flex-direction: column; align-items: center; }
   .wearable-arrow { display: none; }
+  .footer { margin-top: 0; }
   .footer-inner {
     padding: 24px 20px;
     flex-direction: column;
@@ -995,6 +1009,7 @@ button { cursor: pointer; }
     text-align: center;
   }
   .footer-right { align-items: center; }
+  .footer-copy, .footer-tagline, .footer-wordmark { font-size: 11px; }
 }
 @media (max-width: 420px) {
   .form-row { flex-wrap: wrap; }
@@ -1024,9 +1039,11 @@ button { cursor: pointer; }
     <div class="hero-copy-head">
       <h1 class="hero-headline">Things pile up.</h1>
     </div>
-    <div class="hero-copy-body">
+    <div class="hero-copy-tagline">
     <p class="hero-body">Aether moves them — quietly, carefully, and only with your approval.</p>
+    </div>
 
+    <div class="hero-copy-body">
     <div class="form-wrap">
       <!-- DEFAULT: form visible -->
       <div id="form-fields">
@@ -1529,16 +1546,16 @@ button { cursor: pointer; }
   <!-- Col 3: What you get -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--amber);"></div>
-    <div style="display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:20px;min-height:40px;align-content:flex-start;">
-      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.22);border-radius:20px;">
+    <div class="proof-pills-row" style="display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:20px;min-height:40px;align-content:flex-start;">
+      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.22);border-radius:20px;">
         <div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div>
         <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;letter-spacing:0.06em;white-space:nowrap;">Visible</span>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.22);border-radius:20px;">
+      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.22);border-radius:20px;">
         <div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div>
         <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3a7bbf;letter-spacing:0.06em;white-space:nowrap;">Traceable</span>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:20px;">
+      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:20px;">
         <div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div>
         <span style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;letter-spacing:0.06em;white-space:nowrap;">Reversible</span>
       </div>
@@ -1567,7 +1584,7 @@ button { cursor: pointer; }
               <div class="wearable-dot wearable-dot--amber"></div>
               <span class="wearable-dot-label">Aether</span>
             </div>
-            <div class="wearable-title">Your body says not now.<br>These can wait.</div>
+            <div class="wearable-title">Your body says not now. These things can wait.</div>
             <div class="wearable-title-sub">Low capacity · 3 tasks held</div>
             <div class="recovery-score">
               <span class="recovery-num" style="color:var(--amber);">34</span>
