@@ -967,19 +967,32 @@ button { cursor: pointer; }
   .nav-inner { padding: 18px 20px; }
   .hero {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 16px;
     padding: 32px 20px 0;
   }
   .hero-copy         { display: contents; }
   .hero-copy-head    { order: 1; }
   .hero-copy-tagline { order: 2; }
-  .hero-carousel     { order: 3; width: 100%; }
+  .hero-carousel     { order: 3; width: 100%; margin-top: 8px; }
   .hero-copy-body    { order: 4; }
+  .hero-headline     { margin-bottom: 4px; }
+  .hero-body         { margin-bottom: 16px; }
+  /* Phone card text — bump for mobile readability */
+  .entry-title       { font-size: 13px; }
+  .entry-chip-label  { font-size: 9px; }
+  .entry-meta        { font-size: 9px; }
+  .entry-age         { font-size: 9px; }
+  .action-chip-text  { font-size: 9px; }
+  .phone-sub         { font-size: 9.5px; }
   .proof {
     grid-template-columns: 1fr;
     padding: 0 20px;
     margin-top: 60px;
   }
+  /* Reorder: Built for ADHD first on mobile */
+  .proof-col:nth-child(2) { order: 1; border-top: none !important; }
+  .proof-col:nth-child(1) { order: 2; border-top: 1px solid rgba(26,21,18,0.09); }
+  .proof-col:nth-child(3) { order: 3; }
   .proof-col + .proof-col {
     border-left: none;
     padding-left: 0;
@@ -1037,7 +1050,7 @@ button { cursor: pointer; }
   <!-- LEFT: COPY + FORM -->
   <div class="hero-copy">
     <div class="hero-copy-head">
-      <h1 class="hero-headline">Things pile up.</h1>
+      <h1 class="hero-headline">Things<br>pile up.</h1>
     </div>
     <div class="hero-copy-tagline">
     <p class="hero-body">Aether moves them — quietly, carefully, and only with your approval.</p>
@@ -1733,7 +1746,6 @@ button { cursor: pointer; }
         </a>
       </div>
       <span class="footer-copy">© 2026 Aether12. All rights reserved.</span>
-      <span class="footer-copy">First 100 · join.aether12.com</span>
     </div>
   </div>
 </footer>
