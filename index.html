@@ -1805,13 +1805,6 @@ button { cursor: pointer; }
     if (!answer) return;
     document.getElementById('second-q').classList.add('hidden');
     document.getElementById('q2-sent').classList.remove('hidden');
-    if (capturedEmail) {
-      fetch(LOOPS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'email=' + encodeURIComponent(capturedEmail) + '&notes=' + encodeURIComponent(answer)
-      }).catch(function() {});
-    }
   }
 
   function copyLink(lblId) {
