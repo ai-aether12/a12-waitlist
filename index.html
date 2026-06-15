@@ -1078,7 +1078,7 @@ button { cursor: pointer; }
 
         <!-- SECOND QUESTION -->
         <div class="second-q">
-          <p class="second-q-label">What's the one thing you keep putting off — even though you know exactly what to do?</p>
+          <p id="second-q-label" class="second-q-label">What's the one thing you keep putting off — even though you know exactly what to do?</p>
           <div id="second-q-fields">
             <textarea id="second-q-input" class="second-q-textarea" placeholder="It's okay if it feels obvious."></textarea>
             <button id="second-q-btn" class="second-q-submit" type="button">Send it →</button>
@@ -1820,6 +1820,7 @@ button { cursor: pointer; }
     sqBtn.disabled = true;
 
     var finish = function() {
+      document.getElementById('second-q-label').classList.add('hidden');
       document.getElementById('second-q-fields').classList.add('hidden');
       document.getElementById('second-q-thanks').classList.remove('hidden');
     };
