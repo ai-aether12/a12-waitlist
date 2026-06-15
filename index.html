@@ -1830,7 +1830,7 @@ button { cursor: pointer; }
     fetch(LOOPS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'email=' + encodeURIComponent(capturedEmail) + '&notes=' + encodeURIComponent(answer)
+      body: 'email=' + encodeURIComponent(capturedEmail) + '&feedback=' + encodeURIComponent(answer)
     })
     .finally(finish)
     .catch(finish);
