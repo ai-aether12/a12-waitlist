@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Wearable Flow B-2 · EDA / Acute Avoidance · Light Mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #f2ede6;
+  --panel:      #ebe4dc;
+  --panel-b:    #e4ddd5;
+  --s1:         rgba(26,21,18,0.05);
+  --bd:         rgba(26,21,18,0.1);
+  --bd-dim:     rgba(26,21,18,0.06);
+  --tp:         #1a1512;
+  --ts:         rgba(26,21,18,0.55);
+  --tt:         rgba(26,21,18,0.35);
+  --green:      #3d9e72;
+  --blue:       #3a7bbf;
+  --amber:      #c4841a;
+  --red:        #c44a4a;
+  --green-fill: rgba(61,158,114,0.08);
+  --green-bd:   rgba(61,158,114,0.22);
+  --blue-fill:  rgba(58,123,191,0.07);
+  --blue-bd:    rgba(58,123,191,0.20);
+  --amber-fill: rgba(196,132,26,0.07);
+  --amber-bd:   rgba(196,132,26,0.22);
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 48px;
+  color: var(--tp);
+}
+
+/* PAGE HEADER */
+.page-header { max-width: 960px; margin-bottom: 56px; padding-bottom: 28px; border-bottom: 1px solid var(--bd); }
+.page-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.page-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 700; font-size: 28px; letter-spacing: -0.02em; color: var(--tp); line-height: 1.2; margin-bottom: 8px; }
+.page-sub { font-family: 'Lexend', sans-serif; font-size: 14px; color: var(--ts); line-height: 1.65; max-width: 640px; margin-bottom: 14px; }
+.page-note { display: flex; align-items: flex-start; gap: 8px; padding: 10px 14px; background: var(--amber-fill); border: 1px solid var(--amber-bd); border-radius: 8px; max-width: 680px; }
+.page-note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 4px; }
+.page-note-text { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--amber); line-height: 1.65; }
+.page-note-text strong { font-weight: 400; color: var(--tp); }
+
+/* LAYOUT */
+.flow-section { display: flex; flex-direction: column; gap: 72px; }
+.section-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tt); border-top: 1px solid var(--bd); padding-top: 10px; margin-bottom: 20px; }
+.flow-row { display: flex; gap: 0; align-items: flex-start; }
+.flow-col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.flow-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tt); text-align: center; }
+
+/* ARROWS */
+.flow-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 14px; padding-top: 100px; gap: 6px; flex-shrink: 0; }
+.arrow-line { width: 1px; height: 36px; background: var(--bd); }
+.arrow-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt); writing-mode: vertical-rl; }
+.arrow-head { font-size: 13px; color: var(--tt); }
+.arrow-amber .arrow-line { background: rgba(196,132,26,0.3); }
+.arrow-amber .arrow-head, .arrow-amber .arrow-label { color: var(--amber); opacity: 0.8; }
+
+/* PHONE */
+.phone-shell { flex-shrink: 0; width: 256px; background: #d8d2cc; border-radius: 44px; padding: 10px; box-shadow: 0 0 0 1px rgba(26,21,18,0.12), 0 20px 40px rgba(26,21,18,0.15); }
+.phone-screen { border-radius: 36px; overflow: hidden; height: 554px; display: flex; flex-direction: column; }
+
+/* LOCK SCREEN */
+.lock-screen { background: linear-gradient(160deg, #ddd8d0 0%, #cec8c0 100%); height: 100%; display: flex; flex-direction: column; }
+.status-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px; flex-shrink: 0; }
+.status-time { font-size: 14px; font-weight: 600; color: var(--tp); letter-spacing: -0.01em; }
+.status-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ts); }
+.lock-time-block { text-align: center; padding: 12px 0 14px; flex-shrink: 0; }
+.lock-hour { font-family: 'Fraunces', serif; font-size: 54px; font-weight: 300; color: var(--tp); letter-spacing: -0.04em; line-height: 1; }
+.lock-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ts); margin-top: 3px; }
+.notif-stack { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+.notif-other { background: rgba(255,255,255,0.55); border-radius: 14px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; }
+.no-icon { width: 26px; height: 26px; border-radius: 7px; background: rgba(26,21,18,0.1); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.no-app { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); }
+.no-text { font-family: 'Lexend', sans-serif; font-size: 11px; color: var(--ts); }
+.no-time { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); margin-left: auto; }
+.notif-aether { background: rgba(245,239,230,0.96); border: 1px solid rgba(196,132,26,0.30); border-radius: 18px; overflow: hidden; }
+.notif-main { padding: 11px 13px 9px; display: flex; gap: 9px; align-items: flex-start; }
+.notif-icon { width: 30px; height: 30px; border-radius: 8px; background: var(--amber-fill); border: 1px solid var(--amber-bd); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notif-icon-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+.notif-body-wrap { flex: 1; }
+.notif-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.notif-app { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+.notif-ts { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--tt); }
+.notif-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; color: var(--tp); letter-spacing: -0.01em; margin-bottom: 2px; line-height: 1.2; }
+.notif-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ts); line-height: 1.4; }
+.notif-sub .amb { color: var(--amber); }
+.tap-hint { padding: 3px 13px 7px; }
+.tap-hint-text { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(196,132,26,0.55); letter-spacing: 0.07em; }
+.notif-actions { display: flex; border-top: 1px solid var(--bd-dim); }
+.na { flex: 1; padding: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; }
+.na.primary { background: var(--amber-fill); color: var(--amber); border-right: 1px solid var(--bd-dim); }
+.na.secondary { color: var(--tt); }
+.lock-bottom { margin-top: auto; padding: 10px 0 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+.lock-swipe-text { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tt); }
+.h-pill { width: 72px; height: 4px; background: rgba(26,21,18,0.18); border-radius: 2px; }
+
+/* APP CHROME */
+.app-screen { background: var(--panel); height: 100%; display: flex; flex-direction: column; }
+.notch { height: 22px; display: flex; justify-content: center; flex-shrink: 0; }
+.notch-pill { width: 68px; height: 16px; background: #1a1512; border-radius: 0 0 11px 11px; }
+.app-header { padding: 6px 16px 10px; flex-shrink: 0; border-bottom: 1px solid var(--bd-dim); }
+.back-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.back-chev { font-size: 14px; color: var(--tt); }
+.back-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt); }
+.brand-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.brand-dot { width: 6px; height: 6px; border-radius: 50%; animation: pp 2s ease-in-out infinite; }
+.brand-dot.amber { background: var(--amber); }
+.brand-name { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tt); }
+.app-title { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; line-height: 1.15; color: var(--tp); }
+.app-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); margin-top: 2px; }
+.app-scroll { flex: 1; overflow: hidden; padding: 8px 14px 10px; display: flex; flex-direction: column; gap: 7px; }
+
+/* EDA SIGNAL STRIP */
+.eda-strip { border-radius: 9px; padding: 8px 11px; background: var(--amber-fill); border: 1px solid var(--amber-bd); display: flex; align-items: center; gap: 10px; }
+.eda-bars { display: flex; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+.eda-bar { width: 3px; border-radius: 1.5px; background: var(--amber); opacity: 0.4; }
+.eda-bar.hi { opacity: 1; }
+.eda-label-main { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; }
+.eda-label-sub { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--tt); margin-top: 2px; }
+
+/* DWELL ROW */
+.dwell-row { display: flex; align-items: center; gap: 6px; padding: 5px 9px; background: var(--s1); border: 1px solid var(--bd-dim); border-radius: 7px; }
+.dwell-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; animation: pp 2s ease-in-out infinite; }
+.dwell-bar-wrap { flex: 1; height: 3px; background: var(--bd); border-radius: 2px; overflow: hidden; }
+.dwell-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(to right, rgba(196,132,26,0.3), var(--amber)); width: 78%; }
+.dwell-label { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--amber); white-space: nowrap; }
+
+/* LEFT-BAR CARDS */
+.lbar-card { border-radius: 0 11px 11px 0; border-left-width: 3px; border-left-style: solid; border-top: 1px solid var(--bd-dim); border-right: 1px solid var(--bd-dim); border-bottom: 1px solid var(--bd-dim); padding: 9px 11px 9px 13px; }
+.lbar-card.amber { border-left-color: var(--amber); background: var(--amber-fill); }
+.lbar-card.blue { border-left-color: var(--blue); background: var(--blue-fill); }
+.rc-eye { font-family: 'DM Mono', monospace; font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.rc-hl { font-family: 'Lexend', sans-serif; font-size: 12px; font-weight: 500; color: var(--tp); line-height: 1.35; margin-bottom: 6px; }
+
+/* SIGNAL ROWS */
+.sig-list { display: flex; flex-direction: column; gap: 4px; }
+.sig-row { display: flex; align-items: center; gap: 7px; background: rgba(26,21,18,0.04); border: 1px solid var(--bd-dim); border-radius: 6px; padding: 5px 8px; }
+.sdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.sdot.a { background: var(--amber); } .sdot.b { background: var(--blue); } .sdot.r { background: var(--red); }
+.sl { font-family: 'Lexend', sans-serif; font-size: 10px; color: var(--tp); flex: 1; line-height: 1.3; }
+.sm { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--tt); }
+.sm.amb { color: var(--amber); } .sm.blu { color: var(--blue); }
+
+/* OPENING LINE CARD */
+.opening-card { background: var(--blue-fill); border: 1px solid var(--blue-bd); border-radius: 0 10px 10px 0; border-left: 3px solid var(--blue); padding: 10px 12px 10px 13px; }
+.oc-eye { font-family: 'DM Mono', monospace; font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
+.oc-line { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.6; font-style: italic; }
+.oc-line strong { color: var(--tp); font-style: normal; font-weight: 500; }
+.oc-boundary { display: flex; align-items: center; gap: 6px; margin-top: 7px; padding-top: 6px; border-top: 1px dashed var(--blue-bd); }
+.oc-boundary-lbl { font-family: 'DM Mono', monospace; font-size: 7px; color: rgba(58,123,191,0.45); }
+
+/* INTERVENTION NOTE */
+.int-note { display: flex; align-items: flex-start; gap: 7px; padding: 7px 10px; background: var(--s1); border: 1px solid var(--bd-dim); border-radius: 8px; }
+.int-note-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--tt); flex-shrink: 0; margin-top: 5px; }
+.int-note-text { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--ts); line-height: 1.6; }
+.int-note-text strong { color: var(--tp); font-weight: 400; }
+
+/* BUTTONS */
+.btn-primary { width: 100%; padding: 12px; border: none; border-radius: 10px; font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+.btn-primary.blue { background: var(--blue); color: #fff; }
+.btn-primary.amber { background: var(--amber); color: #fff; }
+.btn-row { display: flex; gap: 5px; margin-top: 4px; }
+.btn-ghost { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--bd); border-radius: 9px; color: var(--ts); font-family: 'Lexend', sans-serif; font-size: 11px; cursor: pointer; text-align: center; }
+
+/* TAB BAR */
+.tab-bar { height: 50px; background: var(--panel-b); border-top: 1px solid var(--bd-dim); display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tab-lbl { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; }
+.t-on-a { color: var(--amber); } .t-off { color: var(--tt); }
+.t-svg { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.s-amb { stroke: var(--amber); } .s-off { stroke: var(--tt); opacity: 0.5; }
+.home-wrap { height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.home-pill { width: 60px; height: 3px; background: rgba(26,21,18,0.15); border-radius: 2px; }
+
+/* ANNOTATION */
+.ann-col { padding: 0 0 0 36px; flex: 1; min-width: 260px; }
+.ann-head { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tt); margin-bottom: 20px; }
+.ann-item { padding-left: 13px; margin-bottom: 20px; }
+.a-am { border-left: 2px solid var(--amber); }
+.a-bl { border-left: 2px solid var(--blue); }
+.a-nt { border-left: 2px solid var(--bd); }
+.ann-title { font-family: 'Lexend', sans-serif; font-size: 13px; font-weight: 500; color: var(--tp); margin-bottom: 3px; }
+.ann-body { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.65; }
+.ann-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; margin-top: 5px; background: var(--s1); color: var(--tt); border: 1px solid var(--bd-dim); }
+.ann-tag.amb { background: var(--amber-fill); color: var(--amber); border-color: var(--amber-bd); }
+.ann-tag.blu { background: var(--blue-fill); color: var(--blue); border-color: var(--blue-bd); }
+
+.tapmap { background: var(--s1); border: 1px solid var(--bd-dim); border-radius: 12px; padding: 14px 16px; margin-top: 8px; }
+.tapmap-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tt); margin-bottom: 12px; }
+.tapmap-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.tapmap-row:last-child { margin-bottom: 0; }
+.tapmap-key { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--amber); min-width: 110px; flex-shrink: 0; padding-top: 1px; }
+.tapmap-val { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.5; }
+.tapmap-val strong { color: var(--tp); font-weight: 500; }
+
+/* ARCH NOTE */
+.arch-note { max-width: 680px; margin-top: 0; padding: 18px 20px; background: var(--s1); border: 1px solid var(--bd); border-radius: 12px; }
+.arch-note-head { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tt); margin-bottom: 14px; }
+.arch-note-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+.arch-note-row:last-child { margin-bottom: 0; }
+.arch-note-key { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--amber); min-width: 140px; flex-shrink: 0; padding-top: 1px; }
+.arch-note-val { font-family: 'Lexend', sans-serif; font-size: 12px; color: var(--ts); line-height: 1.6; }
+.arch-note-val strong { color: var(--tp); font-weight: 500; }
+
+@keyframes pp { 0%,100%{opacity:1} 50%{opacity:0.35} }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-eyebrow">B-2 · EDA · Acute Avoidance Moment · Light Mode · Canonical</div>
+  <div class="page-title">A place to start.</div>
+  <div class="page-sub">The user has been at their desk for 40 minutes. The client proposal is open and untouched. Wearable EDA readings show elevated skin conductance consistent with approach-avoidance conflict — not distraction, not absence. The wall is active right now. Aether surfaces one sentence. Not the proposal. One sentence.</div>
+  <div class="page-note">
+    <div class="page-note-dot"></div>
+    <div class="page-note-text"><strong>Wearable class note:</strong> This scenario requires EDA exposure. Oura Ring 5 does not expose EDA. Compatible devices: Samsung Galaxy Ring, Pixel Watch, Fitbit Sense 2. Architecture gated on WS-4 · POC-4+. EDA is labelled "Activation signal" in all user-facing copy — the technical term is never surfaced.</div>
+  </div>
+</div>
+
+<div class="flow-section">
+
+<!-- PATH A -->
+<div>
+<div class="section-label">Path A — Notification arrives · EDA peak detected · user at desk · proposal open 40 min</div>
+<div class="flow-row">
+
+  <div class="flow-col">
+    <div class="flow-label">① Lock screen</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="lock-screen">
+          <div class="status-bar">
+            <div class="status-time">2:43</div>
+            <div class="status-right">5G ▪ ⬛</div>
+          </div>
+          <div class="lock-time-block">
+            <div class="lock-hour">2:43</div>
+            <div class="lock-date">Wednesday, June 11</div>
+          </div>
+          <div class="notif-stack">
+            <div class="notif-other">
+              <div class="no-icon">📄</div>
+              <div style="flex:1;"><div class="no-app">Notion</div><div class="no-text">Meridian proposal · edited 40m ago</div></div>
+              <div class="no-time">2:03</div>
+            </div>
+            <div class="notif-aether">
+              <div class="notif-main">
+                <div class="notif-icon"><div class="notif-icon-dot"></div></div>
+                <div class="notif-body-wrap">
+                  <div class="notif-row">
+                    <div class="notif-app">Aether</div>
+                    <div class="notif-ts">Just now</div>
+                  </div>
+                  <div class="notif-title">A place to start.</div>
+                  <div class="notif-sub">Meridian proposal · <span class="amb">opening line ready</span></div>
+                </div>
+              </div>
+              <div class="tap-hint"><div class="tap-hint-text">↑ Tap to see the first line</div></div>
+              <div class="notif-actions">
+                <div class="na primary">See it ↗</div>
+                <div class="na secondary">Not now</div>
+              </div>
+            </div>
+          </div>
+          <div class="lock-bottom">
+            <div class="lock-swipe-text">Swipe up to unlock</div>
+            <div class="h-pill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-arrow arrow-amber">
+    <div class="arrow-label">tap notification</div>
+    <div class="arrow-line"></div>
+    <div class="arrow-head">→</div>
+  </div>
+
+  <div class="flow-col">
+    <div class="flow-label">② Current tab — intervention</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="app-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="app-header">
+            <div class="brand-row">
+              <div class="brand-dot amber"></div>
+              <div class="brand-name">Aether</div>
+            </div>
+            <div class="app-title">A place<br>to start.</div>
+            <div class="app-sub">Activation signal · Meridian proposal</div>
+          </div>
+          <div class="app-scroll">
+
+            <div class="lbar-card amber">
+              <div class="rc-eye" style="color:var(--amber);">What Aether noticed</div>
+              <div class="rc-hl" style="font-size:11px;">40 minutes at this document. Activation signal elevated.</div>
+              <div class="sig-list" style="margin-top:4px;">
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Meridian proposal open</div><div class="sm amb">40 min · no edits</div></div>
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Activation signal elevated</div><div class="sm amb">Detected 2:41</div></div>
+                <div class="sig-row"><div class="sdot b"></div><div class="sl">Recovery score</div><div class="sm blu">Normal · not capacity</div></div>
+              </div>
+            </div>
+
+            <div class="dwell-row">
+              <div class="dwell-dot"></div>
+              <div class="dwell-bar-wrap"><div class="dwell-bar-fill"></div></div>
+              <div class="dwell-label">40 min at proposal</div>
+            </div>
+
+            <div class="opening-card">
+              <div class="oc-eye">One sentence to start</div>
+              <div class="oc-line">"Hi James — <strong>here's our approach to the Meridian brand refresh.</strong> I've structured it around the three goals from our last call."</div>
+              <div class="oc-boundary">
+                <div class="oc-boundary-lbl">— that's all. the rest is yours.</div>
+              </div>
+            </div>
+
+            <div class="int-note">
+              <div class="int-note-dot"></div>
+              <div class="int-note-text"><strong>A starting point, not a push.</strong> One sentence. The rest of the proposal stays exactly as it is.</div>
+            </div>
+
+            <button class="btn-primary blue">Continue from here →</button>
+            <div class="btn-row">
+              <button class="btn-ghost">Edit sentence</button>
+              <button class="btn-ghost">Not this</button>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl t-off">Log</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-amb" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="var(--amber)" stroke="none"/></svg><div class="tab-lbl t-on-a">Current</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl t-off">Insights</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl t-off">You</div></div>
+          </div>
+          <div class="home-wrap"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ann-col">
+    <div class="ann-head">Path A · notification names the offer, not the failure</div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">"A place to start" — not "You haven't started"</div>
+      <div class="ann-body">The notification title names what Aether is offering, not what the user has failed to do. RSD safety framework applied at the notification layer — where language has the highest emotional impact and the least context to soften it. The sub-label carries factual context ("opening line ready") for users who want it before tapping.</div>
+      <div class="ann-tag amb">RSD safe · system offer not user failure</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">"Activation signal" — EDA is never surfaced as a term</div>
+      <div class="ann-body">Electrodermal activity is the internal mechanism. The user sees "Activation signal elevated" — a description of the system's observation in accessible language. The signal row "Recovery score · Normal · not capacity" explicitly distinguishes this from a recovery/HRV hold: the user has capacity right now. The wall is specific to this task, this moment.</div>
+      <div class="ann-tag">Jargon-free · signal as observation · capacity distinction visible</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">Dwell bar — 40 minutes as a shape, not an accusation</div>
+      <div class="ann-body">The amber progress bar at 78% communicates dwell time without numbers or judgment. It pairs with the pulsing dot — the system has been watching and now has something to offer. The fill stops before full; it is a signal, not a deadline. The label "40 min at proposal" is factual, not evaluative.</div>
+      <div class="ann-tag">Pre-attentive · time as shape not accusation</div>
+    </div>
+
+    <div class="ann-item a-bl">
+      <div class="ann-title">One sentence only — boundary enforced visually</div>
+      <div class="ann-body">The dashed line and "that's all. the rest is yours." make the boundary visible before the user reads the sentence. The blue left-bar and fill signal staged/pending: Aether prepared this, it's waiting. The full proposal is untouched — nothing was added without consent. "Edit sentence" lets the user keep the scaffold and adjust the words; "Not this" discards the sentence entirely.</div>
+      <div class="ann-tag blu">Blue = staged · one sentence · boundary visible</div>
+    </div>
+
+    <div class="tapmap">
+      <div class="tapmap-title">Notification tap map</div>
+      <div class="tapmap-row"><div class="tapmap-key">Body / See it ↗</div><div class="tapmap-val"><strong>Opens Current tab</strong> — intervention screen. Detection context, one sentence, action buttons.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Not now</div><div class="tapmap-val"><strong>Dismissed.</strong> Aether does not resurface for this document today. Logged as signal.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Continue →</div><div class="tapmap-val"><strong>Opens proposal.</strong> Cursor positioned after the opening sentence.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Not this</div><div class="tapmap-val"><strong>Sentence discarded.</strong> Logged as negative signal. Learning Layer adjusts future sentence type for this user.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- PATH B -->
+<div>
+<div class="section-label">Path B — User opens Aether directly · no notification · signal already detected</div>
+<div class="flow-row">
+
+  <div class="flow-col">
+    <div class="flow-label">① Current tab — signal detected</div>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="app-screen">
+          <div class="notch"><div class="notch-pill"></div></div>
+          <div class="app-header">
+            <div class="brand-row">
+              <div class="brand-dot amber"></div>
+              <div class="brand-name">Aether</div>
+            </div>
+            <div class="app-title">Something<br>to try.</div>
+            <div class="app-sub">Activation signal · Meridian proposal · 40 min</div>
+          </div>
+          <div class="app-scroll">
+
+            <div class="eda-strip">
+              <div class="eda-bars">
+                <div class="eda-bar" style="height:6px;"></div>
+                <div class="eda-bar" style="height:9px;"></div>
+                <div class="eda-bar hi" style="height:14px;"></div>
+                <div class="eda-bar hi" style="height:17px;"></div>
+                <div class="eda-bar hi" style="height:14px;"></div>
+                <div class="eda-bar" style="height:8px;"></div>
+                <div class="eda-bar" style="height:5px;"></div>
+              </div>
+              <div>
+                <div class="eda-label-main">Activation signal detected</div>
+                <div class="eda-label-sub">Elevated · 2:41 pm · Meridian proposal open</div>
+              </div>
+            </div>
+
+            <div class="lbar-card amber">
+              <div class="rc-eye" style="color:var(--amber);">What Aether found</div>
+              <div class="rc-hl" style="font-size:11px;">40 minutes at this document. No edits. Activation signal elevated.</div>
+              <div class="sig-list" style="margin-top:4px;">
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Time at document</div><div class="sm amb">40 min</div></div>
+                <div class="sig-row"><div class="sdot a"></div><div class="sl">Edits since open</div><div class="sm">None</div></div>
+                <div class="sig-row"><div class="sdot b"></div><div class="sl">Recovery score</div><div class="sm blu">Normal · not capacity</div></div>
+              </div>
+            </div>
+
+            <div class="opening-card">
+              <div class="oc-eye">One sentence to start</div>
+              <div class="oc-line">"Hi James — <strong>here's our approach to the Meridian brand refresh.</strong> I've structured it around the three goals from our last call."</div>
+              <div class="oc-boundary">
+                <div class="oc-boundary-lbl">— that's all. the rest is yours.</div>
+              </div>
+            </div>
+
+            <button class="btn-primary blue">Continue from here →</button>
+            <div class="btn-row">
+              <button class="btn-ghost">Edit sentence</button>
+              <button class="btn-ghost">Not this</button>
+            </div>
+
+          </div>
+          <div class="tab-bar">
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><line class="t-svg s-off" x1="4" y1="6" x2="16" y2="6"/><line class="t-svg s-off" x1="4" y1="10" x2="16" y2="10"/><line class="t-svg s-off" x1="4" y1="14" x2="16" y2="14"/></svg><div class="tab-lbl t-off">Log</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><rect class="t-svg s-amb" x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2.5" fill="var(--amber)" stroke="none"/></svg><div class="tab-lbl t-on-a">Current</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><polyline class="t-svg s-off" points="3,14 7,9 11,11 17,5"/></svg><div class="tab-lbl t-off">Insights</div></div>
+            <div class="tab"><svg width="18" height="18" viewBox="0 0 20 20"><circle class="t-svg s-off" cx="10" cy="7" r="3"/><path class="t-svg s-off" d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg><div class="tab-lbl t-off">You</div></div>
+          </div>
+          <div class="home-wrap"><div class="home-pill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ann-col">
+    <div class="ann-head">Path B · the system already knew · something to try</div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">"Something to try" — offer, not diagnosis</div>
+      <div class="ann-body">An anxious user opening Aether does not land on a statement about their state. "Something to try" frames the screen as a low-stakes experiment. The sub-label carries the factual context. The user retains full control over whether to engage. Parallel structure to Path B in the HRV flow ("Holding for you") — posture first, not task list first.</div>
+      <div class="ann-tag amb">RSD safe · offer framing · posture first</div>
+    </div>
+
+    <div class="ann-item a-am">
+      <div class="ann-title">EDA bar graph — signal as shape</div>
+      <div class="ann-body">Three elevated bars at peak, falling away on either side. No raw EDA value is shown — a number like "34 μS" means nothing to most users and risks medicalising a behavioural observation. The shape communicates "something was elevated for a sustained period" without requiring the user to interpret a metric. Same jargon-removal principle as HRV → "Recovery score".</div>
+      <div class="ann-tag">Signal as shape · no raw value · accessible</div>
+    </div>
+
+    <div class="ann-item a-bl">
+      <div class="ann-title">No paper trail here — the signal card is the reasoning</div>
+      <div class="ann-body">Unlike the HRV hold screens, there is no "Why Aether did this" toggle. The three signal rows already show everything: time at document, edits since open, recovery score. A paper trail would add cognitive load at precisely the moment the goal is to reduce it. Aether shows enough to be trusted — not everything it knows.</div>
+      <div class="ann-tag">Minimal reasoning · not hidden · not overwhelming</div>
+    </div>
+
+    <div class="tapmap">
+      <div class="tapmap-title">Direct open — interaction map</div>
+      <div class="tapmap-row"><div class="tapmap-key">App open</div><div class="tapmap-val"><strong>Current tab</strong> — signal detected state. EDA strip, context card, one sentence, actions.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Continue →</div><div class="tapmap-val"><strong>Opens document.</strong> Cursor positioned after the opening sentence. User writes from there.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Edit sentence</div><div class="tapmap-val"><strong>Inline edit.</strong> Keeps the scaffold, adjusts the words. Committed version replaces original.</div></div>
+      <div class="tapmap-row"><div class="tapmap-key">Not this</div><div class="tapmap-val"><strong>Discarded.</strong> Logged as negative signal. Aether offers nothing further for this document today.</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ARCHITECTURAL NOTE -->
+<div>
+<div class="section-label">Architectural notes</div>
+<div class="arch-note">
+  <div class="arch-note-head">B-2 EDA scenario — design decisions and constraints</div>
+  <div class="arch-note-row">
+    <div class="arch-note-key">Signal source</div>
+    <div class="arch-note-val">EDA (electrodermal activity / skin conductance). Elevated readings during sustained document dwell without edit activity indicate approach-avoidance conflict — the physiological signature of being in front of the task and unable to initiate.</div>
+  </div>
+  <div class="arch-note-row">
+    <div class="arch-note-key">Compatible wearables</div>
+    <div class="arch-note-val"><strong>Samsung Galaxy Ring, Pixel Watch, Fitbit Sense 2.</strong> Oura Ring 5 does not expose EDA. Wearable class selection is a POC-4+ decision gated on WS-4. Not in current POC scope.</div>
+  </div>
+  <div class="arch-note-row">
+    <div class="arch-note-key">Detection trigger</div>
+    <div class="arch-note-val">All four required: (1) document open and in foreground, (2) dwell time above threshold (30–40 min, calibrated per user), (3) edit activity below baseline, (4) EDA elevation above personal baseline for ≥ 5 min. Prevents false positives from normal reading or distracted browsing.</div>
+  </div>
+  <div class="arch-note-row">
+    <div class="arch-note-key">Intervention constraint</div>
+    <div class="arch-note-val">One sentence only. The opening line is drafted by the system; the user owns what follows. The boundary is enforced visually (dashed line) and in copy ("that's all. the rest is yours."). The goal is to reduce activation energy for initiation — not to draft the document.</div>
+  </div>
+  <div class="arch-note-row">
+    <div class="arch-note-key">Distinction from HRV hold</div>
+    <div class="arch-note-val">HRV hold = capacity is low, defer high-friction tasks. EDA avoidance = capacity is normal, initiation is blocked for this specific task. The signal row "Recovery score · Normal · not capacity" makes this distinction explicit to the user. Different signal, different intervention, different UI state.</div>
+  </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&amp;family=Lexend:wght@300;400;500;600&amp;family=DM+Mono:wght@300;400&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-x:hidden;}
+body{font-family:'Lexend',sans-serif;-webkit-font-smoothing:antialiased;}
+input[type=email]{-webkit-appearance:none;appearance:none;}
+input::placeholder{color:rgba(26,21,18,0.35);}
+@keyframes pdot{0%,100%{opacity:1;}50%{opacity:0.28;}}
+@media(max-width:767px){
+  .am-nav{padding:18px 20px!important;}
+  .am-hero{grid-template-columns:1fr!important;gap:40px!important;padding:32px 20px 0!important;}
+  .am-copy{order:0;}
+  .am-carousel{order:1;width:100%;display:flex;flex-direction:column;align-items:center;}
+  .am-proof{grid-template-columns:1fr!important;padding:0 20px!important;margin-top:60px!important;}
+  /* Proof cols — swap border-left for border-top when stacked */
+  .am-proof-col{border-left:none!important;padding-left:0!important;border-top:1px solid rgba(26,21,18,0.09)!important;}
+  .am-wearable-inner{padding:56px 20px 56px!important;}
+  .am-panels{flex-direction:column!important;align-items:center!important;}
+  .am-wearable-arrow{display:none!important;}
+  .am-footer{padding:24px 20px!important;flex-direction:column!important;gap:8px!important;align-items:center!important;text-align:center!important;}
+}
+@media(max-width:480px){
+  /* Switcher bar — scroll horizontally on narrow screens */
+  .am-switcher-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;max-width:calc(100vw - 48px)!important;}
+  .am-switcher-wrap button{font-size:9px!important;padding:5px 7px!important;white-space:nowrap!important;}
+}
+@media(max-width:360px){
+  /* Carousel — reduce outline on very small screens to prevent overflow */
+  .am-carousel-panel{outline-width:5px!important;}
+}
+@media(max-width:420px){
+  .am-form{flex-wrap:wrap!important;}
+  .am-form input{min-width:0!important;width:100%!important;}
+  .am-form button{width:100%!important;}
+}
+</style>
+</helmet>
+
+<!-- ── VARIANT D RESPONSIVE ── -->
+<style>
+@media(max-width:767px){
+  .dm-hero{padding:40px 20px 0!important;}
+  .dm-panel-wrap{padding:0 20px!important;}
+  .dm-form-wrap{padding:0 20px!important;}
+  .dm-proof{grid-template-columns:1fr!important;margin:48px 20px 0!important;}
+  .dm-proof-item{border-left:none!important;border-top:3px solid var(--clr)!important;padding:18px 0 0!important;}
+  .dm-footer{padding:24px 20px!important;flex-direction:column!important;gap:8px!important;align-items:center!important;text-align:center!important;}
+}
+</style>
+
+<!-- ── SWITCHER BAR ── -->
+<div style="position:fixed;top:0;left:0;right:0;z-index:200;height:44px;background:rgba(242,237,230,0.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,21,18,0.10);display:flex;align-items:center;padding:0 24px;gap:16px;">
+  <span style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(26,21,18,0.30);flex:1;">Aether — Waitlist · 3 Variants</span>
+  <div class="am-switcher-wrap" style="display:flex;gap:2px;background:rgba(26,21,18,0.07);padding:3px;border-radius:7px;">
+    <button onClick="{{ goA }}" style="{{ btnA }}">A · Minimal</button>
+    <button onClick="{{ goB }}" style="{{ btnB }}">B · Centered</button>
+    <button onClick="{{ goC }}" style="{{ btnC }}">C · Editorial</button>
+    <button onClick="{{ goD }}" style="{{ btnD }}">D · Radical</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     VARIANT A — MINIMAL SPLIT
+     Split hero: large type left, static app panel right
+     Inline email form, no modal
+════════════════════════════════════════════════ -->
+<sc-if value="{{ showVarA }}" hint-placeholder-val="{{ true }}">
+<div style="background:#f2ede6;min-height:100vh;padding-top:44px;">
+
+
+  <!-- NAV -->
+  <nav class="am-nav" style="display:flex;align-items:center;justify-content:space-between;padding:26px 48px;max-width:1100px;margin:0 auto;">
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span>
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.38);border:1px solid rgba(26,21,18,0.12);padding:4px 13px;border-radius:20px;">First 100</span>
+  </nav>
+
+  <!-- HERO SPLIT -->
+  <div class="am-hero" style="max-width:1100px;margin:0 auto;padding:60px 48px 0;display:grid;grid-template-columns:1fr 348px;gap:96px;align-items:center;">
+
+    <!-- LEFT: COPY -->
+    <div class="am-copy">
+      <h1 style="font-family: 'Fraunces',serif; font-optical-sizing: auto; font-weight: 600; font-size: clamp(52px,6vw,80px); letter-spacing: -0.03em; line-height: 0.97; color: #1a1512; margin-bottom: 28px; text-wrap: pretty">Things pile up.</h1>
+      <p style="font-size:17px;line-height:1.68;color:rgba(26,21,18,0.60);max-width:430px;margin-bottom:40px;text-wrap:pretty;">Aether moves them — quietly, carefully, and only with your approval.</p>
+
+      <!-- FORM -->
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+        <form class="am-form" onSubmit="{{ onSubmit }}" style="display:flex;gap:8px;max-width:430px;margin-bottom:14px;">
+          <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="your@email.com" required="" style="flex:1;min-width:0;background:rgba(26,21,18,0.05);border:1px solid rgba(26,21,18,0.15);border-radius:8px;padding:14px 16px;font-family:'Lexend',sans-serif;font-size:15px;color:#1a1512;outline:none;">
+          <button type="submit" style="background:#1a1512;color:#f2ede6;font-family:'Lexend',sans-serif;font-size:14px;font-weight:600;padding:14px 22px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;letter-spacing:0.01em;flex-shrink:0;">{{ btnLbl }}</button>
+        </form>
+        <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:#c44a4a;margin-bottom:8px;">Something went wrong — please try again.</p>
+        </sc-if>
+        <!-- TRUST LINE -->
+        <div style="margin-top:6px;">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(26,21,18,0.38);letter-spacing:0.04em;">One email when we're ready for you. Nothing before that.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showOk }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:14px;padding:18px 0;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(61,158,114,0.10);border:1px solid rgba(61,158,114,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"></polyline></svg>
+          </div>
+          <div>
+            <div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:22px;letter-spacing:-0.02em;color:#1a1512;line-height:1.1;">You're in.</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.45);margin-top:4px;letter-spacing:0.03em;">We'll reach out when Aether is ready.</div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- RIGHT: ANIMATED CAROUSEL -->
+    <div class="am-carousel" style="display:flex;flex-direction:column;align-items:center;gap:18px;justify-content:flex-start;">
+      <!-- CAROUSEL CONTAINER -->
+      <div class="am-carousel-panel" style="position:relative;width:308px;height:530px;border-radius:20px;box-shadow:0 28px 72px rgba(26,21,18,0.12),0 4px 16px rgba(26,21,18,0.06),0 0 0 0.5px rgba(26,21,18,0.07);outline:13px solid #f2ede6;">
+
+        <!-- PHASE 0: WYWA -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op0 }};transition:opacity 0.7s ease;pointer-events:{{ pe0 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.22);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">While you were away</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:#3d9e72;margin-top:4px;letter-spacing:0.1em;">Aether acted</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:30px;height:30px;border-radius:8px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-family:'Lexend',sans-serif;font-size:11.5px;color:#1a1512;line-height:1.4;">Invoice to Clearwater Digital · <span style="color:#c44a4a;">6d overdue</span> · draft ready.</div><div style="border:1px solid rgba(61,158,114,0.22);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:5px;margin-top:6px;background:rgba(61,158,114,0.04);min-height:32px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3d9e72;flex:1;">Preview invoice draft</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+              </div>
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:30px;height:30px;border-radius:8px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-family:'Lexend',sans-serif;font-size:11.5px;color:#1a1512;line-height:1.4;">Doctor appointment — <span style="color:#c44a4a;">12d overdue</span></div><div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.38);margin-top:3px;">Aetna #4821-JY</div><div style="border:1px solid rgba(58,123,191,0.2);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:5px;margin-top:6px;background:rgba(58,123,191,0.04);min-height:32px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3a7bbf;flex:1;">Book appointment</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+              </div>
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid rgba(26,21,18,0.12);border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:30px;height:30px;border-radius:8px;background:rgba(26,21,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:2px;">Not handled</div><div style="font-family:'Lexend',sans-serif;font-size:11.5px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.55);">#design-reviews</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.42);font-style:italic;margin-top:3px;line-height:1.5;">"Did you get a chance to review the Q3 deck?"</div></div>
+              </div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#3a7bbf" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 1: LOG -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op1 }};transition:opacity 0.7s ease;pointer-events:{{ pe1 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
+                <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.01em;color:#1a1512;">Log</div>
+                <div style="display:flex;gap:2px;background:rgba(26,21,18,0.06);border-radius:6px;padding:2px;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:#f2ede6;background:#1a1512;border-radius:4px;padding:3px 7px;">All</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(26,21,18,0.40);padding:3px 7px;">Sent</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(26,21,18,0.40);padding:3px 7px;">Held</div>
+                </div>
+              </div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Actions taken</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+                <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Sent</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Invoice to Clearwater Digital</div><div style="border:1px solid rgba(58,123,191,0.2);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;background:rgba(58,123,191,0.04);min-height:30px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 3a5 5 0 00-5 5v3l-1.5 2.5h13L15 11V8a5 5 0 00-5-5z"></path><path d="M8.5 16a1.5 1.5 0 003 0"></path></svg><span style="font-family:'DM Mono',monospace;font-size:7px;color:#3a7bbf;flex:1;">Send a reminder</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d ›</span>
+              </div>
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg></div>
+                <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Booked</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Doctor appointment</div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);margin-top:2px;">Confirmed — Aetna #4821-JY</div></div>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;flex-shrink:0;">1d ›</span>
+              </div>
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+                <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Replied</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.55);">#design-reviews</span></div><div style="background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.18);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;min-height:30px;"><svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:7px;color:#3a7bbf;flex:1;">Pattern found · Marcus messages</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d ›</span>
+              </div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 2: INSIGHTS -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op2 }};transition:opacity 0.7s ease;pointer-events:{{ pe2 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;"><div style="display:flex;align-items:center;gap:6px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.22);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);border:1px solid rgba(26,21,18,0.10);border-radius:7px;padding:3px 9px;">‹ Log</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;">Insights</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Pattern found · Marcus messages</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+              <div style="font-family:'Lexend',sans-serif;font-weight:600;font-size:14px;color:#1a1512;line-height:1.5;">Replies to Marcus stall most days. <span style="color:#3a7bbf;font-weight:700;">Tuesday mornings</span> are the exception.</div>
+              <!-- bar chart -->
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:11px;padding:11px 12px 10px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:11px;">When you send Marcus replies</div>
+                <!-- bars -->
+                <div style="display:flex;gap:5px;align-items:flex-end;height:56px;">
+                  <div style="flex:1;background:rgba(26,21,18,0.10);border-radius:3px 3px 0 0;height:15px;"></div>
+                  <div style="flex:1;background:#3d9e72;border-radius:3px 3px 0 0;height:56px;"></div>
+                  <div style="flex:1;background:rgba(26,21,18,0.10);border-radius:3px 3px 0 0;height:9px;"></div>
+                  <div style="flex:1;background:rgba(26,21,18,0.10);border-radius:3px 3px 0 0;height:7px;"></div>
+                  <div style="flex:1;background:rgba(26,21,18,0.10);border-radius:3px 3px 0 0;height:18px;"></div>
+                  <div style="flex:1;background:rgba(26,21,18,0.07);border-radius:3px 3px 0 0;height:4px;"></div>
+                  <div style="flex:1;background:rgba(26,21,18,0.07);border-radius:3px 3px 0 0;height:4px;"></div>
+                </div>
+                <!-- labels -->
+                <div style="display:flex;gap:5px;margin-top:5px;">
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Mon</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:#3d9e72;text-transform:uppercase;font-weight:500;">Tue ✓</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Wed</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Thu</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Fri</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Sat</div>
+                  <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);text-transform:uppercase;">Sun</div>
+                </div>
+              </div>
+              <!-- provenance -->
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 11px;"><div style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(26,21,18,0.55);line-height:1.6;">Based on <strong style="color:#1a1512;font-weight:400;">4 threads</strong> across <strong style="color:#1a1512;font-weight:400;">3 weeks</strong> of messages</div></div>
+              <div style="height:1px;background:rgba(26,21,18,0.07);"></div>
+              <!-- staged action -->
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:11px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:30px;height:30px;border-radius:8px;background:rgba(26,21,18,0.05);border:1px solid rgba(26,21,18,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+                  <div><div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;">Marcus reply · <span style="color:rgba(26,21,18,0.55);font-weight:300;">#design-reviews</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:2px;">Draft ready · held 3 days</div></div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <button style="flex:1;min-height:36px;background:rgba(26,21,18,0.05);border:1px solid rgba(26,21,18,0.12);border-radius:8px;color:rgba(26,21,18,0.55);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.04em;cursor:pointer;">Send now ›</button>
+                  <button style="flex:1;min-height:36px;background:rgba(61,158,114,0.10);border:1px solid rgba(61,158,114,0.28);border-radius:8px;color:#3d9e72;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.03em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="10" cy="10" r="8"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>Stage for Tue AM</button>
+                </div>
+              </div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5" fill="#3a7bbf"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 3: PAPER TRAIL -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op3 }};transition:opacity 0.7s ease;pointer-events:{{ pe3 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">Log</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Invoice to Clearwater Digital · expanded</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+              <!-- log entry -->
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:9px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:1px;">Sent</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Invoice to Clearwater Digital</div></div>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d</span>
+              </div>
+              <!-- paper trail toggle -->
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 9px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:7px;cursor:pointer;">
+                <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.08em;color:rgba(26,21,18,0.45);flex:1;">Why Aether did this</div>
+                <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round"><polyline points="2,4 6,8 10,4"></polyline></svg>
+              </div>
+              <!-- signals detected -->
+              <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:2px;display:flex;align-items:center;"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>Signals detected</div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c44a4a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Invoice #118 unsent</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;">6d overdue</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">25-min window before call</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3a7bbf;">Timing</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Tuesday pattern confirmed</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Optimal</div></div>
+              </div>
+              <!-- ruled out -->
+              <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:4px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:2px;display:flex;align-items:center;"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><circle cx="10" cy="10" r="8"></circle><line x1="7" y1="7" x2="13" y2="13"></line><line x1="13" y1="7" x2="7" y2="13"></line></svg>What was ruled out</div>
+                <div style="display:flex;align-items:center;gap:7px;opacity:0.45;"><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,21,18,0.30);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;text-decoration:line-through;">Stage for later</div></div>
+              </div>
+              <!-- decision -->
+              <div style="background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.20);border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:7px;">
+                <div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div>
+                <div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Sent at 1:34 PM · Clearwater Digital confirmed</div>
+              </div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 4: APPROVE -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op4 }};transition:opacity 0.7s ease;pointer-events:{{ pe4 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">It's 1:35pm.<br>You have 25 minutes.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;margin-top:4px;letter-spacing:0.08em;">Window before your 2pm call</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+              <!-- from log card -->
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:#3d9e72;"></div>From Log</div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="width:26px;height:26px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+                  <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:0.1em;color:#c44a4a;">Overdue</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Invoice #118 · Clearwater Digital Co.</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.40);margin-top:1px;">Draft ready · unsent</div></div>
+                  <div style="font-family:'DM Mono',monospace;font-size:9px;color:#c44a4a;flex-shrink:0;">6d</div>
+                </div>
+              </div>
+              <!-- from insights card -->
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:#3a7bbf;"></div>From Insights</div>
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                  <div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">25-min window before your call. Enough time for Clearwater Digital to confirm receipt.</div></div>
+                  <div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">Clearwater Digital responds <strong style="color:#1a1512;">Tuesday mornings.</strong> This is the window.</div></div>
+                </div>
+              </div>
+              <!-- approve card -->
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:10px;overflow:hidden;">
+                <div style="padding:10px 12px;">
+                  <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.40);margin-bottom:4px;">Aether will</div>
+                  <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;line-height:1.35;">Send Invoice #118 to Clearwater Digital Co.</div>
+                </div>
+                <div style="background:#1a1512;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:600;color:#f2ede6;">Approve</span>
+                  <span style="font-size:16px;color:rgba(242,237,230,0.60);">›</span>
+                </div>
+              </div>
+              <!-- secondary -->
+              <div style="display:flex;gap:10px;padding:0 2px;">
+                <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(26,21,18,0.40);">Not now</span>
+                <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(26,21,18,0.40);">Add context ›</span>
+              </div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#c4841a" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CAROUSEL NAV -->
+      <div style="display:flex;align-items:center;gap:14px;">
+        <button onClick="{{ onPrev }}" style="width:44px;height:44px;border-radius:50%;background:rgba(26,21,18,0.06);border:1px solid rgba(26,21,18,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:15px;color:rgba(26,21,18,0.45);line-height:1;">‹</button>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div onClick="{{ go0 }}" style="width:{{ dot0sz }};height:{{ dot0sz }};border-radius:50%;background:{{ dot0bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+          <div onClick="{{ go1 }}" style="width:{{ dot1sz }};height:{{ dot1sz }};border-radius:50%;background:{{ dot1bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+          <div onClick="{{ go2 }}" style="width:{{ dot2sz }};height:{{ dot2sz }};border-radius:50%;background:{{ dot2bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+          <div onClick="{{ go3 }}" style="width:{{ dot3sz }};height:{{ dot3sz }};border-radius:50%;background:{{ dot3bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+          <div onClick="{{ go4 }}" style="width:{{ dot4sz }};height:{{ dot4sz }};border-radius:50%;background:{{ dot4bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+        </div>
+        <button onClick="{{ onNext }}" style="width:44px;height:44px;border-radius:50%;background:rgba(26,21,18,0.06);border:1px solid rgba(26,21,18,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:15px;color:rgba(26,21,18,0.45);line-height:1;">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROOF STRIP -->
+  <div class="am-proof" style="max-width:1100px;margin:112px auto 0;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:40px;border-top:1px solid rgba(26,21,18,0.09);">
+
+    <!-- Col 1: The gap -->
+    <div style="padding:40px 0 0;">
+      <div style="width:22px;height:2px;background:#3d9e72;margin-bottom:24px;border-radius:1px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <div style="padding:7px 13px;border:1px solid rgba(26,21,18,0.14);border-radius:7px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(26,21,18,0.42);white-space:nowrap;">Knowing</div>
+        <div style="flex:1;display:flex;align-items:center;gap:0;">
+          <div style="flex:1;border-top:1px dashed rgba(26,21,18,0.18);"></div>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="padding:7px 13px;background:rgba(61,158,114,0.09);border:1px solid rgba(61,158,114,0.28);border-radius:7px;font-family:'DM Mono',monospace;font-size:10px;color:#3d9e72;white-space:nowrap;">Done</div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">The gap it closes</div><div style="font-size:15px;color:rgba(26,21,18,0.58);line-height:1.65;text-wrap:pretty;">Activation energy — the gap between knowing what to do and being able to start.</div>
+      
+      
+    </div>
+
+    <!-- Col 2: How it works -->
+    <div class="am-proof-col" style="padding:40px 0 0;border-left:1px solid rgba(26,21,18,0.07);padding-left:40px;">
+      <div style="width:22px;height:2px;background:#3a7bbf;margin-bottom:24px;border-radius:1px;"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:5px;padding:6px 11px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.20);border-radius:20px;">
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;letter-spacing:0.06em;">Calendar</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;padding:6px 11px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.20);border-radius:20px;">
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;letter-spacing:0.06em;">Email</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;padding:6px 11px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.20);border-radius:20px;">
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="10" y2="14"></line></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;letter-spacing:0.06em;">Tasks</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;padding:6px 11px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.20);border-radius:20px;">
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12v1l-4 5v5l-4-2v-3L4 5V4z"></path></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;letter-spacing:0.06em;">Messaging</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;padding:6px 11px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.20);border-radius:20px;">
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l7-3 7 3v2l-7 3-7-3V6z"></path><path d="M3 11l7 3 7-3"></path><path d="M3 16l7 3 7-3"></path></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;letter-spacing:0.06em;">Drive</span>
+        </div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">How it works</div>
+      <div style="font-size:15px;color:rgba(26,21,18,0.58);line-height:1.65;text-wrap:pretty;">Passive detection. Connects to your calendar, tasks, inbox, messaging platforms, drive, etc.</div>
+    </div>
+
+    <!-- Col 3: What you get -->
+    <div class="am-proof-col" style="padding:40px 0 0;border-left:1px solid rgba(26,21,18,0.07);padding-left:40px;">
+      <div style="width:22px;height:2px;background:#c4841a;margin-bottom:24px;border-radius:1px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <div style="padding:7px 13px;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:7px;font-family:'DM Mono',monospace;font-size:10px;color:#c4841a;white-space:nowrap;">Your approval</div>
+        <div style="flex:1;display:flex;align-items:center;">
+          <div style="flex:1;border-top:1px dashed rgba(196,132,26,0.25);"></div>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div style="padding:7px 13px;background:rgba(61,158,114,0.09);border:1px solid rgba(61,158,114,0.28);border-radius:7px;font-family:'DM Mono',monospace;font-size:10px;color:#3d9e72;white-space:nowrap;">Nothing without it</div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">What you get</div>
+      <div style="font-size:15px;color:rgba(26,21,18,0.58);line-height:1.65;text-wrap:pretty;">Full visibility. Everything Aether does — visible, traceable, and yours to undo.</div>
+    </div>
+
+  </div>
+
+  <!-- WEARABLE SECTION -->
+  <div style="background:#C4B5A3;margin-top:80px;">
+    <div class="am-wearable-inner" style="max-width:1100px;margin:0 auto;padding:88px 48px 80px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(26,21,18,0.45);margin-bottom:18px;">On the roadmap</div>
+      <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(36px,4vw,54px);letter-spacing:-0.025em;line-height:1.05;color:#1a1512;margin-bottom:16px;text-wrap:pretty;">When your body says not yet,<br><em style="font-style:italic;color:#c4841a;">Aether already knows.</em></h2>
+      <p style="font-family:'Lexend',sans-serif;font-size:16px;line-height:1.65;color:rgba(26,21,18,0.58);max-width:540px;margin-bottom:64px;text-wrap:pretty;">Works without a wearable. Add one and Aether reads your recovery and stress signals too — holding high-friction tasks when your body isn't ready, and bringing them forward when you are.</p>
+      <div class="am-panels" style="display:flex;align-items:flex-start;justify-content:center;gap:28px;flex-wrap:wrap;">
+
+        <!-- LEFT: HOLDING STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">7:12am · Recovery low</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Holding<br>for you.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Recovery low · 3 items held</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#c4841a;line-height:1;">34</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · recovery score</span></div>
+            </div>
+            <div style="margin:9px 11px 0;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:9px;padding:7px 10px;display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Holding · since 7:12 am</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);margin-top:1px;">Returns when readiness recovers</div></div></div>
+            <div style="margin:8px 11px 0;background:rgba(196,132,26,0.06);border:1px solid rgba(26,21,18,0.09);border-left:3px solid #c4841a;border-radius:0 9px 9px 0;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;margin-bottom:5px;">What Aether noticed</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Recovery score 34</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Below baseline</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Sleep quality</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Low</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Deep sleep 0.6h</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);">Disrupted</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 11px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:5px;">3 items held</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Send Invoice #118</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Draft Q3 report</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Book GP appointment</span></div>
+              </div>
+            </div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#c4841a"></rect><circle cx="10" cy="10" r="2.5" fill="#c4841a" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARROW -->
+        <div class="am-wearable-arrow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding-top:130px;min-width:56px;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);letter-spacing:0.08em;white-space:nowrap;">34 → 58</div>
+          <div style="font-size:18px;color:rgba(26,21,18,0.30);">→</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.40);letter-spacing:0.06em;white-space:nowrap;">3h 52m later</div>
+        </div>
+
+        <!-- RIGHT: RECOVERED STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">11:04am · Recovery good</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Readiness<br>recovered.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Draft ready to review · held items releasing</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#3d9e72;line-height:1;">58</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · up from 34 at 7:12 am</span></div>
+            </div>
+            <div style="margin:9px 11px 0;display:flex;align-items:center;gap:7px;padding:6px 9px;background:rgba(61,158,114,0.06);border:1px solid rgba(61,158,114,0.18);border-radius:8px;">
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#c4841a;white-space:nowrap;">7:12 am held</span>
+              <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,#c4841a,#3d9e72);box-shadow:0 1px 6px rgba(61,158,114,0.25);"></div>
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3d9e72;white-space:nowrap;">11:04 am ready</span>
+            </div>
+            <div style="margin:8px 11px 0;background:rgba(61,158,114,0.08);border:1px solid rgba(61,158,114,0.22);border-left:3px solid #3d9e72;border-radius:0 9px 9px 0;padding:9px 11px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;margin-bottom:5px;">First item</div>
+              <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;margin-bottom:6px;">Send Invoice #118</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c44a4a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Unsent · 6d overdue</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;">High</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Held this morning · now released</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Released</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Draft ready · 2pm call noted</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Staged</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 0;padding:6px 9px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.07);border-radius:7px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);line-height:1.55;"><strong style="color:#1a1512;font-weight:500;">Nothing sends without you.</strong> Send confirms. Later defers.</div>
+            <div style="margin:8px 11px 11px;background:#3d9e72;color:#fff;border-radius:9px;padding:11px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>Preview invoice draft →</div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#3d9e72"></rect><circle cx="10" cy="10" r="2.5" fill="#3d9e72" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    </div>
+  
+
+  <!-- FOOTER -->
+  <footer class="am-footer" style="background:rgba(26,21,18,0.04);border-top:1px solid rgba(26,21,18,0.10);margin-top:80px;">
+    <div style="max-width:1100px;margin:0 auto;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <span style="font-family: DM Mono; font-optical-sizing: auto; font-weight: 400; font-size: 16px; letter-spacing: -0.015em; color: #1a1512; text-transform: uppercase"><span style="font-family: &quot;DM Mono&quot;, monospace; font-size: 9.5px; letter-spacing: 0.15em; color: rgba(26, 21, 18, 0.3); flex: 1 1 0%;">AETHER</span></span>
+        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(26,21,18,0.38);letter-spacing:0.06em;">Built by someone who's been there.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(26,21,18,0.30);letter-spacing:0.04em;">© 2026 Aether12. All rights reserved.</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(26,21,18,0.30);letter-spacing:0.04em;">First 100 - join.aether12.com</span>
+      </div>
+    </div>
+  </footer>
+
+
+</sc-if>
+
+<!-- ═══════════════════════════════════════════════
+     VARIANT B — CENTERED ANIMATED
+     Everything centered, animated 3-phase carousel
+     CTA button reveals inline form below carousel
+════════════════════════════════════════════════ -->
+<sc-if value="{{ showVarB }}" hint-placeholder-val="{{ false }}">
+<div style="background:#f2ede6;min-height:100vh;padding-top:44px;">
+
+  <!-- NAV -->
+  <nav class="am-nav" style="display:flex;align-items:center;justify-content:space-between;padding:26px 48px;max-width:1100px;margin:0 auto;">
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether ·</span>
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.38);border:1px solid rgba(26,21,18,0.12);padding:4px 13px;border-radius:20px;">Early Access</span>
+  </nav>
+
+  <!-- CENTERED HERO -->
+  <div style="max-width:680px;margin:0 auto;padding:60px 48px 0;text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:28px;white-space:nowrap;">
+      <div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div>
+      <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#3a7bbf;">Early Access</span>
+    </div>
+    <h1 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(48px,6vw,80px);letter-spacing:-0.03em;line-height:0.98;color:#1a1512;margin-bottom:10px;text-wrap:pretty;">While you were<br>away —</h1>
+    <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:clamp(24px,3vw,36px);font-style:italic;color:rgba(26,21,18,0.50);letter-spacing:-0.01em;margin-bottom:28px;">Aether handled it.</p>
+    <p style="font-size:17px;line-height:1.65;color:rgba(26,21,18,0.58);margin-bottom:52px;text-wrap:pretty;">The agent that acts on your behalf — quietly, carefully, and only with your approval.</p>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div style="display:flex;flex-direction:column;align-items:center;padding:0 48px;">
+    <div style="position:relative;width:300px;height:530px;border-radius:20px;box-shadow:0 28px 72px rgba(26,21,18,0.12),0 4px 16px rgba(26,21,18,0.06),0 0 0 0.5px rgba(26,21,18,0.07);">
+
+      <!-- PHASE 0: WYWA -->
+      <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op0 }};transition:opacity 0.7s ease;pointer-events:{{ pe0 }};">
+        <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.22);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+            <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">While you were away</div>
+            <div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;margin-top:4px;letter-spacing:0.1em;">Aether acted</div>
+          </div>
+          <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-size:11px;color:#1a1512;line-height:1.4;">Invoice to Clearwater Digital — <span style="color:#c44a4a;">6d overdue</span></div><div style="border:1px solid rgba(61,158,114,0.22);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;background:rgba(61,158,114,0.04);min-height:30px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:7px;color:#3d9e72;flex:1;">Preview invoice draft</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+            </div>
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg></div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-size:11px;color:#1a1512;line-height:1.4;">Doctor appointment — <span style="color:#c44a4a;">12d overdue</span></div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);margin-top:2px;">Aetna #4821-JY</div></div>
+            </div>
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid rgba(26,21,18,0.12);border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(26,21,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:2px;">Not handled</div><div style="font-size:11px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.55);">#design-reviews</span></div><div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.40);font-style:italic;margin-top:3px;">"Did you get a chance to review…</div></div>
+            </div>
+          </div>
+          <div style="height:48px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#3a7bbf" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Current</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Log</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Insights</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">You</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 1: LOG -->
+      <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op1 }};transition:opacity 0.7s ease;pointer-events:{{ pe1 }};">
+        <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+            <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.01em;color:#1a1512;">Log</div>
+            <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Recent activity</div>
+          </div>
+          <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+              <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Sent</div><div style="font-size:11px;color:#1a1512;">Invoice to Clearwater Digital</div><div style="border:1px solid rgba(58,123,191,0.2);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;background:rgba(58,123,191,0.04);min-height:30px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 3a5 5 0 00-5 5v3l-1.5 2.5h13L15 11V8a5 5 0 00-5-5z"></path><path d="M8.5 16a1.5 1.5 0 003 0"></path></svg><span style="font-family:'DM Mono',monospace;font-size:7px;color:#3a7bbf;flex:1;">Send a reminder</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+              <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d ›</span>
+            </div>
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg></div>
+              <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Booked</div><div style="font-size:11px;color:#1a1512;">Doctor appointment</div><div style="font-size:10px;color:rgba(26,21,18,0.55);margin-top:2px;">Confirmed — Aetna #4821-JY</div></div>
+              <span style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;flex-shrink:0;">1d ›</span>
+            </div>
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="width:28px;height:28px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+              <div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:2px;">Replied</div><div style="font-size:11px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.55);">#design-reviews</span></div><div style="background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.18);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;min-height:30px;"><svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:7px;color:#3a7bbf;flex:1;">Pattern found · Marcus messages</span><span style="font-size:9px;color:rgba(26,21,18,0.35);">›</span></div></div>
+              <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d ›</span>
+            </div>
+          </div>
+          <div style="height:48px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Log</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Insights</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">You</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2: INSIGHTS -->
+      <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op2 }};transition:opacity 0.7s ease;pointer-events:{{ pe2 }};">
+        <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;"><div style="display:flex;align-items:center;gap:6px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.22);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);border:1px solid rgba(26,21,18,0.10);border-radius:7px;padding:3px 9px;">‹ Log</div></div>
+            <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;">Insights</div>
+            <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Pattern found · Marcus messages</div>
+          </div>
+          <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:9px;overflow:hidden;">
+            <div style="font-family:'Lexend',sans-serif;font-weight:600;font-size:14px;color:#1a1512;line-height:1.5;">Replies to Marcus stall most days. <span style="color:#3a7bbf;font-weight:700;">Tuesday mornings</span> are the exception.</div>
+            <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:10px;padding:10px 12px;font-size:11.5px;color:rgba(26,21,18,0.55);line-height:1.6;">Aether can hold the draft and release it on <strong style="color:#1a1512;font-weight:500;">Tuesday mornings</strong> — when sending feels easier. Nothing goes out without you approving first.</div>
+            <div style="width:100%;min-height:42px;background:#3d9e72;color:#f2ede6;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Lexend',sans-serif;font-size:12px;font-weight:600;">Let Aether pick the moment</div>
+            <div style="display:flex;gap:5px;">
+              <div style="flex:1;background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:9px;padding:8px 9px;"><div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:19px;color:#3a7bbf;line-height:1;">4</div><div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(26,21,18,0.38);text-transform:uppercase;letter-spacing:0.06em;margin-top:3px;line-height:1.4;">Drafts held</div></div>
+              <div style="flex:1;background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:9px;padding:8px 9px;"><div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:19px;color:#c4841a;line-height:1;">~2d</div><div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(26,21,18,0.38);text-transform:uppercase;letter-spacing:0.06em;margin-top:3px;line-height:1.4;">Avg. wait</div></div>
+              <div style="flex:1;background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:9px;padding:8px 9px;"><div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:19px;color:#3d9e72;line-height:1;">Tue</div><div style="font-family:'DM Mono',monospace;font-size:6.5px;color:rgba(26,21,18,0.38);text-transform:uppercase;letter-spacing:0.06em;margin-top:3px;line-height:1.4;">Works best</div></div>
+            </div>
+          </div>
+          <div style="height:48px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Log</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5" fill="#3a7bbf"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Insights</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">You</span></div>
+          </div>
+        </div>
+      </div>
+
+        <!-- PHASE 3: PAPER TRAIL -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op3 }};transition:opacity 0.7s ease;pointer-events:{{ pe3 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">Log</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Invoice to Clearwater Digital · expanded</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3d9e72;border-radius:0 10px 10px 0;padding:9px 11px;display:flex;gap:8px;align-items:flex-start;">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+                <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:#3d9e72;margin-bottom:1px;">Sent</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Invoice to Clearwater Digital</div></div>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);flex-shrink:0;">3d</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;padding:5px 9px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:7px;"><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.08em;color:rgba(26,21,18,0.45);flex:1;">Why Aether did this</div><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round"><polyline points="2,4 6,8 10,4"></polyline></svg></div>
+              <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:2px;display:flex;align-items:center;"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>Signals detected</div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c44a4a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Invoice #118 unsent</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;">6d overdue</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">25-min window before call</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3a7bbf;">Timing</div></div>
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Tuesday pattern confirmed</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Optimal</div></div>
+              </div>
+              <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:4px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:2px;display:flex;align-items:center;"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><circle cx="10" cy="10" r="8"></circle><line x1="7" y1="7" x2="13" y2="13"></line><line x1="13" y1="7" x2="7" y2="13"></line></svg>What was ruled out</div>
+                <div style="display:flex;align-items:center;gap:7px;opacity:0.45;"><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,21,18,0.30);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;text-decoration:line-through;">Stage for later</div></div>
+              </div>
+              <div style="background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.20);border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:7px;"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><polyline points="4 10 8 14 16 6"></polyline></svg><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Sent at 1:34 PM · Clearwater Digital confirmed</div></div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 4: APPROVE -->
+        <div style="position:absolute;top:0;right:0;bottom:0;left:0;opacity:{{ op4 }};transition:opacity 0.7s ease;pointer-events:{{ pe4 }};">
+          <div style="width:100%;height:100%;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:16px 18px 12px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:9px;"><div style="width:7px;height:7px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">It's 1:35pm.<br>You have 25 minutes.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;margin-top:4px;letter-spacing:0.08em;">Window before your 2pm call</div>
+            </div>
+            <div style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:7px;overflow:hidden;">
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:#3d9e72;"></div>From Log</div>
+                <div style="display:flex;align-items:center;gap:8px;"><div style="width:26px;height:26px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div><div style="flex:1;"><div style="font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:0.1em;color:#c44a4a;">Overdue</div><div style="font-family:'Lexend',sans-serif;font-size:11px;color:#1a1512;">Invoice #118 · Clearwater Digital Co.</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.40);margin-top:1px;">Draft ready · unsent</div></div><div style="font-family:'DM Mono',monospace;font-size:9px;color:#c44a4a;flex-shrink:0;">6d</div></div>
+              </div>
+              <div style="background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+                <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:#3a7bbf;"></div>From Insights</div>
+                <div style="display:flex;flex-direction:column;gap:4px;"><div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">25-min window — enough time for Clearwater Digital to confirm receipt.</div></div><div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">Clearwater Digital responds <strong style="color:#1a1512;">Tuesday mornings.</strong> This is the window.</div></div></div>
+              </div>
+              <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-radius:10px;overflow:hidden;"><div style="padding:10px 12px;"><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.40);margin-bottom:4px;">Aether will</div><div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;line-height:1.35;">Send Invoice #118 to Clearwater Digital Co.</div></div><div style="background:#1a1512;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:600;color:#f2ede6;">Approve</span><span style="font-size:16px;color:rgba(242,237,230,0.60);">›</span></div></div>
+              <div style="display:flex;gap:16px;padding:0 2px;"><span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(26,21,18,0.40);">Not now</span><span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(26,21,18,0.40);">Add context ›</span></div>
+            </div>
+            <div style="height:50px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#c4841a" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <!-- CAROUSEL NAV -->
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button onClick="{{ onPrev }}" style="width:44px;height:44px;border-radius:50%;background:rgba(26,21,18,0.06);border:1px solid rgba(26,21,18,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:15px;color:rgba(26,21,18,0.45);line-height:1;">‹</button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div onClick="{{ go0 }}" style="width:{{ dot0sz }};height:{{ dot0sz }};border-radius:50%;background:{{ dot0bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+        <div onClick="{{ go1 }}" style="width:{{ dot1sz }};height:{{ dot1sz }};border-radius:50%;background:{{ dot1bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+        <div onClick="{{ go2 }}" style="width:{{ dot2sz }};height:{{ dot2sz }};border-radius:50%;background:{{ dot2bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+        <div onClick="{{ go3 }}" style="width:{{ dot3sz }};height:{{ dot3sz }};border-radius:50%;background:{{ dot3bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+        <div onClick="{{ go4 }}" style="width:{{ dot4sz }};height:{{ dot4sz }};border-radius:50%;background:{{ dot4bg }};transition:all 0.35s ease;cursor:pointer;padding:10px;box-sizing:content-box;margin:-10px;"></div>
+      </div>
+      <button onClick="{{ onNext }}" style="width:44px;height:44px;border-radius:50%;background:rgba(26,21,18,0.06);border:1px solid rgba(26,21,18,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:15px;color:rgba(26,21,18,0.45);line-height:1;">›</button>
+    </div>
+
+    <!-- CTA + FORM REVEAL -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:36px;width:100%;max-width:480px;">
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ onReveal }}" style="display:flex;align-items:center;gap:10px;background:#1a1512;color:#f2ede6;font-family:'Lexend',sans-serif;font-size:16px;font-weight:600;padding:18px 48px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.01em;">Get Early Access <span style="opacity:0.6;">→</span></button>
+        <div style="{{ revealStyle }}">
+          <form onSubmit="{{ onSubmit }}" style="display:flex;gap:8px;width:100%;">
+            <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="your@email.com" required="" style="flex:1;min-width:0;background:rgba(26,21,18,0.05);border:1px solid rgba(26,21,18,0.15);border-radius:8px;padding:13px 15px;font-family:'Lexend',sans-serif;font-size:15px;color:#1a1512;outline:none;">
+            <button type="submit" style="background:#3a7bbf;color:#fff;font-family:'Lexend',sans-serif;font-size:14px;font-weight:600;padding:13px 20px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;">{{ btnLbl }}</button>
+          </form>
+          <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+            <p style="font-family:'DM Mono',monospace;font-size:11px;color:#c44a4a;">Something went wrong — please try again.</p>
+          </sc-if>
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.35);letter-spacing:0.04em;">Nothing sends without you.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showOk }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:13px;padding:20px 0;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(61,158,114,0.12);border:1px solid rgba(61,158,114,0.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"></polyline></svg></div>
+          <div><div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:22px;color:#1a1512;letter-spacing:-0.01em;">You're on the list.</div><div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.45);margin-top:3px;">We'll reach out when Aether is ready.</div></div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- PROOF STRIP -->
+  <div style="max-width:1100px;margin:112px auto 0;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:40px;border-top:1px solid rgba(26,21,18,0.09);">
+    <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#3d9e72;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Acts quietly</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Invoices sent before calls. Appointments booked from emails. Replies timed to the right moment. No prompting required.</div></div>
+    <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#3a7bbf;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Explains every decision</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Every action surfaces what Aether noticed, what it ruled out, and what happened. Available on request, never forced.</div></div>
+    <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#c4841a;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Nothing without you</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Actions are staged first, sent only when you approve. Control is always yours — Aether handles the execution.</div></div>
+  </div>
+  <!-- WEARABLE SECTION -->
+  <div style="background:#C4B5A3;margin-top:80px;">
+    <div class="am-wearable-inner" style="max-width:1100px;margin:0 auto;padding:88px 48px 80px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(242,237,230,0.40);margin-bottom:18px;">What's coming</div>
+      <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(36px,4vw,54px);letter-spacing:-0.025em;line-height:1.05;color:#1a1512;margin-bottom:16px;text-wrap:pretty;">When your body says not yet,<br><em style="font-style:italic;color:#c4841a;">Aether already knows.</em></h2>
+      <p style="font-family:'Lexend',sans-serif;font-size:16px;line-height:1.65;color:rgba(26,21,18,0.58);max-width:540px;margin-bottom:64px;text-wrap:pretty;">Works without a wearable. Add one and Aether reads your recovery and stress signals too — holding high-friction tasks when your body isn't ready, and bringing them forward when you are.</p>
+      <div class="am-panels" style="display:flex;align-items:flex-start;justify-content:center;gap:28px;flex-wrap:wrap;">
+
+        <!-- LEFT: HOLDING STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">7:12am · Recovery low</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Holding<br>for you.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Recovery low · 3 items held</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#c4841a;line-height:1;">34</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · recovery score</span></div>
+            </div>
+            <div style="margin:9px 11px 0;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:9px;padding:7px 10px;display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Holding · since 7:12 am</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);margin-top:1px;">Returns when readiness recovers</div></div></div>
+            <div style="margin:8px 11px 0;background:rgba(196,132,26,0.06);border:1px solid rgba(26,21,18,0.09);border-left:3px solid #c4841a;border-radius:0 9px 9px 0;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;margin-bottom:5px;">What Aether noticed</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Recovery score 34</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Below baseline</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Sleep quality</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Low</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Deep sleep 0.6h</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);">Disrupted</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 11px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:5px;">3 items held</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Send Invoice #118</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Draft Q3 report</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Book GP appointment</span></div>
+              </div>
+            </div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#c4841a"></rect><circle cx="10" cy="10" r="2.5" fill="#c4841a" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARROW -->
+        <div class="am-wearable-arrow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding-top:130px;min-width:56px;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);letter-spacing:0.08em;white-space:nowrap;">34 → 58</div>
+          <div style="font-size:18px;color:rgba(26,21,18,0.30);">→</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.40);letter-spacing:0.06em;white-space:nowrap;">3h 52m later</div>
+        </div>
+
+        <!-- RIGHT: RECOVERED STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">11:04am · Recovery good</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Readiness<br>recovered.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Draft ready to review · held items releasing</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#3d9e72;line-height:1;">58</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · up from 34 at 7:12 am</span></div>
+            </div>
+            <div style="margin:9px 11px 0;display:flex;align-items:center;gap:7px;padding:6px 9px;background:rgba(61,158,114,0.06);border:1px solid rgba(61,158,114,0.18);border-radius:8px;">
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#c4841a;white-space:nowrap;">7:12 am held</span>
+              <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,#c4841a,#3d9e72);box-shadow:0 1px 6px rgba(61,158,114,0.25);"></div>
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3d9e72;white-space:nowrap;">11:04 am ready</span>
+            </div>
+            <div style="margin:8px 11px 0;background:rgba(61,158,114,0.08);border:1px solid rgba(61,158,114,0.22);border-left:3px solid #3d9e72;border-radius:0 9px 9px 0;padding:9px 11px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;margin-bottom:5px;">First item</div>
+              <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;margin-bottom:6px;">Send Invoice #118</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c44a4a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Unsent · 6d overdue</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;">High</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Held this morning · now released</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Released</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Draft ready · 2pm call noted</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Staged</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 0;padding:6px 9px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.07);border-radius:7px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);line-height:1.55;"><strong style="color:#1a1512;font-weight:500;">Nothing sends without you.</strong> Send confirms. Later defers.</div>
+            <div style="margin:8px 11px 11px;background:#3d9e72;color:#fff;border-radius:9px;padding:11px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>Preview invoice draft →</div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#3d9e72"></rect><circle cx="10" cy="10" r="2.5" fill="#3d9e72" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <footer style="max-width:1100px;margin:80px auto 0;padding:28px 48px;border-top:1px solid rgba(26,21,18,0.08);display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Aether by Aether12</span><span style="font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(26,21,18,0.30);">Built for ADHD. Designed for everyone.</span></footer>
+
+</div>
+</sc-if>
+
+<!-- ═══════════════════════════════════════════════
+     VARIANT C — EDITORIAL
+     Dark warm hero with massive type, form below
+     Light body with app panel + proof + footer
+════════════════════════════════════════════════ -->
+<sc-if value="{{ showVarC }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;padding-top:44px;">
+
+  <!-- DARK HERO SECTION -->
+  <div style="background:#100d0b;padding-bottom:80px;">
+    <nav style="display:flex;align-items:center;justify-content:space-between;padding:26px 48px;max-width:1100px;margin:0 auto;">
+      <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(240,237,230,0.35);">Aether ·</span>
+      <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,237,230,0.35);border:1px solid rgba(240,237,230,0.12);padding:4px 13px;border-radius:20px;">Early Access</span>
+    </nav>
+
+    <div style="max-width:1100px;margin:0 auto;padding:48px 48px 0;text-align:center;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:32px;white-space:nowrap;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,132,26,0.75);">Early Access</span>
+      </div>
+      <h1 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(72px,9vw,120px);letter-spacing:-0.03em;line-height:0.95;color:#f2ede6;margin-bottom:20px;"><em style="font-style:italic;color:rgba(242,237,230,0.55);">Your life,</em><br>handled.</h1>
+      <p style="font-size:18px;line-height:1.65;color:rgba(240,237,230,0.50);max-width:500px;margin:0 auto 52px;text-wrap:pretty;">Aether acts on your behalf — invoices, appointments, replies — quietly and only with your approval.</p>
+
+      <!-- DARK FORM -->
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmit }}" style="display:flex;gap:8px;max-width:480px;margin:0 auto 12px;">
+          <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="your@email.com" required="" style="flex:1;min-width:0;background:rgba(240,237,230,0.07);border:1px solid rgba(240,237,230,0.14);border-radius:8px;padding:15px 18px;font-family:'Lexend',sans-serif;font-size:15px;color:#f2ede6;outline:none;">
+          <button type="submit" style="background:#f2ede6;color:#1a1512;font-family:'Lexend',sans-serif;font-size:14px;font-weight:600;padding:15px 24px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;letter-spacing:0.01em;">{{ btnLbl }}</button>
+        </form>
+        <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:#e05c5c;margin-bottom:8px;">Something went wrong — please try again.</p>
+        </sc-if>
+        <p style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(240,237,230,0.28);letter-spacing:0.04em;">Nothing sends without you.</p>
+      </sc-if>
+      <sc-if value="{{ showOk }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:center;gap:13px;padding:20px 0;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(85,185,140,0.14);border:1px solid rgba(85,185,140,0.30);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#55b98c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"></polyline></svg></div>
+          <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:22px;color:#f2ede6;letter-spacing:-0.01em;">You're on the list.</div><div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(240,237,230,0.40);margin-top:3px;">We'll reach out when Aether is ready.</div></div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- LIGHT BODY SECTION -->
+  <div style="background:#f2ede6;">
+    <!-- APP PANEL centered -->
+    <div style="display:flex;justify-content:center;padding:80px 48px 0;">
+      <div style="width:340px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;min-height:560px;box-shadow:0 32px 80px rgba(26,21,18,0.12),0 8px 24px rgba(26,21,18,0.07),0 0 0 0.5px rgba(26,21,18,0.07);outline:16px solid #f2ede6;">
+        <div style="padding:18px 20px 14px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.22);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span></div>
+          <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.01em;color:#1a1512;line-height:1.2;">While you were away</div>
+          <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:#3d9e72;margin-top:5px;letter-spacing:0.1em;">Aether acted</div>
+        </div>
+        <div style="flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:9px;overflow:hidden;">
+          <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 11px 11px 0;padding:11px 12px;display:flex;gap:9px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:9px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg></div>
+            <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-size:12px;color:#1a1512;line-height:1.4;">Invoice to Clearwater Digital · <span style="color:#c44a4a;">6d overdue</span> · draft ready.</div><div style="border:1px solid rgba(61,158,114,0.22);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:5px;margin-top:7px;background:rgba(61,158,114,0.04);min-height:34px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3d9e72;flex:1;">Preview invoice draft</span><span style="font-size:10px;color:rgba(26,21,18,0.35);">›</span></div></div>
+          </div>
+          <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid #3a7bbf;border-radius:0 11px 11px 0;padding:11px 12px;display:flex;gap:9px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:9px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg></div>
+            <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:2px;">Staged</div><div style="font-size:12px;color:#1a1512;line-height:1.4;">Doctor appointment — <span style="color:#c44a4a;">12d overdue</span></div><div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.38);margin-top:3px;">Aetna #4821-JY</div><div style="border:1px solid rgba(58,123,191,0.2);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:5px;margin-top:7px;background:rgba(58,123,191,0.04);min-height:34px;"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3a7bbf;flex:1;">Book appointment</span><span style="font-size:10px;color:rgba(26,21,18,0.35);">›</span></div></div>
+          </div>
+          <div style="background:rgba(26,21,18,0.055);border:1px solid rgba(26,21,18,0.12);border-left:3px solid rgba(26,21,18,0.12);border-radius:0 11px 11px 0;padding:11px 12px;display:flex;gap:9px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:9px;background:rgba(26,21,18,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+            <div style="flex:1;min-width:0;"><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:2px;">Not handled</div><div style="font-size:12px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.55);">#design-reviews</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.42);font-style:italic;margin-top:3px;line-height:1.5;">"Did you get a chance to review the Q3 deck?"</div></div>
+          </div>
+        </div>
+        <div style="height:52px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#3a7bbf" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Current</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Log</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Insights</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.30);">You</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROOF STRIP -->
+    <div style="max-width:1100px;margin:112px auto 0;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:40px;border-top:1px solid rgba(26,21,18,0.09);">
+      <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#3d9e72;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Acts quietly</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Invoices sent before calls. Appointments booked from emails. Replies timed to the right moment. No prompting required.</div></div>
+      <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#3a7bbf;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Explains every decision</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Every action surfaces what Aether noticed, what it ruled out, and what happened. Available on request, never forced.</div></div>
+      <div style="padding:32px 0 0;"><div style="width:22px;height:2px;background:#c4841a;margin-bottom:16px;border-radius:1px;"></div><div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">Nothing without you</div><div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Actions are staged first, sent only when you approve. Control is always yours — Aether handles the execution.</div></div>
+    </div>
+  <!-- WEARABLE SECTION -->
+  <div style="background:#C4B5A3;margin-top:80px;">
+    <div class="am-wearable-inner" style="max-width:1100px;margin:0 auto;padding:88px 48px 80px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(242,237,230,0.40);margin-bottom:18px;">What's coming</div>
+      <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(36px,4vw,54px);letter-spacing:-0.025em;line-height:1.05;color:#1a1512;margin-bottom:16px;text-wrap:pretty;">When your body says not yet,<br><em style="font-style:italic;color:#c4841a;">Aether already knows.</em></h2>
+      <p style="font-family:'Lexend',sans-serif;font-size:16px;line-height:1.65;color:rgba(26,21,18,0.58);max-width:540px;margin-bottom:64px;text-wrap:pretty;">Works without a wearable. Add one and Aether reads your recovery and stress signals too — holding high-friction tasks when your body isn't ready, and bringing them forward when you are.</p>
+      <div class="am-panels" style="display:flex;align-items:flex-start;justify-content:center;gap:28px;flex-wrap:wrap;">
+
+        <!-- LEFT: HOLDING STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">7:12am · Recovery low</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Holding<br>for you.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Recovery low · 3 items held</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#c4841a;line-height:1;">34</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · recovery score</span></div>
+            </div>
+            <div style="margin:9px 11px 0;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:9px;padding:7px 10px;display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#c4841a;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div><div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Holding · since 7:12 am</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(26,21,18,0.38);margin-top:1px;">Returns when readiness recovers</div></div></div>
+            <div style="margin:8px 11px 0;background:rgba(196,132,26,0.06);border:1px solid rgba(26,21,18,0.09);border-left:3px solid #c4841a;border-radius:0 9px 9px 0;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;margin-bottom:5px;">What Aether noticed</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Recovery score 34</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Below baseline</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Sleep quality</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;">Low</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Deep sleep 0.6h</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);">Disrupted</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 11px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.09);border-radius:9px;padding:8px 10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:5px;">3 items held</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Send Invoice #118</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Draft Q3 report</span></div>
+                <div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(26,21,18,0.07);border-left:3px solid rgba(196,132,26,0.45);border-radius:0 6px 6px 0;padding:4px 8px 4px 7px;"><span style="font-family:'DM Mono',monospace;font-size:6.5px;letter-spacing:0.08em;text-transform:uppercase;color:#c4841a;background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;flex-shrink:0;">HELD</span><span style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.55);">Book GP appointment</span></div>
+              </div>
+            </div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#c4841a"></rect><circle cx="10" cy="10" r="2.5" fill="#c4841a" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#c4841a;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARROW -->
+        <div class="am-wearable-arrow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding-top:130px;min-width:56px;">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);letter-spacing:0.08em;white-space:nowrap;">34 → 58</div>
+          <div style="font-size:18px;color:rgba(26,21,18,0.30);">→</div>
+          <div style="font-family:'DM Mono',monospace;font-size:7.5px;color:rgba(26,21,18,0.40);letter-spacing:0.06em;white-space:nowrap;">3h 52m later</div>
+        </div>
+
+        <!-- RIGHT: RECOVERED STATE -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.45);">11:04am · Recovery good</div>
+          <div style="width:268px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.12);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(26,21,18,0.10),0 4px 14px rgba(26,21,18,0.06);">
+            <div style="padding:14px 16px 11px;border-bottom:1px solid rgba(26,21,18,0.07);">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;"><div style="width:6px;height:6px;border-radius:50%;background:#3d9e72;animation:pdot 2s ease-in-out infinite;flex-shrink:0;"></div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</div></div>
+              <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#1a1512;line-height:1.1;">Readiness<br>recovered.</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);margin-top:3px;">Draft ready to review · held items releasing</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:6px;"><span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#3d9e72;line-height:1;">58</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.38);"> · up from 34 at 7:12 am</span></div>
+            </div>
+            <div style="margin:9px 11px 0;display:flex;align-items:center;gap:7px;padding:6px 9px;background:rgba(61,158,114,0.06);border:1px solid rgba(61,158,114,0.18);border-radius:8px;">
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#c4841a;white-space:nowrap;">7:12 am held</span>
+              <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,#c4841a,#3d9e72);box-shadow:0 1px 6px rgba(61,158,114,0.25);"></div>
+              <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:#3d9e72;white-space:nowrap;">11:04 am ready</span>
+            </div>
+            <div style="margin:8px 11px 0;background:rgba(61,158,114,0.08);border:1px solid rgba(61,158,114,0.22);border-left:3px solid #3d9e72;border-radius:0 9px 9px 0;padding:9px 11px;">
+              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;margin-bottom:5px;">First item</div>
+              <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:#1a1512;margin-bottom:6px;">Send Invoice #118</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c44a4a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Unsent · 6d overdue</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#c44a4a;">High</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Held this morning · now released</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Released</div></div>
+                <div style="display:flex;align-items:center;gap:7px;background:rgba(26,21,18,0.04);border:1px solid rgba(26,21,18,0.07);border-radius:5px;padding:4px 7px;"><div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:#1a1512;flex:1;">Draft ready · 2pm call noted</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;">Staged</div></div>
+              </div>
+            </div>
+            <div style="margin:8px 11px 0;padding:6px 9px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.07);border-radius:7px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.45);line-height:1.55;"><strong style="color:#1a1512;font-weight:500;">Nothing sends without you.</strong> Send confirms. Later defers.</div>
+            <div style="margin:8px 11px 11px;background:#3d9e72;color:#fff;border-radius:9px;padding:11px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>Preview invoice draft →</div>
+            <div style="height:44px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Log</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#3d9e72"></rect><circle cx="10" cy="10" r="2.5" fill="#3d9e72" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:#3d9e72;">Current</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">Insights</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.26);">You</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+    <footer style="max-width:1100px;margin:80px auto 0;padding:28px 48px;border-top:1px solid rgba(26,21,18,0.08);display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Aether by Aether12</span><span style="font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(26,21,18,0.30);">Built for ADHD. Designed for everyone.</span></footer>
+  </div>
+
+</div>
+</sc-if>
+
+<!-- ═══════════════════════════════════════════════
+     VARIANT D — RADICAL RESTRUCTURE
+     Evidence first. Single column. No scrolling for core decision.
+     Scenario → Product → Claim → Form → Proof
+════════════════════════════════════════════════ -->
+<sc-if value="{{ showVarD }}" hint-placeholder-val="{{ false }}">
+<div style="background:#f2ede6;min-height:100vh;padding-top:44px;">
+
+  <!-- NAV -->
+  <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 48px;max-width:640px;margin:0 auto;">
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(26,21,18,0.38);">Aether</span>
+    <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.32);border:1px solid rgba(26,21,18,0.12);padding:4px 12px;border-radius:20px;">Early Access</span>
+  </nav>
+
+  <!-- STEP 1: ROTATING SCENES — breadth through recognition -->
+  <div style="max-width:640px;margin:0 auto;padding:52px 48px 0;text-align:center;">
+    <!-- 4 scenarios stacked, fading between them -->
+    <div style="position:relative;height:160px;display:flex;align-items:center;justify-content:center;">
+
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:{{ dOp0 }};transition:opacity 0.7s ease;">
+        <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:clamp(16px,2vw,20px);color:rgba(26,21,18,0.42);margin-bottom:8px;letter-spacing:-0.01em;">{{ dSub0 }}</p>
+        <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(42px,6.5vw,68px);letter-spacing:-0.035em;line-height:0.93;color:#1a1512;white-space:pre-line;">{{ dHd0 }}</h2>
+      </div>
+
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:{{ dOp1 }};transition:opacity 0.7s ease;">
+        <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:clamp(16px,2vw,20px);color:rgba(26,21,18,0.42);margin-bottom:8px;letter-spacing:-0.01em;">{{ dSub1 }}</p>
+        <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(42px,6.5vw,68px);letter-spacing:-0.035em;line-height:0.93;color:#1a1512;white-space:pre-line;">{{ dHd1 }}</h2>
+      </div>
+
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:{{ dOp2 }};transition:opacity 0.7s ease;">
+        <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:clamp(16px,2vw,20px);color:rgba(26,21,18,0.42);margin-bottom:8px;letter-spacing:-0.01em;">{{ dSub2 }}</p>
+        <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(42px,6.5vw,68px);letter-spacing:-0.035em;line-height:0.93;color:#1a1512;white-space:pre-line;">{{ dHd2 }}</h2>
+      </div>
+
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:{{ dOp3 }};transition:opacity 0.7s ease;">
+        <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:clamp(16px,2vw,20px);color:rgba(26,21,18,0.42);margin-bottom:8px;letter-spacing:-0.01em;">{{ dSub3 }}</p>
+        <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(42px,6.5vw,68px);letter-spacing:-0.035em;line-height:0.93;color:#1a1512;white-space:pre-line;">{{ dHd3 }}</h2>
+      </div>
+
+    </div>
+    <!-- scene indicator dots -->
+    <div style="display:flex;gap:6px;justify-content:center;margin-top:20px;">
+      <div style="width:{{ dOp0 == '1' ? '20px' : '6px' }};height:6px;border-radius:3px;background:{{ dOp0 == '1' ? '#1a1512' : 'rgba(26,21,18,0.18)' }};transition:all 0.4s ease;"></div>
+      <div style="width:{{ dOp1 == '1' ? '20px' : '6px' }};height:6px;border-radius:3px;background:{{ dOp1 == '1' ? '#1a1512' : 'rgba(26,21,18,0.18)' }};transition:all 0.4s ease;"></div>
+      <div style="width:{{ dOp2 == '1' ? '20px' : '6px' }};height:6px;border-radius:3px;background:{{ dOp2 == '1' ? '#1a1512' : 'rgba(26,21,18,0.18)' }};transition:all 0.4s ease;"></div>
+      <div style="width:{{ dOp3 == '1' ? '20px' : '6px' }};height:6px;border-radius:3px;background:{{ dOp3 == '1' ? '#1a1512' : 'rgba(26,21,18,0.18)' }};transition:all 0.4s ease;"></div>
+    </div>
+  </div>
+
+  <!-- STEP 2: THE PRODUCT — large, prominent, no chrome competing with it -->
+  <div style="display:flex;justify-content:center;padding:44px 24px 0;">
+    <div style="width:340px;background:#ebe4dc;border:1px solid rgba(26,21,18,0.10);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(26,21,18,0.14),0 8px 24px rgba(26,21,18,0.07),0 0 0 1px rgba(26,21,18,0.06);outline:16px solid #f2ede6;">
+      <!-- App header -->
+      <div style="padding:18px 20px 14px;border-bottom:1px solid rgba(26,21,18,0.07);flex-shrink:0;">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:11px;">
+          <div style="width:7px;height:7px;border-radius:50%;background:rgba(26,21,18,0.20);flex-shrink:0;"></div>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,21,18,0.35);">Aether</span>
+        </div>
+        <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:21px;letter-spacing:-0.01em;color:#1a1512;line-height:1.15;">While you were away</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:#3d9e72;margin-top:5px;letter-spacing:0.1em;">Aether acted</div>
+      </div>
+      <!-- Entries -->
+      <div style="flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:9px;">
+        <!-- Invoice — highlighted as the focus of the scenario -->
+        <div style="background:rgba(58,123,191,0.04);border:1px solid rgba(58,123,191,0.18);border-left:3px solid #3a7bbf;border-radius:0 12px 12px 0;padding:11px 13px;display:flex;gap:9px;align-items:flex-start;">
+          <div style="width:30px;height:30px;border-radius:8px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:4px;">Staged</div>
+            <div style="font-family:'Lexend',sans-serif;font-size:12px;color:#1a1512;line-height:1.45;">Invoice to Clearwater Digital · <span style="color:#c44a4a;">6d overdue</span> · draft ready.</div>
+            <div style="display:flex;align-items:center;gap:6px;border:1px solid rgba(61,158,114,0.20);border-radius:8px;padding:6px 9px;margin-top:7px;background:rgba(61,158,114,0.04);">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>
+              <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;flex:1;">Preview invoice draft</span>
+              <span style="font-size:9px;color:rgba(26,21,18,0.30);">›</span>
+            </div>
+          </div>
+        </div>
+        <!-- Doctor -->
+        <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-left:3px solid #3a7bbf;border-radius:0 12px 12px 0;padding:11px 13px;display:flex;gap:9px;align-items:flex-start;">
+          <div style="width:30px;height:30px;border-radius:8px;background:rgba(58,123,191,0.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:#3a7bbf;margin-bottom:4px;">Staged</div>
+            <div style="font-family:'Lexend',sans-serif;font-size:12px;color:#1a1512;line-height:1.45;">Doctor appointment · <span style="color:#c44a4a;">12d overdue</span></div>
+          </div>
+        </div>
+        <!-- Marcus -->
+        <div style="background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.09);border-left:3px solid rgba(26,21,18,0.10);border-radius:0 12px 12px 0;padding:11px 13px;display:flex;gap:9px;align-items:flex-start;">
+          <div style="width:30px;height:30px;border-radius:8px;background:rgba(26,21,18,0.04);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,21,18,0.35);margin-bottom:4px;">Not handled</div>
+            <div style="font-family:'Lexend',sans-serif;font-size:12px;color:#1a1512;">Marcus · <span style="color:rgba(26,21,18,0.50);">#design-reviews</span></div>
+            <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(26,21,18,0.40);font-style:italic;margin-top:3px;line-height:1.5;">"Did you get a chance to review the Q3 deck?"</div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab bar -->
+      <div style="height:52px;border-top:1px solid rgba(26,21,18,0.07);background:rgba(26,21,18,0.03);display:flex;align-items:center;justify-content:space-around;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#3a7bbf" stroke="none"></circle></svg><span style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:#3a7bbf;">Current</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Log</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">Insights</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,21,18,0.28);">You</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: CLAIM — after seeing the product, the claim lands differently -->
+  <div style="max-width:480px;margin:40px auto 0;text-align:center;padding:0 48px;">
+    <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:300;font-size:20px;color:rgba(26,21,18,0.48);line-height:1.5;margin-bottom:6px;">Aether drafted it while you were heads-down.</p>
+    <p style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:clamp(26px,3.5vw,32px);letter-spacing:-0.025em;color:#3d9e72;line-height:1.1;margin-bottom:32px;font-style:italic;">Ready when you are.</p>
+
+    <!-- STEP 4: FORM — appears naturally after the payoff -->
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" style="display:flex;gap:8px;margin-bottom:0;">
+        <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="your@email.com" required="" style="flex:1;min-width:0;background:rgba(26,21,18,0.05);border:1px solid rgba(26,21,18,0.15);border-radius:9px;padding:14px 16px;font-family:'Lexend',sans-serif;font-size:15px;color:#1a1512;outline:none;">
+        <button type="submit" style="background:#1a1512;color:#f2ede6;font-family:'Lexend',sans-serif;font-size:14px;font-weight:600;padding:14px 22px;border-radius:9px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;">{{ btnLbl }}</button>
+      </form>
+      <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+        <p style="font-family:'DM Mono',monospace;font-size:11px;color:#c44a4a;margin-top:8px;">Something went wrong — please try again.</p>
+      </sc-if>
+    </sc-if>
+    <sc-if value="{{ showOk }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:16px 0;">
+        <div style="width:40px;height:40px;border-radius:50%;background:rgba(61,158,114,0.10);border:1px solid rgba(61,158,114,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"></polyline></svg></div>
+        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:22px;color:#1a1512;letter-spacing:-0.01em;">You're in.</div><div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.45);margin-top:3px;">We'll reach out when Aether is ready.</div></div>
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- STEP 5: PROOF — below the fold is fine, these are for the curious -->
+  <div style="max-width:860px;margin:80px auto 0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(26,21,18,0.09);">
+    <div style="padding:28px 40px 28px 0;">
+      <div style="width:22px;height:2px;background:#3d9e72;margin-bottom:14px;border-radius:1px;"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">The gap it closes</div>
+      <div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Activation energy. The space between knowing what needs doing and being able to start.</div>
+    </div>
+    <div style="padding:28px 40px;border-left:1px solid rgba(26,21,18,0.09);">
+      <div style="width:22px;height:2px;background:#3a7bbf;margin-bottom:14px;border-radius:1px;"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">How it works</div>
+      <div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Passive detection. Aether connects to your calendar, tasks, and inbox — with more sources on the way.</div>
+    </div>
+    <div style="padding:28px 0 28px 40px;border-left:1px solid rgba(26,21,18,0.09);">
+      <div style="width:22px;height:2px;background:#c4841a;margin-bottom:14px;border-radius:1px;"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:9px;">What you get</div>
+      <div style="font-size:15px;color:rgba(26,21,18,0.60);line-height:1.65;text-wrap:pretty;">Full visibility. Everything Aether does — visible and yours to undo.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="max-width:860px;margin:56px auto 0;padding:24px 0;border-top:1px solid rgba(26,21,18,0.08);display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,21,18,0.30);">Aether by Aether12</span>
+    <span style="font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(26,21,18,0.30);">Built by someone who's been there.</span>
+  </footer>
+
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { variant: 'a', phase: 0, email: '', formState: 'idle', revealForm: false, dScene: 0 };
+  _dTimer = null;
+
+  componentDidMount() {
+    this._dTimer = setInterval(() => {
+      this.setState(s => ({ dScene: (s.dScene + 1) % 4 }));
+    }, 3200);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._dTimer);
+  }
+
+  goTo(n) {
+    this.setState({ phase: ((n % 5) + 5) % 5 });
+  }
+
+  async _submit(email) {
+    if (!email || !email.includes('@')) return;
+    this.setState({ formState: 'loading' });
+    try {
+      const r = await fetch('https://app.loops.so/api/newsletter-form/cmq6zybem02rs0jzc70ldajs7', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email }),
+      });
+      this.setState({ formState: r.ok ? 'success' : 'error' });
+    } catch {
+      this.setState({ formState: 'error' });
+    }
+  }
+
+  renderVals() {
+    const { variant: v, phase: p, email, formState: fs, revealForm } = this.state;
+
+    const mkBtn = n => ({
+      fontFamily: '"DM Mono", monospace',
+      fontSize: '10px',
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      padding: '5px 14px',
+      borderRadius: '5px',
+      border: 'none',
+      cursor: 'pointer',
+      background: v === n ? '#1a1512' : 'transparent',
+      color: v === n ? '#f2ede6' : 'rgba(26,21,18,0.45)',
+    });
+
+    const mkPh = n => ({
+      position: 'absolute',
+      top: 0, right: 0, bottom: 0, left: 0,
+      opacity: p === n ? 1 : 0,
+      transition: 'opacity 0.7s ease',
+      pointerEvents: p === n ? 'auto' : 'none',
+    });
+
+    return {
+      showVarA: v === 'a',
+      showVarB: v === 'b',
+      showVarC: v === 'c',
+      showVarD: v === 'd',
+      btnA: mkBtn('a'),
+      btnB: mkBtn('b'),
+      btnC: mkBtn('c'),
+      btnD: mkBtn('d'),
+      goA: () => this.setState({ variant: 'a', formState: 'idle', revealForm: false }),
+      goB: () => this.setState({ variant: 'b', formState: 'idle', revealForm: false }),
+      goC: () => this.setState({ variant: 'c', formState: 'idle', revealForm: false }),
+      goD: () => this.setState({ variant: 'd', formState: 'idle', revealForm: false }),
+
+      ph0: mkPh(0),
+      ph1: mkPh(1),
+      ph2: mkPh(2),
+      dot0bg: p === 0 ? '#3a7bbf' : 'rgba(26,21,18,0.18)',
+      dot1bg: p === 1 ? '#3a7bbf' : 'rgba(26,21,18,0.18)',
+      dot2bg: p === 2 ? '#3a7bbf' : 'rgba(26,21,18,0.18)',
+      dot3bg: p === 3 ? '#3a7bbf' : 'rgba(26,21,18,0.18)',
+      dot4bg: p === 4 ? '#3a7bbf' : 'rgba(26,21,18,0.18)',
+      dot0sz: p === 0 ? '9px' : '6px',
+      dot1sz: p === 1 ? '9px' : '6px',
+      dot2sz: p === 2 ? '9px' : '6px',
+      dot3sz: p === 3 ? '9px' : '6px',
+      dot4sz: p === 4 ? '9px' : '6px',
+      op0: p === 0 ? '1' : '0',
+      op1: p === 1 ? '1' : '0',
+      op2: p === 2 ? '1' : '0',
+      op3: p === 3 ? '1' : '0',
+      op4: p === 4 ? '1' : '0',
+      pe0: p === 0 ? 'auto' : 'none',
+      pe1: p === 1 ? 'auto' : 'none',
+      pe2: p === 2 ? 'auto' : 'none',
+      pe3: p === 3 ? 'auto' : 'none',
+      pe4: p === 4 ? 'auto' : 'none',
+
+      onPrev: () => this.goTo(p - 1),
+      onNext: () => this.goTo(p + 1),
+      go0: () => this.goTo(0),
+      go1: () => this.goTo(1),
+      go2: () => this.goTo(2),
+      go3: () => this.goTo(3),
+      go4: () => this.goTo(4),
+
+      email,
+      revealForm,
+      revealStyle: {
+        display: revealForm ? 'flex' : 'none',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        gap: '12px',
+        width: '100%',
+        marginTop: '4px',
+      },
+      showForm: fs !== 'success',
+      showOk: fs === 'success',
+      showErr: fs === 'error',
+      btnLbl: fs === 'loading' ? 'One moment…' : "I'm in →",
+
+      onEmail: e => this.setState({ email: e.target.value }),
+      onSubmit: async e => { e.preventDefault(); await this._submit(this.state.email); },
+      onReveal: () => this.setState(s => ({ revealForm: !s.revealForm })),
+
+      // Variant D rotating scenes
+      ds: this.state.dScene,
+      dSub0: 'Your invoice to Clearwater Digital.',
+      dSub1: 'That doctor\'s appointment.',
+      dSub2: 'The Q3 proposal you finished.',
+      dSub3: 'Marcus is still waiting.',
+      dHd0: 'Six days.\nStill sitting.',
+      dHd1: 'Three weeks.\nNever booked.',
+      dHd2: 'Done. Never sent.',
+      dHd3: 'Five days.\nNo reply.',
+      dOp0: this.state.dScene === 0 ? '1' : '0',
+      dOp1: this.state.dScene === 1 ? '1' : '0',
+      dOp2: this.state.dScene === 2 ? '1' : '0',
+      dOp3: this.state.dScene === 3 ? '1' : '0',
+    };
+  }
+}
+</script>
+</body>
+</html>
