@@ -1479,60 +1479,51 @@ button { cursor: pointer; }
   <!-- Col 1: The gap it closes -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--green);"></div>
-    <div class="proof-diagram">
+    <div class="proof-diagram" style="min-height:40px;">
       <div class="proof-pill proof-pill--neutral">Knowing</div>
-      <div class="proof-arrow">
-        <div class="proof-arrow-line"></div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:0;position:relative;">
+        <div style="position:absolute;left:0;right:0;border-top:1px dashed rgba(26,21,18,0.18);"></div>
+        <div style="display:flex;align-items:center;gap:3px;position:relative;z-index:1;">
+          <span style="font-family:'DM Mono',monospace;font-size:16px;color:rgba(26,21,18,0.18);line-height:1;">?</span>
+          <span style="font-family:'DM Mono',monospace;font-size:22px;color:rgba(26,21,18,0.32);line-height:1;">?</span>
+          <span style="font-family:'DM Mono',monospace;font-size:16px;color:rgba(26,21,18,0.18);line-height:1;">?</span>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;position:absolute;right:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </div>
       <div class="proof-pill proof-pill--green">Done</div>
     </div>
-    <div class="proof-eyebrow">The gap it closes</div>
-    <div class="proof-body">Activation energy — the gap between knowing what to do and being able to start.</div>
+    <div class="proof-eyebrow">Activation energy</div>
+    <div class="proof-body">The space between knowing what to do and being able to start. That's the gap Aether closes.</div>
   </div>
 
   <!-- Col 2: How it works -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--blue);"></div>
-    <div class="source-pills">
-      <div class="source-pill">
-        <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg>
-        Calendar
-      </div>
-      <div class="source-pill">
-        <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
-        Email
-      </div>
-      <div class="source-pill">
-        <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="10" y2="14"></line></svg>
-        Tasks
-      </div>
-      <div class="source-pill">
-        <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12v1l-4 5v5l-4-2v-3L4 5V4z"></path></svg>
-        Messaging
-      </div>
-      <div class="source-pill">
-        <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l7-3 7 3v2l-7 3-7-3V6z"></path><path d="M3 11l7 3 7-3"></path><path d="M3 16l7 3 7-3"></path></svg>
-        Drive
-      </div>
+    <div style="margin-bottom:20px;min-height:40px;display:flex;align-items:flex-end;">
+      <div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:34px;letter-spacing:-0.025em;line-height:1.0;color:#1a1512;">Built for<br>ADHD.</div>
     </div>
-    <div class="proof-eyebrow">How it works</div>
-    <div class="proof-body">Passive detection. Connects to your calendar, tasks, inbox, messaging platforms, drive, etc.</div>
+    <div class="proof-body">Every part of Aether is designed and built around how ADHD brains work.</div>
   </div>
 
   <!-- Col 3: What you get -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--amber);"></div>
-    <div class="proof-diagram">
-      <div class="proof-pill proof-pill--amber">Your approval</div>
-      <div class="proof-arrow">
-        <div class="proof-arrow-line proof-arrow-line--amber"></div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div style="display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:20px;min-height:40px;align-content:flex-start;">
+      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.22);border-radius:20px;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;letter-spacing:0.06em;white-space:nowrap;">Visible</span>
       </div>
-      <div class="proof-pill proof-pill--green">Nothing without it</div>
+      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.22);border-radius:20px;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3a7bbf;letter-spacing:0.06em;white-space:nowrap;">Traceable</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:20px;">
+        <div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;letter-spacing:0.06em;white-space:nowrap;">Reversible</span>
+      </div>
     </div>
-    <div class="proof-eyebrow">What you get</div>
-    <div class="proof-body">Full visibility. Everything Aether does — visible, traceable, and yours to undo.</div>
+    <div class="proof-eyebrow">NO BLACK BOX</div>
+    <div class="proof-body">You always know what happened. Nothing is hidden, nothing is permanent.</div>
   </div>
 
 </div><!-- /proof -->
@@ -1556,10 +1547,10 @@ button { cursor: pointer; }
               <span class="wearable-dot-label">Aether</span>
             </div>
             <div class="wearable-title">Your body says not now.<br>These can wait.</div>
-            <div class="wearable-title-sub">Recovery low · 3 items held</div>
+            <div class="wearable-title-sub">Low capacity · 3 tasks held</div>
             <div class="recovery-score">
               <span class="recovery-num" style="color:var(--amber);">34</span>
-              <span class="recovery-label"> · recovery score</span>
+              <span class="recovery-label"> · recovery score</span><span title="Recovery score measures how ready your body is based on sleep quality, heart rate variability, and stress signals from your wearable." style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;border:1px solid rgba(26,21,18,0.28);font-family:'DM Mono',monospace;font-size:6px;color:rgba(26,21,18,0.40);cursor:pointer;margin-left:4px;flex-shrink:0;vertical-align:middle;line-height:1;">i</span>
             </div>
           </div>
           <div class="wearable-phone-body">
@@ -1567,7 +1558,7 @@ button { cursor: pointer; }
               <div class="wearable-dot wearable-dot--amber"></div>
               <div>
                 <div class="wearable-held-label">Holding · since 7:12 am</div>
-                <div class="wearable-held-sub">Returns when readiness recovers</div>
+                <div class="wearable-held-sub">Returns when you're ready</div>
               </div>
             </div>
             <div class="signal-section">
@@ -1625,7 +1616,7 @@ button { cursor: pointer; }
               <span class="wearable-dot-label">Aether</span>
             </div>
             <div class="wearable-title">Looks like you're OK.<br>Here's what I held.</div>
-            <div class="wearable-title-sub">Draft ready to review · held items releasing</div>
+            <div class="wearable-title-sub">Capacity restored · 3 tasks ready</div>
             <div class="recovery-score">
               <span class="recovery-num" style="color:var(--green);">58</span>
               <span class="recovery-label"> · up from 34 at 7:12 am</span>
