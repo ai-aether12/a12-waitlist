@@ -992,29 +992,32 @@ button { cursor: pointer; }
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 20px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     grid-template-columns: unset;
     gap: 12px;
-    padding: 20px 20px 4px;
+    padding: 24px 20px 4px;
     margin-top: 60px;
     border-top: none;
     column-gap: 0;
   }
   .proof::-webkit-scrollbar { display: none; }
   .proof-col {
-    flex: 0 0 calc(100vw - 68px);
+    flex: 0 0 calc(100vw - 72px);
     scroll-snap-align: start;
     padding: 24px 20px 20px;
-    background: var(--panel);
-    border: 1px solid var(--border-09);
+    background: rgba(26,21,18,0.025);
+    border: none;
+    border-left: none;
+    border-top: none;
     border-radius: 14px;
-    border-top-width: 1px;
   }
   .proof-col + .proof-col {
-    border-left: 1px solid var(--border-09);
+    border: none;
+    border-left: none;
     padding-left: 20px;
-    border-top: 1px solid var(--border-09);
+    border-top: none;
   }
   .proof-body { font-size: 16px; }
   .proof-pills-row {
