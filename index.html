@@ -578,6 +578,9 @@ button { cursor: pointer; }
   letter-spacing: 0.06em;
 }
 
+/* ── PROOF SCROLL DOTS ── */
+.proof-scroll-hint { display: none; }
+
 /* ── WEARABLE ── */
 .wearable {
   background: var(--wearable-bg);
@@ -984,19 +987,34 @@ button { cursor: pointer; }
   .entry-age         { font-size: 9px; }
   .action-chip-text  { font-size: 9px; }
   .phone-sub         { font-size: 9.5px; }
+  /* Horizontal scroll cards */
   .proof {
-    grid-template-columns: 1fr;
-    padding: 0 20px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    grid-template-columns: unset;
+    gap: 12px;
+    padding: 20px 20px 4px;
     margin-top: 60px;
+    border-top: none;
+    column-gap: 0;
   }
-  /* Reorder: Built for ADHD first on mobile */
-  .proof-col:nth-child(2) { order: 1; border-top: none !important; }
-  .proof-col:nth-child(1) { order: 2; border-top: 1px solid rgba(26,21,18,0.09); }
-  .proof-col:nth-child(3) { order: 3; }
+  .proof::-webkit-scrollbar { display: none; }
+  .proof-col {
+    flex: 0 0 calc(100vw - 68px);
+    scroll-snap-align: start;
+    padding: 24px 20px 20px;
+    background: var(--panel);
+    border: 1px solid var(--border-09);
+    border-radius: 14px;
+    border-top-width: 1px;
+  }
   .proof-col + .proof-col {
-    border-left: none;
-    padding-left: 0;
-    border-top: 1px solid rgba(26,21,18,0.09);
+    border-left: 1px solid var(--border-09);
+    padding-left: 20px;
+    border-top: 1px solid var(--border-09);
   }
   .proof-body { font-size: 16px; }
   .proof-pills-row {
@@ -1009,6 +1027,24 @@ button { cursor: pointer; }
     padding: 8px 16px !important;
   }
   .proof-pill-item span { font-size: 11px !important; }
+  .proof-scroll-hint {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    padding: 12px 0 0;
+  }
+  .proof-scroll-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(26,21,18,0.18);
+  }
+  .proof-scroll-dot--active {
+    width: 16px;
+    border-radius: 3px;
+    background: rgba(26,21,18,0.38);
+  }
   .wearable-inner { padding: 56px 20px 56px; }
   .wearable-body { font-size: 16px; }
   .wearable-panels { flex-direction: column; align-items: center; }
@@ -1578,6 +1614,11 @@ button { cursor: pointer; }
   </div>
 
 </div><!-- /proof -->
+<div class="proof-scroll-hint" aria-hidden="true">
+  <span class="proof-scroll-dot proof-scroll-dot--active"></span>
+  <span class="proof-scroll-dot"></span>
+  <span class="proof-scroll-dot"></span>
+</div>
 
 <!-- ── WEARABLE SECTION ── -->
 <div class="wearable">
