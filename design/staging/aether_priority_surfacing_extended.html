@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Priority Surfacing · Extended Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --bg:         #f2ede6;
+  --panel-bg:   #ece8df;
+  --card-bg:    #e6e1d8;
+  --card-inner: #dedad1;
+  --bd:         rgba(0,0,0,0.10);
+  --bd-dim:     rgba(0,0,0,0.06);
+  --green:      #3d8f6a;
+  --blue:       #3a6fa8;
+  --amber:      #b87c1a;
+  --red:        #c04040;
+  --tp:         #1a1714;
+  --ts:         rgba(26,23,20,0.55);
+  --tt:         rgba(26,23,20,0.35);
+  --r-panel:    20px;
+  --r-card:     12px;
+  --r-nested:   8px;
+  --r-btn:      10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #f2ede6 !important;
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--tp);
+  padding: 48px;
+}
+
+/* ── LAYOUT ── */
+.suite { display: flex; flex-direction: column; gap: 72px; }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tt);
+  border-top: 1px solid var(--bd-dim);
+  padding-top: 10px;
+  margin-bottom: 12px;
+}
+
+.screen-row {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+/* ── PHONE SHELL ── */
+.panel {
+  flex-shrink: 0;
+  width: 290px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 580px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.panel-header {
+  padding: 16px 18px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+
+.panel-scroll {
+  flex: 1;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+.screen-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+}
+
+.screen-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+/* ── BRAND ROW ── */
+.aether-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.aether-left { display: flex; align-items: center; gap: 7px; }
+.a-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.a-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.header-btn {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 5px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--ts);
+  letter-spacing: 0.08em;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 11px 13px;
+}
+
+.card-inner {
+  background: var(--card-inner);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+}
+
+/* ── SURFACED ITEM ── */
+.surfaced-item {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+  padding: 11px 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.item-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-body { flex: 1; min-width: 0; }
+
+.item-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.item-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.35;
+}
+
+.item-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* ── REASON CARD ── */
+.reason-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 10px 12px;
+}
+
+.reason-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.reason-row:last-child { border-bottom: none; padding-bottom: 0; }
+.reason-row:first-child { padding-top: 0; }
+
+.reason-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.reason-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.reason-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── NOTICE CARD ── */
+.notice-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 11px 13px;
+}
+.notice-text {
+  font-size: 12px;
+  color: rgba(26,23,20,0.72);
+  line-height: 1.65;
+}
+.notice-text strong { color: var(--tp); }
+
+/* ── RULED OUT ── */
+.ruled-card {
+  background: rgba(0,0,0,0.025);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+}
+.ruled-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 5px;
+}
+.ruled-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+}
+.ruled-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--tt);
+  text-decoration: line-through;
+}
+
+/* ── OUTCOME STRIP ── */
+.outcome-strip {
+  background: rgba(61,143,106,0.06);
+  border: 1px solid rgba(61,143,106,0.18);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.outcome-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.outcome-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--green);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+/* ── STEP CARD ── */
+.step-card {
+  background: rgba(61,143,106,0.07);
+  border: 1px solid rgba(61,143,106,0.20);
+  border-radius: var(--r-card);
+  padding: 12px 13px;
+}
+.step-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+.step-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.4;
+}
+.step-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: var(--tp);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--r-btn);
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  letter-spacing: -0.01em;
+}
+
+.btn-ghost {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px 12px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-btn);
+  color: var(--ts);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-green-ghost {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px 12px;
+  background: rgba(61,143,106,0.08);
+  border: 1px solid rgba(61,143,106,0.22);
+  border-radius: var(--r-btn);
+  color: var(--green);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.03em;
+}
+
+.btn-row { display: flex; gap: 6px; margin-top: 2px; }
+
+.dismiss-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 2px;
+}
+.dismiss-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--tt);
+  letter-spacing: 0.04em;
+}
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--bd-dim); margin: 2px 0; }
+
+/* ── PROVENANCE ── */
+.prov-strip {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 7px 10px;
+}
+.prov-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  line-height: 1.5;
+}
+.prov-text strong { color: var(--tp); font-weight: 400; }
+
+/* ── TAB BAR ── */
+.tab-bar {
+  height: 52px;
+  border-top: 1px solid var(--bd-dim);
+  background: rgba(0,0,0,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tab-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.tab-lbl.on { color: var(--green); }
+.tab-lbl.on-amber { color: var(--amber); }
+
+/* ── SVG ── */
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── ANNOTATIONS ── */
+.ann { flex: 1; max-width: 380px; }
+.ann-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 20px;
+}
+.ann-item {
+  padding-left: 13px;
+  margin-bottom: 20px;
+  border-left: 2px solid var(--bd);
+}
+.ann-item.gr { border-left-color: var(--green); }
+.ann-item.bl { border-left-color: var(--blue); }
+.ann-item.am { border-left-color: var(--amber); }
+.ann-item.re { border-left-color: var(--red); }
+.ann-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  margin-bottom: 3px;
+}
+.ann-body {
+  font-size: 12px;
+  color: var(--ts);
+  line-height: 1.65;
+}
+.ann-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  background: rgba(0,0,0,0.04);
+  color: var(--tt);
+  border: 1px solid var(--bd);
+}
+
+/* ── PULSE ── */
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.pulse { animation: pulse 2.2s ease-in-out infinite; }
+
+/* ══════════════════════════════════════
+   ONBOARDING-SPECIFIC
+   ══════════════════════════════════════ */
+
+.ob-progress {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.ob-pip {
+  height: 3px;
+  border-radius: 2px;
+  flex: 1;
+  background: var(--bd);
+}
+.ob-pip.done { background: var(--tp); }
+.ob-pip.active { background: var(--green); }
+
+.ob-capability {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 12px 13px;
+}
+
+.ob-cap-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+
+.ob-cap-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.ob-cap-body {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.6;
+}
+
+.ob-example {
+  background: rgba(61,143,106,0.06);
+  border: 1px solid rgba(61,143,106,0.18);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+  margin-top: 8px;
+}
+.ob-example-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.ob-example-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.5;
+}
+
+.ob-grant-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 11px;
+  background: var(--card-inner);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+}
+.ob-grant-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  line-height: 1.4;
+  flex: 1;
+  padding-right: 8px;
+}
+/* toggle */
+.toggle {
+  width: 34px; height: 20px;
+  border-radius: 10px;
+  background: var(--green);
+  position: relative;
+  flex-shrink: 0;
+}
+.toggle-knob {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 3px; right: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle.off { background: rgba(0,0,0,0.12); }
+.toggle.off .toggle-knob { right: auto; left: 3px; }
+
+.ob-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  line-height: 1.55;
+  text-align: center;
+  padding: 0 4px;
+}
+
+/* ══════════════════════════════════════
+   COLD START — STATUS CARD
+   ══════════════════════════════════════ */
+
+.cold-status {
+  background: rgba(184,124,26,0.07);
+  border: 1px solid rgba(184,124,26,0.18);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.cold-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.cold-status-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--amber);
+  line-height: 1.55;
+}
+
+/* ══════════════════════════════════════
+   LMR CHAIN — SEQUENCE CARD
+   ══════════════════════════════════════ */
+
+.lmr-sequence {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 10px 12px;
+}
+
+.lmr-seq-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 8px;
+}
+
+.lmr-seq-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.lmr-seq-row:last-child { border-bottom: none; padding-bottom: 0; }
+.lmr-seq-row:first-child { padding-top: 0; }
+
+.lmr-seq-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  width: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lmr-seq-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.lmr-seq-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.lmr-seq-tag.done {
+  background: rgba(61,143,106,0.10);
+  border: 1px solid rgba(61,143,106,0.20);
+  color: var(--green);
+}
+
+.lmr-seq-tag.active {
+  background: var(--tp);
+  color: var(--bg);
+}
+
+/* held item in LMR */
+.held-item {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+  padding: 9px 11px;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  opacity: 0.55;
+}
+
+/* signal card in log */
+.signal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+}
+.signal-header {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.signal-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.signal-row:last-child { border-bottom: none; padding-bottom: 0; }
+.signal-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.signal-text {
+  font-size: 11px;
+  color: var(--tp);
+  line-height: 1.4;
+  flex: 1;
+}
+.signal-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+</style>
+</head>
+<body>
+<div class="suite">
+
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 4 — ONBOARDING · PRIORITY SURFACING GRANT
+     The Tier 2 grant moment. System explains the capability,
+     user chooses to allow autonomous target selection.
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">04 · Onboarding · Priority Surfacing · Tier 2 grant moment</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header" style="padding-bottom:12px;">
+      <div class="aether-row" style="margin-bottom:10px;">
+        <div class="aether-left">
+          <div class="a-dot" style="background:rgba(26,23,20,0.2);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+        <div style="font-family:'DM Mono',monospace; font-size:8px; color:var(--tt); letter-spacing:0.06em;">Setup · 3 of 5</div>
+      </div>
+      <!-- Progress pips -->
+      <div class="ob-progress">
+        <div class="ob-pip done"></div>
+        <div class="ob-pip done"></div>
+        <div class="ob-pip active"></div>
+        <div class="ob-pip"></div>
+        <div class="ob-pip"></div>
+      </div>
+      <div class="screen-title" style="font-size:20px; margin-top:2px;">What Aether<br>does on its own.</div>
+      <div class="screen-sub" style="margin-top:5px;">You decide what it's allowed to handle without asking.</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- The capability card -->
+      <div class="ob-capability">
+        <div class="ob-cap-eyebrow">Priority Surfacing</div>
+        <div class="ob-cap-title">Selects the one thing that matters most right now — without you having to find it.</div>
+        <div class="ob-cap-body">When your calendar, inbox, and tasks all have something pending, Aether picks the item with the highest consequence and the lowest activation cost. It surfaces it and has a draft ready.</div>
+
+        <div class="ob-example">
+          <div class="ob-example-label">Example</div>
+          <div class="ob-example-text">LinkedIn message from a known contact — 4 days unread, two alerts ignored. Aether surfaces it with a draft reply before the window closes.</div>
+        </div>
+      </div>
+
+      <!-- Grant toggle -->
+      <div class="ob-grant-row">
+        <div class="ob-grant-text">Let Aether select what to surface — without asking each time</div>
+        <div class="toggle"><div class="toggle-knob"></div></div>
+      </div>
+
+      <!-- Opt-down note — RSD-safe -->
+      <div class="ob-note">Turning this off means Aether asks before selecting. This reduces what it can do for you, but it's your call.</div>
+
+      <button class="btn-primary" style="margin-top:4px;">Continue ›</button>
+
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 04 · Onboarding · Tier 2 grant</div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Capability explained before grant — not after</div>
+      <div class="ann-body">The user sees exactly what Priority Surfacing does — and a concrete example using the Raul scenario — before they're asked to grant anything. The grant is the last step, not the first. Evidence earns permission; permission doesn't precede evidence.</div>
+      <div class="ann-tag">Trust arc · explain before ask · Tier 2 grant</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Toggle on by default — onboarding framing is capability, not risk</div>
+      <div class="ann-body">Priority Surfacing is Tier 2, recommended on. The toggle is on by default. The framing positions turning it off as a capability reduction, not a safety measure — consistent with "reduces what Aether can do for you." This is not coercive; it's honest about what the product is for.</div>
+      <div class="ann-tag">Default on · capability framing · not risk framing</div>
+    </div>
+
+    <div class="ann-item am">
+      <div class="ann-title">Opt-down note — RSD constraint</div>
+      <div class="ann-body">"Turning this off means Aether asks before selecting. This reduces what it can do for you, but it's your call." — three things in sequence: what changes, what's lost, explicit validation that the choice is theirs. No "we don't recommend this" phrasing that could read as judgment to an ADHD user. Neutral, informational, non-shaming. WS-5 open item: test this note against RSD sensitivity in user research.</div>
+      <div class="ann-tag">RSD-safe · no judgment · your call · WS-5 dependency</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">Progress pips — 3 of 5, not a wall of setup</div>
+      <div class="ann-body">The user can see they're past halfway. This screen is one of five — not an indefinite setup flow. Pips encode progress without requiring the user to read anything. Consistent with low-friction onboarding design for ADHD population.</div>
+      <div class="ann-tag">ADHD design · visible progress · not a wall</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">"Without asking each time" — names the friction that's being removed</div>
+      <div class="ann-body">The toggle label names the specific friction the Tier 2 grant removes. Per-instance approval is framed as "asking each time" — which is accurate, and which makes the cost of opting down concrete rather than abstract.</div>
+      <div class="ann-tag">Friction naming · per-instance framing · concrete cost</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 5 — COLD START · FIRST TRIGGER
+     First time Priority Surfacing fires. Full reasoning shown.
+     System is running on general norms, not behavioral history.
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">05 · Current tab — Priority Surfacing · first trigger · cold-start · full reasoning shown</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot pulse" style="background:var(--amber);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+        <div style="font-family:'DM Mono',monospace; font-size:8px; color:var(--tt); letter-spacing:0.06em; background:rgba(0,0,0,0.04); border:1px solid var(--bd); border-radius:6px; padding:3px 8px;">First time</div>
+      </div>
+      <div class="screen-title" style="font-size:24px; line-height:1.1; margin-top:6px;">One thing<br>needs you.</div>
+      <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--amber); margin-top:6px; letter-spacing:0.1em;">Window is narrowing</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- Surfaced item -->
+      <div class="surfaced-item">
+        <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label" style="color:var(--green);">Surfaced</div>
+          <div class="item-text">Reply to Raul · LinkedIn</div>
+          <div class="item-meta">Met at networking event · message 4 days ago</div>
+          <div class="item-meta" style="color:var(--amber); margin-top:1px;">Window to reply naturally is closing</div>
+        </div>
+      </div>
+
+      <!-- Full reasoning — first trigger shows everything -->
+      <div class="reason-card">
+        <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:7px;">How Aether selected this</div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--red);"></div>
+          <span class="reason-text">LinkedIn message from Raul — received June 12, 4 days unread</span>
+          <span class="reason-tag" style="color:var(--red);">4d</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--red);"></div>
+          <span class="reason-text">2 digest alerts generated — both unread. Escalation signal.</span>
+          <span class="reason-tag" style="color:var(--red);">Escalation</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--blue);"></div>
+          <span class="reason-text">Known contact · post-networking event · professional follow-up</span>
+          <span class="reason-tag" style="color:var(--blue);">Consequence</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--amber);"></div>
+          <span class="reason-text">Standard reply window: 5–7 days. Day 4 — window is narrowing.</span>
+          <span class="reason-tag" style="color:var(--amber);">General norm</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:rgba(26,23,20,0.20);"></div>
+          <span class="reason-text">No task created · no draft started · no reply sent</span>
+          <span class="reason-tag" style="color:var(--tt);">Absence</span>
+        </div>
+      </div>
+
+      <!-- Cold start status -->
+      <div class="cold-status">
+        <div class="cold-status-dot"></div>
+        <div class="cold-status-text">Using general norms for now. Aether will learn your specific reply patterns over time — this reasoning will get sharper.</div>
+      </div>
+
+      <div class="notice-card">
+        <div class="notice-text">Draft ready. <strong>Nothing sends without you.</strong> Review it, edit it, or send it as-is.</div>
+      </div>
+
+      <button class="btn-primary">Review draft reply ›</button>
+
+      <div class="dismiss-row">
+        <span class="dismiss-link">Not now</span>
+        <span class="dismiss-link">Add context ›</span>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+        <div class="tab-lbl on">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 05 · Cold start · first Priority Surfacing trigger</div>
+
+    <div class="ann-item am">
+      <div class="ann-title">"First time" badge — trust arc opener</div>
+      <div class="ann-body">The first trigger is architecturally distinct from steady-state. The system hasn't earned behavioral trust yet — it's operating on general norms. The "First time" badge signals this is a new relationship, not a failure state. It sets up the learning narrative without requiring explanation.</div>
+      <div class="ann-tag">Trust arc · first trigger · cold-start signal</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">"How Aether selected this" — not "Why now"</div>
+      <div class="ann-body">The label shifts from "Why now" (steady-state, consequence-first) to "How Aether selected this" (cold-start, process-first). The user is learning what the system does at this point — not just reacting to a surfaced item. Full five-signal reasoning shown: two urgency signals, one consequence signal, one timing signal, one absence signal. More than steady-state; this is the full picture.</div>
+      <div class="ann-tag">Label shift · process visible · five signals · more than steady-state</div>
+    </div>
+
+    <div class="ann-item am">
+      <div class="ann-title">"General norm" tag on timing — honest about cold-start limits</div>
+      <div class="ann-body">The 5–7 day window is a general professional norm, not learned behavior. Tagging it "General norm" — rather than leaving it untagged — is honest about what the system knows and doesn't know yet. The cold-status note below reinforces this. Contrast with steady-state Screen 01 where timing is a learned signal.</div>
+      <div class="ann-tag">Epistemic honesty · general vs. learned · cold-start limit</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Cold-start status note — learning framed as gain, not gap</div>
+      <div class="ann-body">"Using general norms for now. Aether will learn your specific reply patterns over time — this reasoning will get sharper." The note is forward-looking: not "we don't know you yet" (gap framing) but "this gets better as it learns you" (gain framing). Sets up the learning layer without anxiety.</div>
+      <div class="ann-tag">Gain framing · learning arc · not deficit language</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">"Nothing sends without you" bolded — highest-stakes first trigger</div>
+      <div class="ann-body">The first time Priority Surfacing fires, the user has never seen the system act. The bolded reassurance in the notice card is more emphatic here than in steady-state. It earns the right to future silent execution by being explicit at the moment of first trust.</div>
+      <div class="ann-tag">Trust arc · first execution · explicit reassurance · earns silence later</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 6 — LMR → PRIORITY SURFACING CHAIN
+     Type 2 attribution. Multi-domain load. LMR fires first,
+     clears environment, then Priority Surfacing selects Raul.
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">06 · Current tab — LMR → Priority Surfacing chain · Type 2 attribution · multi-domain load cleared · Raul selected</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot pulse" style="background:var(--green);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+      </div>
+      <div class="screen-title" style="font-size:24px; line-height:1.1; margin-top:6px;">Aether cleared<br>the decks.</div>
+      <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--green); margin-top:6px; letter-spacing:0.1em;">One thing left.</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- LMR sequence — what ran before PS -->
+      <div class="lmr-sequence">
+        <div class="lmr-seq-label">What Aether handled</div>
+        <div class="lmr-seq-row">
+          <div class="lmr-seq-num">1</div>
+          <span class="lmr-seq-text">Calendar buffer added · 90 min protected</span>
+          <span class="lmr-seq-tag done">Done</span>
+        </div>
+        <div class="lmr-seq-row">
+          <div class="lmr-seq-num">2</div>
+          <span class="lmr-seq-text">Non-urgent notifications gated until 3pm</span>
+          <span class="lmr-seq-tag done">Done</span>
+        </div>
+        <div class="lmr-seq-row">
+          <div class="lmr-seq-num">3</div>
+          <span class="lmr-seq-text">14 low-stakes items moved to holding</span>
+          <span class="lmr-seq-tag done">Done</span>
+        </div>
+        <div class="lmr-seq-row">
+          <div class="lmr-seq-num">4</div>
+          <span class="lmr-seq-text">One item selected · draft prepared</span>
+          <span class="lmr-seq-tag active">Now</span>
+        </div>
+      </div>
+
+      <!-- The selected item -->
+      <div class="surfaced-item">
+        <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label" style="color:var(--green);">Surfaced · from 200+ items</div>
+          <div class="item-text">Reply to Raul · LinkedIn</div>
+          <div class="item-meta">Highest consequence · lowest activation cost</div>
+          <div class="item-meta" style="color:var(--amber); margin-top:1px;">Day 4 · window narrowing</div>
+        </div>
+      </div>
+
+      <!-- What was cleared -->
+      <div class="ruled-card">
+        <div class="ruled-label">Held · not deleted</div>
+        <div class="ruled-item">
+          <div class="signal-dot" style="background:rgba(26,23,20,0.15);"></div>
+          <span class="ruled-text">Subscription emails (Axios, DeepLearning.ai, TBPN · 40+)</span>
+        </div>
+        <div class="ruled-item">
+          <div class="signal-dot" style="background:rgba(26,23,20,0.15);"></div>
+          <span class="ruled-text">Job alerts (LinkedIn, Built In · 160+ unread)</span>
+        </div>
+        <div class="ruled-item">
+          <div class="signal-dot" style="background:rgba(26,23,20,0.15);"></div>
+          <span class="ruled-text">14 low-stakes tasks across Work + Admin</span>
+        </div>
+      </div>
+
+      <div class="notice-card">
+        <div class="notice-text">Draft ready. Everything else is waiting — not gone. One tap to review.</div>
+      </div>
+
+      <button class="btn-primary">Review draft reply ›</button>
+
+      <div class="dismiss-row">
+        <span class="dismiss-link">Not now</span>
+        <span class="dismiss-link">See what's held ›</span>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+        <div class="tab-lbl on">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 06 · LMR → Priority Surfacing · Type 2 chain</div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">"Aether cleared the decks" — green dot, not amber</div>
+      <div class="ann-body">This is the post-LMR state: the system already acted. Green pulse, not amber. The headline reflects that — LMR completed its four sub-actions before this screen appeared. The user arrives after the environment has been cleared, not in the middle of it.</div>
+      <div class="ann-tag">Post-action · green · LMR complete before surfacing</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Sequence card — LMR's four sub-actions made visible</div>
+      <div class="ann-body">The four LMR sub-actions (calendar buffer, notification gate, task holding, Priority Surfacing) are shown as a numbered sequence with Done/Now tags. The user sees that three things already happened before this screen appeared. This is the trust arc note from the Action Library: "first trigger action log entry should show full reasoning." Applied here as an in-screen sequence, not a post-hoc log.</div>
+      <div class="ann-tag">LMR sub-actions · sequence visible · trust arc · full reasoning</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">"Surfaced · from 200+ items" — selection scale made concrete</div>
+      <div class="ann-body">The item label adds "from 200+ items" — the actual inbox state from the S22 scenario. It makes the selection meaningful: not one item from a tidy list, but one item extracted from environmental load. The number is not decorative — it's the reason LMR fired rather than standalone Priority Surfacing.</div>
+      <div class="ann-tag">Scale · Type 2 context · 200+ items · selection weight</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">"Held · not deleted" — the ruled-out list with a different label</div>
+      <div class="ann-body">In Screen 03 (log), the ruled-out section shows post-hoc what was deprioritised. Here, mid-action, the framing is "Held · not deleted" — the user can see the load that was cleared and know it's recoverable. "See what's held ›" replace "Add context" as the secondary action — gives access to the held state rather than capturing attribution input.</div>
+      <div class="ann-tag">Held not deleted · recoverable · see what's held replaces add context</div>
+    </div>
+
+    <div class="ann-item re">
+      <div class="ann-title">"Everything else is waiting — not gone" — the critical reassurance</div>
+      <div class="ann-body">LMR moves items to holding. The user's highest fear is that the system deleted or lost something. The notice card addresses this directly and first, before the CTA. "Not gone" is the load-bearing phrase — it names the fear without requiring the user to have articulated it.</div>
+      <div class="ann-tag">Fear addressed · nothing lost · holding not deleting · LMR trust</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+</div><!-- /suite -->
+</body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Priority Surfacing · Waitlist Section Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS (matched to waitlist / priority surfacing light) ── */
+:root {
+  --bg:         #f2ede6;
+  --panel-bg:   #ece8df;
+  --card-bg:    #e6e1d8;
+  --card-inner: #dedad1;
+  --bd:         rgba(0,0,0,0.10);
+  --bd-dim:     rgba(0,0,0,0.06);
+  --green:      #3d8f6a;
+  --blue:       #3a6fa8;
+  --amber:      #b87c1a;
+  --red:        #c04040;
+  --tp:         #1a1714;
+  --ts:         rgba(26,23,20,0.55);
+  --tt:         rgba(26,23,20,0.35);
+  --r-panel:    20px;
+  --r-card:     12px;
+  --r-nested:   8px;
+  --r-btn:      10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #f2ede6 !important;
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--tp);
+}
+
+/* ── PAGE WRAP ── */
+.page-wrap {
+  background: #f2ede6;
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+/* ── CONCEPT LABEL ── */
+.concept-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tt);
+  border-top: 1px solid var(--bd-dim);
+  padding-top: 12px;
+  margin-bottom: 48px;
+}
+
+/* ════════════════════════════════════════
+   CONCEPT A — Single phone + copy rail
+   ════════════════════════════════════════ */
+
+.concept-a {
+  display: flex;
+  gap: 72px;
+  align-items: center;
+}
+
+.ca-copy {
+  flex: 1;
+  max-width: 420px;
+}
+
+.ca-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.ca-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--tp);
+  margin-bottom: 20px;
+}
+
+.ca-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ts);
+  margin-bottom: 28px;
+}
+
+.ca-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ca-tl-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.ca-tl-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.ca-tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.ca-tl-line {
+  width: 1px;
+  flex: 1;
+  min-height: 24px;
+  background: var(--bd);
+  margin: 4px 0;
+}
+
+.ca-tl-content {
+  flex: 1;
+  padding-bottom: 20px;
+}
+
+.ca-tl-row:last-child .ca-tl-content { padding-bottom: 0; }
+
+.ca-tl-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 3px;
+}
+
+.ca-tl-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--tp);
+  line-height: 1.5;
+}
+
+.ca-tl-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* Phone panel — shared */
+.panel {
+  flex-shrink: 0;
+  width: 290px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.panel-header {
+  padding: 16px 18px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+
+.panel-scroll {
+  flex: 1;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.screen-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+}
+
+.aether-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.aether-left { display: flex; align-items: center; gap: 7px; }
+.a-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.a-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+
+.surfaced-item {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+  padding: 11px 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.item-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-body { flex: 1; min-width: 0; }
+
+.item-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.item-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.35;
+}
+
+.item-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.reason-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 10px 12px;
+}
+
+.reason-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.reason-row:last-child { border-bottom: none; padding-bottom: 0; }
+.reason-row:first-child { padding-top: 0; }
+
+.reason-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.reason-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.reason-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notice-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 11px 13px;
+}
+.notice-text {
+  font-size: 12px;
+  color: rgba(26,23,20,0.72);
+  line-height: 1.65;
+}
+
+.btn-primary {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: var(--tp);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--r-btn);
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  letter-spacing: -0.01em;
+}
+
+.dismiss-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+.dismiss-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--tt);
+  letter-spacing: 0.04em;
+}
+
+.tab-bar {
+  height: 52px;
+  border-top: 1px solid var(--bd-dim);
+  background: rgba(0,0,0,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tab-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.tab-lbl.on { color: var(--green); }
+
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.pulse { animation: pulse 2.2s ease-in-out infinite; }
+
+/* ── learning badge on concept A phone ── */
+.learning-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(61,143,106,0.10);
+  border: 1px solid rgba(61,143,106,0.22);
+  border-radius: 20px;
+  padding: 4px 10px 4px 7px;
+  margin-bottom: 8px;
+}
+.learning-badge-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.learning-badge-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+/* ── learned tag on reason rows ── */
+.learned-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  background: rgba(61,143,106,0.10);
+  border: 1px solid rgba(61,143,106,0.20);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+
+/* ════════════════════════════════════════
+   CONCEPT B — Before / After columns
+   ════════════════════════════════════════ */
+
+.concept-b {}
+
+.cb-header {
+  margin-bottom: 48px;
+}
+
+.cb-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.cb-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--tp);
+  max-width: 560px;
+  margin-bottom: 14px;
+}
+
+.cb-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ts);
+  max-width: 520px;
+}
+
+.cb-columns {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.cb-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cb-col-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bd-dim);
+}
+
+/* col label colors */
+.cb-col-label.dim { color: var(--tt); }
+.cb-col-label.live { color: var(--green); }
+
+/* the panels in concept B are narrower — full col width */
+.cb-col .panel {
+  width: 100%;
+}
+
+/* cold-start tint — slightly more muted */
+.cb-col.cold .panel {
+  opacity: 0.72;
+}
+
+/* cold screen uses amber dot */
+.cold-note {
+  background: rgba(184,124,26,0.07);
+  border: 1px solid rgba(184,124,26,0.18);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+}
+.cold-note-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--amber);
+  line-height: 1.55;
+}
+
+/* calibrated screen has green outcome note */
+.cal-note {
+  background: rgba(61,143,106,0.07);
+  border: 1px solid rgba(61,143,106,0.20);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+}
+.cal-note-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--green);
+  line-height: 1.55;
+}
+
+/* arrow between columns */
+.cb-arrow {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 52px; /* align to panel mid */
+  gap: 4px;
+}
+.cb-arrow-line {
+  width: 1px;
+  height: 40px;
+  background: var(--bd);
+}
+.cb-arrow-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+/* ── delta strip (below columns, concept B) ── */
+.cb-delta {
+  margin-top: 32px;
+  display: flex;
+  gap: 24px;
+}
+
+.cb-delta-item {
+  flex: 1;
+  padding: 14px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+}
+
+.cb-delta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 5px;
+}
+
+.cb-delta-value {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.cb-delta-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  line-height: 1.4;
+}
+
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+
+<!-- ══════════════════════════════════════════
+     CONCEPT A — Single phone + narrative timeline
+     ══════════════════════════════════════════ -->
+<div>
+<div class="concept-label">Concept A · Single screen · learning narrative in copy rail</div>
+
+<div class="concept-a">
+
+  <!-- Phone: calibrated Priority Surfacing state -->
+  <div class="panel">
+
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot pulse" style="background:var(--green);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+      </div>
+      <div class="learning-badge">
+        <div class="learning-badge-dot"></div>
+        <span class="learning-badge-text">Learned your patterns</span>
+      </div>
+      <div class="screen-title" style="font-size:24px; line-height:1.1;">One thing<br>needs you.</div>
+      <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--amber); margin-top:6px; letter-spacing:0.1em;">Window is narrowing</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <div class="surfaced-item">
+        <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label" style="color:var(--green);">Surfaced</div>
+          <div class="item-text">Reply to Raul · LinkedIn</div>
+          <div class="item-meta">Met at networking event · message 4 days ago</div>
+          <div class="item-meta" style="color:var(--amber); margin-top:1px;">Window to reply naturally is closing</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:7px;">Why now</div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--red);"></div>
+          <span class="reason-text">Message 4 days ago — 2 digest alerts, neither opened</span>
+          <span class="reason-tag" style="color:var(--red);">4d</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--blue);"></div>
+          <span class="reason-text">Known contact · post-event follow-up</span>
+          <span class="learned-tag">Learned</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--amber);"></div>
+          <span class="reason-text">You typically reply within 3 days — day 4 is your edge</span>
+          <span class="learned-tag">Learned</span>
+        </div>
+      </div>
+
+      <div class="notice-card">
+        <div class="notice-text">Draft ready. One tap to review — nothing sends without you.</div>
+      </div>
+
+      <button class="btn-primary">Review draft reply ›</button>
+
+      <div class="dismiss-row">
+        <span class="dismiss-link">Not now</span>
+        <span class="dismiss-link">Add context ›</span>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+        <div class="tab-lbl on">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <!-- Copy rail -->
+  <div class="ca-copy">
+
+    <div class="ca-eyebrow">Gets sharper over time</div>
+    <div class="ca-headline">The longer it runs,<br>the less you notice<br>things slipping.</div>
+    <div class="ca-body">From day one, Aether acts on what it can see. Within a few weeks, it knows how you work — which contacts carry weight, when a window is about to close for you specifically, what you always mean to do and don't.</div>
+
+    <div class="ca-timeline">
+
+      <div class="ca-tl-row">
+        <div class="ca-tl-spine">
+          <div class="ca-tl-dot" style="background:var(--bd); border:1px solid var(--bd);"></div>
+          <div class="ca-tl-line"></div>
+        </div>
+        <div class="ca-tl-content">
+          <div class="ca-tl-label">Day one</div>
+          <div class="ca-tl-text">Surfaces what's overdue. Flags what's been ignored. Acts on the obvious.</div>
+          <div class="ca-tl-sub">Calendar, inbox, tasks — no history yet</div>
+        </div>
+      </div>
+
+      <div class="ca-tl-row">
+        <div class="ca-tl-spine">
+          <div class="ca-tl-dot" style="background:var(--amber);"></div>
+          <div class="ca-tl-line"></div>
+        </div>
+        <div class="ca-tl-content">
+          <div class="ca-tl-label">A few weeks in</div>
+          <div class="ca-tl-text">Knows your reply patterns. Knows which contacts you never let wait. Stops flagging things that don't matter to you.</div>
+          <div class="ca-tl-sub">Behavioral patterns accumulating</div>
+        </div>
+      </div>
+
+      <div class="ca-tl-row">
+        <div class="ca-tl-spine">
+          <div class="ca-tl-dot" style="background:var(--green);"></div>
+        </div>
+        <div class="ca-tl-content">
+          <div class="ca-tl-label">Calibrated</div>
+          <div class="ca-tl-text">Surfaces the right thing at the right moment — not because of a rule, because of you.</div>
+          <div class="ca-tl-sub">Your patterns, applied automatically</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /ca-copy -->
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CONCEPT B — Before / After columns
+     ══════════════════════════════════════════ -->
+<div class="concept-b">
+<div class="concept-label">Concept B · Before / after · cold-start vs. calibrated state</div>
+
+<div class="cb-header">
+  <div class="cb-eyebrow">Gets sharper over time</div>
+  <div class="cb-headline">Day one is good.<br>Week three is different.</div>
+  <div class="cb-body">From the start, Aether knows what's overdue. Within a few weeks, it knows what's overdue <em>for you</em> — your contacts, your reply windows, your thresholds.</div>
+</div>
+
+<div class="cb-columns">
+
+  <!-- Cold start column -->
+  <div class="cb-col cold">
+    <div class="cb-col-label dim">Day one · no history yet</div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="aether-row">
+          <div class="aether-left">
+            <div class="a-dot" style="background:var(--amber);"></div>
+            <span class="a-brand">Aether</span>
+          </div>
+        </div>
+        <div class="screen-title" style="font-size:22px; line-height:1.1;">One thing<br>needs you.</div>
+        <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--amber); margin-top:6px; letter-spacing:0.1em;">Window may be narrowing</div>
+      </div>
+
+      <div class="panel-scroll">
+
+        <div class="surfaced-item">
+          <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+            <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+              <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+            </svg>
+          </div>
+          <div class="item-body">
+            <div class="item-label" style="color:var(--green);">Surfaced</div>
+            <div class="item-text">Reply to Raul · LinkedIn</div>
+            <div class="item-meta">Message 4 days ago · no reply yet</div>
+          </div>
+        </div>
+
+        <div class="reason-card">
+          <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:7px;">Why now</div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:var(--red);"></div>
+            <span class="reason-text">Message 4 days ago — 2 alerts unread</span>
+            <span class="reason-tag" style="color:var(--red);">4d</span>
+          </div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:rgba(26,23,20,0.2);"></div>
+            <span class="reason-text">Post-event contact · professional follow-up standard applies</span>
+            <span class="reason-tag" style="color:var(--tt);">Default</span>
+          </div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:var(--amber);"></div>
+            <span class="reason-text">Reply window typically 5–7 days · day 4</span>
+            <span class="reason-tag" style="color:var(--amber);">General</span>
+          </div>
+        </div>
+
+        <div class="cold-note">
+          <div class="cold-note-text">Using general reply norms — learns your patterns over time.</div>
+        </div>
+
+        <button class="btn-primary">Review draft reply ›</button>
+
+        <div class="dismiss-row">
+          <span class="dismiss-link">Not now</span>
+          <span class="dismiss-link">Add context ›</span>
+        </div>
+
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+          <div class="tab-lbl">Log</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+          <div class="tab-lbl on">Current</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+          <div class="tab-lbl">Insights</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          <div class="tab-lbl">You</div>
+        </div>
+      </div>
+
+    </div><!-- /panel -->
+  </div><!-- /cold col -->
+
+  <!-- Arrow -->
+  <div class="cb-arrow">
+    <div class="cb-arrow-line"></div>
+    <div class="cb-arrow-label">weeks in</div>
+    <div style="color:var(--tt); font-size:14px; margin: 4px 0;">→</div>
+    <div class="cb-arrow-line"></div>
+  </div>
+
+  <!-- Calibrated column -->
+  <div class="cb-col">
+    <div class="cb-col-label live">A few weeks in · your patterns</div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="aether-row">
+          <div class="aether-left">
+            <div class="a-dot pulse" style="background:var(--green);"></div>
+            <span class="a-brand">Aether</span>
+          </div>
+        </div>
+        <div class="learning-badge" style="margin-bottom:8px;">
+          <div class="learning-badge-dot"></div>
+          <span class="learning-badge-text">Learned your patterns</span>
+        </div>
+        <div class="screen-title" style="font-size:22px; line-height:1.1;">One thing<br>needs you.</div>
+        <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--amber); margin-top:6px; letter-spacing:0.1em;">Window is narrowing</div>
+      </div>
+
+      <div class="panel-scroll">
+
+        <div class="surfaced-item">
+          <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+            <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+              <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+            </svg>
+          </div>
+          <div class="item-body">
+            <div class="item-label" style="color:var(--green);">Surfaced</div>
+            <div class="item-text">Reply to Raul · LinkedIn</div>
+            <div class="item-meta">Met at networking event · message 4 days ago</div>
+            <div class="item-meta" style="color:var(--amber); margin-top:1px;">Window to reply naturally is closing</div>
+          </div>
+        </div>
+
+        <div class="reason-card">
+          <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:7px;">Why now</div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:var(--red);"></div>
+            <span class="reason-text">Message 4 days ago — 2 alerts unread</span>
+            <span class="reason-tag" style="color:var(--red);">4d</span>
+          </div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:var(--blue);"></div>
+            <span class="reason-text">Known contact — you always follow up post-event</span>
+            <span class="learned-tag">Learned</span>
+          </div>
+          <div class="reason-row">
+            <div class="reason-dot" style="background:var(--amber);"></div>
+            <span class="reason-text">You typically reply within 3 days — day 4 is your edge</span>
+            <span class="learned-tag">Learned</span>
+          </div>
+        </div>
+
+        <div class="cal-note">
+          <div class="cal-note-text">Timing based on your reply history — not a general rule.</div>
+        </div>
+
+        <button class="btn-primary">Review draft reply ›</button>
+
+        <div class="dismiss-row">
+          <span class="dismiss-link">Not now</span>
+          <span class="dismiss-link">Add context ›</span>
+        </div>
+
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+          <div class="tab-lbl">Log</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+          <div class="tab-lbl on">Current</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+          <div class="tab-lbl">Insights</div>
+        </div>
+        <div class="tab">
+          <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          <div class="tab-lbl">You</div>
+        </div>
+      </div>
+
+    </div><!-- /panel -->
+  </div><!-- /calibrated col -->
+
+</div><!-- /cb-columns -->
+
+<!-- Delta strip -->
+<div class="cb-delta">
+  <div class="cb-delta-item">
+    <div class="cb-delta-label">Day one</div>
+    <div class="cb-delta-value">Good</div>
+    <div class="cb-delta-sub">General norms. Flags what's overdue. Acts on the obvious.</div>
+  </div>
+  <div class="cb-delta-item">
+    <div class="cb-delta-label">A few weeks in</div>
+    <div class="cb-delta-value">Yours</div>
+    <div class="cb-delta-sub">Your reply windows. Your contacts. Your thresholds. No configuration required.</div>
+  </div>
+  <div class="cb-delta-item">
+    <div class="cb-delta-label">What changes</div>
+    <div class="cb-delta-value">Precision</div>
+    <div class="cb-delta-sub">Same action, sharper judgment. The difference is what it knows about you.</div>
+  </div>
+</div>
+
+</div><!-- /concept-b -->
+
+
+</div><!-- /page-wrap -->
+</body>
+</html>

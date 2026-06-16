@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Priority Surfacing Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS (light mode — matched to waitlist) ── */
+:root {
+  --bg:         #f2ede6;
+  --page-wrap:  #f2ede6;
+  --panel-bg:   #ece8df;
+  --card-bg:    #e6e1d8;
+  --card-inner: #dedad1;
+  --bd:         rgba(0,0,0,0.10);
+  --bd-dim:     rgba(0,0,0,0.06);
+  --green:      #3d8f6a;
+  --blue:       #3a6fa8;
+  --amber:      #b87c1a;
+  --red:        #c04040;
+  --tp:         #1a1714;
+  --ts:         rgba(26,23,20,0.55);
+  --tt:         rgba(26,23,20,0.35);
+  --r-panel:    20px;
+  --r-card:     12px;
+  --r-nested:   8px;
+  --r-btn:      10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #f2ede6 !important;
+  font-family: 'Lexend', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--tp);
+  padding: 48px;
+}
+
+/* ── LAYOUT ── */
+.suite { display: flex; flex-direction: column; gap: 72px; }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tt);
+  border-top: 1px solid var(--bd-dim);
+  padding-top: 10px;
+  margin-bottom: 12px;
+}
+
+.screen-row {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+/* ── PHONE SHELL ── */
+.panel {
+  flex-shrink: 0;
+  width: 290px;
+  background: var(--panel-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 580px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.panel-header {
+  padding: 16px 18px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+
+.panel-scroll {
+  flex: 1;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+.screen-title {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--tp);
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.screen-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+/* ── BRAND ROW ── */
+.aether-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.aether-left { display: flex; align-items: center; gap: 7px; }
+.a-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.a-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.header-btn {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 5px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--ts);
+  letter-spacing: 0.08em;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 11px 13px;
+}
+
+.card-inner {
+  background: var(--card-inner);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+}
+
+/* ── SURFACED ITEM ── */
+.surfaced-item {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+  padding: 11px 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.item-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-body { flex: 1; min-width: 0; }
+
+.item-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.item-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.35;
+}
+
+.item-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--tt);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* ── REASONING CARD ── */
+.reason-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 10px 12px;
+}
+
+.reason-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.reason-row:last-child { border-bottom: none; padding-bottom: 0; }
+.reason-row:first-child { padding-top: 0; }
+
+.reason-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.reason-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.reason-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── RULED OUT ── */
+.ruled-card {
+  background: rgba(0,0,0,0.025);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+}
+
+.ruled-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 5px;
+}
+
+.ruled-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+}
+
+.ruled-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--tt);
+  text-decoration: line-through;
+}
+
+/* ── ACTION CHIP ── */
+.action-chip {
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0,0,0,0.03);
+  margin-top: 7px;
+}
+.chip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.chip-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--ts);
+  letter-spacing: 0.03em;
+  flex: 1;
+}
+.chip-arrow { font-size: 10px; color: var(--tt); margin-left: auto; }
+
+/* ── STEP CARD ── */
+.step-card {
+  background: rgba(61,143,106,0.07);
+  border: 1px solid rgba(61,143,106,0.20);
+  border-radius: var(--r-card);
+  padding: 12px 13px;
+}
+
+.step-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.step-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  line-height: 1.4;
+}
+
+.step-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: var(--tp);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--r-btn);
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  letter-spacing: -0.01em;
+}
+
+.btn-ghost {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px 12px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-btn);
+  color: var(--ts);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+.btn-green-ghost {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px 12px;
+  background: rgba(61,143,106,0.08);
+  border: 1px solid rgba(61,143,106,0.22);
+  border-radius: var(--r-btn);
+  color: var(--green);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.03em;
+}
+
+.btn-row { display: flex; gap: 6px; margin-top: 8px; }
+
+.dismiss-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+.dismiss-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--tt);
+  letter-spacing: 0.04em;
+}
+
+/* ── NOTICE CARD ── */
+.notice-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  padding: 11px 13px;
+}
+.notice-text {
+  font-size: 12px;
+  color: rgba(26,23,20,0.72);
+  line-height: 1.65;
+}
+.notice-text strong { color: var(--tp); }
+
+/* ── SIGNAL CARD (log detail) ── */
+.signal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-nested);
+  padding: 9px 11px;
+}
+
+.signal-header {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.signal-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--bd-dim);
+}
+.signal-row:last-child { border-bottom: none; padding-bottom: 0; }
+.signal-row:first-child { padding-top: 0; }
+
+.signal-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.signal-text {
+  font-size: 11px;
+  color: var(--tp);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.signal-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--bd-dim); margin: 2px 0; }
+
+/* ── PROVENANCE ── */
+.prov-strip {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid var(--bd-dim);
+  border-radius: var(--r-nested);
+  padding: 7px 10px;
+}
+.prov-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--ts);
+  line-height: 1.5;
+}
+.prov-text strong { color: var(--tp); font-weight: 400; }
+
+/* ── CONTEXT STRIP ── */
+.context-strip {
+  background: rgba(58,111,168,0.06);
+  border: 1px solid rgba(58,111,168,0.15);
+  border-radius: var(--r-nested);
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.context-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--blue);
+  letter-spacing: 0.03em;
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* ── OUTCOME STRIP ── */
+.outcome-strip {
+  background: rgba(61,143,106,0.06);
+  border: 1px solid rgba(61,143,106,0.18);
+  border-radius: var(--r-nested);
+  padding: 8px 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.outcome-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.outcome-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--green);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+/* ── DECOMP STEPS TRACK ── */
+.steps-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+}
+.step-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 20px;
+}
+.step-node {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  flex-shrink: 0;
+}
+.step-node.done {
+  background: rgba(61,143,106,0.12);
+  border: 1px solid rgba(61,143,106,0.25);
+  color: var(--green);
+}
+.step-node.active {
+  background: var(--tp);
+  color: var(--bg);
+  font-size: 9px;
+  font-weight: 600;
+}
+.step-node.next {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid var(--bd-dim);
+  color: var(--tt);
+}
+.step-line {
+  width: 1px;
+  flex: 1;
+  min-height: 10px;
+  background: var(--bd-dim);
+  margin: 3px 0;
+}
+.step-content {
+  flex: 1;
+  padding: 1px 0 12px;
+}
+.step-row:last-child .step-content { padding-bottom: 0; }
+.step-name {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--tp);
+  line-height: 1.35;
+  margin-top: 1px;
+}
+.step-name.muted { color: var(--tt); }
+.step-name.active { font-weight: 500; }
+
+/* ── TAB BAR ── */
+.tab-bar {
+  height: 52px;
+  border-top: 1px solid var(--bd-dim);
+  background: rgba(0,0,0,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+.tab { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tab-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt);
+}
+.tab-lbl.on       { color: var(--green); }
+.tab-lbl.on-amber { color: var(--amber); }
+
+/* ── SVG ── */
+.t-base { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── ANNOTATIONS ── */
+.ann { flex: 1; max-width: 380px; }
+.ann-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt);
+  margin-bottom: 20px;
+}
+.ann-item {
+  padding-left: 13px;
+  margin-bottom: 20px;
+  border-left: 2px solid var(--bd);
+}
+.ann-item.gr { border-left-color: var(--green); }
+.ann-item.bl { border-left-color: var(--blue); }
+.ann-item.am { border-left-color: var(--amber); }
+.ann-item.re { border-left-color: var(--red); }
+.ann-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp);
+  margin-bottom: 3px;
+}
+.ann-body {
+  font-size: 12px;
+  color: var(--ts);
+  line-height: 1.65;
+}
+.ann-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  background: rgba(0,0,0,0.04);
+  color: var(--tt);
+  border: 1px solid var(--bd);
+}
+
+/* ── PULSE ── */
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.pulse { animation: pulse 2.2s ease-in-out infinite; }
+
+</style>
+</head>
+<body>
+<div class="suite">
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 1 — PRIORITY SURFACING / CURRENT TAB
+     System has identified Raul. One item. Act before they have to.
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">01 · Current tab — Priority Surfacing · single item identified · Raul (LinkedIn, 4d)</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot pulse" style="background:var(--amber);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+      </div>
+      <div class="screen-title" style="font-size:26px; line-height:1.1;">One thing<br>needs you.</div>
+      <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--amber); margin-top:6px; letter-spacing:0.1em;">Window is narrowing</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- The surfaced item -->
+      <div class="surfaced-item">
+        <div class="item-icon" style="background:rgba(58,111,168,0.10);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3a6fa8">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label" style="color:var(--green);">Surfaced</div>
+          <div class="item-text">Reply to Raul · LinkedIn</div>
+          <div class="item-meta">Met at networking event · message 4 days ago</div>
+          <div class="item-meta" style="color:var(--amber); margin-top:1px;">Window to reply naturally is closing</div>
+        </div>
+      </div>
+
+      <!-- Why this, why now -->
+      <div class="reason-card">
+        <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:7px;">Why now</div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--red);"></div>
+          <span class="reason-text">Message received 4 days ago — 2 digest alerts sent, neither opened</span>
+          <span class="reason-tag" style="color:var(--red);">4d</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--blue);"></div>
+          <span class="reason-text">Known contact · post-event follow-up · professional relationship</span>
+          <span class="reason-tag" style="color:var(--blue);">Type 1</span>
+        </div>
+        <div class="reason-row">
+          <div class="reason-dot" style="background:var(--amber);"></div>
+          <span class="reason-text">Natural reply window closes after 5–7 days. Today is day 4.</span>
+          <span class="reason-tag" style="color:var(--amber);">Timing</span>
+        </div>
+      </div>
+
+      <!-- The action -->
+      <div class="notice-card">
+        <div class="notice-text">Draft ready. One tap to review — nothing sends without you.</div>
+      </div>
+
+      <button class="btn-primary">Review draft reply ›</button>
+
+      <div class="dismiss-row">
+        <span class="dismiss-link">Not now</span>
+        <span class="dismiss-link">Add context ›</span>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+        <div class="tab-lbl on">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 01 · Priority Surfacing · Current tab</div>
+
+    <div class="ann-item am">
+      <div class="ann-title">"One thing needs you" — not a list</div>
+      <div class="ann-body">Priority Surfacing is architecturally about selecting one item and reducing its initiation cost. The headline enforces that contract visually. A list would undermine the action — the system chose this item, not the user. That's the value.</div>
+      <div class="ann-tag">Priority Surfacing · single target · system chose</div>
+    </div>
+
+    <div class="ann-item am">
+      <div class="ann-title">Amber pulse dot — not green</div>
+      <div class="ann-body">Green pulse signals "Aether acted." Amber signals "a window exists." The distinction is semantic: the system hasn't acted yet — it's surfacing an opportunity before inaction causes a consequence. Amber is urgency without alarm.</div>
+      <div class="ann-tag">Semantic colour · acted vs. window · amber</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">"Why now" card — transparency before ask</div>
+      <div class="ann-body">Three signals, each tagged. The user sees the evidence before the CTA. Not a black box — the system shows its reasoning inline, at the moment of the ask. This is the trust architecture: evidence earns the right to request action.</div>
+      <div class="ann-tag">Promise 3 · visible reasoning · evidence first</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">"Review draft reply" — draft is already done</div>
+      <div class="ann-body">The CTA names the reduced-friction state. The system hasn't asked the user to write — it's asking them to review. The initiation cost is "look at a draft," not "compose a message." This is Task Decomposition working as intended.</div>
+      <div class="ann-tag">Initiation cost reduction · draft ready · one tap</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">"Not now" / "Add context" — not dismissal</div>
+      <div class="ann-body">Both are architectural: "Not now" is not a close button — it holds the item for surfacing again. "Add context" captures user-supplied information that improves attribution. Neither removes the item from consideration. Neither is labelled "dismiss."</div>
+      <div class="ann-tag">Hold architecture · dismissal = avoidance signal</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 2 — DRAFT READY / ONE-TAP SEND
+     After tapping "Review draft reply" — draft shown, one-tap release
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">02 · Draft review · Task Decomposition output · first sub-step only · one-tap release</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header" style="padding-bottom:10px;">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot" style="background:rgba(26,23,20,0.2);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+        <div class="header-btn">‹ Back</div>
+      </div>
+      <div class="screen-title" style="font-size:20px; margin-top:7px;">Draft ready.</div>
+      <div class="screen-sub">Reply to Raul · LinkedIn · one tap to send</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- Decomp steps tracker -->
+      <div class="card" style="padding:10px 12px;">
+        <div style="font-family:'DM Mono',monospace; font-size:7.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--tt); margin-bottom:9px;">What the system prepared</div>
+        <div class="steps-track">
+          <div class="step-row">
+            <div class="step-spine">
+              <div class="step-node done">✓</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-name">Found Raul's message</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-spine">
+              <div class="step-node done">✓</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-name">Confirmed relationship + context</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-spine">
+              <div class="step-node done">✓</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-name">Drafted reply in your tone</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-spine">
+              <div class="step-node active">→</div>
+            </div>
+            <div class="step-content" style="padding-bottom:0;">
+              <div class="step-name active">You: review and send</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The draft -->
+      <div class="step-card">
+        <div class="step-eyebrow">Draft · Aether</div>
+        <div class="step-text">Hey Raul — great meeting you last week. Would love to stay in touch and explore whether there's anything useful here for either of us. Happy to grab a quick call if that's easier.</div>
+        <div class="step-note">Neutral-professional · post-event register · no assumed commitment</div>
+      </div>
+
+      <!-- Send / edit -->
+      <div class="btn-row">
+        <button class="btn-ghost">Edit ›</button>
+        <button class="btn-green-ghost">
+          <svg width="12" height="12" viewBox="0 0 20 20" class="t-base" stroke="currentColor"><line x1="3" y1="10" x2="17" y2="10"/><polyline points="12,5 17,10 12,15"/></svg>
+          Send now
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Source provenance -->
+      <div class="prov-strip">
+        <div class="prov-text">Source: <strong>LinkedIn message · June 12</strong> · 2 digest alerts unread · no task created</div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="#3d8f6a" stroke="none"/></svg>
+        <div class="tab-lbl on">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 02 · Draft review · Task Decomposition output</div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Steps tracker — system did the work, you do the last step</div>
+      <div class="ann-body">Three checked nodes before the user's node. The visual encodes what Task Decomposition means: the system removed every step except the one the user must physically take. "You: review and send" is the only live action. Everything else is already done.</div>
+      <div class="ann-tag">Task Decomposition · initiation cost floor · system carried load</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">Draft shown in full, not behind another tap</div>
+      <div class="ann-body">The draft is visible immediately — not a "view draft" CTA leading to another screen. Every additional tap is an opportunity to not do it. Draft-on-screen means the only action left is "send" or "edit" — both are one tap from here.</div>
+      <div class="ann-tag">Zero additional activation cost · draft is the first step</div>
+    </div>
+
+    <div class="ann-item">
+      <div class="ann-title">Step note — "neutral-professional · post-event register"</div>
+      <div class="ann-body">The system shows its tone rationale beneath the draft. The user can see that the register was chosen intentionally, not generated blindly. If the tone is wrong, "Edit" is the correction path. Transparency here earns the right to send without editing next time.</div>
+      <div class="ann-tag">Relationship Register Map · tone visible · trust arc</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">Provenance strip at the bottom — source always visible</div>
+      <div class="ann-body">The draft's origin is shown: LinkedIn message, date, unread alerts, no task. The user sees exactly what the system saw. Consistent with the trust architecture across all existing screens — evidence is always surfaced at the point of action.</div>
+      <div class="ann-tag">Promise 3 · source shown · detection visible</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 3 — LOG ENTRY EXPANDED / WHY AETHER PICKED THIS
+     After send — log entry with full reasoning expanded
+     ══════════════════════════════════════════════ -->
+<div>
+<div class="section-label">03 · Log · Priority Surfacing entry · expanded · why Aether selected this item</div>
+<div class="screen-row">
+
+  <div class="panel">
+
+    <div class="panel-header" style="padding-bottom:10px;">
+      <div class="aether-row">
+        <div class="aether-left">
+          <div class="a-dot" style="background:rgba(26,23,20,0.2);"></div>
+          <span class="a-brand">Aether</span>
+        </div>
+        <div class="header-btn">‹ Log</div>
+      </div>
+      <div class="screen-title" style="font-size:20px; margin-top:7px;">Log</div>
+      <div class="screen-sub">Raul · LinkedIn reply · expanded</div>
+    </div>
+
+    <div class="panel-scroll">
+
+      <!-- The completed action -->
+      <div class="surfaced-item" style="border-left-color:var(--green);">
+        <div class="item-icon" style="background:rgba(61,143,106,0.10);">
+          <svg width="16" height="16" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a">
+            <path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"/>
+          </svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label" style="color:var(--green);">Sent</div>
+          <div class="item-text">Raul · LinkedIn</div>
+          <div class="item-meta">Reply sent · day 4 of window</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--ts); flex-shrink:0; margin-top:2px;">Now ›</div>
+      </div>
+
+      <!-- Why Aether did this -->
+      <div class="card" style="padding:0;">
+        <button style="width:100%; background:none; border:none; padding:10px 13px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+          <span style="font-family:'DM Mono',monospace; font-size:8.5px; color:var(--ts); letter-spacing:0.06em;">Why Aether surfaced this</span>
+          <span style="font-size:10px; color:var(--tt);">∧</span>
+        </button>
+        <div style="border-top:1px solid var(--bd-dim); padding:10px 13px; display:flex; flex-direction:column; gap:7px;">
+
+          <!-- Signals detected -->
+          <div class="signal-card">
+            <div class="signal-header">
+              <svg width="10" height="10" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.35)"><circle cx="10" cy="10" r="7"/><line x1="10" y1="7" x2="10" y2="10"/><line x1="10" y1="13" x2="10" y2="13.5" stroke-width="2"/></svg>
+              Signals detected
+            </div>
+            <div class="signal-row">
+              <div class="signal-dot" style="background:var(--red);"></div>
+              <span class="signal-text">LinkedIn message from Raul — 4 days unread</span>
+              <span class="signal-tag" style="color:var(--red);">4d overdue</span>
+            </div>
+            <div class="signal-row">
+              <div class="signal-dot" style="background:var(--amber);"></div>
+              <span class="signal-text">2 digest alerts generated — neither opened</span>
+              <span class="signal-tag" style="color:var(--amber);">Escalation</span>
+            </div>
+            <div class="signal-row">
+              <div class="signal-dot" style="background:var(--blue);"></div>
+              <span class="signal-text">Known contact · post-networking event · professional follow-up</span>
+              <span class="signal-tag" style="color:var(--blue);">Type 1</span>
+            </div>
+            <div class="signal-row">
+              <div class="signal-dot" style="background:rgba(26,23,20,0.25);"></div>
+              <span class="signal-text">No task created · no reply drafted</span>
+              <span class="signal-tag" style="color:var(--tt);">Absence</span>
+            </div>
+          </div>
+
+          <!-- What was ruled out -->
+          <div class="ruled-card">
+            <div class="ruled-label">What was ruled out</div>
+            <div class="ruled-item">
+              <div class="signal-dot" style="background:rgba(26,23,20,0.15);"></div>
+              <span class="ruled-text">Subscription emails (newsletter load — non-urgent)</span>
+            </div>
+            <div class="ruled-item">
+              <div class="signal-dot" style="background:rgba(26,23,20,0.15);"></div>
+              <span class="ruled-text">Job alerts (no consequence signal on current timeframe)</span>
+            </div>
+          </div>
+
+          <!-- Outcome -->
+          <div class="outcome-strip">
+            <div class="outcome-dot"></div>
+            <span class="outcome-text">Reply sent · day 4 of window · loop closed</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><rect x="3" y="3" width="14" height="14" rx="3"/><circle cx="10" cy="10" r="2" fill="rgba(26,23,20,0.25)" stroke="none"/></svg>
+        <div class="tab-lbl">Current</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="#3d8f6a"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+        <div class="tab-lbl on">Log</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><polyline points="3,14 7,9 11,11 17,5"/></svg>
+        <div class="tab-lbl">Insights</div>
+      </div>
+      <div class="tab">
+        <svg width="18" height="18" viewBox="0 0 20 20" class="t-base" stroke="rgba(26,23,20,0.25)"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        <div class="tab-lbl">You</div>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+
+  <div class="ann">
+    <div class="ann-head">Screen 03 · Log expanded · Priority Surfacing reasoning</div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">"Why Aether surfaced this" — not "why Aether acted"</div>
+      <div class="ann-body">Terminology matters here. Priority Surfacing is a Tier 2 action — the system selected and prepared, but the user sent. The log reflects that: Aether surfaced; the user approved. The expanded view shows the selection reasoning, not the execution reasoning.</div>
+      <div class="ann-tag">Tier 2 · system surfaced · user approved · distinction preserved</div>
+    </div>
+
+    <div class="ann-item re">
+      <div class="ann-title">"What was ruled out" — the cut is as important as the pick</div>
+      <div class="ann-body">Priority Surfacing selected one item from a noisy inbox. Showing what was deprioritised — and why — makes the selection legible. Newsletters and job alerts were present and not surfaced; the user sees that the system made a considered choice, not a random one.</div>
+      <div class="ann-tag">Selection reasoning · noise vs. signal · ruled out is visible</div>
+    </div>
+
+    <div class="ann-item bl">
+      <div class="ann-title">Signal tags: overdue / escalation / Type 1 / absence</div>
+      <div class="ann-body">Each signal is tagged with its category. "Absence" is architecturally significant — no task, no draft, no reply are all detection signals, not just the presence of the message. Surfacing absence signals as explicit evidence is new here; it hasn't appeared in prior screens.</div>
+      <div class="ann-tag">Absence signal · detection architecture visible · new pattern</div>
+    </div>
+
+    <div class="ann-item gr">
+      <div class="ann-title">"Loop closed" in the outcome strip — not "task complete"</div>
+      <div class="ann-body">The language is relational, not transactional. A professional relationship was in the stall. It's no longer in the stall. "Loop closed" names what actually happened — consistent with framing Aether as a system that understands obligations, not just tasks.</div>
+      <div class="ann-tag">Language discipline · relational not transactional · loop closed</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div><!-- /suite -->
+</body>
+</html>
