@@ -117,7 +117,7 @@ button { cursor: pointer; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bg);
-  background: var(--text);
+  background: var(--green);
   padding: 6px 15px;
   border-radius: 20px;
   text-decoration: none;
@@ -1050,6 +1050,12 @@ button { cursor: pointer; }
   }
   .proof-pill-item span { font-size: 11px !important; }
   .carousel-btn { display: none; }
+  /* CTA moved to bottom on mobile */
+  .hero-copy-body {
+    padding: 40px 20px 48px;
+    border-top: 1px solid var(--border-07);
+  }
+  .hero-copy-body .form-wrap { max-width: 100%; }
   .carousel-nav { padding: 14px 0 6px; }
   .form-trust { font-size: 13px; }
   .form-error { font-size: 13px; }
@@ -1939,6 +1945,17 @@ button { cursor: pointer; }
   }
 
   document.addEventListener('DOMContentLoaded', init);
+})();
+
+/* ── MOBILE CTA RELOCATION ── */
+(function() {
+  function relocateCTA() {
+    if (window.innerWidth > 767) return;
+    var cta    = document.querySelector('.hero-copy-body');
+    var footer = document.querySelector('.footer');
+    if (cta && footer) footer.parentNode.insertBefore(cta, footer);
+  }
+  document.addEventListener('DOMContentLoaded', relocateCTA);
 })();
 </script>
 </body>
