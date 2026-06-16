@@ -1097,13 +1097,22 @@ button { cursor: pointer; }
   .wearable-arrow { display: none; }
   .footer { margin-top: 0; }
   .footer-inner {
-    padding: 24px 20px;
+    padding: 36px 20px 40px;
     flex-direction: column;
-    gap: 8px;
+    gap: 20px;
     align-items: center;
     text-align: center;
   }
-  .footer-right { align-items: center; }
+  .footer-right { align-items: center; gap: 14px; }
+  .footer-right > div {
+    gap: 10px !important;
+    justify-content: center !important;
+  }
+  .footer-right a, .footer-right button {
+    padding: 9px 16px !important;
+    gap: 7px !important;
+  }
+  .footer-right a span, .footer-right button span { font-size: 11px !important; }
   .footer-copy, .footer-tagline, .footer-wordmark { font-size: 11px; }
 }
 @media (max-width: 360px) {
