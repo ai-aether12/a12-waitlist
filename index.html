@@ -1000,6 +1000,12 @@ button { cursor: pointer; }
   .entry-age         { font-size: 9px; }
   .action-chip-text  { font-size: 9px; }
   .phone-sub         { font-size: 9.5px; }
+  /* Carousel: snap transition on mobile */
+  .carousel-phase { transition: opacity 0.12s ease-out; }
+  /* Proof strip: Built for ADHD first */
+  .proof-col:nth-child(2) { order: 1; }
+  .proof-col:nth-child(1) { order: 2; }
+  .proof-col:nth-child(3) { order: 3; }
   /* Horizontal scroll cards */
   .proof {
     display: flex;
