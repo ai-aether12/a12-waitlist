@@ -1372,6 +1372,85 @@ button { cursor: pointer; }
 @media (max-width: 360px) {
   .carousel-panel { outline-width: 5px; }
 }
+
+/* ── PHONE EXPAND BUTTON ── */
+.learning-phone-wrap,
+.wearable-panel-wrap { position: relative; }
+
+.phone-expand-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
+  padding: 6px 11px;
+  background: rgba(26,21,18,0.72);
+  color: #fff;
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.phone-expand-btn:hover { background: rgba(26,21,18,0.88); }
+
+/* ── PHONE READER OVERLAY ── */
+.phone-reader-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26,21,18,0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  flex-direction: column;
+  align-items: center;
+  overscroll-behavior: contain;
+}
+.phone-reader-overlay.open { display: flex; }
+
+.phone-reader-close {
+  -webkit-appearance: none;
+  appearance: none;
+  flex-shrink: 0;
+  width: 100%;
+  height: 56px;
+  background: rgba(242,237,230,0.12);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.phone-reader-close:hover { background: rgba(242,237,230,0.18); }
+
+.phone-reader-scroller {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px 40px;
+}
+
+.phone-reader-content {
+  display: flex;
+  justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -2078,6 +2157,7 @@ button { cursor: pointer; }
         </div>
       </div>
 
+      <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
     </div><!-- /carousel-panel -->
 
     <!-- CAROUSEL NAV -->
@@ -2192,6 +2272,7 @@ button { cursor: pointer; }
             <button class="phone-cta">Continue ›</button>
           </div>
         </div>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
       </div>
 
       <!-- LEARNING ARC CONNECTOR -->
@@ -2307,6 +2388,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
       </div>
 
     </div><!-- /learning-phones -->
@@ -2509,6 +2591,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
       </div>
 
       <!-- ARROW CONNECTOR -->
@@ -2635,6 +2718,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
       </div>
 
     </div><!-- /wearable-panels -->
@@ -2823,6 +2907,74 @@ button { cursor: pointer; }
   document.addEventListener('DOMContentLoaded', init);
 })();
 
+/* ── PHONE READER ── */
+(function() {
+  var overlay  = document.getElementById('phoneReaderOverlay');
+  var closeBtn = document.getElementById('phoneReaderClose');
+  var content  = document.getElementById('phoneReaderContent');
+
+  function openReader(phoneEl) {
+    content.innerHTML = '';
+    var clone = phoneEl.cloneNode(true);
+
+    var zoomFactor = parseFloat(getComputedStyle(phoneEl).zoom) || 1;
+    var nativeW = Math.round(phoneEl.offsetWidth / zoomFactor);
+    var nativeH = Math.round(phoneEl.offsetHeight / zoomFactor);
+
+    var availW = Math.min(window.innerWidth - 32, 480);
+    var scale  = availW / nativeW;
+
+    clone.style.zoom = '1';
+    clone.style.width  = nativeW + 'px';
+    clone.style.height = nativeH + 'px';
+    clone.style.transformOrigin = 'top center';
+    clone.style.transform = 'scale(' + scale + ')';
+    clone.style.marginBottom = ((nativeH * scale) - nativeH) + 'px';
+
+    content.appendChild(clone);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeReader() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    content.innerHTML = '';
+  }
+
+  document.querySelectorAll('.phone-expand-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var wrap  = btn.closest('.carousel-panel, .learning-phone-wrap, .wearable-panel-wrap');
+      var phone = wrap.querySelector('.phone, .learning-phone, .wearable-phone');
+      if (phone) openReader(phone);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeReader);
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeReader();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeReader();
+  });
+
+  var swipeStartY = 0, swipeStartX = 0;
+  overlay.addEventListener('touchstart', function(e) {
+    swipeStartY = e.touches[0].clientY;
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  overlay.addEventListener('touchend', function(e) {
+    var dy = e.changedTouches[0].clientY - swipeStartY;
+    var dx = Math.abs(e.changedTouches[0].clientX - swipeStartX);
+    if (dy > 80 && dx < 60) closeReader();
+  }, { passive: true });
+
+})();
+
 /* ── SCROLL RESET ── */
 (function() {
   function resetScrolls() {
@@ -2847,5 +2999,14 @@ document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   }
 });
 </script>
+
+<!-- ── PHONE READER OVERLAY ── -->
+<div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
+  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
+  <div class="phone-reader-scroller">
+    <div class="phone-reader-content" id="phoneReaderContent"></div>
+  </div>
+</div>
+
 </body>
 </html>
