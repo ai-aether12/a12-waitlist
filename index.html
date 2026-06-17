@@ -1348,7 +1348,18 @@ button { cursor: pointer; }
   }
   .learning-phone { zoom: 1.15; }
   .learning-connector { display: none; }
-  .learning-arc-connector { display: none; }
+  .learning-arc-connector {
+    flex: 0 0 88vw;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    padding: 24px 20px !important;
+    min-width: 0 !important;
+  }
+  .learning-arc-arrow { display: none; }
   .footer { margin-top: 0; }
   .footer-inner {
     padding: 36px 20px 40px;
@@ -2277,7 +2288,7 @@ button { cursor: pointer; }
       <!-- LEARNING ARC CONNECTOR -->
       <div class="learning-arc-connector" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:180px;gap:0;flex-shrink:0;min-width:140px;">
         <!-- Horizontal arrow -->
-        <div style="display:flex;align-items:center;width:100%;margin-bottom:10px;">
+        <div class="learning-arc-arrow" style="display:flex;align-items:center;width:100%;margin-bottom:10px;">
           <div style="flex:1;height:1px;background:linear-gradient(to right,rgba(26,21,18,0.10),rgba(26,21,18,0.22));"></div>
           <svg width="7" height="7" viewBox="0 0 10 10" fill="none" style="flex-shrink:0;margin-left:-1px;"><polyline points="2,1 9,5 2,9" stroke="rgba(26,21,18,0.30)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
         </div>
