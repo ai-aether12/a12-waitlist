@@ -1278,19 +1278,55 @@ button { cursor: pointer; }
     color: #fff;
     line-height: 1;
   }
-  .wearable-inner { padding: 48px 12px 48px; }
-  .wearable-body { font-size: 16px; }
-  .wearable-panels { flex-direction: row; align-items: flex-start; gap: 8px; justify-content: center; }
-  .wearable-phone { zoom: 0.60; }
-  .wearable-arrow { display: flex; padding-top: 64px; min-width: 20px; gap: 4px; }
-  .wearable-arrow-label { font-size: 9px; }
-  .wearable-arrow-sub { font-size: 9px; }
-  .learning { padding: 0 12px; margin-top: 64px; }
-  .learning-phones { flex-direction: row; align-items: flex-start; gap: 12px; justify-content: center; }
-  .learning-phone { zoom: 0.60; }
+  /* Wearable — horizontal snap scroll */
+  .wearable-inner { padding: 48px 0 48px; }
+  .wearable-body { font-size: 16px; padding: 0 20px; }
+  .wearable-eyebrow { padding: 0 20px; }
+  .wearable-headline { padding: 0 20px; }
+  .wearable-panels {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 8px 20px 20px;
+  }
+  .wearable-panels::-webkit-scrollbar { display: none; }
+  .wearable-panel-wrap {
+    flex: 0 0 88vw;
+    scroll-snap-align: center;
+  }
+  .wearable-phone { zoom: 1; width: 100%; }
+  .wearable-arrow { display: none; }
+
+  /* Learning arc — horizontal snap scroll */
+  .learning { padding: 0; margin-top: 64px; }
+  .learning-inner { padding-top: 40px; padding-left: 20px; padding-right: 20px; }
+  .learning-phones {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 8px 20px 20px;
+    justify-content: flex-start;
+  }
+  .learning-phones::-webkit-scrollbar { display: none; }
+  .learning-phone-wrap {
+    flex: 0 0 88vw;
+    scroll-snap-align: center;
+  }
+  .learning-phone { zoom: 1; width: 100%; height: auto; min-height: 480px; }
   .learning-connector { display: none; }
   .learning-arc-connector { display: none; }
-  .learning-phase-label { font-size: 9px; }
   .footer { margin-top: 0; }
   .footer-inner {
     padding: 36px 20px 40px;
