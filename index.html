@@ -2771,6 +2771,14 @@ button { cursor: pointer; }
   </div>
 </footer>
 
+<!-- ── PHONE READER OVERLAY ── -->
+<div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
+  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
+  <div class="phone-reader-scroller">
+    <div class="phone-reader-content" id="phoneReaderContent"></div>
+  </div>
+</div>
+
 <script>
 /* ── CAROUSEL CONTROLLER ── */
 (function CarouselController() {
@@ -2999,14 +3007,6 @@ document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   }
 });
 </script>
-
-<!-- ── PHONE READER OVERLAY ── -->
-<div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
-  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
-  <div class="phone-reader-scroller">
-    <div class="phone-reader-content" id="phoneReaderContent"></div>
-  </div>
-</div>
 
 </body>
 </html>
