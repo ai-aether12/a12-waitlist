@@ -1360,7 +1360,7 @@ button { cursor: pointer; }
   <div class="nav-inner">
     <span class="nav-wordmark">Aether</span>
     <span class="nav-pill">First 100</span>
-    <a href="#email-input" class="nav-join">Join</a>
+    <a href="#" class="nav-join" id="nav-join-btn">Join</a>
   </div>
 </nav>
 
@@ -2519,6 +2519,16 @@ button { cursor: pointer; }
   }
   document.addEventListener('DOMContentLoaded', relocateCTA);
 })();
+
+/* ── NAV JOIN — scroll without hash ── */
+document.getElementById('nav-join-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  var input = document.getElementById('email-input');
+  if (input) {
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    input.focus({ preventScroll: true });
+  }
+});
 </script>
 </body>
 </html>
