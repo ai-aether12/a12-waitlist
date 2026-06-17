@@ -524,6 +524,8 @@ button { cursor: pointer; }
   box-sizing: content-box;
   margin: -10px;
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   background-clip: content-box;
   background-color: rgba(26,21,18,0.18);
 }
@@ -536,7 +538,7 @@ button { cursor: pointer; }
 /* ── PROOF STRIP ── */
 .proof {
   max-width: 1100px;
-  margin: 64px auto 0;
+  margin: 96px auto 0;
   padding: 0 48px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1188,7 +1190,7 @@ button { cursor: pointer; }
     grid-template-columns: unset;
     gap: 12px;
     padding: 24px 20px 4px;
-    margin-top: 60px;
+    margin-top: 40px;
     border-top: none;
     column-gap: 0;
   }
@@ -1328,6 +1330,7 @@ button { cursor: pointer; }
   /* Learning arc — horizontal snap scroll */
   .learning { padding: 0; margin-top: 64px; }
   .learning-inner { padding-top: 40px; padding-left: 20px; padding-right: 20px; }
+  .learning-body { margin-bottom: 16px; }
   .learning-phones {
     display: flex;
     flex-direction: row;
@@ -2318,7 +2321,7 @@ button { cursor: pointer; }
   </div>
 </div>
 <!-- ── PROOF STRIP ── -->
-<div class="proof" style="margin-top:96px;">
+<div class="proof">
 
   <!-- Col 1: The gap it closes -->
   <div class="proof-col">
@@ -2837,17 +2840,6 @@ button { cursor: pointer; }
   window.addEventListener('resize', resetScrolls);
 })();
 
-/* ── MOBILE CTA RELOCATION ── */
-(function() {
-  function relocateCTA() {
-    if (window.innerWidth > 767) return;
-    var cta    = document.querySelector('.hero-copy-body');
-    var footer = document.querySelector('.footer');
-    if (cta && footer) footer.parentNode.insertBefore(cta, footer);
-  }
-  document.addEventListener('DOMContentLoaded', relocateCTA);
-})();
-
 /* ── NAV JOIN — scroll without hash ── */
 document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   e.preventDefault();
@@ -2857,140 +2849,6 @@ document.getElementById('nav-join-btn').addEventListener('click', function(e) {
     input.focus({ preventScroll: true });
   }
 });
-</script>
-<!-- Phone lightbox -->
-<style>
-.phone-lightbox-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(26,21,18,0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
-  animation: lb-fade-in 0.18s ease;
-}
-@keyframes lb-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.phone-lightbox-inner {
-  position: relative;
-  cursor: default;
-  animation: lb-scale-in 0.22s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes lb-scale-in {
-  from { transform: scale(0.82); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-.phone-lightbox-close {
-  position: absolute;
-  top: -36px;
-  right: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(242,237,230,0.15);
-  border: 1px solid rgba(242,237,230,0.25);
-  color: #f2ede6;
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.phone-lightbox-close:hover { background: rgba(242,237,230,0.28); }
-.phone-expandable { cursor: zoom-in; }
-.phone-expandable:hover { outline: 2px solid rgba(61,158,114,0.35); outline-offset: 3px; transition: outline 0.15s; }
-</style>
-<script>
-(function() {
-  function openLightbox(phoneEl) {
-    var overlay = document.createElement('div');
-    overlay.className = 'phone-lightbox-overlay';
-
-    var inner = document.createElement('div');
-    inner.className = 'phone-lightbox-inner';
-
-    var clone = phoneEl.cloneNode(true);
-
-    // Determine zoom level based on phone type
-    var isCarousel = phoneEl.classList.contains('phone');
-    var zoomLevel = window.innerWidth < 768 ? '1.6' : '1.25';
-    if (isCarousel) {
-      clone.style.cssText = '';
-      clone.style.width = '280px';
-      clone.style.height = '570px';
-      clone.style.zoom = zoomLevel;
-      clone.style.borderRadius = '22px';
-      clone.style.overflow = 'hidden';
-      clone.style.flexShrink = '0';
-    } else {
-      // learning-phone or wearable-phone — already have zoom:1.3, bump up
-      clone.style.zoom = zoomLevel;
-      clone.style.cursor = 'default';
-    }
-
-    // Remove expand hint from clone
-    clone.classList.remove('phone-expandable');
-    clone.style.outline = 'none';
-
-    var closeBtn = document.createElement('button');
-    closeBtn.className = 'phone-lightbox-close';
-    closeBtn.innerHTML = '×';
-    closeBtn.setAttribute('aria-label', 'Close');
-    closeBtn.addEventListener('click', function(e) { e.stopPropagation(); removeLightbox(); });
-
-    inner.appendChild(closeBtn);
-    inner.appendChild(clone);
-    overlay.appendChild(inner);
-    document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) removeLightbox();
-    });
-
-    function onKey(e) {
-      if (e.key === 'Escape') removeLightbox();
-    }
-    document.addEventListener('keydown', onKey);
-
-    function removeLightbox() {
-      overlay.style.opacity = '0';
-      overlay.style.transition = 'opacity 0.15s';
-      setTimeout(function() {
-        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', onKey);
-      }, 150);
-    }
-  }
-
-  function init() {
-    var selectors = '.phone, .learning-phone, .wearable-phone';
-    document.querySelectorAll(selectors).forEach(function(el) {
-      el.classList.add('phone-expandable');
-      el.addEventListener('click', function(e) {
-        // Don't trigger if user clicks a button inside
-        if (e.target.closest('button, a')) return;
-        openLightbox(el);
-      });
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
 </script>
 </body>
 </html>
