@@ -315,7 +315,7 @@ button { cursor: pointer; }
 .phone-title--md { font-size: 20px; line-height: 1.2; }
 .phone-sub {
   font-family: 'DM Mono', monospace;
-  font-size: 8px;
+  font-size: 10.5px;
   margin-top: 3px;
 }
 .phone-body {
@@ -343,7 +343,7 @@ button { cursor: pointer; }
 }
 .tab-label {
   font-family: 'DM Mono', monospace;
-  font-size: 6.5px;
+  font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -378,11 +378,12 @@ button { cursor: pointer; }
 }
 .entry-icon--blue   { background: rgba(58,123,191,0.10); }
 .entry-icon--green  { background: rgba(61,158,114,0.10); }
+.entry-icon--amber  { background: rgba(196,132,26,0.10); }
 .entry-icon--muted  { background: rgba(26,21,18,0.05); }
 
 .entry-chip-label {
   font-family: 'DM Mono', monospace;
-  font-size: 7.5px;
+  font-size: 9.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 2px;
@@ -396,13 +397,13 @@ button { cursor: pointer; }
 .entry-title--sm { font-size: 11px; }
 .entry-meta {
   font-family: 'DM Mono', monospace;
-  font-size: 7.5px;
+  font-size: 10px;
   color: var(--text-38);
   margin-top: 3px;
 }
 .entry-age {
   font-family: 'DM Mono', monospace;
-  font-size: 8px;
+  font-size: 10px;
   flex-shrink: 0;
 }
 
@@ -426,7 +427,7 @@ button { cursor: pointer; }
 }
 .action-chip-text {
   font-family: 'DM Mono', monospace;
-  font-size: 7.5px;
+  font-size: 10.5px;
   flex: 1;
 }
 .action-chip-arr {
@@ -445,7 +446,7 @@ button { cursor: pointer; }
 }
 .log-filter {
   font-family: 'DM Mono', monospace;
-  font-size: 7px;
+  font-size: 8.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 3px 7px;
@@ -591,6 +592,110 @@ button { cursor: pointer; }
   letter-spacing: 0.06em;
 }
 
+/* ── LEARNING ARC ── */
+.learning {
+  max-width: 1100px;
+  margin: 112px auto 0;
+  padding: 0 48px;
+  border-top: 1px solid var(--border-09);
+}
+.learning-inner { padding-top: 56px; }
+.learning-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-38);
+  margin-bottom: 16px;
+}
+.learning-headline {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: clamp(32px, 3.5vw, 48px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-wrap: pretty;
+}
+.learning-body {
+  font-size: 16px;
+  line-height: 1.68;
+  color: rgba(26,21,18,0.58);
+  max-width: 520px;
+  margin-bottom: 56px;
+  text-wrap: pretty;
+}
+.learning-phones {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.learning-phone-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.learning-phase-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.learning-phone {
+  width: 256px;
+  height: 503px;
+  zoom: 1.3;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(26,21,18,0.08), 0 1px 4px rgba(26,21,18,0.05);
+}
+.learning-phone-header {
+  padding: 14px 16px 11px;
+  border-bottom: 1px solid var(--border-07);
+  flex-shrink: 0;
+}
+.learning-phone-body {
+  flex: 1;
+  padding: 9px 12px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow: hidden;
+}
+.learning-tabbar {
+  height: 48px;
+  border-top: 1px solid var(--border-07);
+  background: rgba(0,0,0,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+.learning-tab-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.learning-tab-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.learning-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 152px;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+
 /* ── PROOF SCROLL DOTS ── */
 .proof-scroll-hint { display: none; }
 
@@ -633,7 +738,7 @@ button { cursor: pointer; }
 }
 .wearable-panels {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 28px;
   flex-wrap: wrap;
@@ -646,18 +751,22 @@ button { cursor: pointer; }
 }
 .wearable-panel-label {
   font-family: 'DM Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(26,21,18,0.45);
 }
 .wearable-phone {
   width: 268px;
+  zoom: 1.3;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 28px 72px rgba(26,21,18,0.20), 0 6px 20px rgba(26,21,18,0.10);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .wearable-phone-header {
   padding: 14px 16px 11px;
@@ -695,7 +804,7 @@ button { cursor: pointer; }
 }
 .wearable-title-sub {
   font-family: 'DM Mono', monospace;
-  font-size: 8px;
+  font-size: 10.5px;
   color: var(--text-38);
   margin-top: 3px;
 }
@@ -706,9 +815,10 @@ button { cursor: pointer; }
   margin-top: 6px;
 }
 .recovery-num {
-  font-family: 'Fraunces', serif;
-  font-size: 24px;
-  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  font-size: 26px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 .recovery-label {
@@ -722,6 +832,7 @@ button { cursor: pointer; }
   flex-direction: column;
   gap: 8px;
   padding-top: 8px;
+  flex: 1;
 }
 .wearable-row {
   border-radius: 9px;
@@ -736,14 +847,14 @@ button { cursor: pointer; }
 }
 .wearable-held-label {
   font-family: 'DM Mono', monospace;
-  font-size: 7.5px;
+  font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--amber);
 }
 .wearable-held-sub {
   font-family: 'DM Mono', monospace;
-  font-size: 7px;
+  font-size: 8.5px;
   color: var(--text-38);
   margin-top: 1px;
 }
@@ -814,7 +925,7 @@ button { cursor: pointer; }
 }
 .held-badge {
   font-family: 'DM Mono', monospace;
-  font-size: 6.5px;
+  font-size: 8px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--amber);
@@ -845,7 +956,7 @@ button { cursor: pointer; }
 }
 .wearable-tab-label {
   font-family: 'DM Mono', monospace;
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -902,17 +1013,19 @@ button { cursor: pointer; }
 }
 .cta-green {
   background: var(--green);
-  color: #fff;
-  border-radius: 9px;
-  padding: 11px;
+  color: var(--bg);
+  border-radius: 12px;
+  padding: 11px 14px;
   font-family: 'Lexend', sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  box-shadow: 0 2px 10px rgba(61,143,106,0.18);
 }
 /* Wearable arrow connector */
 .wearable-arrow {
@@ -926,7 +1039,7 @@ button { cursor: pointer; }
 }
 .wearable-arrow-label {
   font-family: 'DM Mono', monospace;
-  font-size: 8px;
+  font-size: 11px;
   color: var(--text-45);
   letter-spacing: 0.08em;
   white-space: nowrap;
@@ -934,7 +1047,7 @@ button { cursor: pointer; }
 .wearable-arrow-icon { font-size: 18px; color: rgba(26,21,18,0.30); }
 .wearable-arrow-sub {
   font-family: 'DM Mono', monospace;
-  font-size: 7.5px;
+  font-size: 11px;
   color: var(--text-40);
   letter-spacing: 0.06em;
   white-space: nowrap;
@@ -1114,6 +1227,10 @@ button { cursor: pointer; }
   .wearable-body { font-size: 16px; }
   .wearable-panels { flex-direction: column; align-items: center; }
   .wearable-arrow { display: none; }
+  .learning { padding: 0 20px; margin-top: 64px; }
+  .learning-phones { flex-direction: column; align-items: center; }
+  .learning-connector { display: none; }
+  .learning-arc-connector { display: none; }
   .footer { margin-top: 0; }
   .footer-inner {
     padding: 36px 20px 40px;
@@ -1159,7 +1276,7 @@ button { cursor: pointer; }
       <h1 class="hero-headline">Things<br>pile up.</h1>
     </div>
     <div class="hero-copy-tagline">
-    <p class="hero-body">Aether moves them — quietly, carefully, and only with your approval.</p>
+    <p class="hero-body">Aether handles them — quietly, carefully, and only with your approval.</p>
     </div>
 
     <div class="hero-copy-body">
@@ -1224,12 +1341,11 @@ button { cursor: pointer; }
       <div class="carousel-phase active" id="phase-0">
         <div class="phone">
           <div class="phone-header">
-            <div class="phone-brand">
-              <div class="phone-dot phone-dot--static"></div>
-              <span class="phone-brand-label">Aether</span>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
+              <div class="phone-dot phone-dot--static" style="flex-shrink:0;"></div>
+              <div class="phone-title phone-title--md" style="margin:0;">While you were away</div>
             </div>
-            <div class="phone-title phone-title--md">While you were away</div>
-            <div class="phone-sub" style="color:var(--green);">Aether acted</div>
+            <div class="phone-sub" style="color:var(--green);">I took care of a few things.</div>
           </div>
           <div class="phone-body">
             <!-- Invoice -->
@@ -1300,12 +1416,11 @@ button { cursor: pointer; }
       <div class="carousel-phase" id="phase-1">
         <div class="phone">
           <div class="phone-header">
-            <div class="phone-brand">
-              <div class="phone-dot phone-dot--green"></div>
-              <span class="phone-brand-label">Aether</span>
-            </div>
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
-              <div class="phone-title phone-title--lg">Log</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;">
+              <div style="display:flex;align-items:center;gap:7px;">
+                <div class="phone-dot phone-dot--green" style="flex-shrink:0;"></div>
+                <div class="phone-title phone-title--lg" style="margin:0;">Log</div>
+              </div>
               <div class="log-filters">
                 <div class="log-filter log-filter--active">All</div>
                 <div class="log-filter log-filter--idle">Sent</div>
@@ -1321,11 +1436,11 @@ button { cursor: pointer; }
                 <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
               </div>
               <div style="flex:1;">
-                <div class="entry-chip-label" style="color:var(--green);font-size:7px;">Sent</div>
+                <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Sent</div>
                 <div class="entry-title entry-title--sm">Invoice to Clearwater Digital</div>
                 <div class="action-chip action-chip--blue" style="margin-top:5px;min-height:30px;">
                   <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 3a5 5 0 00-5 5v3l-1.5 2.5h13L15 11V8a5 5 0 00-5-5z"></path><path d="M8.5 16a1.5 1.5 0 003 0"></path></svg>
-                  <span class="action-chip-text" style="color:var(--blue);font-size:7px;">Send a reminder</span>
+                  <span class="action-chip-text" style="color:var(--blue);font-size:8.5px;">Send a reminder</span>
                   <span class="action-chip-arr">›</span>
                 </div>
               </div>
@@ -1337,7 +1452,7 @@ button { cursor: pointer; }
                 <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg>
               </div>
               <div style="flex:1;">
-                <div class="entry-chip-label" style="color:var(--green);font-size:7px;">Booked</div>
+                <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Booked</div>
                 <div class="entry-title entry-title--sm">Doctor appointment</div>
                 <div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text-55);margin-top:2px;">Confirmed — Aetna #4821-JY</div>
               </div>
@@ -1349,11 +1464,11 @@ button { cursor: pointer; }
                 <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
               </div>
               <div style="flex:1;">
-                <div class="entry-chip-label" style="color:var(--green);font-size:7px;">Replied</div>
+                <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Replied</div>
                 <div class="entry-title entry-title--sm">Marcus · <span style="color:var(--text-55);">#design-reviews</span></div>
                 <div style="background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.18);border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;margin-top:5px;min-height:30px;">
                   <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
-                  <span style="font-family:'DM Mono',monospace;font-size:7px;color:var(--blue);flex:1;">Pattern found · Marcus messages</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--blue);flex:1;">Pattern found · Marcus messages</span>
                   <span style="font-size:9px;color:var(--text-35);">›</span>
                 </div>
               </div>
@@ -1386,20 +1501,19 @@ button { cursor: pointer; }
         <div class="phone">
           <div class="phone-header">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <div class="phone-dot phone-dot--static"></div>
-                <span class="phone-brand-label">Aether</span>
+              <div style="display:flex;align-items:center;gap:7px;">
+                <div class="phone-dot phone-dot--static" style="flex-shrink:0;"></div>
+                <div class="phone-title phone-title--md" style="margin:0;">Insights</div>
               </div>
               <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);border:1px solid rgba(26,21,18,0.10);border-radius:7px;padding:3px 9px;">‹ Log</div>
             </div>
-            <div class="phone-title phone-title--md">Insights</div>
-            <div class="phone-sub" style="color:var(--text-38);">Pattern found · Marcus messages</div>
+            <div class="phone-sub" style="color:var(--text-38);">Pattern found · Messages with Marcus</div>
           </div>
           <div class="phone-body">
-            <div style="font-family:'Lexend',sans-serif;font-weight:600;font-size:14px;color:var(--text);line-height:1.5;">Replies to Marcus stall most days. <span style="color:var(--blue);font-weight:700;">Tuesday mornings</span> are the exception.</div>
+            <div style="font-family:'Lexend',sans-serif;font-weight:600;font-size:14px;color:var(--text);line-height:1.5;">Replies to Marcus stall on most days. Tuesday mornings are the exception.</div>
             <!-- Bar chart -->
             <div style="background:var(--surface-05);border:1px solid var(--border);border-radius:11px;padding:11px 12px 10px;">
-              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-38);margin-bottom:11px;">When you send Marcus replies</div>
+              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-38);margin-bottom:11px;">When you send Marcus replies</div>
               <div style="display:flex;gap:5px;align-items:flex-end;height:56px;">
                 <div style="flex:1;background:rgba(26,21,18,0.10);border-radius:3px 3px 0 0;height:15px;"></div>
                 <div style="flex:1;background:var(--green);border-radius:3px 3px 0 0;height:56px;"></div>
@@ -1410,13 +1524,13 @@ button { cursor: pointer; }
                 <div style="flex:1;background:rgba(26,21,18,0.07);border-radius:3px 3px 0 0;height:4px;"></div>
               </div>
               <div style="display:flex;gap:5px;margin-top:5px;">
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Mon</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--green);text-transform:uppercase;font-weight:500;">Tue ✓</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Wed</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Thu</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Fri</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Sat</div>
-                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--text-38);text-transform:uppercase;">Sun</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Mon</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--green);text-transform:uppercase;font-weight:500;">Tue ✓</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Wed</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Thu</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Fri</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Sat</div>
+                <div style="flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-38);text-transform:uppercase;">Sun</div>
               </div>
             </div>
             <!-- Provenance -->
@@ -1431,7 +1545,7 @@ button { cursor: pointer; }
                   <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
                 </div>
                 <div>
-                  <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:var(--text);">Marcus reply · <span style="color:var(--text-55);font-weight:300;">#design-reviews</span></div>
+                  <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:var(--text);">Reply to Marcus · #design-reviews</div>
                   <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);margin-top:2px;">Draft ready · held 3 days</div>
                 </div>
               </div>
@@ -1469,11 +1583,10 @@ button { cursor: pointer; }
       <div class="carousel-phase" id="phase-3">
         <div class="phone">
           <div class="phone-header">
-            <div class="phone-brand">
-              <div class="phone-dot phone-dot--green"></div>
-              <span class="phone-brand-label">Aether</span>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;">
+              <div class="phone-dot phone-dot--green" style="flex-shrink:0;"></div>
+              <div class="phone-title phone-title--md" style="margin:0;">Log</div>
             </div>
-            <div class="phone-title phone-title--md">Log</div>
             <div class="phone-sub" style="color:var(--text-38);">Invoice to Clearwater Digital · expanded</div>
           </div>
           <div class="phone-body" style="gap:7px;">
@@ -1483,38 +1596,75 @@ button { cursor: pointer; }
                 <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
               </div>
               <div style="flex:1;min-width:0;">
-                <div class="entry-chip-label" style="color:var(--green);font-size:7px;margin-bottom:1px;">Sent</div>
+                <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;margin-bottom:1px;">Sent</div>
                 <div class="entry-title entry-title--sm">Invoice to Clearwater Digital</div>
               </div>
               <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);flex-shrink:0;">3d</span>
             </div>
-            <!-- Paper trail toggle -->
-            <div style="display:flex;align-items:center;gap:7px;padding:5px 9px;background:rgba(26,21,18,0.03);border:1px solid var(--border-09);border-radius:7px;">
-              <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.08em;color:var(--text-45);flex:1;">Why Aether did this</div>
-              <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round"><polyline points="2,4 6,8 10,4"></polyline></svg>
-            </div>
-            <!-- Signals detected -->
-            <div style="background:rgba(26,21,18,0.03);border:1px solid var(--border-09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
-              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-35);margin-bottom:2px;display:flex;align-items:center;">
-                <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>
-                Signals detected
+            <!-- Reason card — nested paper trail -->
+            <div style="background:rgba(61,158,114,0.06);border:1px solid rgba(61,158,114,0.22);border-radius:10px;padding:9px 10px;position:relative;overflow:hidden;">
+              <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#3d9e72;border-radius:3px 0 0 3px;"></div>
+              <div style="padding-left:6px;">
+                <!-- Toggle header -->
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+                  <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(61,158,114,0.8);">Why I did this</div>
+                  <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="rgba(61,158,114,0.5)" stroke-width="1.5" stroke-linecap="round"><polyline points="2,4 6,8 10,4"></polyline></svg>
+                </div>
+                <!-- Section: Signals -->
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.28);margin-bottom:3px;">Signals</div>
+                <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:7px;">
+                  <!-- Red: overdue -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(184,48,48,0.05);border:1px solid rgba(184,48,48,0.12);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">Invoice #118 unsent</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--red);">6d</span>
+                  </div>
+                  <!-- Blue: timing pip -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(58,123,191,0.06);border:1px solid rgba(58,123,191,0.14);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);">25 min window</span>
+                    <div style="display:flex;gap:2px;flex:1;">
+                      <div style="height:3px;flex:1;border-radius:2px;background:var(--blue);opacity:0.8;"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:var(--blue);opacity:0.8;"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                    </div>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--blue);">Now</span>
+                  </div>
+                  <!-- Amber: pattern -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(196,132,26,0.06);border:1px solid rgba(196,132,26,0.14);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">Tuesday pattern</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;background:rgba(196,132,26,0.10);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;color:var(--amber);">✓</span>
+                  </div>
+                </div>
+                <!-- Section: Ruled out -->
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.28);margin-bottom:3px;">Ruled out</div>
+                <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.07);margin-bottom:7px;">
+                  <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><line x1="7" y1="7" x2="13" y2="13"></line><line x1="13" y1="7" x2="7" y2="13"></line></svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-35);text-decoration:line-through;opacity:0.6;">Stage for later</span>
+                </div>
+                <!-- Section: Outcome -->
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.28);margin-bottom:3px;">Outcome</div>
+                <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.18);">
+                  <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+                  <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text);flex:1;">Sent · 1:34 PM · confirmed</span>
+                </div>
+                <!-- Provenance strip -->
+                <div style="margin-top:7px;padding-top:6px;border-top:1px solid rgba(61,143,106,0.12);display:flex;align-items:center;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:3px;">
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-45);">6 actions</span>
+                  </div>
+                  <span style="color:rgba(26,21,18,0.15);font-size:8.5px;">·</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-45);flex:1;">Clearwater · 3 prior invoices</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--green);">Log ›</span>
+                </div>
               </div>
-              <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text);flex:1;">Invoice #118 unsent</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);">6d overdue</div></div>
-              <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text);flex:1;">25-min window before call</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--blue);">Timing</div></div>
-              <div style="display:flex;align-items:center;gap:7px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text);flex:1;">Tuesday pattern confirmed</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--amber);">Optimal</div></div>
-            </div>
-            <!-- Ruled out -->
-            <div style="background:rgba(26,21,18,0.03);border:1px solid var(--border-09);border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:4px;">
-              <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-35);margin-bottom:2px;display:flex;align-items:center;">
-                <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:5px;"><circle cx="10" cy="10" r="8"></circle><line x1="7" y1="7" x2="13" y2="13"></line><line x1="13" y1="7" x2="7" y2="13"></line></svg>
-                What was ruled out
-              </div>
-              <div style="display:flex;align-items:center;gap:7px;opacity:0.45;"><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,21,18,0.30);flex-shrink:0;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text);flex:1;text-decoration:line-through;">Stage for later</div></div>
-            </div>
-            <!-- Decision -->
-            <div style="background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.20);border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:7px;">
-              <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
-              <div style="font-family:'Lexend',sans-serif;font-size:10px;color:var(--text);flex:1;">Sent at 1:34 PM · Clearwater Digital confirmed</div>
             </div>
           </div>
           <div class="phone-tabbar">
@@ -1542,52 +1692,60 @@ button { cursor: pointer; }
       <div class="carousel-phase" id="phase-4">
         <div class="phone">
           <div class="phone-header">
-            <div class="phone-brand">
-              <div class="phone-dot phone-dot--amber"></div>
-              <span class="phone-brand-label">Aether</span>
+            <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:9px;">
+              <div class="phone-dot phone-dot--amber" style="flex-shrink:0;margin-top:5px;"></div>
+              <div class="phone-title phone-title--md" style="margin:0;">It's 1:35pm.<br>You have 25 minutes.</div>
             </div>
-            <div class="phone-title phone-title--md">It's 1:35pm.<br>You have 25 minutes.</div>
             <div class="phone-sub" style="color:var(--amber);letter-spacing:0.08em;margin-top:4px;">Window before your 2pm call</div>
           </div>
-          <div class="phone-body" style="gap:7px;">
-            <!-- From log card -->
-            <div style="background:var(--surface-04);border:1px solid var(--border-09);border-radius:9px;padding:8px 10px;">
-              <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:var(--green);"></div>From Log</div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:26px;height:26px;border-radius:7px;background:rgba(61,158,114,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+          <div class="phone-body" style="gap:14px;">
+            <div style="background:rgba(196,132,26,0.05);border:1px solid rgba(196,132,26,0.20);border-radius:10px;padding:14px 12px;position:relative;overflow:hidden;">
+              <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber);border-radius:3px 0 0 3px;"></div>
+              <div style="padding-left:6px;">
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(196,132,26,0.8);margin-bottom:6px;">Why now</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <!-- Red: overdue -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(184,48,48,0.05);border:1px solid rgba(184,48,48,0.12);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">Invoice #118 unsent</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--red);">6d</span>
+                  </div>
+                  <!-- Blue: timing pip -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(58,123,191,0.06);border:1px solid rgba(58,123,191,0.14);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);">25 min window</span>
+                    <div style="display:flex;gap:2px;flex:1;">
+                      <div style="height:3px;flex:1;border-radius:2px;background:var(--blue);opacity:0.8;"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:var(--blue);opacity:0.8;"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                      <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                    </div>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--blue);">Now</span>
+                  </div>
+                  <!-- Amber: pattern -->
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:6px;background:rgba(196,132,26,0.06);border:1px solid rgba(196,132,26,0.14);">
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">Clearwater replies Tuesdays</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;background:rgba(196,132,26,0.10);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;color:var(--amber);">✓</span>
+                  </div>
                 </div>
-                <div style="flex:1;">
-                  <div style="font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);">Overdue</div>
-                  <div style="font-family:'Lexend',sans-serif;font-size:11px;color:var(--text);">Invoice #118 · Clearwater Digital Co.</div>
-                  <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-40);margin-top:1px;">Draft ready · unsent</div>
-                </div>
-                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);flex-shrink:0;">6d</div>
               </div>
             </div>
-            <!-- From insights card -->
-            <div style="background:var(--surface-04);border:1px solid var(--border-09);border-radius:9px;padding:8px 10px;">
-              <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-35);margin-bottom:6px;display:flex;align-items:center;gap:5px;"><div style="width:4px;height:4px;border-radius:50%;background:var(--blue);"></div>From Insights</div>
-              <div style="display:flex;flex-direction:column;gap:4px;">
-                <div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">25-min window before your call. Enough time for Clearwater Digital to confirm receipt.</div></div>
-                <div style="display:flex;align-items:flex-start;gap:6px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px;"></div><div style="font-family:'Lexend',sans-serif;font-size:10px;color:rgba(26,21,18,0.65);line-height:1.4;">Clearwater Digital responds <strong style="color:var(--text);">Tuesday mornings.</strong> This is the window.</div></div>
-              </div>
+            <!-- Action card -->
+            <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;padding:14px 14px;">
+              <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-35);margin-bottom:4px;">Ready to send</div>
+              <div style="font-size:12px;font-weight:500;color:var(--text);line-height:1.35;">Invoice #118 · Clearwater Digital</div>
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);margin-top:2px;">Draft ready · your approval</div>
             </div>
-            <!-- Approve card -->
-            <div style="background:var(--surface-05);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-              <div style="padding:10px 12px;">
-                <div style="font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-40);margin-bottom:4px;">Aether will</div>
-                <div style="font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;color:var(--text);line-height:1.35;">Send Invoice #118 to Clearwater Digital Co.</div>
-              </div>
-              <div style="background:var(--text);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-                <span style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:600;color:var(--bg);">Approve</span>
-                <span style="font-size:16px;color:rgba(242,237,230,0.60);">›</span>
-              </div>
-            </div>
+            <!-- CTA -->
+            <button style="width:100%;min-height:40px;padding:11px 14px;background:var(--green);color:var(--bg);border:none;border-radius:12px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:0;box-shadow:0 2px 10px rgba(61,143,106,0.18);">Send Invoice #118 ›</button>
             <!-- Secondary -->
-            <div style="display:flex;gap:10px;padding:0 2px;">
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-40);">Not now</span>
-              <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-40);">Add context ›</span>
+            <div style="display:flex;justify-content:center;align-items:center;">
+              <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-38);cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Not now</span>
             </div>
           </div>
           <div class="phone-tabbar">
@@ -1630,24 +1788,234 @@ button { cursor: pointer; }
 
 </div><!-- /hero -->
 
+<!-- ── LEARNING ARC SECTION ── -->
+<div class="learning">
+  <div class="learning-inner">
+    <div class="learning-eyebrow">Gets sharper over time</div>
+    <h2 class="learning-headline">The longer it runs, the less you notice things slipping.</h2>
+    <p class="learning-body">From day one, Aether acts on what it can see. Within a few weeks, it knows how you work — which contacts carry weight, when a window is about to close for you specifically, what you always mean to do and don't.</p>
+
+    <div class="learning-phones">
+
+      <!-- PHONE 1: SETUP -->
+      <div class="learning-phone-wrap">
+        <div class="learning-phase-label" style="color:var(--text-35);">Setup</div>
+        <div class="learning-phone">
+          <div class="learning-phone-header">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+              <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:rgba(26,23,20,0.20);flex-shrink:0;"></div><span style="font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(26,23,20,0.35);letter-spacing:0.14em;text-transform:uppercase;">Setup</span></div>
+              <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(26,23,20,0.35);letter-spacing:0.06em;background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.08);border-radius:5px;padding:2px 7px;">3 of 5</span>
+            </div>
+            <div style="display:flex;gap:3px;margin-bottom:11px;">
+              <div style="height:2px;border-radius:1px;flex:1;background:var(--text);"></div>
+              <div style="height:2px;border-radius:1px;flex:1;background:var(--text);"></div>
+              <div style="height:2px;border-radius:1px;flex:1;background:var(--green);"></div>
+              <div style="height:2px;border-radius:1px;flex:1;background:rgba(0,0,0,0.10);"></div>
+              <div style="height:2px;border-radius:1px;flex:1;background:rgba(0,0,0,0.10);"></div>
+            </div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:17px;letter-spacing:-0.02em;line-height:1.15;color:var(--text);">What I do on my own.</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-35);margin-top:4px;line-height:1.4;">You decide what it handles without asking.</div>
+          </div>
+          <div class="learning-phone-body">
+            <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;padding:14px 13px;">
+              <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:5px;">Priority Surfacing</div>
+              <div style="font-size:11px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:5px;">Selects the one thing that matters most — without you having to find it.</div>
+              <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
+                <!-- Axis 1: Consequence -->
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.40)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l2.4 5h5.2l-4.2 3.1 1.6 5L10 12l-5 3.1 1.6-5L2.4 7h5.2z"></path></svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">What's at stake</span>
+                  <div style="display:flex;gap:2px;">
+                    <div style="width:10px;height:3px;border-radius:2px;background:var(--text);opacity:0.7;"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:var(--text);opacity:0.7;"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:var(--text);opacity:0.7;"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                  </div>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-35);width:20px;text-align:right;">High</span>
+                </div>
+                <!-- Axis 2: Activation cost -->
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.40)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 13,9 17,9 7,18 7,11 3,11"></polyline></svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;">Effort to start</span>
+                  <div style="display:flex;gap:2px;">
+                    <div style="width:10px;height:3px;border-radius:2px;background:var(--green);opacity:0.8;"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                    <div style="width:10px;height:3px;border-radius:2px;background:rgba(26,21,18,0.10);"></div>
+                  </div>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--green);width:20px;text-align:right;">Low</span>
+                </div>
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(26,21,18,0.42);margin-top:2px;line-height:1.4;">Highest on both rises to the top.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--panel-dark);border:1px solid var(--border-07);border-radius:7px;">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-55);flex:1;padding-right:8px;line-height:1.4;">Let me select what to surface — without asking each time</div>
+              <div style="width:30px;height:17px;border-radius:9px;background:var(--green);position:relative;flex-shrink:0;"><div style="width:11px;height:11px;border-radius:50%;background:white;position:absolute;top:3px;right:3px;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div></div>
+            </div>
+
+            <button style="width:100%;min-height:40px;padding:11px 14px;background:var(--green);color:var(--bg);border:none;border-radius:12px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:0;box-shadow:0 2px 10px rgba(61,143,106,0.18);">Continue ›</button>
+            <!-- Contemplative glyph -->
+            <svg viewBox="0 0 100 95" width="auto" height="72" style="display:block;margin:6px auto 2px;opacity:0.32;flex-shrink:0;">
+              <!-- Question marks -->
+              <text x="44" y="44" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+              <text x="26" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+              <text x="62" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+              <!-- Person — head well above shoulders -->
+              <circle cx="50" cy="63" r="7" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+              <path d="M36 84 c0-7.7 6.3-14 14-14 s14 6.3 14 14" stroke="#1a1512" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              <!-- Calendar (top-center) -->
+              <rect x="38" y="4" width="18" height="16" rx="2.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+              <line x1="38" y1="10" x2="56" y2="10" stroke="#1a1512" stroke-width="1.4"/>
+              <line x1="43" y1="2" x2="43" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="51" y1="2" x2="51" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
+              <!-- Envelope (left) -->
+              <rect x="-2" y="38" width="18" height="13" rx="2" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+              <polyline points="-2,40 7,48 16,40" stroke="#1a1512" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+              <!-- Phone (right) -->
+              <rect x="78" y="36" width="14" height="22" rx="3.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+              <circle cx="85" cy="55" r="1.8" fill="#1a1512"/>
+              <line x1="80.5" y1="41" x2="89.5" y2="41" stroke="#1a1512" stroke-width="1" opacity="0.45"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEARNING ARC CONNECTOR -->
+      <div class="learning-arc-connector" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:180px;gap:0;flex-shrink:0;min-width:140px;">
+        <!-- Horizontal arrow -->
+        <div style="display:flex;align-items:center;width:100%;margin-bottom:10px;">
+          <div style="flex:1;height:1px;background:linear-gradient(to right,rgba(26,21,18,0.10),rgba(26,21,18,0.22));"></div>
+          <svg width="7" height="7" viewBox="0 0 10 10" fill="none" style="flex-shrink:0;margin-left:-1px;"><polyline points="2,1 9,5 2,9" stroke="rgba(26,21,18,0.30)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+        </div>
+        <!-- Learning card -->
+        <div style="display:flex;flex-direction:column;gap:5px;padding:8px 11px;background:rgba(26,21,18,0.03);border:1px solid rgba(26,21,18,0.07);border-radius:9px;width:100%;">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:1px;">Learning</div>
+          <!-- Row 1 -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.55);line-height:1.3;">When you reply</span>
+          </div>
+          <!-- Row 2 -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.55);line-height:1.3;">Who you prioritize</span>
+          </div>
+          <!-- Row 3 -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,10 8,15 17,5"></polyline></svg>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.55);line-height:1.3;">How you close loops</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHONE 3: CALIBRATED -->
+      <div class="learning-phone-wrap">
+        <div class="learning-phase-label" style="color:var(--green);">A few weeks in</div>
+        <div class="learning-phone">
+          <div class="learning-phone-header">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pdot 2.2s ease-in-out infinite;flex-shrink:0;"></div>
+              <div style="font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;line-height:1.1;color:var(--text);">One thing needs you.</div>
+            </div>
+
+          </div>
+          <div class="learning-phone-body" style="gap:7px;">
+            <div style="background:var(--panel-dark);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:10px 11px;display:flex;gap:9px;align-items:flex-start;">
+              <div style="width:30px;height:30px;border-radius:8px;background:rgba(58,123,191,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:2px;">Priority:</div>
+                <div style="font-size:11.5px;font-weight:500;color:var(--text);line-height:1.35;">Reply to Raul · LinkedIn</div>
+                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-35);margin-top:2px;">Met at networking event · 4 days ago</div>
+                <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);margin-top:1px;">Window to reply naturally is closing</div>
+              </div>
+            </div>
+            <div style="background:rgba(61,143,106,0.04);border:1px solid rgba(61,143,106,0.18);border-radius:10px;padding:9px 11px;">
+              <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:6px;">Why I chose today</div>
+              <!-- Row 1: urgency -->
+              <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(61,143,106,0.12);">
+                <div style="width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+                <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.30)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">2 unread · no reply</span>
+                <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);">4d</span>
+              </div>
+              <!-- Row 2: relationship -->
+              <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(61,143,106,0.12);">
+                <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+                <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.30)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">3 events · always followed up</span>
+                <span style="font-family:'DM Mono',monospace;font-size:9px;background:var(--green-fill-10);border:1px solid var(--green-border);border-radius:3px;padding:1px 6px;color:var(--green);">✓</span>
+              </div>
+              <!-- Row 3: timing with pip bar -->
+              <div style="display:flex;align-items:center;gap:6px;padding:4px 0;">
+                <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+                <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.30)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+                <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);">Day 4</span>
+                <div style="display:flex;gap:2px;flex:1;">
+                  <div style="height:3px;flex:1;border-radius:2px;background:var(--green);opacity:0.7;"></div>
+                  <div style="height:3px;flex:1;border-radius:2px;background:var(--green);opacity:0.7;"></div>
+                  <div style="height:3px;flex:1;border-radius:2px;background:var(--green);opacity:0.7;"></div>
+                  <div style="height:3px;flex:1;border-radius:2px;background:var(--amber);"></div>
+                  <div style="height:3px;flex:1;border-radius:2px;background:rgba(26,21,18,0.08);"></div>
+                </div>
+                <span style="font-family:'DM Mono',monospace;font-size:9px;background:var(--green-fill-10);border:1px solid var(--green-border);border-radius:3px;padding:1px 6px;color:var(--green);">✓</span>
+              </div>
+              <!-- Provenance strip -->
+              <div style="margin-top:8px;padding-top:7px;border-top:1px solid rgba(61,143,106,0.12);display:flex;align-items:center;gap:8px;">
+                <div style="display:flex;align-items:center;gap:3px;">
+                  <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
+                <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-45);">4 mo</span>
+                  <span style="color:rgba(26,21,18,0.15);font-size:8.5px;">·</span>
+                  <div style="display:flex;align-items:center;gap:3px;">
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-45);">23 messages</span>
+                  </div>
+                  <span style="color:rgba(26,21,18,0.15);font-size:8.5px;">·</span>
+                  <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--green);opacity:0.8;">Log ›</span>
+              </div>
+              </div>
+            </div>
+            <!-- spacer -->
+            <div style="flex:1;"></div>
+            <button style="width:100%;min-height:40px;padding:11px 14px;background:var(--green);color:var(--bg);border:none;border-radius:12px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:0;box-shadow:0 2px 10px rgba(61,143,106,0.18);">Review draft reply ›</button>
+            <div style="display:flex;justify-content:center;align-items:center;">
+              <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-38);cursor:pointer;text-decoration:underline;text-underline-offset:2px;">Not now</span>
+            </div>
+          </div>
+          <div class="learning-tabbar">
+            <div class="learning-tab-item"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg><span class="learning-tab-label" style="color:var(--text-30);">Log</span></div>
+            <div class="learning-tab-item"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="var(--green)" stroke="none"></circle></svg><span class="learning-tab-label" style="color:var(--green);">Current</span></div>
+            <div class="learning-tab-item"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg><span class="learning-tab-label" style="color:var(--text-30);">Insights</span></div>
+            <div class="learning-tab-item"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg><span class="learning-tab-label" style="color:var(--text-30);">You</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /learning-phones -->
+  </div>
+</div>
 <!-- ── PROOF STRIP ── -->
-<div class="proof">
+<div class="proof" style="margin-top:96px;">
 
   <!-- Col 1: The gap it closes -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--green);"></div>
-    <div class="proof-diagram" style="min-height:40px;">
-      <div class="proof-pill proof-pill--neutral">Knowing</div>
-      <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:0;position:relative;">
-        <div style="position:absolute;left:0;right:0;border-top:1px dashed rgba(26,21,18,0.18);"></div>
-        <div style="display:flex;align-items:center;gap:3px;position:relative;z-index:1;">
-          <span style="font-family:'DM Mono',monospace;font-size:16px;color:rgba(26,21,18,0.18);line-height:1;">?</span>
-          <span style="font-family:'DM Mono',monospace;font-size:22px;color:rgba(26,21,18,0.32);line-height:1;">?</span>
-          <span style="font-family:'DM Mono',monospace;font-size:16px;color:rgba(26,21,18,0.18);line-height:1;">?</span>
+    <div style="margin-bottom:20px;">
+      <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="padding:10px 12px;display:flex;gap:10px;align-items:flex-start;">
+          <div class="entry-icon entry-icon--blue" style="width:32px;height:32px;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c0 3.3-3.1 6-7 6L4 18l1.5-3C4 14 3 12.1 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--text);line-height:1.3;">Reply to Raul · LinkedIn</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--amber);margin-top:2px;">4 days · window closing</div>
+          </div>
         </div>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;position:absolute;right:0;"><path d="M2 7h10M8 3l4 4-4 4" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="padding:0 12px 10px;">
+          <button style="width:100%;padding:8px 12px;background:var(--green);color:var(--bg);border:none;border-radius:12px;font-family:'Lexend',sans-serif;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:0;box-shadow:0 2px 10px rgba(61,143,106,0.18);">Review draft ›</button>
+        </div>
       </div>
-      <div class="proof-pill proof-pill--green">Done</div>
     </div>
     <div class="proof-eyebrow">Activation energy</div>
     <div class="proof-body">The space between knowing what to do and being able to start. That's the gap Aether closes.</div>
@@ -1656,27 +2024,52 @@ button { cursor: pointer; }
   <!-- Col 2: How it works -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--blue);"></div>
-    <div style="margin-bottom:20px;min-height:40px;display:flex;align-items:flex-end;">
-      <div style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:34px;letter-spacing:-0.025em;line-height:1.0;color:#1a1512;">Built for<br>ADHD.</div>
+    <div style="margin-bottom:20px;">
+      <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="padding:10px 12px;display:flex;gap:10px;align-items:flex-start;">
+          <div class="entry-icon entry-icon--amber" style="width:32px;height:32px;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h8l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path><polyline points="12,3 12,8 17,8"></polyline></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--text);line-height:1.3;opacity:0.38;">Project proposal draft</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--amber);margin-top:2px;">Held · 3 meetings today · high load</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:8px;background:rgba(196,132,26,0.10);border:1px solid rgba(196,132,26,0.22);border-radius:5px;padding:2px 7px;color:var(--amber);flex-shrink:0;">Held</div>
+        </div>
+        <div style="border-top:1px solid var(--border-07);padding:8px 12px;display:flex;align-items:center;gap:6px;">
+          <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-38);">Releasing when you're ready</span>
+        </div>
+      </div>
     </div>
+    <div class="proof-eyebrow">Built for ADHD</div>
     <div class="proof-body">Every part of Aether is designed and built around how ADHD brains work.</div>
   </div>
 
   <!-- Col 3: What you get -->
   <div class="proof-col">
     <div class="proof-accent-bar" style="background:var(--amber);"></div>
-    <div class="proof-pills-row" style="display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:20px;min-height:40px;align-content:flex-start;">
-      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(61,158,114,0.07);border:1px solid rgba(61,158,114,0.22);border-radius:20px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:#3d9e72;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3d9e72;letter-spacing:0.06em;white-space:nowrap;">Visible</span>
-      </div>
-      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(58,123,191,0.07);border:1px solid rgba(58,123,191,0.22);border-radius:20px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:#3a7bbf;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#3a7bbf;letter-spacing:0.06em;white-space:nowrap;">Traceable</span>
-      </div>
-      <div class="proof-pill-item" style="display:flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(196,132,26,0.07);border:1px solid rgba(196,132,26,0.22);border-radius:20px;">
-        <div style="width:5px;height:5px;border-radius:50%;background:#c4841a;flex-shrink:0;"></div>
-        <span style="font-family:'DM Mono',monospace;font-size:8px;color:#c4841a;letter-spacing:0.06em;white-space:nowrap;">Reversible</span>
+    <div style="margin-bottom:20px;">
+      <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="padding:10px 12px;display:flex;gap:10px;align-items:flex-start;">
+          <div class="entry-icon entry-icon--green" style="width:32px;height:32px;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--text);line-height:1.3;">Invoice draft · ready to send</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9.5px;color:var(--text-38);margin-top:2px;">Clearwater Digital · 2:14pm</div>
+          </div>
+        </div>
+        <div style="display:flex;border-top:1px solid var(--border-07);">
+          <div style="flex:1;padding:8px 12px;display:flex;align-items:center;gap:5px;border-right:1px solid var(--border-07);">
+            <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><line x1="10" y1="7" x2="10" y2="11"></line><circle cx="10" cy="13.5" r="0.75" fill="#3a7bbf" stroke="none"></circle></svg>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:#3a7bbf;">Why I did this ›</span>
+          </div>
+          <div style="flex:1;padding:8px 12px;display:flex;align-items:center;gap:5px;">
+            <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="12" height="7" rx="2"></rect><path d="M8 10V7a2 2 0 0 1 4 0v3"></path></svg>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber);">Hold ›</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="proof-eyebrow">NO BLACK BOX</div>
@@ -1706,13 +2099,17 @@ button { cursor: pointer; }
           <div class="wearable-phone-header">
             <div class="wearable-dot-row">
               <div class="wearable-dot wearable-dot--amber"></div>
-              <span class="wearable-dot-label">Aether</span>
+              <div class="wearable-title">Your body isn't ready. These things can wait.</div>
             </div>
-            <div class="wearable-title">Your body says not now. These things can wait.</div>
             <div class="wearable-title-sub">Low capacity · 3 tasks held</div>
             <div class="recovery-score">
-              <span class="recovery-num" style="color:var(--amber);">34</span>
-              <span class="recovery-label"> · recovery score</span><span title="Recovery score measures how ready your body is based on sleep quality, heart rate variability, and stress signals from your wearable." style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;border:1px solid rgba(26,21,18,0.28);font-family:'DM Mono',monospace;font-size:6px;color:rgba(26,21,18,0.40);cursor:pointer;margin-left:4px;flex-shrink:0;vertical-align:middle;line-height:1;">i</span>
+              <!-- Arc gauge: 34% amber -->
+              <svg width="64" height="36" viewBox="0 0 64 36">
+                <path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="rgba(26,21,18,0.08)" stroke-width="5" stroke-linecap="round"/>
+                <path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="var(--amber)" stroke-width="5" stroke-linecap="round" stroke-dasharray="81.7" stroke-dashoffset="54"/>
+                <text x="32" y="30" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="700" fill="#c4841a">34</text>
+              </svg>
+              <span class="recovery-label">recovery score</span>
             </div>
           </div>
           <div class="wearable-phone-body">
@@ -1724,11 +2121,26 @@ button { cursor: pointer; }
               </div>
             </div>
             <div class="signal-section">
-              <div class="signal-section-title">What Aether noticed</div>
-              <div class="signal-rows">
-                <div class="signal-row"><div class="signal-dot" style="background:var(--amber);"></div><div class="signal-label">Recovery score 34</div><div class="signal-value" style="color:var(--amber);">Below baseline</div></div>
-                <div class="signal-row"><div class="signal-dot" style="background:var(--amber);"></div><div class="signal-label">Sleep quality</div><div class="signal-value" style="color:var(--amber);">Low</div></div>
-                <div class="signal-row"><div class="signal-dot" style="background:var(--blue);"></div><div class="signal-label">Deep sleep 0.6h</div><div class="signal-value" style="color:var(--text-38);">Disrupted</div></div>
+              <div class="signal-section-title">What I noticed</div>
+              <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
+                <!-- Sleep bar -->
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 13A9 9 0 0 1 7 4a9 9 0 1 0 10 9z"/></svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-45);width:50px;flex-shrink:0;">Sleep</span>
+                  <div style="flex:1;height:4px;background:rgba(26,21,18,0.08);border-radius:2px;overflow:hidden;">
+                    <div style="width:28%;height:100%;background:var(--amber);border-radius:2px;"></div>
+                  </div>
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--amber);width:28px;text-align:right;">0.6h</span>
+                </div>
+                <!-- HRV line -->
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,10 5,10 7,4 9,16 11,7 13,13 15,10 18,10"/></svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-45);width:50px;flex-shrink:0;">HRV</span>
+                  <svg width="100%" height="14" viewBox="0 0 80 14" style="flex:1;" preserveAspectRatio="none">
+                    <polyline points="0,7 10,5 20,9 30,4 40,10 50,6 60,11 70,5 80,8" fill="none" stroke="rgba(196,132,26,0.5)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--amber);width:28px;text-align:right;">Low</span>
+                </div>
               </div>
             </div>
             <div class="held-list-section">
@@ -1736,7 +2148,6 @@ button { cursor: pointer; }
               <div class="held-items">
                 <div class="held-item"><span class="held-badge">HELD</span><span class="held-item-label">Send Invoice #118</span></div>
                 <div class="held-item"><span class="held-badge">HELD</span><span class="held-item-label">Draft Q3 report</span></div>
-                <div class="held-item"><span class="held-badge">HELD</span><span class="held-item-label">Book GP appointment</span></div>
               </div>
             </div>
           </div>
@@ -1763,8 +2174,14 @@ button { cursor: pointer; }
 
       <!-- ARROW CONNECTOR -->
       <div class="wearable-arrow">
-        <div class="wearable-arrow-label">34 → 58</div>
-        <div class="wearable-arrow-icon">→</div>
+        <div class="wearable-arrow-label">
+          <span style="color:var(--amber);font-weight:700;">34</span>
+          <svg width="38" height="14" viewBox="0 0 38 14" style="display:inline-block;vertical-align:middle;margin:0 2px;">
+            <polyline points="2,11 10,8 18,10 26,4 34,2" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="34" cy="2" r="2.5" fill="var(--green)"/>
+          </svg>
+          <span style="color:var(--green);font-weight:700;">58</span>
+        </div>
         <div class="wearable-arrow-sub">3h 52m later</div>
       </div>
 
@@ -1775,20 +2192,35 @@ button { cursor: pointer; }
           <div class="wearable-phone-header">
             <div class="wearable-dot-row">
               <div class="wearable-dot wearable-dot--green"></div>
-              <span class="wearable-dot-label">Aether</span>
+              <div class="wearable-title">Looks like you're OK.<br>Here's what I held.</div>
             </div>
-            <div class="wearable-title">Looks like you're OK.<br>Here's what I held.</div>
             <div class="wearable-title-sub">Capacity restored · 3 tasks ready</div>
             <div class="recovery-score">
-              <span class="recovery-num" style="color:var(--green);">58</span>
-              <span class="recovery-label"> · up from 34 at 7:12 am</span>
+              <!-- Arc gauge: 58% green -->
+              <svg width="64" height="36" viewBox="0 0 64 36">
+                <path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="rgba(26,21,18,0.08)" stroke-width="5" stroke-linecap="round"/>
+                <path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="var(--green)" stroke-width="5" stroke-linecap="round" stroke-dasharray="81.7" stroke-dashoffset="34"/>
+                <text x="32" y="30" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="700" fill="#3d9e72">58</text>
+              </svg>
+              <span class="recovery-label">up from 34 at 7:12 am</span>
             </div>
           </div>
           <div class="wearable-phone-body">
             <div class="timeline-bar">
-              <span class="timeline-bar-left">7:12 am held</span>
-              <div class="timeline-gradient"></div>
-              <span class="timeline-bar-right">11:04 am ready</span>
+              <div style="display:flex;align-items:center;gap:0;width:100%;position:relative;">
+                <!-- Left node -->
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
+                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--amber);white-space:nowrap;">7:12 am</span>
+                </div>
+                <!-- Line -->
+                <div style="flex:1;height:2px;background:linear-gradient(to right, var(--amber), var(--green));margin:0 4px;margin-bottom:12px;"></div>
+                <!-- Right node -->
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--green);white-space:nowrap;">11:04 am</span>
+                </div>
+              </div>
             </div>
             <div class="first-item-section">
               <div class="first-item-label">First item</div>
