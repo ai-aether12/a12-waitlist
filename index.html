@@ -1362,6 +1362,7 @@ button { cursor: pointer; }
   .learning-arc-arrow { display: none; }
   .learning-arc-desktop-card { display: none; }
   .learning-arc-mobile-slide { display: contents; }
+  #email-form { display: none; }
   .footer { margin-top: 0; }
   .footer-inner {
     padding: 36px 20px 40px;
@@ -3055,7 +3056,8 @@ button { cursor: pointer; }
 /* ── NAV JOIN — scroll without hash ── */
 document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   e.preventDefault();
-  var input = document.getElementById('email-input');
+  var isMobile = window.innerWidth <= 767;
+  var input = document.getElementById(isMobile ? 'email-input-2' : 'email-input');
   if (input) {
     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
     input.focus({ preventScroll: true });
