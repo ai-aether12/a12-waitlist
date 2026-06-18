@@ -1438,6 +1438,9 @@ button { cursor: pointer; }
     box-shadow: 0 12px 40px rgba(26,21,18,0.20), 0 4px 14px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
   }
 }
+@media (min-width: 768px) {
+  #share-row { display: inline-block; }
+}
 @media (max-width: 360px) {
   .carousel-panel { outline-width: 5px; }
 }
@@ -2969,14 +2972,14 @@ button { cursor: pointer; }
   <div style="max-width:480px;margin:0 auto;">
     <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--text-35);text-transform:uppercase;margin-bottom:16px;">First 100</div>
     <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:32px;line-height:1.15;color:var(--text);margin:0 0 20px;letter-spacing:-0.02em;">Ready to stop watching things pile up?</h2>
-    <div id="form-fields-2" class="hidden">
+    <div id="form-fields-2">
       <form id="email-form-2" class="form-row" novalidate style="max-width:400px;margin:0 auto;">
         <input id="email-input-2" class="form-input" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address">
         <button id="form-btn-2" class="form-btn" type="submit">I'm In</button>
       </form>
       <p class="form-trust form-trust--footer">One email when we're ready for you. Nothing before that.</p>
     </div>
-    <div id="form-success-2" style="text-align:center;max-width:400px;margin:0 auto;">
+    <div id="form-success-2" class="hidden" style="text-align:center;max-width:400px;margin:0 auto;">
       <div style="padding:10px 0 8px;">
         <div class="success-headline">You're in.</div>
         <div class="success-sub">We'll reach out when we're ready.</div>
