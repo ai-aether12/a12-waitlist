@@ -1150,12 +1150,17 @@ button { cursor: pointer; }
   letter-spacing: 0.04em;
 }
 .share-pill--hero {
-  padding: 6px 11px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+  border: none;
+  background: rgba(26,21,18,0.07);
+  justify-content: center;
+  gap: 0;
 }
-.share-pill--hero .share-pill-label {
-  font-size: 9.5px;
-  color: #1a1512;
-}
+.share-pill--hero:hover { background: rgba(26,21,18,0.13); }
+.share-pill--hero .share-pill-label { display: none; }
 .footer-wordmark {
   font-family: 'DM Mono', monospace;
   font-size: 9.5px;
@@ -2954,14 +2959,14 @@ button { cursor: pointer; }
   <div style="max-width:480px;margin:0 auto;">
     <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--text-35);text-transform:uppercase;margin-bottom:16px;">First 100</div>
     <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:32px;line-height:1.15;color:var(--text);margin:0 0 20px;letter-spacing:-0.02em;">Ready to stop watching things pile up?</h2>
-    <div id="form-fields-2">
+    <div id="form-fields-2" class="hidden">
       <form id="email-form-2" class="form-row" novalidate style="max-width:400px;margin:0 auto;">
         <input id="email-input-2" class="form-input" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address">
         <button id="form-btn-2" class="form-btn" type="submit">I'm In</button>
       </form>
       <p class="form-trust form-trust--footer">One email when we're ready for you. Nothing before that.</p>
     </div>
-    <div id="form-success-2" class="hidden" style="text-align:left;max-width:400px;margin:0 auto;">
+    <div id="form-success-2" style="text-align:left;max-width:400px;margin:0 auto;">
       <div class="form-success">
         <div class="success-icon">
           <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"></polyline></svg>
