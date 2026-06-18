@@ -1402,6 +1402,7 @@ button { cursor: pointer; }
 }
 
 /* ── PHONE EXPAND BUTTON ── */
+.carousel-panel-outer { position: relative; display: inline-flex; }
 .learning-phone-wrap,
 .wearable-panel-wrap { position: relative; }
 
@@ -1409,7 +1410,7 @@ button { cursor: pointer; }
   -webkit-appearance: none;
   appearance: none;
   position: absolute;
-  bottom: 10px;
+  bottom: -14px;
   right: 10px;
   z-index: 10;
   padding: 8px 11px;
@@ -1560,6 +1561,7 @@ button { cursor: pointer; }
 
   <!-- RIGHT: CAROUSEL -->
   <div class="hero-carousel">
+    <div class="carousel-panel-outer">
     <div class="carousel-panel">
 
       <!-- PHASE 0: WHILE YOU WERE AWAY -->
@@ -2185,8 +2187,9 @@ button { cursor: pointer; }
         </div>
       </div>
 
-      <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
     </div><!-- /carousel-panel -->
+    <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
+    </div><!-- /carousel-panel-outer -->
 
     <!-- CAROUSEL NAV -->
     <div class="carousel-nav">
@@ -2298,7 +2301,6 @@ button { cursor: pointer; }
             <button class="phone-cta">Continue ›</button>
           </div>
         </div>
-        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
       </div>
 
       <!-- LEARNING ARC CONNECTOR -->
@@ -3020,8 +3022,8 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
   document.querySelectorAll('.phone-expand-btn').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
-      var wrap  = btn.closest('.carousel-panel, .learning-phone-wrap, .wearable-panel-wrap');
-      var phone = wrap.querySelector('.phone, .learning-phone, .wearable-phone');
+      var wrap  = btn.closest('.carousel-panel-outer, .learning-phone-wrap, .wearable-panel-wrap');
+      var phone = wrap.querySelector('.carousel-panel, .learning-phone, .wearable-phone');
       if (phone) openReader(phone);
     });
   });
