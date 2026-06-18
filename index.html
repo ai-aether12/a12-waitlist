@@ -203,6 +203,7 @@ button { cursor: pointer; }
   letter-spacing: 0.04em;
   margin-top: 6px;
 }
+.form-trust--footer { margin-top: 10px; }
 
 /* ── SUCCESS STATE ── */
 .form-success {
@@ -1231,7 +1232,8 @@ button { cursor: pointer; }
   }
   .hero-copy-body .form-wrap { max-width: 100%; }
   .carousel-nav { padding: 14px 0 6px; }
-  .form-trust { font-size: 13px; }
+  .form-trust { display: none; }
+  .form-trust--footer { display: block; font-size: 13px; }
   .form-error { font-size: 13px; }
   .success-sub { font-size: 13px; }
   .proof-eyebrow { font-size: 12px; }
@@ -2785,6 +2787,7 @@ button { cursor: pointer; }
       <input id="email-input-2" class="form-input" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address">
       <button id="form-btn-2" class="form-btn" type="submit">I'm In</button>
     </form>
+    <p class="form-trust form-trust--footer">One email when we're ready for you. Nothing before that.</p>
   </div>
 </div>
 
