@@ -3054,17 +3054,31 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
       e.preventDefault();
       var input = document.getElementById('email-input-2');
       var btn = document.getElementById('form-btn-2');
-      if (!input.value || !input.value.includes('@')) { input.style.borderColor = 'var(--red)'; return; }
-      btn.textContent = '✓ You\'re in';
+      var email = input.value.trim();
+      if (!email || !email.includes('@')) { input.style.borderColor = 'var(--red)'; return; }
+      input.style.borderColor = '';
+      btn.textContent = 'Joining…';
       btn.disabled = true;
       input.disabled = true;
-      // Also trigger main form success if not already done
-      var mainSuccess = document.getElementById('form-success');
-      var mainFields = document.getElementById('form-fields');
-      if (mainSuccess && mainFields && mainSuccess.classList.contains('hidden')) {
-        mainFields.classList.add('hidden');
-        mainSuccess.classList.remove('hidden');
-      }
+      fetch(LOOPS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'email=' + encodeURIComponent(email)
+      })
+      .then(function(res) {
+        if (res.ok) {
+          btn.textContent = '✓ You\'re in';
+        } else {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+          input.disabled = false;
+        }
+      })
+      .catch(function() {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+        input.disabled = false;
+      });
     });
     document.getElementById('copy-link-btn').addEventListener('click', function() { copyLink('copy-link-lbl'); });
   }
