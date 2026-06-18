@@ -3054,6 +3054,18 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
   window.addEventListener('resize', resetScrolls);
 })();
 
+/* ── LINKEDIN DEEP LINK ── */
+function openLinkedIn(e) {
+  e.preventDefault();
+  var web = 'https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com';
+  var app = 'linkedin://shareArticle?mini=true&url=https%3A%2F%2Fjoin.aether12.com';
+  var t = setTimeout(function() { window.open(web, '_blank'); }, 1500);
+  window.location = app;
+}
+document.querySelectorAll('a[aria-label="Share on LinkedIn"]').forEach(function(el) {
+  el.addEventListener('click', openLinkedIn);
+});
+
 /* ── NAV JOIN — scroll without hash ── */
 document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   e.preventDefault();
