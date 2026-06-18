@@ -56,12 +56,12 @@
 
 /* ── RESET ── */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { overflow-x: hidden; }
 body {
   font-family: 'Lexend', sans-serif;
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 input, textarea, button { font-family: inherit; }
 input[type=email] { -webkit-appearance: none; appearance: none; }
@@ -203,6 +203,7 @@ button { cursor: pointer; }
   letter-spacing: 0.04em;
   margin-top: 6px;
 }
+.form-trust--footer { margin-top: 10px; }
 
 /* ── SUCCESS STATE ── */
 .form-success {
@@ -627,6 +628,16 @@ button { cursor: pointer; }
 }
 
 /* ── LEARNING ARC ── */
+.learning-arc-connector { display: none; }
+.learning-arc-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 220px;
+  flex-shrink: 0;
+  padding-top: 160px;
+}
 .learning {
   max-width: 1100px;
   margin: 40px auto 0;
@@ -1229,7 +1240,8 @@ button { cursor: pointer; }
   }
   .hero-copy-body .form-wrap { max-width: 100%; }
   .carousel-nav { padding: 14px 0 6px; }
-  .form-trust { font-size: 13px; }
+  .form-trust { display: none; }
+  .form-trust--footer { display: block; font-size: 13px; }
   .form-error { font-size: 13px; }
   .success-sub { font-size: 13px; }
   .proof-eyebrow { font-size: 12px; }
@@ -1333,12 +1345,13 @@ button { cursor: pointer; }
     flex-direction: row;
     align-items: flex-start;
     overflow-x: auto;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 20px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 16px;
-    padding: 8px 20px 20px;
+    padding: 40px 20px 40px;
     justify-content: flex-start;
   }
   .learning-phones::-webkit-scrollbar { display: none; }
@@ -1349,6 +1362,16 @@ button { cursor: pointer; }
   .learning-phone { zoom: 1.15; }
   .learning-connector { display: none; }
   .learning-arc-connector { display: none; }
+  .learning-arc-slide {
+    flex: 0 0 88vw;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+  }
+  #email-form { display: none; }
   .footer { margin-top: 0; }
   .footer-inner {
     padding: 36px 20px 40px;
@@ -1357,23 +1380,37 @@ button { cursor: pointer; }
     align-items: center;
     text-align: center;
   }
-  .footer-right { align-items: center; gap: 14px; }
+  .footer-right { align-items: center; gap: 24px; }
   .footer-right > div {
     gap: 10px;
     justify-content: center;
   }
   .footer-right .share-pill {
-    padding: 9px 16px;
-    gap: 7px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    gap: 0;
   }
   .footer-right .share-pill-label { font-size: 11px; }
   .footer-copy, .footer-tagline, .footer-wordmark { font-size: 11px; }
+  .carousel-panel {
+    width: 300px;
+    height: 520px;
+  }
+  .carousel-panel,
+  .learning-phone,
+  .wearable-phone {
+    box-shadow: 0 12px 40px rgba(26,21,18,0.20), 0 4px 14px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  }
 }
 @media (max-width: 360px) {
   .carousel-panel { outline-width: 5px; }
 }
 
 /* ── PHONE EXPAND BUTTON ── */
+.carousel-panel-outer { position: relative; display: inline-flex; }
 .learning-phone-wrap,
 .wearable-panel-wrap { position: relative; }
 
@@ -1381,16 +1418,16 @@ button { cursor: pointer; }
   -webkit-appearance: none;
   appearance: none;
   position: absolute;
-  bottom: 10px;
+  bottom: -14px;
   right: 10px;
   z-index: 10;
-  padding: 6px 11px;
+  padding: 8px 11px;
   background: rgba(26,21,18,0.72);
   color: #fff;
-  font-family: 'Lexend', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -1532,6 +1569,7 @@ button { cursor: pointer; }
 
   <!-- RIGHT: CAROUSEL -->
   <div class="hero-carousel">
+    <div class="carousel-panel-outer">
     <div class="carousel-panel">
 
       <!-- PHASE 0: WHILE YOU WERE AWAY -->
@@ -2157,8 +2195,9 @@ button { cursor: pointer; }
         </div>
       </div>
 
-      <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
     </div><!-- /carousel-panel -->
+    <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
+    </div><!-- /carousel-panel-outer -->
 
     <!-- CAROUSEL NAV -->
     <div class="carousel-nav">
@@ -2209,6 +2248,26 @@ button { cursor: pointer; }
             <div style="background:var(--panel-dark);border:1px solid var(--border);border-radius:10px;padding:14px 13px;">
               <div style="font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:5px;">Priority Surfacing</div>
               <div style="font-size:11px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:5px;">I'll find the one thing that matters most.</div>
+              <!-- Before-state illustration: everything feels equally urgent -->
+              <div style="display:flex;align-items:center;gap:11px;margin:6px 0 9px;padding:8px 0;border-top:1px solid var(--border-07);border-bottom:1px solid var(--border-07);">
+                <svg viewBox="0 0 100 95" width="52" height="49" style="display:block;opacity:0.30;flex-shrink:0;">
+                  <text x="44" y="44" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+                  <text x="26" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+                  <text x="62" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
+                  <circle cx="50" cy="63" r="7" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+                  <path d="M36 84 c0-7.7 6.3-14 14-14 s14 6.3 14 14" stroke="#1a1512" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+                  <rect x="38" y="4" width="18" height="16" rx="2.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+                  <line x1="38" y1="10" x2="56" y2="10" stroke="#1a1512" stroke-width="1.4"/>
+                  <line x1="43" y1="2" x2="43" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="51" y1="2" x2="51" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
+                  <rect x="-2" y="38" width="18" height="13" rx="2" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+                  <polyline points="-2,40 7,48 16,40" stroke="#1a1512" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+                  <rect x="78" y="36" width="14" height="22" rx="3.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
+                  <circle cx="85" cy="55" r="1.8" fill="#1a1512"/>
+                  <line x1="80.5" y1="41" x2="89.5" y2="41" stroke="#1a1512" stroke-width="1" opacity="0.45"/>
+                </svg>
+                <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(26,21,18,0.45);line-height:1.55;">Right now, everything feels equally urgent.</span>
+              </div>
               <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
                 <!-- Axis 1: Consequence -->
                 <div style="display:flex;align-items:center;gap:6px;">
@@ -2244,39 +2303,16 @@ button { cursor: pointer; }
               <div style="width:30px;height:17px;border-radius:9px;background:var(--green);position:relative;flex-shrink:0;"><div style="width:11px;height:11px;border-radius:50%;background:white;position:absolute;top:3px;right:3px;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div></div>
             </div>
             <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-35);padding:5px 10px 0;line-height:1.4;">Change this any time in settings.</div>
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 100 95" width="auto" height="72" style="display:block;opacity:0.32;">
-              <!-- Question marks -->
-              <text x="44" y="44" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
-              <text x="26" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
-              <text x="62" y="58" font-family="Georgia,serif" font-size="11" fill="#1a1512">?</text>
-              <!-- Person — head well above shoulders -->
-              <circle cx="50" cy="63" r="7" stroke="#1a1512" stroke-width="1.4" fill="none"/>
-              <path d="M36 84 c0-7.7 6.3-14 14-14 s14 6.3 14 14" stroke="#1a1512" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-              <!-- Calendar (top-center) -->
-              <rect x="38" y="4" width="18" height="16" rx="2.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
-              <line x1="38" y1="10" x2="56" y2="10" stroke="#1a1512" stroke-width="1.4"/>
-              <line x1="43" y1="2" x2="43" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
-              <line x1="51" y1="2" x2="51" y2="6.5" stroke="#1a1512" stroke-width="1.4" stroke-linecap="round"/>
-              <!-- Envelope (left) -->
-              <rect x="-2" y="38" width="18" height="13" rx="2" stroke="#1a1512" stroke-width="1.4" fill="none"/>
-              <polyline points="-2,40 7,48 16,40" stroke="#1a1512" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-              <!-- Phone (right) -->
-              <rect x="78" y="36" width="14" height="22" rx="3.5" stroke="#1a1512" stroke-width="1.4" fill="none"/>
-              <circle cx="85" cy="55" r="1.8" fill="#1a1512"/>
-              <line x1="80.5" y1="41" x2="89.5" y2="41" stroke="#1a1512" stroke-width="1" opacity="0.45"/>
-            </svg>
-            </div>
+            <div style="flex:1;"></div>
           </div>
           <div style="padding:10px 12px 12px;border-top:1px solid var(--border-07);flex-shrink:0;">
             <button class="phone-cta">Continue ›</button>
           </div>
         </div>
-        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
       </div>
 
       <!-- LEARNING ARC CONNECTOR -->
-      <div class="learning-arc-connector" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:180px;gap:0;flex-shrink:0;min-width:140px;">
+      <div class="learning-arc-connector" style="flex-direction:column;align-items:center;justify-content:flex-start;padding-top:180px;gap:0;flex-shrink:0;min-width:140px;">
         <!-- Horizontal arrow -->
         <div style="display:flex;align-items:center;width:100%;margin-bottom:10px;">
           <div style="flex:1;height:1px;background:linear-gradient(to right,rgba(26,21,18,0.10),rgba(26,21,18,0.22));"></div>
@@ -2296,6 +2332,42 @@ button { cursor: pointer; }
           <div style="display:flex;align-items:center;gap:6px;">
             <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,10 8,15 17,5"></polyline></svg>
             <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(26,21,18,0.55);line-height:1.3;">How you close loops</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEARNING ARC SLIDE — mobile only -->
+      <div class="learning-arc-slide">
+        <div class="learning-phase-label" style="color:var(--text-35);align-self:flex-start;margin-bottom:8px;">The first few weeks</div>
+        <div style="display:flex;flex-direction:column;padding:13px 0 12px;width:100%;">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(26,21,18,0.38);margin-bottom:8px;">Learning, quietly</div>
+          <p style="font-size:15px;line-height:1.5;color:rgba(26,21,18,0.62);margin:0 0 13px;text-wrap:pretty;">You decide what it can act on once. From there it just watches how you actually work — and gets a little sharper each week.</p>
+          <div style="display:flex;flex-direction:column;gap:11px;padding-top:11px;border-top:1px solid rgba(26,21,18,0.08);">
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
+              <div>
+                <div style="font-family:'DM Mono',monospace;font-size:13px;color:rgba(26,21,18,0.70);line-height:1.3;">When you reply</div>
+                <div style="font-size:13px;line-height:1.4;color:rgba(26,21,18,0.42);margin-top:2px;">Within minutes, or three days later.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
+              <div>
+                <div style="font-family:'DM Mono',monospace;font-size:13px;color:rgba(26,21,18,0.70);line-height:1.3;">Who you prioritize</div>
+                <div style="font-size:13px;line-height:1.4;color:rgba(26,21,18,0.42);margin-top:2px;">Which names you never leave waiting.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><polyline points="3,10 8,15 17,5"></polyline></svg>
+              <div>
+                <div style="font-family:'DM Mono',monospace;font-size:13px;color:rgba(26,21,18,0.70);line-height:1.3;">How you wrap things up</div>
+                <div style="font-size:13px;line-height:1.4;color:rgba(26,21,18,0.42);margin-top:2px;">Whatever done looks like for you.</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(26,21,18,0.08);">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+            <span style="font-size:13px;line-height:1.4;color:rgba(26,21,18,0.55);">Every week, its sense of what matters gets closer to yours.</span>
           </div>
         </div>
       </div>
@@ -2388,7 +2460,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
-        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
       </div>
 
     </div><!-- /learning-phones -->
@@ -2591,7 +2663,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
-        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
       </div>
 
       <!-- ARROW CONNECTOR -->
@@ -2718,7 +2790,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
-        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197; Read</button>
+        <button class="phone-expand-btn" aria-label="Expand screen">&#x2197;</button>
       </div>
 
     </div><!-- /wearable-panels -->
@@ -2738,6 +2810,7 @@ button { cursor: pointer; }
       <input id="email-input-2" class="form-input" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address">
       <button id="form-btn-2" class="form-btn" type="submit">I'm In</button>
     </form>
+    <p class="form-trust form-trust--footer">One email when we're ready for you. Nothing before that.</p>
   </div>
 </div>
 
@@ -2771,7 +2844,18 @@ button { cursor: pointer; }
   </div>
 </footer>
 
+<!-- ── PHONE READER OVERLAY ── -->
+<div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
+  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
+  <div class="phone-reader-scroller">
+    <div class="phone-reader-content" id="phoneReaderContent"></div>
+  </div>
+</div>
+
 <script>
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.addEventListener('load', function() { window.scrollTo(0, 0); });
+
 /* ── CAROUSEL CONTROLLER ── */
 (function CarouselController() {
   var current = 0;
@@ -2946,8 +3030,8 @@ button { cursor: pointer; }
   document.querySelectorAll('.phone-expand-btn').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
-      var wrap  = btn.closest('.carousel-panel, .learning-phone-wrap, .wearable-panel-wrap');
-      var phone = wrap.querySelector('.phone, .learning-phone, .wearable-phone');
+      var wrap  = btn.closest('.carousel-panel-outer, .learning-phone-wrap, .wearable-panel-wrap');
+      var phone = wrap.querySelector('.carousel-panel, .learning-phone, .wearable-phone');
       if (phone) openReader(phone);
     });
   });
@@ -2989,24 +3073,29 @@ button { cursor: pointer; }
   window.addEventListener('resize', resetScrolls);
 })();
 
+/* ── LINKEDIN DEEP LINK ── */
+function openLinkedIn(e) {
+  e.preventDefault();
+  var web = 'https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com';
+  var app = 'linkedin://shareArticle?mini=true&url=https%3A%2F%2Fjoin.aether12.com';
+  var t = setTimeout(function() { window.open(web, '_blank'); }, 1500);
+  window.location = app;
+}
+document.querySelectorAll('a[aria-label="Share on LinkedIn"]').forEach(function(el) {
+  el.addEventListener('click', openLinkedIn);
+});
+
 /* ── NAV JOIN — scroll without hash ── */
 document.getElementById('nav-join-btn').addEventListener('click', function(e) {
   e.preventDefault();
-  var input = document.getElementById('email-input');
+  var isMobile = window.innerWidth <= 767;
+  var input = document.getElementById(isMobile ? 'email-input-2' : 'email-input');
   if (input) {
     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
     input.focus({ preventScroll: true });
   }
 });
 </script>
-
-<!-- ── PHONE READER OVERLAY ── -->
-<div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
-  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
-  <div class="phone-reader-scroller">
-    <div class="phone-reader-content" id="phoneReaderContent"></div>
-  </div>
-</div>
 
 </body>
 </html>
