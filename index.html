@@ -1952,32 +1952,25 @@ button { cursor: pointer; }
                 <!-- Section: Signals -->
                 <div class="phone-section-head">Signals</div>
                 <div style="display:flex;flex-direction:column;margin-bottom:7px;">
-                  <!-- Row 1: overdue -->
+                  <!-- Row 1: the slip -->
                   <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(61,158,114,0.12);">
                     <div style="width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
-                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
-                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">Invoice #118 unsent</span>
-                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--red);">6d</span>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">Q1 closed · no invoice sent</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--red);">14d</span>
                   </div>
-                  <!-- Row 2: timing -->
+                  <!-- Row 2: relationship signal -->
                   <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(61,158,114,0.12);">
-                    <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div>
-                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"></circle><polyline points="10,6 10,10 13,12"></polyline></svg>
-                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);">25 min window</span>
-                    <div style="display:flex;gap:2px;flex:1;">
-                      <div class="time-pip time-pip--on"></div>
-                      <div class="time-pip time-pip--on"></div>
-                      <div class="time-pip time-pip--off"></div>
-                      <div class="time-pip time-pip--off"></div>
-                      <div class="time-pip time-pip--off"></div>
-                    </div>
-                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--blue);">Now</span>
+                    <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+                    <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,10 8,14 16,6"></polyline></svg>
+                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">Blue Sky paid Q4 on time</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8.5px;background:rgba(61,158,114,0.10);border:1px solid rgba(61,158,114,0.22);border-radius:3px;padding:1px 5px;color:var(--green);">✓</span>
                   </div>
                   <!-- Row 3: pattern -->
                   <div style="display:flex;align-items:center;gap:6px;padding:4px 0;">
                     <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;"></div>
                     <svg width="9" height="9" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.28)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline></svg>
-                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">You reply on Tuesdays</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-55);flex:1;">Blue Sky replies Tuesdays</span>
                     <span style="font-family:'DM Mono',monospace;font-size:8.5px;background:rgba(196,132,26,0.10);border:1px solid rgba(196,132,26,0.22);border-radius:3px;padding:1px 5px;color:var(--amber);">✓</span>
                   </div>
                 </div>
