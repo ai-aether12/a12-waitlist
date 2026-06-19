@@ -135,12 +135,12 @@ button { cursor: pointer; }
 }
 .footer-share-inner {
   max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center; gap: 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
 }
 .footer-share-label {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.10em; text-transform: uppercase;
-  color: var(--text-38); white-space: nowrap;
+  font-family: 'Fraunces', serif; font-optical-sizing: auto;
+  font-size: 18px; font-weight: 400; font-style: italic;
+  color: var(--text-55); text-align: center;
 }
 .nav-join {
   display: none;
@@ -1430,8 +1430,8 @@ button { cursor: pointer; }
   }
   #email-form { display: none; }
   .footer { margin-top: 0; }
-  .footer-share { padding: 20px; }
-  .footer-share-inner { flex-wrap: wrap; gap: 14px; }
+  .footer-share { padding: 24px 20px; }
+  .footer-share-inner { gap: 14px; }
   .footer-inner {
     padding: 36px 20px 40px;
     flex-direction: column;
