@@ -3046,7 +3046,8 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
 
     dots.forEach(function(dot) {
       dot.addEventListener('click', function() {
-        goTo(parseInt(dot.dataset.phase, 10));
+        var phase = parseInt(dot.dataset.phase, 10);
+        if (!isNaN(phase)) goTo(phase);
       });
     });
 
@@ -3160,9 +3161,11 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
   function copyLink(lblId) {
     navigator.clipboard.writeText('https://join.aether12.com').then(function() {
       var lbl = document.getElementById(lblId);
-      lbl.textContent = 'Copied!';
-      setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000);
-    }).catch(function() {});
+      if (lbl) { lbl.textContent = 'Copied!'; setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000); }
+    }).catch(function() {
+      var lbl = document.getElementById(lblId);
+      if (lbl) { lbl.textContent = 'Failed'; setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000); }
+    });
   }
 
   function showSuccess() {
@@ -3301,6 +3304,9 @@ function copyLinkPersist(btnId, lblId) {
   navigator.clipboard.writeText('https://join.aether12.com').then(function() {
     var lbl = document.getElementById(lblId);
     if (lbl) { lbl.textContent = 'Copied!'; setTimeout(function() { lbl.textContent = 'Copy'; }, 2000); }
+  }).catch(function() {
+    var lbl = document.getElementById(lblId);
+    if (lbl) { lbl.textContent = 'Failed'; setTimeout(function() { lbl.textContent = 'Copy'; }, 2000); }
   });
 }
 var _cpNav = document.getElementById('copy-link-btn-nav');
@@ -3309,7 +3315,8 @@ var _cp3 = document.getElementById('copy-link-btn-3');
 if (_cp3) _cp3.addEventListener('click', function() { copyLinkPersist('copy-link-btn-3', 'copy-link-lbl-3'); });
 
 /* ── NAV JOIN — scroll without hash ── */
-document.getElementById('nav-join-btn').addEventListener('click', function(e) {
+var _navJoinBtn = document.getElementById('nav-join-btn');
+if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
   e.preventDefault();
   var isMobile = window.innerWidth <= 767;
   var input = document.getElementById(isMobile ? 'email-input-2' : 'email-input');
