@@ -3098,7 +3098,7 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
       var input = document.getElementById('email-input-2');
       var btn = document.getElementById('form-btn-2');
       var email = input.value.trim();
-      if (!email || !email.includes('@')) { input.style.borderColor = '#c44a4a'; return; }
+      if (!email || !input.checkValidity()) { input.style.borderColor = '#c44a4a'; return; }
       input.style.borderColor = '';
       btn.textContent = 'Joining…';
       btn.disabled = true;
@@ -3135,7 +3135,7 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
     var errEl = document.getElementById('form-error');
     var email = emailInput.value.trim();
 
-    if (!email || !email.includes('@')) {
+    if (!email || !emailInput.checkValidity()) {
       errEl.classList.remove('hidden');
       return;
     }
