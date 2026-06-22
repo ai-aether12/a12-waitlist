@@ -3293,7 +3293,6 @@ document.querySelectorAll('a[aria-label="Share on LinkedIn"]').forEach(function(
   });
   pop.addEventListener('click', function(e) { e.stopPropagation(); });
   document.addEventListener('click', function() { pop.classList.add('hidden'); });
-  window.addEventListener('pageshow', function() { pop.classList.add('hidden'); });
 })();
 
 /* ── COPY LINK (persistent) ── */
