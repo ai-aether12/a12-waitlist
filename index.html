@@ -610,7 +610,6 @@ button { cursor: pointer; }
 .proof-col + .proof-col {
   padding-left: 0;
 }
-}
 .proof-accent-bar {
   width: 22px;
   height: 2px;
@@ -3036,15 +3035,11 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
 /* ── CAROUSEL CONTROLLER ── */
 (function CarouselController() {
   var current = 0;
-  var total = 5;
-  var phases = [];
-  var dots = [];
+  var phases = Array.prototype.slice.call(document.querySelectorAll('.carousel-phase'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.carousel-dot'));
+  var total = phases.length;
 
   function init() {
-    for (var i = 0; i < total; i++) {
-      phases.push(document.getElementById('phase-' + i));
-    }
-    dots = Array.from(document.querySelectorAll('.carousel-dot'));
 
     document.getElementById('carousel-prev').addEventListener('click', prev);
     document.getElementById('carousel-next').addEventListener('click', next);
@@ -3102,7 +3097,7 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
       var input = document.getElementById('email-input-2');
       var btn = document.getElementById('form-btn-2');
       var email = input.value.trim();
-      if (!email || !email.includes('@')) { input.style.borderColor = 'var(--red)'; return; }
+      if (!email || !email.includes('@')) { input.style.borderColor = '#c44a4a'; return; }
       input.style.borderColor = '';
       btn.textContent = 'Joining…';
       btn.disabled = true;
@@ -3267,7 +3262,11 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
     }
   }
   document.addEventListener('DOMContentLoaded', resetScrolls);
-  window.addEventListener('resize', resetScrolls);
+  var _scrollResizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(_scrollResizeTimer);
+    _scrollResizeTimer = setTimeout(resetScrolls, 150);
+  });
 })();
 
 /* ── LINKEDIN DEEP LINK ── */
@@ -3276,6 +3275,7 @@ function openLinkedIn(e) {
   var web = 'https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com';
   var app = 'linkedin://shareArticle?mini=true&url=https%3A%2F%2Fjoin.aether12.com';
   var t = setTimeout(function() { window.open(web, '_blank'); }, 1500);
+  window.addEventListener('pagehide', function() { clearTimeout(t); }, { once: true });
   window.location = app;
 }
 document.querySelectorAll('a[aria-label="Share on LinkedIn"]').forEach(function(el) {
@@ -3303,8 +3303,10 @@ function copyLinkPersist(btnId, lblId) {
     if (lbl) { lbl.textContent = 'Copied!'; setTimeout(function() { lbl.textContent = 'Copy'; }, 2000); }
   });
 }
-document.getElementById('copy-link-btn-nav').addEventListener('click', function() { copyLinkPersist('copy-link-btn-nav', 'copy-link-lbl-nav'); });
-document.getElementById('copy-link-btn-3').addEventListener('click', function() { copyLinkPersist('copy-link-btn-3', 'copy-link-lbl-3'); });
+var _cpNav = document.getElementById('copy-link-btn-nav');
+if (_cpNav) _cpNav.addEventListener('click', function() { copyLinkPersist('copy-link-btn-nav', 'copy-link-lbl-nav'); });
+var _cp3 = document.getElementById('copy-link-btn-3');
+if (_cp3) _cp3.addEventListener('click', function() { copyLinkPersist('copy-link-btn-3', 'copy-link-lbl-3'); });
 
 /* ── NAV JOIN — scroll without hash ── */
 document.getElementById('nav-join-btn').addEventListener('click', function(e) {
