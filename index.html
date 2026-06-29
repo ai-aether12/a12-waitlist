@@ -1248,6 +1248,19 @@ button { cursor: pointer; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 767px) {
+  .nav-share-popover {
+    top: calc(100% + 10px);
+    right: 0;
+    left: auto;
+    transform: none;
+    flex-direction: column;
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+  .nav-share-popover .share-icons-grid {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
   .nav-inner { padding: 18px 20px; }
   .hero {
     grid-template-columns: 1fr;
