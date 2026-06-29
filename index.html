@@ -88,10 +88,9 @@ button { cursor: pointer; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(242,237,230,0.92);
+  background: rgba(255,255,255,0.45);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-07);
 }
 .nav-inner {
   max-width: 1100px;
@@ -205,8 +204,8 @@ button { cursor: pointer; }
 .form-input {
   flex: 1;
   min-width: 0;
-  background: rgba(26,21,18,0.05);
-  border: 1px solid rgba(26,21,18,0.15);
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(26,21,18,0.14);
   border-radius: 8px;
   padding: 14px 16px;
   font-size: 15px;
@@ -1576,6 +1575,8 @@ button { cursor: pointer; }
 </head>
 <body>
 
+<div id="hero-bg" style="background: linear-gradient(to bottom, #f2ede6 0%, #dde6da 75%, #f2ede6 100%); padding-bottom: 48px;">
+
 <!-- ── NAV ── -->
 <nav class="nav">
   <div class="nav-inner">
@@ -2334,6 +2335,8 @@ button { cursor: pointer; }
 
 </div><!-- /hero -->
 
+</div><!-- /hero+nav-bg -->
+
 <!-- ── LEARNING ARC SECTION ── -->
 <div class="learning">
   <div class="learning-inner">
@@ -2607,6 +2610,7 @@ button { cursor: pointer; }
   </div>
   </div>
 </div>
+<div style="background: var(--panel); padding: 0 0 56px;">
 <!-- ── PROOF STRIP ── -->
 <div class="proof">
 
@@ -2719,6 +2723,7 @@ button { cursor: pointer; }
   </div>
 
 </div><!-- /proof -->
+</div><!-- /proof-bg -->
 <div class="proof-scroll-hint" aria-hidden="true">
   <span class="proof-scroll-dot proof-scroll-dot--active"></span>
   <span class="proof-scroll-dot"></span>
