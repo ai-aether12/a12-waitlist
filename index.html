@@ -60,6 +60,9 @@
   --amber-fill:     rgba(196,132,26,0.07);
   --amber-border:   rgba(196,132,26,0.22);
   --wearable-bg:    #C4B5A3;
+  --gradient-mid:   #dde6da;
+  --shadow-phone:    0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  --shadow-phone-sm: 0 12px 40px rgba(26,21,18,0.20), 0 4px 14px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
 }
 
 /* ── RESET ── */
@@ -135,10 +138,10 @@ button { cursor: pointer; }
   gap: 4px;
 }
 .nav-share-popover.hidden { display: none; }
-.nav-share-popover .share-icons-grid {
+.nav-share-grid {
   display: flex;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 4px;
 }
@@ -311,7 +314,7 @@ button { cursor: pointer; }
   height: 580px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  box-shadow: var(--shadow-phone);
   flex-shrink: 0;
 }
 .carousel-phase {
@@ -451,6 +454,7 @@ button { cursor: pointer; }
 .entry-card--blue   { border-left: 3px solid var(--blue); }
 .entry-card--green  { border-left: 3px solid var(--green); }
 .entry-card--muted  { border-left: 3px solid rgba(26,21,18,0.12); }
+.entry-card--amber  { border: 1.5px solid rgba(196,132,26,0.35); background: rgba(196,132,26,0.05); }
 
 .entry-icon {
   width: 30px;
@@ -470,6 +474,15 @@ button { cursor: pointer; }
 .entry-icon--green  { background: rgba(61,158,114,0.10); }
 .entry-icon--amber  { background: rgba(196,132,26,0.10); }
 .entry-icon--muted  { background: rgba(26,21,18,0.05); }
+
+.entry-chip-label--amber { color: var(--amber); }
+.entry-chip-label--blue  { color: var(--blue); }
+.entry-chip-label--green { color: var(--green); }
+.entry-chip-label--sm    { font-size: 8.5px; }
+
+.action-chip--transparent { background: transparent; }
+.action-chip-text--blue   { color: var(--blue); }
+.action-chip-text--green  { color: var(--green); }
 
 .entry-chip-label {
   font-family: 'DM Mono', monospace;
@@ -770,7 +783,7 @@ button { cursor: pointer; }
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  box-shadow: var(--shadow-phone);
 }
 .learning-phone-header {
   padding: 14px 16px 11px;
@@ -880,7 +893,7 @@ button { cursor: pointer; }
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  box-shadow: var(--shadow-phone);
   display: flex;
   flex-direction: column;
 }
@@ -1171,6 +1184,18 @@ button { cursor: pointer; }
   white-space: nowrap;
 }
 
+/* ── SECONDARY CTA ── */
+.secondary-cta-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 40px 28px;
+  text-align: center;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(26,21,18,0.10);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+}
+
 /* ── FOOTER ── */
 .footer {
   background: transparent;
@@ -1256,10 +1281,6 @@ button { cursor: pointer; }
     flex-direction: column;
     border-radius: 16px;
     padding: 14px 16px;
-  }
-  .nav-share-popover .share-icons-grid {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
   }
   .nav-inner { padding: 18px 20px; }
   .hero {
@@ -1473,8 +1494,8 @@ button { cursor: pointer; }
   #email-form { display: none; }
   .footer { margin-top: 0; }
   .footer-share { padding: 24px 20px; background: transparent; border: none; border-radius: 0; }
-  #secondary-cta { background: transparent !important; border: none !important; border-radius: 0 !important; padding-top: 0 !important; }
-  #secondary-cta .form-input { background: transparent; }
+  .secondary-cta-card { background: transparent; border: none; border-radius: 0; padding-top: 0; }
+  .secondary-cta-card .form-input { background: transparent; }
   .footer-share-inner { gap: 14px; }
   .footer-inner {
     padding: 36px 20px 40px;
@@ -1497,7 +1518,7 @@ button { cursor: pointer; }
     gap: 0;
   }
   .footer-right .share-pill-label { font-size: 11px; }
-  #secondary-cta { padding-left: 20px; padding-right: 20px; }
+  .secondary-cta-card { padding-left: 20px; padding-right: 20px; }
   .share-pill--sms { display: flex; }
   .share-icons-grid {
     display: grid;
@@ -1517,7 +1538,7 @@ button { cursor: pointer; }
   .carousel-panel,
   .learning-phone,
   .wearable-phone {
-    box-shadow: 0 12px 40px rgba(26,21,18,0.20), 0 4px 14px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+    box-shadow: var(--shadow-phone-sm);
   }
 }
 @media (min-width: 768px) {
@@ -1626,7 +1647,7 @@ button { cursor: pointer; }
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
       </button>
       <div class="nav-share-popover hidden" id="nav-share-popover">
-        <div class="share-icons-grid">
+        <div class="nav-share-grid">
             <a href="https://twitter.com/intent/tweet?text=Thought+you%E2%80%99d+want+to+see+this+%E2%80%94+Aether+catches+what+ADHD+makes+you+miss+and+acts+on+it+before+it+becomes+a+problem.+join.aether12.com" target="_blank" rel="noopener" class="share-pill share-pill--hero" aria-label="Share on X">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#1a1512"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.734-8.836L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
@@ -1731,12 +1752,12 @@ button { cursor: pointer; }
           </div>
           <div class="phone-body">
             <!-- Marcus — PRIORITY SURFACED (top) -->
-            <div class="entry-card" style="border:1.5px solid rgba(196,132,26,0.35);background:rgba(196,132,26,0.05);padding:10px 11px;">
+            <div class="entry-card entry-card--amber">
               <div class="entry-icon" style="background:rgba(196,132,26,0.12);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="16" height="11" rx="2"></rect><path d="M6 14v3l4-3"></path></svg>
               </div>
               <div style="flex:1;min-width:0;">
-                <div class="entry-chip-label" style="color:var(--amber);">Needs you · Tuesday window</div>
+                <div class="entry-chip-label entry-chip-label--amber">Needs you · Tuesday window</div>
                 <div class="entry-title">Marcus · <span style="color:var(--text-55);">#design-reviews</span></div>
                 <div class="entry-meta" style="font-style:italic;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&ldquo;Did you get a chance to review the Q3 deck?&rdquo;</div>
               </div>
@@ -1746,7 +1767,7 @@ button { cursor: pointer; }
                 <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4z"></path><polyline points="3,4 10,11 17,4"></polyline></svg>
               </div>
               <div style="flex:1;min-width:0;">
-                <div class="entry-chip-label" style="color:var(--blue);">Staged</div>
+                <div class="entry-chip-label entry-chip-label--blue">Staged</div>
                 <div class="entry-title">Inv. #118 · Q2 · Blue Sky Digital</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
@@ -1754,7 +1775,7 @@ button { cursor: pointer; }
                 </div>
                 <div class="action-chip action-chip--green">
                   <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>
-                  <span class="action-chip-text" style="color:var(--green);">Preview invoice draft</span>
+                  <span class="action-chip-text action-chip-text--green">Preview invoice draft</span>
                   <span class="action-chip-arr">›</span>
                 </div>
               </div>
@@ -1765,7 +1786,7 @@ button { cursor: pointer; }
                 <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"></path></svg>
               </div>
               <div style="flex:1;min-width:0;">
-                <div class="entry-chip-label" style="color:var(--blue);">Staged</div>
+                <div class="entry-chip-label entry-chip-label--blue">Staged</div>
                 <div class="entry-title">June PT appt. — <span style="color:var(--red);">12d overdue</span></div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
@@ -1790,12 +1811,12 @@ button { cursor: pointer; }
                 <div style="display:flex;gap:5px;">
                   <div class="action-chip action-chip--blue" style="flex:1;">
                     <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="14" height="14" rx="2"></rect><line x1="3" y1="9" x2="17" y2="9"></line><line x1="7" y1="3" x2="7" y2="9"></line><line x1="13" y1="3" x2="13" y2="9"></line></svg>
-                    <span class="action-chip-text" style="color:var(--blue);">Book online</span>
+                    <span class="action-chip-text action-chip-text--blue">Book online</span>
                     <span class="action-chip-arr">›</span>
                   </div>
-                  <div class="action-chip action-chip--blue" style="flex:1;background:transparent;">
+                  <div class="action-chip action-chip--blue action-chip--transparent" style="flex:1;">
                     <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 4h3l1.5 4-2 1.5a11 11 0 005 5L13 12.5l4 1.5v3a1 1 0 01-1 1A16 16 0 013 5a1 1 0 011-1z"></path></svg>
-                    <span class="action-chip-text" style="color:var(--blue);">Call to schedule</span>
+                    <span class="action-chip-text action-chip-text--blue">Call to schedule</span>
                   </div>
                 </div>
               </div>
@@ -1806,7 +1827,7 @@ button { cursor: pointer; }
                 <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="16" height="14" rx="2"></rect><line x1="6" y1="8" x2="14" y2="8"></line><line x1="6" y1="12" x2="10" y2="12"></line></svg>
               </div>
               <div style="flex:1;min-width:0;">
-                <div class="entry-chip-label" style="color:var(--blue);">Staged · Claude Cowork</div>
+                <div class="entry-chip-label entry-chip-label--blue">Staged · Claude Cowork</div>
                 <div class="entry-title">Downloads folder · sorted &amp; labeled</div>
                 <div class="entry-meta" style="color:var(--text-55);">84 files · ready to review</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
@@ -1859,7 +1880,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Sent</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Sent</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 3 months ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Inv. #117 · Q1 · Blue Sky Digital</div>
@@ -1880,7 +1901,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Booked</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Booked</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);">· 1d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">May doctor appt.</div>
@@ -1898,7 +1919,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;min-width:0;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Replied</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Replied</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 3d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Marcus · <span style="color:var(--text-55);">#design-reviews</span></div>
@@ -1923,7 +1944,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Unsubscribed</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Unsubscribed</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 6d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">The Hustle</div>
@@ -1944,7 +1965,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Scheduled</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Scheduled</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 5d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Team sync · Thursday 2pm</div>
@@ -1962,7 +1983,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--green);font-size:8.5px;">Sent</div>
+                  <div class="entry-chip-label entry-chip-label--green entry-chip-label--sm">Sent</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 7d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Reminder · lease renewal</div>
@@ -1980,7 +2001,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;">
                 <div style="display:flex;align-items:center;gap:5px;">
-                  <div class="entry-chip-label" style="color:var(--amber);font-size:8.5px;">Held</div>
+                  <div class="entry-chip-label entry-chip-label--amber entry-chip-label--sm">Held</div>
                   <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-38);">· 2d ago</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Tax docs · accountant follow-up</div>
@@ -2925,7 +2946,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;min-width:0;">
                 <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px;">
-                  <div class="entry-chip-label" style="color:var(--blue);font-size:8.5px;">Staged</div>
+                  <div class="entry-chip-label entry-chip-label--blue entry-chip-label--sm">Staged</div>
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-38);">· was held</span>
                 </div>
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Inv. #117 · Blue Sky Digital</div>
@@ -2943,7 +2964,7 @@ button { cursor: pointer; }
               </div>
               <div style="flex:1;min-width:0;">
                 <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px;">
-                  <div class="entry-chip-label" style="color:var(--blue);font-size:8.5px;">Staged</div>
+                  <div class="entry-chip-label entry-chip-label--blue entry-chip-label--sm">Staged</div>
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-38);">· was held</span>
                 </div>
                 <div class="entry-title entry-title--sm">Draft Q3 report</div>
@@ -2981,9 +3002,9 @@ button { cursor: pointer; }
   </div><!-- /wearable-inner -->
 </div><!-- /wearable -->
 
-<div style="background: linear-gradient(160deg, #f2ede6 0%, #dde6da 55%, #f2ede6 100%); padding: 48px 0 12px;">
+<div style="background: linear-gradient(160deg, var(--bg) 0%, var(--gradient-mid) 55%, var(--bg) 100%); padding: 48px 0 12px;">
 <!-- ── SECONDARY CTA ── -->
-<div id="secondary-cta" style="max-width:520px;margin:0 auto;padding:40px 40px 28px;text-align:center;background:rgba(255,255,255,0.6);border:1px solid rgba(26,21,18,0.10);border-bottom:none;border-radius:20px 20px 0 0;">
+<div id="secondary-cta" class="secondary-cta-card">
   <div style="max-width:480px;margin:0 auto;">
     <h2 style="font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:700;font-size:24px;line-height:1.2;color:var(--text);margin:0 0 20px;letter-spacing:-0.02em;">Awareness was never the problem.</h2>
     <div id="form-fields-2">
@@ -3110,59 +3131,20 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
   var LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7'; // DO NOT MODIFY
   var LOOPS_URL = 'https://app.loops.so/api/newsletter-form/' + LOOPS_FORM_ID;
 
-  function init() {
-    document.getElementById('email-form').addEventListener('submit', handleSubmit);
-    var form2 = document.getElementById('email-form-2');
-    if (form2) form2.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var input = document.getElementById('email-input-2');
-      var btn = document.getElementById('form-btn-2');
-      var email = input.value.trim();
-      if (!email || !input.checkValidity()) { input.style.borderColor = '#c44a4a'; return; }
-      input.style.borderColor = '';
-      btn.textContent = 'Joining…';
-      btn.disabled = true;
-      input.disabled = true;
-      fetch(LOOPS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'email=' + encodeURIComponent(email)
-      })
-      .then(function(res) {
-        if (res.ok) {
-          document.getElementById('form-fields-2').classList.add('hidden');
-          document.getElementById('form-success-2').classList.remove('hidden');
-        } else {
-          btn.textContent = 'Try again';
-          btn.disabled = false;
-          input.disabled = false;
-        }
-      })
-      .catch(function() {
-        btn.textContent = 'Try again';
-        btn.disabled = false;
-        input.disabled = false;
-      });
-    });
-
-    document.getElementById('copy-link-btn').addEventListener('click', function() { copyLink('copy-link-lbl'); });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    var emailInput = document.getElementById('email-input');
-    var btn = document.getElementById('form-btn');
-    var errEl = document.getElementById('form-error');
-    var email = emailInput.value.trim();
-
-    if (!email || !emailInput.checkValidity()) {
-      errEl.classList.remove('hidden');
+  function submitForm(inputId, btnId, errId, fieldsId, successId) {
+    var input = document.getElementById(inputId);
+    var btn = document.getElementById(btnId);
+    var email = input.value.trim();
+    if (!email || !input.checkValidity()) {
+      if (errId) document.getElementById(errId).classList.remove('hidden');
+      else input.style.borderColor = '#c44a4a';
       return;
     }
-    errEl.classList.add('hidden');
+    if (errId) document.getElementById(errId).classList.add('hidden');
+    input.style.borderColor = '';
     btn.textContent = 'Joining…';
     btn.disabled = true;
-
+    input.disabled = true;
     fetch(LOOPS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -3170,12 +3152,33 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
     })
     .then(function(res) {
       if (res.ok) {
-        showSuccess();
+        document.getElementById(fieldsId).classList.add('hidden');
+        document.getElementById(successId).classList.remove('hidden');
       } else {
-        showError(btn);
+        btn.textContent = "I'm in";
+        btn.disabled = false;
+        input.disabled = false;
+        if (errId) document.getElementById(errId).classList.remove('hidden');
       }
     })
-    .catch(function() { showError(btn); });
+    .catch(function() {
+      btn.textContent = "I'm in";
+      btn.disabled = false;
+      input.disabled = false;
+    });
+  }
+
+  function init() {
+    document.getElementById('email-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitForm('email-input', 'form-btn', 'form-error', 'form-fields', 'form-success');
+    });
+    var form2 = document.getElementById('email-form-2');
+    if (form2) form2.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitForm('email-input-2', 'form-btn-2', null, 'form-fields-2', 'form-success-2');
+    });
+    document.getElementById('copy-link-btn').addEventListener('click', function() { copyLink('copy-link-lbl'); });
   }
 
   function copyLink(lblId) {
@@ -3186,17 +3189,6 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
       var lbl = document.getElementById(lblId);
       if (lbl) { lbl.textContent = 'Failed'; setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000); }
     });
-  }
-
-  function showSuccess() {
-    document.getElementById('form-fields').classList.add('hidden');
-    document.getElementById('form-success').classList.remove('hidden');
-  }
-
-  function showError(btn) {
-    document.getElementById('form-error').classList.remove('hidden');
-    btn.textContent = "I'm in";
-    btn.disabled = false;
   }
 
   document.addEventListener('DOMContentLoaded', init);
