@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why I built this — Aether</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #f2ede6;
+  --text:        #1a1512;
+  --text-55:     rgba(26,21,18,0.68);
+  --text-40:     rgba(26,21,18,0.62);
+  --text-35:     rgba(26,21,18,0.58);
+  --text-30:     rgba(26,21,18,0.30);
+  --border:      rgba(26,21,18,0.12);
+  --border-07:   rgba(26,21,18,0.07);
+  --green:       #3d9e72;
+  --amber:       #c4841a;
+  --gradient-mid:#dde6da;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Lexend', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(242,237,230,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-07);
+}
+.nav-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+  color: var(--text);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(26,21,18,0.40);
+  text-transform: uppercase;
+}
+.nav-back {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-40);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--text); }
+
+/* ── ARTICLE ── */
+.article-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+.article-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+}
+
+.article-headline {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 32px;
+  text-wrap: pretty;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.article-meta-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text);
+}
+.article-meta-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-35);
+  letter-spacing: 0.06em;
+}
+.article-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.article-meta-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-35);
+}
+
+.article-body {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-55);
+  font-weight: 300;
+  text-wrap: pretty;
+}
+.article-body p {
+  margin-bottom: 24px;
+}
+.article-body p:last-child {
+  margin-bottom: 0;
+}
+.article-body strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.pullquote {
+  margin: 40px 0;
+  padding: 24px 28px;
+  border-left: 2px solid var(--amber);
+  background: rgba(196,132,26,0.04);
+  border-radius: 0 8px 8px 0;
+}
+.pullquote p {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 22px);
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 !important;
+}
+
+.article-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+}
+.article-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.article-divider-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(26,21,18,0.20);
+}
+
+/* ── CTA ── */
+.article-cta {
+  margin-top: 56px;
+  padding: 32px;
+  background: linear-gradient(135deg, var(--bg) 0%, var(--gradient-mid) 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+}
+.article-cta h3 {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.article-cta p {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-40);
+  margin-bottom: 20px;
+}
+.form-row {
+  display: flex;
+  gap: 8px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+.form-input {
+  flex: 1;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.5);
+  font-size: 14px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+  color: var(--text);
+  outline: none;
+  -webkit-appearance: none;
+}
+.form-input:focus { border-color: var(--green); }
+.form-input::placeholder { color: rgba(26,21,18,0.30); }
+.form-btn {
+  height: 44px;
+  padding: 0 20px;
+  background: var(--green);
+  color: #f2ede6;
+  border: none;
+  border-radius: 22px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.form-btn:hover { opacity: 0.88; }
+.form-btn:disabled { opacity: 0.6; cursor: default; }
+
+/* ── FOOTER ── */
+.footer-bar {
+  border-top: 1px solid var(--border-07);
+  padding: 20px 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.10em;
+  color: var(--text-35);
+  text-transform: uppercase;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-35);
+}
+
+@media (max-width: 600px) {
+  .article-wrap { padding: 40px 20px 72px; }
+  .form-row { flex-direction: column; }
+  .form-input, .form-btn { width: 100%; }
+  .footer-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-wordmark">Aether</a>
+    <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:rgba(26,21,18,0.40);text-transform:uppercase;">Pre-seed Preview</span>
+    <a href="index.html" class="nav-back" style="display:flex;align-items:center;gap:5px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </a>
+  </div>
+</nav>
+
+<div class="article-wrap">
+
+  <div class="article-eyebrow">Spring 2026</div>
+
+  <h1 class="article-headline">This is harder than it looks.</h1>
+
+  <div class="article-meta">
+    <div class="article-meta-name">Jamie Yu-Ramos</div>
+    <div class="article-meta-dot"></div>
+    <div class="article-meta-date">Founder</div>
+  </div>
+
+  <div class="article-body">
+
+    <p>I have ADHD. I was diagnosed many years ago, and through a lot of therapy and years of self-reflection, I learned to accept the fact that I was born with it. It is the only explanation for how much of my life has unfolded.</p>
+
+    <p>It is occasionally demoralizing, even to this day, to know that ADHD was part of me for so long. If I had been diagnosed when I was young, I am certain my life would have been quite different in much-needed positive ways. But had that been the case, I wouldn't be a husband and father now, and I wouldn't be here sharing this with you.</p>
+
+    <p><strong>Why then?</strong></p>
+
+    <p>Because I'm building something to help me live my life better — and I think it will help you as well. And that is what matters most to me now.</p>
+
+    <div class="pullquote">
+      <p>I would very much like to stop beating myself up for forgetting another thing I meant to start — and then finishing half of it.</p>
+    </div>
+
+    <p>I started Aether because I want the relief of knowing that things are already in motion. That my life isn't quietly piling up while I'm spinning my wheels, and that the people counting on me aren't left waiting.</p>
+
+    <p>Aether won't wait for you to deal with things. It will move before you have to.</p>
+
+    <div class="article-divider">
+      <div class="article-divider-line"></div>
+      <div class="article-divider-dot"></div>
+      <div class="article-divider-line"></div>
+    </div>
+
+    <p>ADHD, for all of its positives, is exhausting. And I'm tired of being tired.</p>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Awareness was never the problem.</h3>
+    <div id="form-fields">
+      <p style="font-family:'Lexend',sans-serif;font-size:14px;font-weight:300;color:var(--text-40);margin-bottom:20px;">Join the waitlist. We'll reach out when we're ready.</p>
+      <form class="form-row" id="founder-form" novalidate>
+        <input class="form-input" type="email" placeholder="you@wherever.com" autocomplete="email" id="founder-email">
+        <button class="form-btn" id="founder-btn" type="submit">I'm in</button>
+      </form>
+    </div>
+    <div id="founder-success" style="display:none;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:6px;">You're in.</div>
+      <div style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:300;color:var(--text-40);">You'll hear from us soon.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-bar">
+    <span class="footer-tagline">Built by someone who's been there.</span>
+    <span class="footer-copy">© 2026 Aether12, Inc. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7'; // DO NOT MODIFY
+  var LOOPS_URL = 'https://app.loops.so/api/newsletter-form/' + LOOPS_FORM_ID;
+
+  document.getElementById('founder-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var input = document.getElementById('founder-email');
+    var btn = document.getElementById('founder-btn');
+    var email = input.value.trim();
+    if (!email || !input.checkValidity()) {
+      input.style.borderColor = '#c44a4a';
+      return;
+    }
+    input.style.borderColor = '';
+    btn.textContent = 'Joining…';
+    btn.disabled = true;
+    input.disabled = true;
+    fetch(LOOPS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'email=' + encodeURIComponent(email)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        document.getElementById('form-fields').style.display = 'none';
+        document.getElementById('founder-success').style.display = 'block';
+      } else {
+        btn.textContent = "I'm in";
+        btn.disabled = false;
+        input.disabled = false;
+        input.style.borderColor = '#c44a4a';
+      }
+    })
+    .catch(function() {
+      btn.textContent = "I'm in";
+      btn.disabled = false;
+      input.disabled = false;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
