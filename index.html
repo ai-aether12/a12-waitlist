@@ -3260,6 +3260,34 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
   });
 })();
 
+/* ── SCROLL DOT SYNC ── */
+(function() {
+  function bindScrollDots(containerSel, hintSel) {
+    var el = document.querySelector(containerSel);
+    var hint = document.querySelector(hintSel);
+    if (!el || !hint) return;
+    var dots = Array.prototype.slice.call(hint.querySelectorAll('.proof-scroll-dot'));
+    if (!dots.length) return;
+    function update() {
+      var idx = Math.round(el.scrollLeft / el.clientWidth);
+      idx = Math.max(0, Math.min(idx, dots.length - 1));
+      dots.forEach(function(d, i) {
+        d.classList.toggle('proof-scroll-dot--active', i === idx);
+      });
+    }
+    var raf;
+    el.addEventListener('scroll', function() {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }, { passive: true });
+    el.addEventListener('scrollend', update, { passive: true });
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    bindScrollDots('.learning-phones', '.learning-scroll-hint');
+    bindScrollDots('.wearable-panels', '.wearable-scroll-hint');
+  });
+})();
+
 /* ── LINKEDIN DEEP LINK ── */
 function openLinkedIn(e) {
   e.preventDefault();
