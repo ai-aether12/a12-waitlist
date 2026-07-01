@@ -3128,6 +3128,7 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
     })
     .then(function(res) {
       if (res.ok) {
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'email' });
         document.getElementById(fieldsId).classList.add('hidden');
         document.getElementById(successId).classList.remove('hidden');
       } else {
