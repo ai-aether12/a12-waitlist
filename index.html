@@ -62,7 +62,7 @@
   --wearable-bg:    #C4B5A3;
   --gradient-mid:   #dde6da;
   --shadow-phone:    0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
-  --shadow-phone-sm: 0 12px 40px rgba(26,21,18,0.20), 0 4px 14px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  --shadow-phone-sm: 0 8px 24px rgba(26,21,18,0.18), 0 3px 10px rgba(26,21,18,0.09), 0 0 0 1px rgba(26,21,18,0.08);
 }
 
 /* ── RESET ── */
@@ -754,7 +754,7 @@ button { cursor: pointer; }
 .learning-headline {
   font-family: 'Fraunces', serif;
   font-optical-sizing: auto;
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(34px, 3.8vw, 52px);
   letter-spacing: -0.025em;
   line-height: 1.05;
@@ -889,7 +889,7 @@ button { cursor: pointer; }
 .wearable-headline {
   font-family: 'Fraunces', serif;
   font-optical-sizing: auto;
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(34px, 3.8vw, 52px);
   letter-spacing: -0.025em;
   line-height: 1.12;
@@ -1401,13 +1401,7 @@ button { cursor: pointer; }
   .success-sub { font-size: 13px; }
   .proof-eyebrow { font-size: 12px; }
   .wearable-eyebrow { font-size: 12px; }
-  .proof-scroll-hint {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    align-items: center;
-    padding: 16px 0 20px;
-  }
+  .proof-scroll-hint { display: none !important; }
   .wearable-scroll-hint {
     display: flex;
     justify-content: center;
@@ -1420,7 +1414,7 @@ button { cursor: pointer; }
     justify-content: center;
     gap: 5px;
     align-items: center;
-    padding: 12px 20px 0;
+    padding: 14px 20px 0;
   }
   .proof-scroll-dot {
     width: 8px;
@@ -1447,24 +1441,17 @@ button { cursor: pointer; }
   .form-input { padding-right: 50px; }
   .form-btn {
     position: absolute;
-    right: 2px;
+    right: 4px;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
     min-width: 0;
-    padding: 0;
-    border-radius: 8px;
+    padding: 0 16px;
+    height: calc(100% - 8px);
+    border-radius: 18px;
     background: var(--green);
-    font-size: 0;
-    letter-spacing: 0;
+    font-size: 13px;
+    letter-spacing: 0.03em;
     flex-shrink: 0;
-  }
-  .form-btn::after {
-    content: '→';
-    font-size: 20px;
-    color: #fff;
-    line-height: 1;
   }
   /* Wearable — horizontal snap scroll */
   .wearable-inner { padding: 48px 0 48px; }
@@ -1535,6 +1522,7 @@ button { cursor: pointer; }
   .footer { margin-top: 0; }
   .footer-share { padding: 24px 20px; background: transparent; border: none; border-radius: 0; }
   .secondary-cta-card { background: transparent; border: none; border-radius: 0; padding-top: 0; }
+  #secondary-cta-wrapper { padding-top: 24px !important; }
   .secondary-cta-card .form-input { background: transparent; }
   .footer-share-inner { gap: 14px; }
   .footer-inner {
@@ -1847,15 +1835,15 @@ button { cursor: pointer; }
           <div class="phone-tabbar">
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#3a7bbf" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--blue);">Current</span>
+              <span class="tab-label" style="color:var(--blue);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -1871,8 +1859,8 @@ button { cursor: pointer; }
           <div class="phone-header">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px;">
               <div>
-                <div class="phone-title phone-title--lg" style="margin:0;">Log</div>
-                <div class="phone-sub" style="color:var(--text-38);margin-top:3px;">Everything I did</div>
+                <div class="phone-title phone-title--lg" style="margin:0;">History</div>
+                <div class="phone-sub" style="color:var(--text-38);margin-top:3px;">Everything we did</div>
               </div>
               <div style="display:flex;align-items:center;gap:6px;">
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="5" x2="17" y2="5"></line><line x1="6" y1="10" x2="14" y2="10"></line><line x1="9" y1="15" x2="11" y2="15"></line></svg>
@@ -2020,15 +2008,15 @@ button { cursor: pointer; }
           <div class="phone-tabbar">
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--text-28);">Current</span>
+              <span class="tab-label" style="color:var(--text-28);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--blue);">Log</span>
+              <span class="tab-label" style="color:var(--blue);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2154,15 +2142,15 @@ button { cursor: pointer; }
           <div class="phone-tabbar">
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--text-28);">Current</span>
+              <span class="tab-label" style="color:var(--text-28);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--blue);">Log</span>
+              <span class="tab-label" style="color:var(--blue);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2260,15 +2248,15 @@ button { cursor: pointer; }
           <div class="phone-tabbar">
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="rgba(26,21,18,0.25)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--text-28);">Current</span>
+              <span class="tab-label" style="color:var(--text-28);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#3a7bbf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5" fill="#3a7bbf"></circle></svg>
-              <span class="tab-label" style="color:var(--blue);">Insights</span>
+              <span class="tab-label" style="color:var(--blue);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2371,15 +2359,15 @@ button { cursor: pointer; }
           <div class="phone-tabbar">
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#c4841a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3"></rect><circle cx="10" cy="10" r="2" fill="#c4841a" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--amber);">Current</span>
+              <span class="tab-label" style="color:var(--amber);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2658,16 +2646,16 @@ button { cursor: pointer; }
           </div>
           <div class="phone-tabbar">
             <div class="tab-item">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--green)"></rect><circle cx="10" cy="10" r="2" fill="var(--green)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--green);">Current</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--green)"></rect><circle cx="10" cy="10" r="2" fill="var(--green)" stroke="none"></circle></svg>
+              <span class="tab-label" style="color:var(--green);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2705,7 +2693,7 @@ button { cursor: pointer; }
           </div>
         </div>
         <!-- Extraction box -->
-        <div style="margin:0 12px 11px;border-radius:8px;background:rgba(58,123,191,0.06);border:1px solid rgba(58,123,191,0.18);padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+        <div style="margin:0 12px 11px;border-radius:8px;background:rgba(58,123,191,0.06);border:1px solid rgba(58,123,191,0.18);padding:9px 11px;display:flex;flex-direction:column;gap:5px;flex:1;">
           <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--blue);letter-spacing:0.06em;margin-bottom:2px;">From your inbox + Drive</div>
           <div style="font-size:10.5px;color:var(--text-55);line-height:1.5;">Q2 just wrapped and nothing's gone out. Blue Sky pays fast — this needs to move.</div>
         </div>
@@ -2762,7 +2750,7 @@ button { cursor: pointer; }
       </div>
     </div>
     <div class="proof-eyebrow">No black box</div>
-    <div class="proof-body">You always know what happened and why. No surprises, nothing permanent.</div>
+    <div class="proof-body">You always know what happened and why.</div>
   </div>
 
 </div><!-- /proof -->
@@ -2848,16 +2836,16 @@ button { cursor: pointer; }
           </div>
           <div class="phone-tabbar">
             <div class="tab-item">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--amber)"></rect><circle cx="10" cy="10" r="2" fill="var(--amber)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--amber);">Current</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--amber)"></rect><circle cx="10" cy="10" r="2" fill="var(--amber)" stroke="none"></circle></svg>
+              <span class="tab-label" style="color:var(--amber);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2885,7 +2873,7 @@ button { cursor: pointer; }
           <div class="wearable-phone-header">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;">
               <div>
-                <div class="wearable-title">You're back.</div>
+                <div class="wearable-title">You're back!</div>
               </div>
             </div>
             <div class="recovery-score">
@@ -2964,16 +2952,16 @@ button { cursor: pointer; }
           </div>
           <div class="phone-tabbar">
             <div class="tab-item">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--green)"></rect><circle cx="10" cy="10" r="2" fill="var(--green)" stroke="none"></circle></svg>
-              <span class="tab-label" style="color:var(--green);">Current</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="3" stroke="var(--green)"></rect><circle cx="10" cy="10" r="2" fill="var(--green)" stroke="none"></circle></svg>
+              <span class="tab-label" style="color:var(--green);">Now</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"></line><line x1="4" y1="10" x2="16" y2="10"></line><line x1="4" y1="14" x2="16" y2="14"></line></svg>
-              <span class="tab-label" style="color:var(--text-30);">Log</span>
+              <span class="tab-label" style="color:var(--text-30);">History</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,14 7,9 11,11 17,5"></polyline><circle cx="17" cy="5" r="1.5"></circle></svg>
-              <span class="tab-label" style="color:var(--text-30);">Insights</span>
+              <span class="tab-label" style="color:var(--text-30);">Learn</span>
             </div>
             <div class="tab-item">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="3"></circle><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6"></path></svg>
@@ -2993,11 +2981,11 @@ button { cursor: pointer; }
   </div><!-- /wearable-inner -->
 </div><!-- /wearable -->
 
-<div style="background: linear-gradient(160deg, var(--bg) 0%, var(--gradient-mid) 55%, var(--bg) 100%); padding: 48px 0 12px;">
+<div id="secondary-cta-wrapper" style="background: linear-gradient(160deg, var(--bg) 0%, var(--gradient-mid) 55%, var(--bg) 100%); padding: 48px 0 12px;">
 <!-- ── SECONDARY CTA ── -->
 <div id="secondary-cta" class="secondary-cta-card">
   <div style="max-width:480px;margin:0 auto;">
-    <h2 style="font-family: &#39;Fraunces&#39;,serif; font-optical-sizing: auto; font-weight: 400; font-size: 24px; line-height: 1.2; color: var(--text); margin: 0 0 20px; letter-spacing: -0.02em">Awareness was never the problem.</h2>
+    <h2 style="font-family: &#39;Fraunces&#39;,serif; font-optical-sizing: auto; font-weight: 400; font-size: 24px; line-height: 1.2; color: var(--text); margin: 0 0 20px; letter-spacing: -0.02em">Awareness is not the problem.</h2>
     <div id="form-fields-2">
       <form id="email-form-2" class="form-row" novalidate style="max-width:400px;margin:0 auto;">
         <input id="email-input-2" class="form-input" type="email" placeholder="you@wherever.com" autocomplete="email" aria-label="Email address">
@@ -3036,7 +3024,7 @@ button { cursor: pointer; }
           </button>
     </div>
     <div class="footer-right">
-      <span class="footer-copy">© 2026 Aether12, Inc. All rights reserved.</span>
+      <span class="footer-copy">© 2026 Aether12, Inc.</span>
     </div>
   </div>
 </footer>
