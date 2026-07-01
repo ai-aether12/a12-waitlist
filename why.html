@@ -158,8 +158,8 @@ body {
 .pullquote {
   margin: 40px 0;
   padding: 24px 28px;
-  border-left: 2px solid #7aac8a;
-  background: rgba(122,172,138,0.07);
+  border-left: 2px solid #7a9e7e;
+  background: rgba(122,158,126,0.06);
   border-radius: 0 8px 8px 0;
 }
 .pullquote p {
@@ -263,7 +263,7 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
 }
 .footer-tagline {
@@ -281,9 +281,10 @@ body {
 
 @media (max-width: 600px) {
   .article-wrap { padding: 40px 20px 72px; }
-  .form-row { flex-direction: column; }
-  .form-input, .form-btn { width: 100%; }
-  .footer-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .form-row { flex-direction: column; gap: 10px; }
+  .form-input, .form-btn { width: 100%; box-sizing: border-box; min-height: 44px; height: 44px; }
+  .article-cta { margin-top: 32px; }
+  .footer-bar { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 }
 </style>
 </head>
@@ -328,7 +329,7 @@ body {
 
     <p>I started Aether because I want the relief of knowing that things are already in motion. That my life isn't quietly piling up while I'm spinning my wheels, and that the people counting on me aren't left waiting.</p>
 
-    <p>Aether won't wait for you to deal with things. It will move before you have to.</p>
+    <p>ADHD, for all of its positives, is exhausting. And I'm tired of being tired.</p>
 
     <div class="article-divider">
       <div class="article-divider-line"></div>
@@ -336,7 +337,7 @@ body {
       <div class="article-divider-line"></div>
     </div>
 
-    <p>ADHD, for all of its positives, is exhausting. And I'm tired of being tired.</p>
+    <p>Aether won't wait for you to deal with things. It will move before you have to.</p>
 
   </div>
 
@@ -360,7 +361,6 @@ body {
 
 <footer>
   <div class="footer-bar">
-    <span class="footer-tagline">Built by someone who's been there.</span>
     <span class="footer-copy">© 2026 Aether12, Inc. All rights reserved.</span>
   </div>
 </footer>
