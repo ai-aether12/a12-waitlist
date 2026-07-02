@@ -1,0 +1,154 @@
+/* ── TOKENS ── */
+:root {
+  --bg:             #f2ede6;
+  --panel:          #ebe4dc;
+  --panel-dark:     #e4ddd5;
+  --text:           #1a1512;
+  --text-60:        rgba(26,21,18,0.75);
+  --text-55:        rgba(26,21,18,0.68);
+  --text-45:        rgba(26,21,18,0.65);
+  --text-40:        rgba(26,21,18,0.62);
+  --text-38:        rgba(26,21,18,0.60);
+  --text-35:        rgba(26,21,18,0.58);
+  --text-30:        rgba(26,21,18,0.30);
+  --text-28:        rgba(26,21,18,0.28);
+  --border:         rgba(26,21,18,0.12);
+  --border-07:      rgba(26,21,18,0.07);
+  --border-09:      rgba(26,21,18,0.09);
+  --surface-04:     rgba(26,21,18,0.04);
+  --surface-05:     rgba(26,21,18,0.055);
+  --green:          #3d9e72;
+  --blue:           #3a7bbf;
+  --amber:          #c4841a;
+  --red:            #c44a4a;
+  --green-fill:     rgba(61,158,114,0.08);
+  --green-fill-10:  rgba(61,158,114,0.10);
+  --green-border:   rgba(61,158,114,0.22);
+  --blue-fill:      rgba(58,123,191,0.07);
+  --blue-border:    rgba(58,123,191,0.20);
+  --amber-fill:     rgba(196,132,26,0.07);
+  --amber-border:   rgba(196,132,26,0.22);
+  --wearable-bg:    #C4B5A3;
+  --gradient-mid:   #dde6da;
+  --shadow-phone:    0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
+  --shadow-phone-sm: 0 8px 24px rgba(26,21,18,0.18), 0 3px 10px rgba(26,21,18,0.09), 0 0 0 1px rgba(26,21,18,0.08);
+}
+
+/* ── RESET ── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Lexend', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+input, textarea, button { font-family: inherit; }
+input[type=email] { -webkit-appearance: none; appearance: none; }
+input::placeholder, textarea::placeholder { color: var(--text-35); }
+button { cursor: pointer; }
+.hidden { display: none !important; }
+
+/* ── ANIMATIONS ── */
+@keyframes pdot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.28; }
+}
+
+/* ── FORM ── */
+.form-wrap { max-width: 430px; }
+.form-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.form-input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(26,21,18,0.14);
+  border-radius: 22px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus { border-color: rgba(26,21,18,0.55); outline: 2px solid rgba(26,21,18,0.20); outline-offset: 2px; }
+.form-btn {
+  background: var(--green);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 22px;
+  border-radius: 22px;
+  border: none;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.form-btn:focus-visible { outline: 2px solid rgba(26,21,18,0.50); outline-offset: 3px; }
+.form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-error {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.form-trust {
+  font-family: 'Lexend', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-55);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.form-trust--footer { margin-top: 10px; }
+
+/* ── SUCCESS STATE ── */
+.form-success {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0 12px;
+}
+.success-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--green-fill-10);
+  border: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.success-headline {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.1;
+}
+.success-sub {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--text-55);
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+}
+
+/* ── FOOTER ── */
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-55);
+  letter-spacing: 0.06em;
+}
