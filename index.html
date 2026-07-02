@@ -1488,7 +1488,6 @@
           </a>
           <button id="copy-link-btn" type="button" aria-label="Copy link" class="share-icon share-icon-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-            <span id="copy-link-lbl" style="display:none;"></span>
           </button>
         </div>
 
@@ -2911,17 +2910,6 @@ window.addEventListener('load', function() { window.scrollTo(0, 0); });
       e.preventDefault();
       submitForm('email-input-2', 'form-btn-2', null, 'form-fields-2', 'form-success-2');
     });
-    document.getElementById('copy-link-btn').addEventListener('click', function() { copyLink('copy-link-lbl'); });
-  }
-
-  function copyLink(lblId) {
-    navigator.clipboard.writeText('https://join.aether12.com').then(function() {
-      var lbl = document.getElementById(lblId);
-      if (lbl) { lbl.textContent = 'Copied!'; setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000); }
-    }).catch(function() {
-      var lbl = document.getElementById(lblId);
-      if (lbl) { lbl.textContent = 'Failed'; setTimeout(function() { lbl.textContent = 'Copy link'; }, 2000); }
-    });
   }
 
   document.addEventListener('DOMContentLoaded', init);
@@ -3077,6 +3065,8 @@ function copyLinkPersist(btnId, lblId) {
     navigator.clipboard.writeText('https://join.aether12.com').catch(function() {});
   }
 }
+var _cp1 = document.getElementById('copy-link-btn');
+if (_cp1) _cp1.addEventListener('click', function() { copyLinkPersist('copy-link-btn', null); });
 var _cp3 = document.getElementById('copy-link-btn-3');
 if (_cp3) _cp3.addEventListener('click', function() { copyLinkPersist('copy-link-btn-3', null); });
 
