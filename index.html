@@ -638,13 +638,12 @@ button { cursor: pointer; }
 /* ── PROOF STRIP ── */
 .proof {
   max-width: 1100px;
-  margin: 96px auto 0;
+  margin: 0 auto 0;
   padding: 0 48px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 40px;
   align-items: start;
-  border-top: 1px solid rgba(26,21,18,0.09);
 }
 .proof-col {
   padding: 24px 0 32px;
@@ -1346,6 +1345,8 @@ button { cursor: pointer; }
   /* Carousel: snap transition on mobile */
   .carousel-phase { transition: opacity 0.12s ease-out; }
   /* Horizontal scroll cards */
+  .proof-label-row { display: none; }
+  .proof { margin-top: 12px; }
   .proof {
     display: flex;
     overflow-x: auto;
@@ -1389,8 +1390,8 @@ button { cursor: pointer; }
   .proof-pill-item span { font-size: 11px !important; }
   .carousel-btn { display: none; }
   .hero-copy-body { display: none; }
-  .carousel-nav { padding: 14px 0 6px; }
-  #hero-bg { padding-bottom: 20px; }
+  .carousel-nav { padding: 8px 0 4px; }
+  #hero-bg { padding-bottom: 48px; }
   #learning-bg { padding-bottom: 12px; }
   .carousel-dot { width: 9px; height: 9px; }
   .carousel-dot.active { width: 12px; height: 12px; }
@@ -2676,7 +2677,11 @@ button { cursor: pointer; }
 </div><!-- /learning-bg -->
 <div style="padding: 0 0 40px;">
 <!-- ── PROOF STRIP ── -->
-<div class="proof">
+<div style="max-width:1100px;margin:56px auto 0;padding:0 48px;display:flex;align-items:center;gap:12px;margin-bottom:0;" class="proof-label-row">
+  <span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.1em;color:rgba(26,21,18,0.4);text-transform:uppercase;white-space:nowrap;">A day in the life</span>
+  <div style="flex:1;height:1px;background:rgba(26,21,18,0.1);"></div>
+</div>
+<div class="proof" style="padding-top:0;margin-top:16px;">
 
   <!-- Col 1: Deadline extraction -->
   <div class="proof-col">
@@ -2700,7 +2705,7 @@ button { cursor: pointer; }
       </div>
     </div>
     <div class="proof-eyebrow">Attention</div>
-    <div class="proof-body">The signal was there. You were busy. Aether caught it before it slipped.</div>
+    <div class="proof-body">You were busy. Aether caught something before it slipped.</div>
   </div>
 
   <!-- Col 2: Activation energy -->
@@ -2725,10 +2730,10 @@ button { cursor: pointer; }
       </div>
     </div>
     <div class="proof-eyebrow">Activation energy</div>
-    <div class="proof-body">Aether closes the gap between knowing what to do and being able to start.</div>
+    <div class="proof-body">Knowing what to do isn't the hard part. Starting it is. Aether handles that.</div>
   </div>
 
-  <!-- Col 3: No black box -->
+  <!-- Col 3: Closure -->
   <div class="proof-col">
     <div style="margin-bottom:20px;height:207px;">
       <div class="proof-card">
@@ -2749,8 +2754,8 @@ button { cursor: pointer; }
         </div>
       </div>
     </div>
-    <div class="proof-eyebrow">No black box</div>
-    <div class="proof-body">You always know what happened and why.</div>
+    <div class="proof-eyebrow">Closure</div>
+    <div class="proof-body">When Aether handles something, you always know how it went and why.</div>
   </div>
 
 </div><!-- /proof -->
