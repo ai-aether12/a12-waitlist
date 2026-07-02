@@ -28,64 +28,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-/* ── TOKENS ── */
-:root {
-  --bg:             #f2ede6;
-  --panel:          #ebe4dc;
-  --panel-dark:     #e4ddd5;
-  --text:           #1a1512;
-  --text-60:        rgba(26,21,18,0.75);
-  --text-55:        rgba(26,21,18,0.68);
-  --text-45:        rgba(26,21,18,0.65);
-  --text-40:        rgba(26,21,18,0.62);
-  --text-38:        rgba(26,21,18,0.60);
-  --text-35:        rgba(26,21,18,0.58);
-  --text-30:        rgba(26,21,18,0.30);
-  --text-28:        rgba(26,21,18,0.28);
-  --border:         rgba(26,21,18,0.12);
-  --border-07:      rgba(26,21,18,0.07);
-  --border-09:      rgba(26,21,18,0.09);
-  --surface-04:     rgba(26,21,18,0.04);
-  --surface-05:     rgba(26,21,18,0.055);
-  --green:          #3d9e72;
-  --blue:           #3a7bbf;
-  --amber:          #c4841a;
-  --red:            #c44a4a;
-  --green-fill:     rgba(61,158,114,0.08);
-  --green-fill-10:  rgba(61,158,114,0.10);
-  --green-border:   rgba(61,158,114,0.22);
-  --blue-fill:      rgba(58,123,191,0.07);
-  --blue-border:    rgba(58,123,191,0.20);
-  --amber-fill:     rgba(196,132,26,0.07);
-  --amber-border:   rgba(196,132,26,0.22);
-  --wearable-bg:    #C4B5A3;
-  --gradient-mid:   #dde6da;
-  --shadow-phone:    0 32px 88px rgba(26,21,18,0.22), 0 8px 28px rgba(26,21,18,0.10), 0 0 0 1px rgba(26,21,18,0.08);
-  --shadow-phone-sm: 0 8px 24px rgba(26,21,18,0.18), 0 3px 10px rgba(26,21,18,0.09), 0 0 0 1px rgba(26,21,18,0.08);
-}
-
-/* ── RESET ── */
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Lexend', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-input, textarea, button { font-family: inherit; }
-input[type=email] { -webkit-appearance: none; appearance: none; }
-input::placeholder, textarea::placeholder { color: var(--text-35); }
-button { cursor: pointer; }
-.hidden { display: none !important; }
-
-/* ── ANIMATIONS ── */
-@keyframes pdot {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.28; }
-}
-
 /* ── NAV ── */
 .nav {
   position: sticky;
@@ -111,64 +55,6 @@ button { cursor: pointer; }
   color: var(--text);
 }
 
-
-/* Nav share */
-.nav-share-wrap { position: relative; }
-.nav-share-btn {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: transparent; border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: var(--text-38); padding: 0;
-}
-.nav-share-btn:hover { background: rgba(26,21,18,0.06); }
-.nav-share-popover {
-  position: absolute;
-  top: 50%;
-  right: calc(100% + 10px);
-  transform: translateY(-50%);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 40px;
-  padding: 6px 10px;
-  box-shadow: 0 4px 24px rgba(26,21,18,0.12);
-  z-index: 200;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-}
-.nav-share-popover.hidden { display: none; }
-
-/* Mobile-only share pills */
-@media (min-width: 768px) {
-  .share-mobile-only { display: none !important; }
-}
-.nav-share-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Footer persistent share */
-.footer-share {
-  max-width: 520px;
-  margin: 0 auto;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 20px 40px 32px;
-}
-.footer-share-inner {
-  max-width: 100%; margin: 0 auto;
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
-}
-.footer-share-label {
-  font-family: 'Lexend', sans-serif;
-  font-size: 14px; font-weight: 300;
-  color: var(--text-55); text-align: center;
-}
 .nav-join {
   display: none;
   font-family: 'DM Mono', monospace;
@@ -213,97 +99,6 @@ button { cursor: pointer; }
   margin-bottom: 40px;
   text-wrap: pretty;
 }
-
-/* ── FORM ── */
-.form-wrap { max-width: 430px; }
-.form-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.form-input {
-  flex: 1;
-  min-width: 0;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(26,21,18,0.14);
-  border-radius: 22px;
-  padding: 14px 16px;
-  font-size: 15px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.15s;
-}
-.form-input:focus { border-color: rgba(26,21,18,0.55); outline: 2px solid rgba(26,21,18,0.20); outline-offset: 2px; }
-.form-btn {
-  background: var(--green);
-  color: var(--bg);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 14px 22px;
-  border-radius: 22px;
-  border: none;
-  white-space: nowrap;
-  letter-spacing: 0.01em;
-  flex-shrink: 0;
-  transition: opacity 0.15s;
-}
-.form-btn:focus-visible { outline: 2px solid rgba(26,21,18,0.50); outline-offset: 3px; }
-.form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.form-error {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--red);
-  margin-bottom: 8px;
-}
-.form-trust {
-  font-family: 'Lexend', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--text-55);
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-.form-trust--footer { margin-top: 10px; }
-
-/* ── SUCCESS STATE ── */
-.form-success {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 0 12px;
-}
-.success-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--green-fill-10);
-  border: 1px solid var(--green-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.success-headline {
-  font-family: 'Fraunces', serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-size: 22px;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  line-height: 1.1;
-}
-.success-sub {
-  font-family: 'Lexend', sans-serif;
-  font-weight: 300;
-  font-size: 14px;
-  color: var(--text-55);
-  margin-top: 4px;
-  letter-spacing: 0.03em;
-}
-
 
 /* ── CAROUSEL ── */
 .hero-carousel {
@@ -550,6 +345,14 @@ button { cursor: pointer; }
 .action-chip-arr {
   font-size: 9px;
   color: var(--text-35);
+}
+.source-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px;
+  color: var(--blue);
+  background: var(--blue-fill);
+  border-radius: 4px;
+  padding: 1px 5px;
 }
 
 /* Log filter tabs */
@@ -1291,6 +1094,23 @@ button { cursor: pointer; }
 .share-pill--sms { display: none; }
 .share-pill--hero:hover { background: rgba(26,21,18,0.13); }
 .share-pill--hero .share-pill-label { display: none; }
+.share-icon {
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+  text-decoration: none;
+}
+.share-icon:hover { opacity: 0.8; }
+.share-icon-btn {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
 .footer-wordmark {
   font-family: 'DM Mono', monospace;
   font-size: 9.5px;
@@ -1304,24 +1124,9 @@ button { cursor: pointer; }
   color: var(--text-55);
   letter-spacing: 0.06em;
 }
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
-  color: var(--text-55);
-  letter-spacing: 0.06em;
-}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 767px) {
-  .nav-share-popover {
-    top: calc(100% + 10px);
-    right: 0;
-    left: auto;
-    transform: none;
-    flex-direction: column;
-    border-radius: 16px;
-    padding: 14px 16px;
-  }
   .nav-inner { padding: 18px 20px; }
   .hero {
     grid-template-columns: 1fr;
@@ -1431,7 +1236,6 @@ button { cursor: pointer; }
     background-color: var(--blue);
   }
   .nav-join { display: block; }
-  .nav-share-wrap { display: none; }
 
   .form-row {
     position: relative;
@@ -1521,11 +1325,9 @@ button { cursor: pointer; }
   }
   #email-form { display: none; }
   .footer { margin-top: 0; }
-  .footer-share { padding: 24px 20px; background: transparent; border: none; border-radius: 0; }
   .secondary-cta-card { background: transparent; border: none; border-radius: 0; padding-top: 0; }
   #secondary-cta-wrapper { padding-top: 24px !important; padding-bottom: 4px !important; }
   .secondary-cta-card .form-input { background: transparent; }
-  .footer-share-inner { gap: 14px; }
   .footer-inner {
     padding: 14px 20px 40px;
     flex-direction: column;
@@ -1603,7 +1405,7 @@ button { cursor: pointer; }
   align-items: center;
   justify-content: center;
   background: rgba(26,21,18,0.80);
-  color: #f2ede6;
+  color: var(--bg);
   font-family: 'DM Mono', monospace;
   font-size: 22px;
   font-weight: 300;
@@ -1716,19 +1518,19 @@ button { cursor: pointer; }
         </div>
 
         <div id="share-row" style="display:flex;align-items:center;gap:12px;margin-top:8px;">
-          <a href="https://twitter.com/intent/tweet?text=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on X" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://twitter.com/intent/tweet?text=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on X" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.734-8.836L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com" target="_blank" rel="noopener" aria-label="Share on LinkedIn" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
-          <a href="https://wa.me/?text=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://wa.me/?text=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.857L.057 23.882a.5.5 0 00.61.61l6.025-1.476A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.368l-.358-.213-3.714.91.926-3.715-.234-.374A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
           </a>
-          <a href="sms:?&body=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" class="share-pill--sms" aria-label="Share via SMS" style="align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="sms:?&body=Just+found+this.+If+ADHD+is+part+of+your+life%2C+it+might+be+worth+a+look.+join.aether12.com" class="share-pill--sms share-icon" aria-label="Share via SMS">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </a>
-          <button id="copy-link-btn" type="button" aria-label="Copy link" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;background:none;border:none;cursor:pointer;padding:0;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <button id="copy-link-btn" type="button" aria-label="Copy link" class="share-icon share-icon-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
             <span id="copy-link-lbl" style="display:none;"></span>
           </button>
@@ -1767,7 +1569,7 @@ button { cursor: pointer; }
                 <div class="entry-meta" style="font-style:italic;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Q2 closed · unsent · 6 days ago</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Drive</span>
+                  <span class="source-badge">Gmail</span><span class="source-badge">Drive</span>
                 </div>
                 <div class="action-chip action-chip--green">
                   <svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="#3d9e72" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle cx="10" cy="10" r="2.5"></circle></svg>
@@ -1786,7 +1588,7 @@ button { cursor: pointer; }
                 <div class="entry-title">June PT appt. — <span style="color:var(--red);">12d overdue</span></div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Calendar</span><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span>
+                  <span class="source-badge">Calendar</span><span class="source-badge">Gmail</span>
                 </div>
                 <!-- Insurance info strip -->
                 <div style="display:flex;flex-direction:column;gap:3px;margin:5px 0 7px;padding:7px 9px;background:rgba(58,123,191,0.05);border:1px solid rgba(58,123,191,0.14);border-radius:8px;">
@@ -1828,7 +1630,7 @@ button { cursor: pointer; }
                 <div class="entry-meta" style="color:var(--text-55);">84 files · ready to review</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">local files</span>
+                  <span class="source-badge">local files</span>
                 </div>
               </div>
             </div>
@@ -1882,7 +1684,7 @@ button { cursor: pointer; }
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Inv. #117 · Q1 · Blue Sky Digital</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Drive</span>
+                  <span class="source-badge">Gmail</span><span class="source-badge">Drive</span>
                 </div>
                 <div style="margin-top:5px;">
                   <span style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--amber);background:rgba(196,132,26,0.08);border:1px solid rgba(196,132,26,0.22);border-radius:6px;padding:2px 8px;white-space:nowrap;">no reply · follow up?</span>
@@ -1903,7 +1705,7 @@ button { cursor: pointer; }
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">May doctor appt.</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Calendar</span><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span>
+                  <span class="source-badge">Calendar</span><span class="source-badge">Gmail</span>
                 </div>
               </div>
               <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;align-self:center;"><polyline points="4,2 9,6 4,10"></polyline></svg>
@@ -1922,7 +1724,7 @@ button { cursor: pointer; }
                 <div class="entry-meta" style="font-style:italic;line-height:1.5;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">"Did you get a chance to review the Q3 deck?"</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Slack</span>
+                  <span class="source-badge">Slack</span>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;align-self:center;">
@@ -1946,7 +1748,7 @@ button { cursor: pointer; }
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">The Hustle</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span>
+                  <span class="source-badge">Gmail</span>
                 </div>
                 <div style="margin-top:5px;">
                   <span style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--blue);background:rgba(58,123,191,0.08);border:1px solid rgba(58,123,191,0.22);border-radius:6px;padding:2px 8px;white-space:nowrap;">resubscribe?</span>
@@ -1967,7 +1769,7 @@ button { cursor: pointer; }
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Team sync · Thursday 2pm</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Calendar</span>
+                  <span class="source-badge">Calendar</span>
                 </div>
               </div>
               <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;align-self:center;"><polyline points="4,2 9,6 4,10"></polyline></svg>
@@ -1985,7 +1787,7 @@ button { cursor: pointer; }
                 <div class="entry-title entry-title--sm" style="margin-top:4px;">Reminder · lease renewal</div>
                 <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
                   <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--text-45);letter-spacing:0.06em;">from:</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Calendar</span><span style="font-family:'DM Mono',monospace;font-size:7.5px;color:var(--blue);background:rgba(58,123,191,0.08);border-radius:4px;padding:1px 5px;">Gmail</span>
+                  <span class="source-badge">Calendar</span><span class="source-badge">Gmail</span>
                 </div>
               </div>
               <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="rgba(26,21,18,0.25)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;align-self:center;"><polyline points="4,2 9,6 4,10"></polyline></svg>
@@ -3012,19 +2814,19 @@ button { cursor: pointer; }
       <a href="why" class="footer-tagline" style="text-decoration:none;color:rgba(26,21,18,0.60);transition:color 0.15s;" onmouseover="this.style.color='rgba(26,21,18,0.85)'" onmouseout="this.style.color='rgba(26,21,18,0.60)'">Built by someone who's been there. →</a>
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
-          <a href="https://twitter.com/intent/tweet?text=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on X" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://twitter.com/intent/tweet?text=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on X" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.734-8.836L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjoin.aether12.com" target="_blank" rel="noopener" aria-label="Share on LinkedIn" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
-          <a href="https://wa.me/?text=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" target="_blank" rel="noopener" class="share-pill--wa" aria-label="Share on WhatsApp" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="https://wa.me/?text=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" target="_blank" rel="noopener" class="share-pill--wa share-icon" aria-label="Share on WhatsApp" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.857L.057 23.882a.5.5 0 00.61.61l6.025-1.476A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.368l-.358-.213-3.714.91.926-3.715-.234-.374A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
           </a>
-          <a href="sms:?&body=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" class="share-pill--sms" aria-label="Share via SMS" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <a href="sms:?&body=Thought+you%E2%80%99d+want+to+see+this.+join.aether12.com" class="share-pill--sms share-icon" aria-label="Share via SMS" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </a>
-          <button id="copy-link-btn-3" type="button" aria-label="Copy link" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:0.4;transition:opacity 0.15s;background:none;border:none;cursor:pointer;padding:0;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.4'">
+          <button id="copy-link-btn-3" type="button" aria-label="Copy link" class="share-icon share-icon-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
           </button>
     </div>
@@ -3300,20 +3102,6 @@ document.querySelectorAll('a[aria-label="Share on LinkedIn"]').forEach(function(
   el.addEventListener('click', openLinkedIn);
 });
 
-/* ── NAV SHARE POPOVER ── */
-(function() {
-  var btn = document.getElementById('nav-share-btn');
-  var pop = document.getElementById('nav-share-popover');
-  if (!btn || !pop) return;
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    pop.classList.toggle('hidden');
-  });
-  pop.addEventListener('click', function(e) { e.stopPropagation(); });
-  document.addEventListener('click', function() { pop.classList.add('hidden'); });
-  window.addEventListener('pageshow', function() { pop.classList.add('hidden'); });
-})();
-
 /* ── COPY LINK (persistent) ── */
 function copyLinkPersist(btnId, lblId) {
   var btn = document.getElementById(btnId);
@@ -3333,8 +3121,6 @@ function copyLinkPersist(btnId, lblId) {
     navigator.clipboard.writeText('https://join.aether12.com').catch(function() {});
   }
 }
-var _cpNav = document.getElementById('copy-link-btn-nav');
-if (_cpNav) _cpNav.addEventListener('click', function() { copyLinkPersist('copy-link-btn-nav', 'copy-link-lbl-nav'); });
 var _cp3 = document.getElementById('copy-link-btn-3');
 if (_cp3) _cp3.addEventListener('click', function() { copyLinkPersist('copy-link-btn-3', null); });
 
