@@ -12,32 +12,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Why I built this — Aether</title>
+<link rel="canonical" href="https://join.aether12.com/why">
+<!-- Open Graph -->
+<meta property="og:type"        content="article">
+<meta property="og:url"         content="https://join.aether12.com/why">
+<meta property="og:title"       content="Why I built this — Aether">
+<meta property="og:description" content="From the founder: why I'm building Aether, and what it means to finally act on what ADHD makes you miss.">
+<meta property="og:image"       content="https://join.aether12.com/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:url"         content="https://join.aether12.com/why">
+<meta name="twitter:title"       content="Why I built this — Aether">
+<meta name="twitter:description" content="From the founder: why I'm building Aether, and what it means to finally act on what ADHD makes you miss.">
+<meta name="twitter:image"       content="https://join.aether12.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-:root {
-  --bg:          #f2ede6;
-  --text:        #1a1512;
-  --text-55:     rgba(26,21,18,0.68);
-  --text-40:     rgba(26,21,18,0.62);
-  --text-35:     rgba(26,21,18,0.58);
-  --text-30:     rgba(26,21,18,0.30);
-  --border:      rgba(26,21,18,0.12);
-  --border-07:   rgba(26,21,18,0.07);
-  --green:       #3d9e72;
-  --amber:       #c4841a;
-  --gradient-mid:#dde6da;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Lexend', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
 /* ── NAV ── */
 .nav {
   position: sticky;
@@ -224,44 +216,7 @@ body {
   color: var(--text-40);
   margin-bottom: 20px;
 }
-.form-row {
-  display: flex;
-  gap: 8px;
-  max-width: 380px;
-  margin: 0 auto;
-}
-.form-input {
-  flex: 1;
-  height: 44px;
-  padding: 0 14px;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: rgba(255,255,255,0.5);
-  font-size: 14px;
-  font-family: 'Lexend', sans-serif;
-  font-weight: 300;
-  color: var(--text);
-  outline: none;
-  -webkit-appearance: none;
-}
-.form-input:focus { border-color: var(--green); }
-.form-input::placeholder { color: rgba(26,21,18,0.30); }
-.form-btn {
-  height: 44px;
-  padding: 0 20px;
-  background: var(--green);
-  color: #f2ede6;
-  border: none;
-  border-radius: 22px;
-  font-family: 'Lexend', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: opacity 0.15s;
-}
-.form-btn:hover { opacity: 0.88; }
-.form-btn:disabled { opacity: 0.6; cursor: default; }
+.article-cta .form-row { max-width: 380px; margin: 0 auto; }
 
 /* ── FOOTER ── */
 .footer-bar {
@@ -279,12 +234,6 @@ body {
   font-size: 9.5px;
   letter-spacing: 0.10em;
   color: var(--text-35);
-}
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text-40);
 }
 
 @media (max-width: 600px) {
@@ -350,12 +299,13 @@ body {
     <div id="form-fields">
       <p style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.06em;color:var(--text-40);margin-bottom:20px;">I'll be in touch.</p>
       <form class="form-row" id="founder-form" novalidate>
-        <input class="form-input" type="email" placeholder="you@wherever.com" autocomplete="email" id="founder-email">
+        <input class="form-input" type="email" placeholder="you@wherever.com" autocomplete="email" aria-label="Email address" id="founder-email">
         <button class="form-btn" id="founder-btn" type="submit">I'm in</button>
       </form>
+      <p id="founder-error" class="form-error hidden">Something went wrong — please try again.</p>
     </div>
     <a href="/" style="display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.06em;color:rgba(26,21,18,0.62);text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='rgba(26,21,18,0.85)'" onmouseout="this.style.color='rgba(26,21,18,0.62)'">See what I'm building →</a>
-    <div id="founder-success" style="display:none;">
+    <div id="founder-success" class="hidden">
       <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:6px;">You're in.</div>
       <div style="font-family:'Lexend',sans-serif;font-size:13px;font-weight:300;color:var(--text-40);">I'll be in touch.</div>
     </div>
@@ -378,12 +328,13 @@ body {
     e.preventDefault();
     var input = document.getElementById('founder-email');
     var btn = document.getElementById('founder-btn');
+    var error = document.getElementById('founder-error');
     var email = input.value.trim();
     if (!email || !input.checkValidity()) {
-      input.style.borderColor = '#c44a4a';
+      error.classList.remove('hidden');
       return;
     }
-    input.style.borderColor = '';
+    error.classList.add('hidden');
     btn.textContent = 'Joining…';
     btn.disabled = true;
     input.disabled = true;
@@ -395,19 +346,20 @@ body {
     .then(function(res) {
       if (res.ok) {
         if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'email' });
-        document.getElementById('form-fields').style.display = 'none';
-        document.getElementById('founder-success').style.display = 'block';
+        document.getElementById('form-fields').classList.add('hidden');
+        document.getElementById('founder-success').classList.remove('hidden');
       } else {
         btn.textContent = "I'm in";
         btn.disabled = false;
         input.disabled = false;
-        input.style.borderColor = '#c44a4a';
+        error.classList.remove('hidden');
       }
     })
     .catch(function() {
       btn.textContent = "I'm in";
       btn.disabled = false;
       input.disabled = false;
+      error.classList.remove('hidden');
     });
   });
 })();
