@@ -152,3 +152,9 @@ button { cursor: pointer; }
   color: var(--text-55);
   letter-spacing: 0.06em;
 }
+
+/* ── NAV LOGO ── */
+@media (max-width: 767px) {
+  .nav-logo-full { display: none !important; }
+  .nav-logo-icon { display: block !important; }
+}
