@@ -223,6 +223,7 @@ button { cursor: pointer; }
 }
 @media (max-width: 600px) {
   .footer-bar { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .footer-sep { display: none; }
 }
 
 /* ── LINKS ── */
@@ -240,9 +241,7 @@ a.link-muted-strong {
 }
 a.link-muted-strong:hover { color: rgba(26,21,18,0.85); }
 
-/* ── NAV LOGO ── */
+/* ── NAV (mobile) ── */
 @media (max-width: 767px) {
-  .nav-logo-full { display: none !important; }
-  .nav-logo-icon { display: block !important; }
   .nav-inner { padding: 18px 20px; }
 }
