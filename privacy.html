@@ -31,57 +31,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* ── NAV ── */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(245,240,232,0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  overflow: hidden;
-}
-.nav::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(to right, transparent 80px, rgba(122,158,126,0.10) 160px, rgba(122,158,126,0.00) 85%),
-    linear-gradient(to right, transparent 100px, rgba(122,158,126,0.07) 200px, rgba(122,158,126,0.00) 75%),
-    linear-gradient(to right, transparent 60px, rgba(122,158,126,0.06) 140px, rgba(122,158,126,0.00) 65%);
-  background-size: 100% 28%, 100% 20%, 100% 16%;
-  background-position: 0 30%, 0 54%, 0 74%;
-  background-repeat: no-repeat;
-}
-.nav-inner {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 26px 48px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.nav-wordmark {
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  font-weight: 400;
-  color: var(--text);
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.nav-back {
-  margin-left: auto;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text-40);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.nav-back:hover { color: var(--text); }
-
 /* ── ARTICLE ── */
 .article-wrap {
   max-width: 640px;
@@ -129,25 +78,8 @@
   padding: 10px 14px;
 }
 
-/* ── FOOTER ── */
-.footer-bar {
-  border-top: 1px solid var(--border-07);
-  padding: 20px 24px;
-  max-width: 760px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-@media (max-width: 767px) {
-  .nav-inner { padding: 18px 20px; }
-}
-
 @media (max-width: 600px) {
   .article-wrap { padding: 40px 20px 72px; }
-  .footer-bar { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 }
 </style>
 </head>
@@ -256,23 +188,12 @@ transition: text-decoration-color 0.15s, color 0.15s;
 
 <footer>
   <div class="footer-bar">
-    <a href="privacy" class="footer-copy" style="text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-55)'">Privacy</a>
+    <a href="privacy" class="footer-copy link-muted">Privacy</a>
     <span class="footer-copy">© 2026 Aether12, Inc.</span>
   </div>
 </footer>
 
-<script>
-(function() {
-  if (window.history.length <= 1) return;
-  var btn = document.querySelector('.nav-back');
-  if (!btn) return;
-  btn.style.display = 'flex';
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    history.back();
-  });
-})();
-</script>
+<script src="shared.js"></script>
 
 </body>
 </html>
