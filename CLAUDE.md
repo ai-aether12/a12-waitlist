@@ -3,7 +3,7 @@
 ## Repository
 - **Repo:** `ai-aether12/a12-waitlist`
 - **Production:** `main` (GitHub Pages at `join.aether12.com`)
-- **Production files:** `index.html` and `why.html` — all CSS and JS are inline, no build step
+- **Production files:** `index.html`, `why.html`, `privacy.html` — page-specific CSS/JS are inline; shared styles/behavior live in `shared.css`/`shared.js`. No build step.
 
 ## Branch convention
 Create a new `claude/[name]` branch per PR. After every squash-merge to main, working branches diverge — fix by creating a fresh branch from main rather than rebasing:
@@ -21,7 +21,7 @@ git config user.email noreply@anthropic.com && git config user.name Claude
 Use GitHub MCP tools (`mcp__github__*`) for all PR/merge operations — no `gh` CLI available. Load via ToolSearch before use.
 
 ## Security constraint
-`LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7'` must never be modified. It appears in both `index.html` and `why.html`.
+`LOOPS_FORM_ID = 'cmq6zybem02rs0jzc70ldajs7'` must never be modified. It's defined once in `shared.js`, used by all 3 pages' forms.
 
 ## Current design system
 Light warm-stone theme:
