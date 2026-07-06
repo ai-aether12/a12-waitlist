@@ -35,6 +35,24 @@
 <link rel="stylesheet" href="shared.css">
 <style>
 /* ── NAV (page-specific) ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.nav-pill {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-40);
+  text-transform: uppercase;
+  border: 1px solid rgba(26,21,18,0.2);
+  border-radius: 20px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.nav-pill-short { display: none; }
 .nav-join {
   display: none;
   font-family: 'DM Mono', monospace;
@@ -1171,6 +1189,8 @@
     background-color: var(--blue);
   }
   .nav-join { display: block; }
+  .nav-pill-full { display: none; }
+  .nav-pill-short { display: inline-block; }
 
   .form-row {
     position: relative;
@@ -1417,8 +1437,11 @@
   <div class="nav-inner nav-inner--wide">
     <a href="/"><img src="logo-1x.png" srcset="logo-1x.png 1x, logo-2x.png 2x" alt="Aether" class="nav-wordmark nav-logo-full" style="height:40px;width:auto;display:block;"><img src="logo-icon-1x.png" srcset="logo-icon-1x.png 1x, logo-icon-2x.png 2x" alt="Aether" class="nav-wordmark nav-logo-icon" style="height:32px;width:auto;display:none;"></a>
 
-
-    <a href="#" class="nav-join" id="nav-join-btn">I'm in</a>
+    <div class="nav-right">
+      <span class="nav-pill nav-pill-full">Pre-seed | Preview</span>
+      <span class="nav-pill nav-pill-short">Preview</span>
+      <a href="#" class="nav-join" id="nav-join-btn">I'm in</a>
+    </div>
   </div>
 </nav>
 
@@ -1428,7 +1451,6 @@
   <!-- LEFT: COPY + FORM -->
   <div class="hero-copy">
     <div class="hero-copy-head">
-      <span style="display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(26,21,18,0.5);text-transform:uppercase;border:1px solid rgba(26,21,18,0.2);border-radius:20px;padding:4px 10px;margin-bottom:16px;">Pre-seed</span>
       <h1 class="hero-headline">Things<br>pile up.</h1>
     </div>
     <div class="hero-copy-tagline">
