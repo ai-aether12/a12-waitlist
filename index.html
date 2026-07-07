@@ -1077,6 +1077,11 @@
   color: var(--text-55);
   letter-spacing: 0.06em;
 }
+a.footer-note-link {
+  color: #556e58;
+  transition: color 0.15s;
+}
+a.footer-note-link:hover { color: #344436; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 767px) {
@@ -2631,7 +2636,7 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-left">
-      <a href="why" class="footer-tagline link-muted-strong" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;">
+      <a href="why" class="footer-tagline footer-note-link" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;">
         <img src="avatar-new.jpg" alt="Jamie Yu-Ramos | Founder, Aether12" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;">
         <span>A note from me →</span>
       </a>
