@@ -5,6 +5,9 @@
 - **Production:** `main` (GitHub Pages at `join.aether12.com`)
 - **Production files:** `index.html`, `why.html`, `privacy.html` — page-specific CSS/JS are inline; shared styles/behavior live in `shared.css`/`shared.js`. No build step.
 
+## Preview deployments
+Cloudflare Pages is connected to this repo (GitHub App scoped to `a12-waitlist` only) and auto-deploys every branch/PR to its own preview URL, shown on the PR page — check it before merging. `main` also deploys to `a12-waitlist.pages.dev` as a Cloudflare-side copy, but that is **not** the real production site — `join.aether12.com` (GitHub Pages) is. No repo-side config needed: static site, no build step, build output directory `/`.
+
 ## Branch convention
 Create a new `claude/[name]` branch per PR. After every squash-merge to main, working branches diverge — fix by creating a fresh branch from main rather than rebasing:
 ```bash
