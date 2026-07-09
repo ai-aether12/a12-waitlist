@@ -32,18 +32,6 @@
   align-items: center;
   gap: 14px;
 }
-.nav-pill {
-  display: inline-block;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--text-40);
-  text-transform: uppercase;
-  border: 1px solid rgba(26,21,18,0.2);
-  border-radius: 20px;
-  padding: 4px 10px;
-  white-space: nowrap;
-}
 .nav-join {
   display: none;
   font-family: 'DM Mono', monospace;
@@ -62,7 +50,7 @@
 .hero {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 60px 48px 0;
+  padding: 32px 48px 0;
   display: grid;
   grid-template-columns: 1fr 348px;
   gap: 96px;
@@ -1420,6 +1408,43 @@ a.footer-note-link:hover { color: #344436; }
   display: flex;
   justify-content: center;
 }
+/* ── HERO TOGGLE ── */
+/* ⚠ Intentional second CTA — tier-2, overrides single-CTA convention */
+#page-story {
+  max-height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+#page-story.revealed {
+  max-height: none;
+  overflow: visible;
+  animation: storyReveal 0.5s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes storyReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+#story-peek {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+#page-story.revealed #story-peek {
+  opacity: 0;
+}
+@keyframes chevronBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(3px); }
+}
+.chevron-bob.bob-active {
+  animation: chevronBob 0.8s ease-in-out 3;
+}
 </style>
 </head>
 <body>
@@ -1432,8 +1457,7 @@ a.footer-note-link:hover { color: #344436; }
     <a href="/"><img src="logo-1x.png" srcset="logo-1x.png 1x, logo-2x.png 2x" alt="Aether" class="nav-wordmark nav-logo-full" style="height:40px;width:auto;display:block;"><img src="logo-icon-1x.png" srcset="logo-icon-1x.png 1x, logo-icon-2x.png 2x" alt="Aether" class="nav-wordmark nav-logo-icon" style="height:32px;width:auto;display:none;"></a>
 
     <div class="nav-right">
-      <span class="nav-pill">Preview</span>
-      <a href="#" class="nav-join" id="nav-join-btn">I'm in</a>
+      <a href="#" class="nav-join" id="nav-join-btn">Join</a>
     </div>
   </div>
 </nav>
@@ -1462,7 +1486,7 @@ a.footer-note-link:hover { color: #344436; }
       </div>
 
       <!-- SUCCESS: hidden until submit -->
-      <div id="form-success" class="hidden">
+      <div id="form-success" class="hidden" style="text-align:center;">
         <div style="padding:10px 0 8px;">
           <img src="logo-icon-1x.png" srcset="logo-icon-1x.png 1x, logo-icon-2x.png 2x" alt="" style="height:36px;width:auto;margin-bottom:10px;opacity:0.85;">
           <div class="success-headline">You're in.</div>
@@ -2075,6 +2099,17 @@ a.footer-note-link:hover { color: #344436; }
 
 </div><!-- /hero+nav-bg -->
 
+<!-- ── HERO SEE MORE ── -->
+<div id="hero-see-more" style="display:flex;flex-direction:column;align-items:center;padding:40px 0 24px;background:linear-gradient(to bottom,#dde6da,#f2ede6);">
+  <button id="hero-toggle-fixed" aria-expanded="false" aria-controls="page-story" style="display:inline-flex;align-items:center;gap:12px;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:'DM Mono',monospace;font-size:15px;letter-spacing:0.07em;text-transform:uppercase;color:rgba(26,21,18,0.72);transition:color 0.15s;outline:none;-webkit-appearance:none;appearance:none;box-shadow:none;">
+    What does it actually do?
+    <span class="chevron-bob" style="color:var(--green);font-size:18px;line-height:1;flex-shrink:0;">↓</span>
+  </button>
+</div>
+
+<div id="page-story">
+<div id="story-peek"></div>
+
 <div id="learning-bg" style="background: linear-gradient(to bottom, #f2ede6 0%, #dde6da 60%, #f2ede6 100%); padding: 0 0 0;">
 <!-- ── LEARNING ARC SECTION ── -->
 <div class="learning">
@@ -2659,6 +2694,8 @@ a.footer-note-link:hover { color: #344436; }
 </footer>
 </div><!-- /footer-bg -->
 
+</div><!-- /page-story -->
+
 <!-- ── PHONE READER OVERLAY ── -->
 <div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
   <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
@@ -2997,6 +3034,46 @@ if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
     setAll('bullet-' + (i + 1) + '-title', b.title);
     setAll('bullet-' + (i + 1) + '-desc', b.desc);
   });
+})();
+
+/* ── HERO TOGGLE / STORY REVEAL ── */
+(function() {
+  var btnFixed = document.getElementById('hero-toggle-fixed');
+  var story    = document.getElementById('page-story');
+  if (!story) return;
+  function reveal() {
+    story.classList.add('revealed');
+    if (btnFixed) btnFixed.setAttribute('aria-expanded', 'true');
+    setTimeout(function() {
+      var target = document.getElementById('learning-bg');
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }, 50);
+  }
+  if (btnFixed) btnFixed.addEventListener('click', reveal);
+})();
+
+/* ── CHEVRON BOB ── */
+(function() {
+  function startBob() {
+    var chevron = document.querySelector('.chevron-bob');
+    if (!chevron) return;
+    chevron.classList.remove('bob-active');
+    void chevron.offsetWidth;
+    chevron.classList.add('bob-active');
+  }
+  if (typeof getCookie === 'function' && getCookie('consent')) {
+    setTimeout(startBob, 1000);
+  } else {
+    function hookBtn(id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function() { setTimeout(startBob, 500); }, { once: true });
+    }
+    hookBtn('cookie-accept');
+    hookBtn('cookie-decline');
+  }
 })();
 </script>
 
