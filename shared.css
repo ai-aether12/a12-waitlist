@@ -306,12 +306,8 @@ a.link-muted-strong:hover { color: rgba(26,21,18,0.85); }
   white-space: nowrap;
   transition: background 0.15s, border-color 0.15s;
 }
-.cookie-btn-accept {
-  background: var(--green);
-  border-color: rgba(26,21,18,0.5);
-}
+.cookie-btn-accept:hover,
 .cookie-btn-decline:hover { background: var(--surface-04); }
-.cookie-btn-accept:hover { opacity: 0.9; }
 @media (max-width: 540px) {
   #cookie-banner {
     flex-direction: column;
