@@ -57,7 +57,10 @@ Typography: Fraunces (headings), Lexend (body/CTAs), DM Mono (labels/mono)
 - `why.html` has its own Loops form with the same flow
 
 ## Analytics
-Google Analytics (`G-B72BCSL7P7`) is loaded on both pages. A `generate_lead` event fires on successful form submission in both files.
+Google Analytics (`G-B72BCSL7P7`) is loaded on all three pages, gated behind cookie consent — see "Cookie consent" below. A `generate_lead` event fires on successful form submission in index.html and why.html (guarded by `typeof gtag === 'function'`, so it safely no-ops if consent hasn't been granted).
+
+## Cookie consent
+A consent banner (`#cookie-banner`, markup in each HTML file, styles in `shared.css`, logic in `shared.js`) gates GA on first visit. No cookie yet → banner shows after 800ms; Accept sets `consent=granted` (365-day cookie) and dynamically injects the gtag.js script; Decline sets `consent=declined` and GA never loads. `GA_ID` in `shared.js` is the single source of truth — do not add a static GA `<script>` tag back into any `<head>`.
 
 ## Social / OG
 - OG and Twitter Card meta tags point to `join.aether12.com`
