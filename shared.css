@@ -246,6 +246,8 @@ a.link-muted-strong:hover { color: rgba(26,21,18,0.85); }
 /* ── NAV (mobile) ── */
 @media (max-width: 767px) {
   .nav-inner { padding: 18px 20px; }
+  .nav-logo-full { display: none !important; }
+  .nav-logo-icon { display: block !important; height: 40px !important; }
 }
 
 /* ── COOKIE CONSENT BANNER ── */
