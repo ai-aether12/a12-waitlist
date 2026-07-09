@@ -79,18 +79,28 @@ function loadGA() {
 
 (function() {
   var consent = getCookie('consent');
-  if (consent === 'granted') { loadGA(); return; }
-  if (consent === 'declined') return;
-
   var banner = document.getElementById('cookie-banner');
+
+  if (consent === 'granted') {
+    if (banner) banner.remove();
+    loadGA();
+    return;
+  }
+  if (consent === 'declined') {
+    if (banner) banner.remove();
+    return;
+  }
   if (!banner) return;
 
-  setTimeout(function() { banner.classList.remove('hide'); }, 800);
+  setTimeout(function() { banner.classList.remove('cookie-hide'); }, 800);
 
+  var dismissed = false;
   function dismiss(choice) {
+    if (dismissed) return;
+    dismissed = true;
     setCookie('consent', choice);
     if (choice === 'granted') loadGA();
-    banner.classList.add('hide');
+    banner.classList.add('cookie-hide');
     setTimeout(function() { banner.remove(); }, 300);
   }
 
