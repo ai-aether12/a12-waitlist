@@ -54,7 +54,11 @@
   display: grid;
   grid-template-columns: 1fr 348px;
   gap: 96px;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.hero-copy {
+  padding-top: 64px;
 }
 
 .hero-headline {
@@ -72,7 +76,7 @@
   font-size: 17px;
   line-height: 1.68;
   color: var(--text-60);
-  max-width: 430px;
+  max-width: 380px;
   margin-bottom: 40px;
   text-wrap: pretty;
 }
@@ -83,6 +87,7 @@
   flex-direction: column;
   align-items: center;
   gap: 18px;
+  margin-top: -32px;
 }
 .carousel-panel {
   position: relative;
@@ -1442,6 +1447,39 @@ a.footer-note-link:hover { color: #344436; }
 .chevron-bob.bob-active {
   animation: chevronBob 0.8s ease-in-out 3;
 }
+#hero-see-more {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  transition: opacity 0.3s ease;
+}
+#hero-see-more.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+#hero-toggle-fixed {
+  pointer-events: auto;
+}
+#hero-see-more.hide #hero-toggle-fixed {
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  #hero-see-more { right: 0; }
+}
 </style>
 </head>
 <body>
@@ -2097,10 +2135,9 @@ a.footer-note-link:hover { color: #344436; }
 </div><!-- /hero+nav-bg -->
 
 <!-- ── HERO SEE MORE ── -->
-<div id="hero-see-more" style="display:flex;flex-direction:column;align-items:center;padding:40px 0 24px;background:linear-gradient(to bottom,#dde6da,#f2ede6);">
-  <button id="hero-toggle-fixed" aria-expanded="false" aria-controls="page-story" style="display:inline-flex;align-items:center;gap:12px;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:500;font-size:20px;letter-spacing:-0.01em;font-style:italic;color:rgba(26,21,18,0.72);transition:color 0.15s;outline:none;-webkit-appearance:none;appearance:none;box-shadow:none;">
-    But what does it actually do?
-    <span class="chevron-bob" style="color:var(--green);font-size:18px;line-height:1;flex-shrink:0;font-family:'DM Mono',monospace;">↓</span>
+<div id="hero-see-more" class="hide">
+  <button id="hero-toggle-fixed" class="chevron-bob" aria-expanded="false" aria-controls="page-story" style="display:inline-flex;align-items:center;gap:10px;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:500;font-size:20px;letter-spacing:-0.01em;font-style:italic;color:var(--green);transition:opacity 0.15s;outline:none;-webkit-appearance:none;appearance:none;box-shadow:none;">
+    How?
   </button>
 </div>
 
@@ -2689,6 +2726,9 @@ a.footer-note-link:hover { color: #344436; }
     </div>
   </div>
 </footer>
+<div style="text-align:center;padding:16px 0 24px;">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.10em;text-transform:uppercase;color:rgba(26,21,18,0.35);transition:color 0.15s;padding:0;">↑ Back to top</button>
+</div>
 </div><!-- /footer-bg -->
 
 </div><!-- /page-story -->
@@ -3037,10 +3077,12 @@ if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
 (function() {
   var btnFixed = document.getElementById('hero-toggle-fixed');
   var story    = document.getElementById('page-story');
+  var seeMore  = document.getElementById('hero-see-more');
   if (!story) return;
   function reveal() {
     story.classList.add('revealed');
     if (btnFixed) btnFixed.setAttribute('aria-expanded', 'true');
+    if (seeMore) seeMore.classList.add('hide');
     setTimeout(function() {
       var target = document.getElementById('learning-bg');
       if (target) {
@@ -3054,6 +3096,10 @@ if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
 
 /* ── CHEVRON BOB ── */
 (function() {
+  var seeMore = document.getElementById('hero-see-more');
+  function showSeeMore() {
+    if (seeMore) seeMore.classList.remove('hide');
+  }
   function startBob() {
     var chevron = document.querySelector('.chevron-bob');
     if (!chevron) return;
@@ -3062,11 +3108,15 @@ if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
     chevron.classList.add('bob-active');
   }
   if (typeof getCookie === 'function' && getCookie('consent')) {
+    showSeeMore();
     setTimeout(startBob, 1000);
   } else {
     function hookBtn(id) {
       var btn = document.getElementById(id);
-      if (btn) btn.addEventListener('click', function() { setTimeout(startBob, 500); }, { once: true });
+      if (btn) btn.addEventListener('click', function() {
+        showSeeMore();
+        setTimeout(startBob, 500);
+      }, { once: true });
     }
     hookBtn('cookie-accept');
     hookBtn('cookie-decline');
