@@ -1489,12 +1489,12 @@ a.footer-note-link:hover { color: #344436; }
     mask-image: none;
     align-items: center;
     padding: 8px 0 20px;
+    overflow: hidden;
+    transition: opacity 0.3s ease, height 0.3s ease, padding 0.3s ease;
   }
-  #hero-toggle-fixed::after {
-    content: '↓';
-    font-size: 16px;
-    line-height: 1;
-    text-decoration: none;
+  #hero-see-more.hide {
+    height: 0;
+    padding: 0;
   }
 }
 </style>
