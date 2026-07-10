@@ -3002,6 +3002,19 @@ if (_navJoinBtn) _navJoinBtn.addEventListener('click', function(e) {
   e.preventDefault();
   var isMobile = window.innerWidth <= 767;
   var input = document.getElementById(isMobile ? 'email-input-2' : 'email-input');
+  if (isMobile) {
+    // email-input-2 lives inside #page-story, which is collapsed until
+    // revealed — scrolling to it while collapsed lands inside the clipped
+    // 60px peek instead of the real page. Reveal it first if needed.
+    var story = document.getElementById('page-story');
+    if (story && !story.classList.contains('revealed')) {
+      story.classList.add('revealed');
+      var toggleBtn = document.getElementById('hero-toggle-fixed');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+      var seeMore = document.getElementById('hero-see-more');
+      if (seeMore) seeMore.classList.add('hide');
+    }
+  }
   if (input) {
     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
