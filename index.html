@@ -987,14 +987,14 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 48px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
   gap: 16px;
 }
-.footer-left, .footer-right { display: flex; flex-direction: column; gap: 5px; }
-.footer-right { align-items: center; flex-direction: row; gap: 8px; }
+.footer-left { display: flex; flex-direction: column; gap: 8px; }
+.footer-center { display: flex; flex-direction: column; align-items: center; gap: 8px; align-self: center; }
+.footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 .share-pill {
   display: flex;
   align-items: center;
@@ -1057,8 +1057,9 @@
   text-transform: uppercase;
 }
 .footer-tagline {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 16px;
   color: var(--text-55);
   letter-spacing: 0.06em;
 }
@@ -1268,16 +1269,18 @@ a.footer-note-link:hover { color: #344436; }
   #email-form { display: none; }
   .footer { margin-top: 0; }
   .secondary-cta-card { background: transparent; border: none; border-radius: 0; padding-top: 0; }
-  #secondary-cta-wrapper { padding-top: 24px !important; padding-bottom: 4px !important; }
+  #secondary-cta-wrapper { padding-top: 24px !important; padding-bottom: 20px !important; }
   .secondary-cta-card .form-input { background: transparent; }
   .footer-inner {
-    padding: 14px 20px 40px;
+    display: flex;
+    padding: 0 20px 24px;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     text-align: center;
   }
-  .footer-right { align-items: center; flex-direction: column; gap: 24px; }
+  .footer-left { margin-bottom: 10px; }
+  .footer-right { align-items: center; flex-direction: row; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .footer-sep { display: none; }
   .footer-right > div {
     gap: 10px;
@@ -1372,25 +1375,23 @@ a.footer-note-link:hover { color: #344436; }
 .phone-reader-overlay.open { display: flex; }
 
 .phone-reader-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
   -webkit-appearance: none;
   appearance: none;
-  flex-shrink: 0;
-  width: 100%;
-  height: 56px;
-  background: transparent;
+  width: 36px;
+  height: 36px;
+  background: rgba(26,21,18,0.07);
   border: none;
-  border-bottom: 1px solid rgba(26,21,18,0.08);
-  color: var(--text-40);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  z-index: 1;
 }
 .phone-reader-close:hover,
 .phone-reader-close:active { color: rgba(26,21,18,0.85); background: rgba(26,21,18,0.04); }
@@ -1495,6 +1496,11 @@ a.footer-note-link:hover { color: #344436; }
   #hero-see-more.hide {
     height: 0;
     padding: 0;
+  }
+  #hero-toggle-fixed {
+    border: 1px solid rgba(74,124,89,0.4) !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
   }
 }
 </style>
@@ -2153,7 +2159,7 @@ a.footer-note-link:hover { color: #344436; }
 
 <!-- ── HERO SEE MORE ── -->
 <div id="hero-see-more" class="hide">
-  <button id="hero-toggle-fixed" class="chevron-bob" aria-expanded="false" aria-controls="page-story" style="display:inline-flex;align-items:center;gap:10px;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:'DM Mono',monospace;font-size:15px;letter-spacing:0.07em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px;color:rgba(26,21,18,0.72);transition:opacity 0.15s;outline:none;-webkit-appearance:none;appearance:none;box-shadow:none;">
+  <button id="hero-toggle-fixed" class="chevron-bob" aria-expanded="false" aria-controls="page-story" style="display:inline-flex;align-items:center;gap:10px;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:500;font-size:20px;letter-spacing:-0.01em;font-style:italic;color:var(--green);transition:opacity 0.15s;outline:none;-webkit-appearance:none;appearance:none;box-shadow:none;text-decoration:none;">
     See how it works
   </button>
 </div>
@@ -2714,11 +2720,12 @@ a.footer-note-link:hover { color: #344436; }
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-left">
-      <a href="why" class="footer-tagline footer-note-link" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;">
-        <img src="avatar-new.jpg" alt="Jamie Yu-Ramos | Founder, Aether12" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+      <a href="why" class="footer-tagline footer-note-link" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
+        <img src="avatar-new.jpg" alt="Jamie Yu-Ramos | Founder, Aether12" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">
         <span>A note from me →</span>
       </a>
     </div>
+    <div class="footer-center">
     <div style="display:flex;align-items:center;gap:12px;">
           <a href="https://twitter.com/intent/tweet?text=If+ADHD+is+part+of+your+life%2C+this+is+worth+a+look.+join.aether12.com" target="_blank" rel="noopener" aria-label="Share on X" class="share-icon" style="display:flex;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1a1512"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.734-8.836L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -2736,6 +2743,7 @@ a.footer-note-link:hover { color: #344436; }
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a1512" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
           </button>
     </div>
+    </div>
     <div class="footer-right">
       <a href="privacy" class="footer-copy link-muted">Privacy Policy</a>
       <span class="footer-copy footer-sep" aria-hidden="true">|</span>
@@ -2752,7 +2760,7 @@ a.footer-note-link:hover { color: #344436; }
 
 <!-- ── PHONE READER OVERLAY ── -->
 <div class="phone-reader-overlay" id="phoneReaderOverlay" aria-modal="true" role="dialog" aria-label="Phone screen reader">
-  <button class="phone-reader-close" id="phoneReaderClose">&#x2715;&nbsp;&nbsp;Close</button>
+  <button class="phone-reader-close" id="phoneReaderClose" aria-label="Close">&#x2715;</button>
   <div class="phone-reader-scroller">
     <div class="phone-reader-content" id="phoneReaderContent"></div>
   </div>
@@ -2760,7 +2768,7 @@ a.footer-note-link:hover { color: #344436; }
 
 <!-- ── COOKIE CONSENT BANNER ── -->
 <div id="cookie-banner" class="cookie-hide" role="dialog" aria-label="Cookie consent" aria-live="polite">
-  <p class="cookie-text">We use cookies to understand how visitors use this page. <a href="privacy" target="_blank" rel="noopener">Privacy policy →</a></p>
+  <p class="cookie-text">We use cookies to understand how visitors use this page. <a href="privacy" target="_blank" rel="noopener">Privacy policy</a></p>
   <div class="cookie-actions">
     <button class="cookie-btn-decline" id="cookie-decline" type="button">Decline</button>
     <button class="cookie-btn-accept" id="cookie-accept" type="button">Accept</button>
